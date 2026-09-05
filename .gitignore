@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+
+# Data (fetched, not vendored)
+data/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Julia
+*.jl.cov
+*.jl.mem
+Manifest.toml
+
+# Large artifacts
+*.pt
+*.ckpt
+*.npz
