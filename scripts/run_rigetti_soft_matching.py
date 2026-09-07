@@ -134,7 +134,7 @@ def run(
         )
         routing_curve.append({
             "calibration_route_budget": budget,
-            "calibration_score_threshold": threshold,
+            "calibration_score_threshold": threshold if np.isfinite(threshold) else None,
             "test_routed_fraction": float(np.mean(routed)),
             "hybrid_logical_error": hybrid_error,
             "absolute_error_reduction_vs_hard": hard_error - hybrid_error,

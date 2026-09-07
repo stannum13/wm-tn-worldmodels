@@ -81,6 +81,10 @@ causal-filtering baselines under matched observation access.
   a positive paired interval. A retained topology bug invalidated the first look, so
   this is not described as pristine confirmation; see the
   [no-reset report](docs/rigetti-noreset-confirmation-report.md).
+- Calibration-only uncertainty routing is not selective enough: sending 20--24% of
+  shots through the slow soft decoder recovers only 21--34% of its gain. Fixed-topology
+  mutable weights remain necessary; see the
+  [event-routing report](docs/event-triggered-soft-routing-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -244,6 +248,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Confirm the affine soft mechanism on the independent no-reset session after a
   circuit-topology repair
 - [ ] Compile soft edge updates for a deployment-relevant latency test
+- [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs

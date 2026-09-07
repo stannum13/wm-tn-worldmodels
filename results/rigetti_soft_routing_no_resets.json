@@ -1,0 +1,318 @@
+{
+  "calibration_parameters": 24,
+  "code_commit": "b8c3eaffda1d8d73a2481bf95024e1dfe8bf1014",
+  "comparisons": [
+    {
+      "blocks": 40,
+      "first": "circuit_template_hard",
+      "mean_absolute_error_reduction": 0.021375000000000005,
+      "paired_row_block_95pct_t_interval": [
+        0.017695829344838276,
+        0.02505417065516172
+      ],
+      "relative_error_reduction": 0.10470242468772961,
+      "second": "pairwise_linear_iq"
+    },
+    {
+      "blocks": 40,
+      "first": "pairwise_hard",
+      "mean_absolute_error_reduction": 0.08927500000000002,
+      "paired_row_block_95pct_t_interval": [
+        0.08522250124185576,
+        0.09332749875814428
+      ],
+      "relative_error_reduction": 0.32815658886234156,
+      "second": "pairwise_linear_iq"
+    }
+  ],
+  "created_at": "2026-09-07T20:47:15.482428+00:00",
+  "data": {
+    "circuit_group": "circuit_24",
+    "file": "stability_8_without_resets_raw_data.h5",
+    "md5": "721b7368a819e13eb404fea5154744a4",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "calibration": "balanced logistic P(hardware hard bit | I,Q) per qubit with 1 spline-design knots",
+    "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
+    "logical_labels_in_iq_or_graph_calibration": false,
+    "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
+    "soft_rule": "replace average measurement contribution on matched edges with per-shot posterior error",
+    "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "event_triggered_routing": {
+    "curve": [
+      {
+        "absolute_error_reduction_vs_hard": 0.0,
+        "calibration_route_budget": 0.0,
+        "calibration_score_threshold": null,
+        "fraction_of_full_soft_gain_recovered": 0.0,
+        "hybrid_logical_error": 0.20415,
+        "paired_row_block_95pct_t_interval": [
+          0.0,
+          0.0
+        ],
+        "test_routed_fraction": 0.0
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.00027499999999999747,
+        "calibration_route_budget": 0.01,
+        "calibration_score_threshold": 7.081939210891725,
+        "fraction_of_full_soft_gain_recovered": 0.012865497076023271,
+        "hybrid_logical_error": 0.203875,
+        "paired_row_block_95pct_t_interval": [
+          -0.0004345607169281724,
+          0.0009845607169281703
+        ],
+        "test_routed_fraction": 0.02005
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0006249999999999867,
+        "calibration_route_budget": 0.02,
+        "calibration_score_threshold": 6.762837352752685,
+        "fraction_of_full_soft_gain_recovered": 0.029239766081870715,
+        "hybrid_logical_error": 0.203525,
+        "paired_row_block_95pct_t_interval": [
+          -0.00034852313818160927,
+          0.0015985231381816063
+        ],
+        "test_routed_fraction": 0.03405
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0018249999999999933,
+        "calibration_route_budget": 0.05,
+        "calibration_score_threshold": 6.2826527595520005,
+        "fraction_of_full_soft_gain_recovered": 0.08538011695906399,
+        "hybrid_logical_error": 0.202325,
+        "paired_row_block_95pct_t_interval": [
+          0.0003894565915627784,
+          0.003260543408437222
+        ],
+        "test_routed_fraction": 0.070275
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.004174999999999984,
+        "calibration_route_budget": 0.1,
+        "calibration_score_threshold": 5.83888349533081,
+        "fraction_of_full_soft_gain_recovered": 0.1953216374268998,
+        "hybrid_logical_error": 0.199975,
+        "paired_row_block_95pct_t_interval": [
+          0.0020500171736442083,
+          0.006299982826355792
+        ],
+        "test_routed_fraction": 0.12945
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0072500000000000064,
+        "calibration_route_budget": 0.2,
+        "calibration_score_threshold": 5.3497316360473635,
+        "fraction_of_full_soft_gain_recovered": 0.3391812865497078,
+        "hybrid_logical_error": 0.1969,
+        "paired_row_block_95pct_t_interval": [
+          0.004738287619143962,
+          0.009761712380856033
+        ],
+        "test_routed_fraction": 0.241025
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.015199999999999991,
+        "calibration_route_budget": 0.5,
+        "calibration_score_threshold": 4.467874526977539,
+        "fraction_of_full_soft_gain_recovered": 0.7111111111111106,
+        "hybrid_logical_error": 0.18895,
+        "paired_row_block_95pct_t_interval": [
+          0.012079712525703135,
+          0.018320287474296856
+        ],
+        "test_routed_fraction": 0.544125
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.021375000000000005,
+        "calibration_route_budget": 1.0,
+        "calibration_score_threshold": null,
+        "fraction_of_full_soft_gain_recovered": 1.0,
+        "hybrid_logical_error": 0.182775,
+        "paired_row_block_95pct_t_interval": [
+          0.017695829344838276,
+          0.02505417065516172
+        ],
+        "test_routed_fraction": 1.0
+      }
+    ],
+    "score": "sum of per-measurement posterior hard-decision error probabilities",
+    "threshold_access": "quantile fixed only on calibration rows"
+  },
+  "graph": {
+    "boundary_edges": 16,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 14,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 384
+  },
+  "hard_decode_latency": {
+    "python_batch_one_p50_ns": 28124.5,
+    "python_batch_one_p99_ns": 70781.18999999999
+  },
+  "models": [
+    {
+      "logical_error": 0.20415,
+      "model": "circuit_template_hard"
+    },
+    {
+      "logical_error": 0.27205,
+      "model": "pairwise_hard"
+    },
+    {
+      "logical_error": 0.182775,
+      "model": "pairwise_linear_iq"
+    }
+  ],
+  "row_block_errors": {
+    "circuit_template_hard": [
+      0.203,
+      0.196,
+      0.207,
+      0.176,
+      0.193,
+      0.185,
+      0.197,
+      0.205,
+      0.197,
+      0.192,
+      0.219,
+      0.202,
+      0.206,
+      0.205,
+      0.225,
+      0.178,
+      0.224,
+      0.241,
+      0.174,
+      0.219,
+      0.204,
+      0.199,
+      0.208,
+      0.2,
+      0.206,
+      0.194,
+      0.203,
+      0.214,
+      0.216,
+      0.218,
+      0.204,
+      0.195,
+      0.218,
+      0.189,
+      0.21,
+      0.214,
+      0.219,
+      0.197,
+      0.219,
+      0.195
+    ],
+    "pairwise_hard": [
+      0.252,
+      0.264,
+      0.276,
+      0.264,
+      0.269,
+      0.27,
+      0.278,
+      0.283,
+      0.256,
+      0.255,
+      0.293,
+      0.29,
+      0.282,
+      0.287,
+      0.292,
+      0.245,
+      0.275,
+      0.279,
+      0.274,
+      0.296,
+      0.258,
+      0.247,
+      0.26,
+      0.249,
+      0.263,
+      0.249,
+      0.28,
+      0.268,
+      0.277,
+      0.297,
+      0.272,
+      0.284,
+      0.301,
+      0.264,
+      0.279,
+      0.261,
+      0.287,
+      0.261,
+      0.273,
+      0.272
+    ],
+    "pairwise_linear_iq": [
+      0.181,
+      0.161,
+      0.191,
+      0.174,
+      0.171,
+      0.165,
+      0.179,
+      0.187,
+      0.182,
+      0.169,
+      0.184,
+      0.194,
+      0.187,
+      0.2,
+      0.186,
+      0.174,
+      0.201,
+      0.197,
+      0.168,
+      0.181,
+      0.173,
+      0.188,
+      0.172,
+      0.175,
+      0.167,
+      0.15,
+      0.194,
+      0.174,
+      0.2,
+      0.207,
+      0.187,
+      0.184,
+      0.196,
+      0.176,
+      0.2,
+      0.191,
+      0.197,
+      0.174,
+      0.2,
+      0.174
+    ]
+  },
+  "schema_version": 1,
+  "soft_build_and_decode_latency": {
+    "python_batch_one_p50_ns": 2991345.0,
+    "python_batch_one_p99_ns": 3854361.1
+  },
+  "soft_reweighting": {
+    "matched_measurements": 104,
+    "residual_clipped": 12,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  }
+}

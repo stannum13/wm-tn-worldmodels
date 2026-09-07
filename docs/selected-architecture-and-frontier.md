@@ -92,6 +92,11 @@ The next implementation must therefore provide one of:
 2. an incremental decoder that consumes per-measurement likelihoods directly; or
 3. a compiled local-clustering/FPGA path with the affine head fused into edge loading.
 
+A calibration-only uncertainty trigger was also tested. Routing 20--24% of shots to
+the slow decoder recovers only 21--34% of the full accuracy gain; routing roughly half
+recovers about 70%. This is not selective enough to avoid backend work. See the
+[event-routing report](event-triggered-soft-routing-report.md).
+
 Deployment GO requires stable streaming at 1.7 microseconds per syndrome round, a
 stretch p99 below 1 microsecond per round, and separately measured terminal response.
 GCP CPU timings cannot be compared directly with the paper's FPGA measurements.
