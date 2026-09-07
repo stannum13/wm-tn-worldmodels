@@ -34,7 +34,10 @@ def _interval(values: np.ndarray) -> list[float]:
     return [float(np.mean(values) - half), float(np.mean(values) + half)]
 
 
-def run(path: Path, circuit_group: str, train_fraction: float, block_size: int, max_test: int | None) -> dict:
+def run(
+    path: Path, circuit_group: str, train_fraction: float, block_size: int,
+    max_test: int | None, knots: int,
+) -> dict:
     import pymatching
 
     record = load_qec_record(str(path), circuit_group)
@@ -46,7 +49,7 @@ def run(path: Path, circuit_group: str, train_fraction: float, block_size: int, 
 
     measurement_probability, parameters = calibrate_measurement_probabilities(
         record["soft_measurements"], record["hard_measurements"],
-        record["measurement_qubits"], train, knots=1, balanced=True,
+        record["measurement_qubits"], train, knots=knots, balanced=True,
     )
     measurement_error = np.where(
         record["hard_measurements"], 1.0 - measurement_probability, measurement_probability
@@ -82,10 +85,11 @@ def run(path: Path, circuit_group: str, train_fraction: float, block_size: int, 
         if (position + 1) % 5000 == 0:
             print(f"decoded {position + 1}/{len(test)} soft shots", flush=True)
 
+    soft_name = "pairwise_linear_iq" if knots == 1 else f"pairwise_spline_iq_k{knots}"
     predictions = {
         "circuit_template_hard": template_prediction,
         "pairwise_hard": pairwise_prediction,
-        "pairwise_linear_iq": soft_prediction,
+        soft_name: soft_prediction,
     }
     rows = [{
         "model": name,
@@ -100,7 +104,7 @@ def run(path: Path, circuit_group: str, train_fraction: float, block_size: int, 
         soft_error = float(np.mean(soft_prediction != labels[test]))
         comparisons.append({
             "first": first,
-            "second": "pairwise_linear_iq",
+            "second": soft_name,
             "mean_absolute_error_reduction": first_error - soft_error,
             "relative_error_reduction": 1.0 - soft_error / first_error,
             "paired_row_block_95pct_t_interval": _interval(differences),
@@ -125,7 +129,7 @@ def run(path: Path, circuit_group: str, train_fraction: float, block_size: int, 
         },
         "design": {
             "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked",
-            "calibration": "balanced affine logistic P(hardware hard bit | I,Q) per qubit",
+            "calibration": f"balanced logistic P(hardware hard bit | I,Q) per qubit with {knots} spline-design knots",
             "soft_rule": "replace average measurement contribution on matched edges with per-shot posterior error",
             "logical_labels_in_iq_or_graph_calibration": False,
             "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
@@ -150,9 +154,13 @@ if __name__ == "__main__":
     parser.add_argument("--train-fraction", type=float, default=0.6)
     parser.add_argument("--block-size", type=int, default=1000)
     parser.add_argument("--max-test", type=int)
+    parser.add_argument("--knots", type=int, default=1)
     parser.add_argument("--output", type=Path, default=Path("results/rigetti_soft_matching.json"))
     args = parser.parse_args()
-    payload = run(args.data, args.circuit_group, args.train_fraction, args.block_size, args.max_test)
+    payload = run(
+        args.data, args.circuit_group, args.train_fraction, args.block_size,
+        args.max_test, args.knots,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
