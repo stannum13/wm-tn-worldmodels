@@ -104,6 +104,12 @@ with resets but 515.92 us/record without resets. It remains an exact oracle and 
 pathwidth diagnostic, but is rejected as the general deployment path; see the
 [frontier-decoder report](rigetti-frontier-decoder-report.md).
 
+A deterministic topology-only search through beam width 512 does not improve the
+no-reset bag cardinality of nine. Minor-min-width gives a treewidth lower bound of
+six, proving that the predeclared bag-at-most-six target is impossible because
+pathwidth cannot be smaller than treewidth. This closes the ordering branch and moves
+the architecture decision to the fused mutable backend.
+
 The next implementation must therefore provide one of:
 
 1. a compiled indexed I/Q-to-weight front end fused to mutable matching;

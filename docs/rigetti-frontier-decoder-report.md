@@ -77,14 +77,21 @@ record cadence. No-reset is 7.4 times slower than mutable matching and 12.1 time
 cadence budget. Separator growth explains the failure mechanistically.
 
 Retain the decoder as a test oracle and separator-width diagnostic for this natural
-order. Give a
-topology-only ordering search one bounded screen: continue only if it lowers the
-no-reset transient bag width to at most six. Otherwise prioritize a fused indexed
-mutable backend combining affine I/Q calibration, odd-parity edge-weight construction,
-and matching in one preallocated compiled call.
+order. The bounded topology-only ordering screen is now complete. Deterministic beam
+widths 1, 8, 32, 128, and 512 all retain a maximum bag cardinality of nine. More importantly,
+minor-min-width contraction gives a treewidth lower bound of six (degeneracy gives
+five). Since pathwidth is at least treewidth, every path decomposition needs bag
+cardinality at least seven: the predeclared bag-at-most-six GO is structurally
+impossible, not merely missed by this beam search. Bag cardinality seven would still allocate 256
+states including logical parity and was outside the latency GO condition.
+
+This branch therefore stops. The next priority is a fused indexed mutable backend
+combining affine I/Q calibration, odd-parity edge-weight construction, and matching
+in one preallocated compiled call.
 
 Machine-readable results are in `results/rigetti_pathwidth_with_resets.json`,
 `results/rigetti_pathwidth_no_resets.json`,
+`results/rigetti_pathwidth_optimized_no_resets.json`,
 `results/rigetti_frontier_with_resets.json`, and
 `results/rigetti_frontier_no_resets.json`. GCP CPU timing is deployment-relevant
 evidence, not a substitute for FPGA or prospective hardware measurements.

@@ -101,6 +101,9 @@ causal-filtering baselines under matched observation access.
   exponential separator-width boundary: it is a semantic/oracle GO but a deployment
   NO-GO against mutable matching. See the
   [frontier-decoder report](docs/rigetti-frontier-decoder-report.md).
+- A topology-only search cannot rescue that branch to its latency gate: beams through
+  512 retain bag cardinality 9, while a treewidth lower bound of 6 proves that the
+  required bag cardinality <=6 is impossible. The fused mutable backend is primary.
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
