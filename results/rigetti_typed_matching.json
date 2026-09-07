@@ -2,14 +2,14 @@
   "coarse_development": [
     {
       "development_error": 0.37335,
-      "development_ns_per_shot": 45501.9524,
+      "development_ns_per_shot": 45177.06545,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.37215,
-      "development_ns_per_shot": 45966.40685,
+      "development_ns_per_shot": 45564.12935,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.005,
@@ -17,7 +17,7 @@
     },
     {
       "development_error": 0.36875,
-      "development_ns_per_shot": 44538.35095,
+      "development_ns_per_shot": 44083.074,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.02,
@@ -25,14 +25,14 @@
     },
     {
       "development_error": 0.3773,
-      "development_ns_per_shot": 45668.85735,
+      "development_ns_per_shot": 45022.8719,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.37195,
-      "development_ns_per_shot": 46514.7533,
+      "development_ns_per_shot": 45846.67285,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.005,
@@ -40,7 +40,7 @@
     },
     {
       "development_error": 0.36925,
-      "development_ns_per_shot": 44468.78445,
+      "development_ns_per_shot": 44057.55845,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.02,
@@ -48,42 +48,42 @@
     },
     {
       "development_error": 0.39245,
-      "development_ns_per_shot": 49714.94365,
+      "development_ns_per_shot": 49494.1112,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.3811,
-      "development_ns_per_shot": 46783.0328,
+      "development_ns_per_shot": 46122.33985,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.3725,
-      "development_ns_per_shot": 46267.83135,
+      "development_ns_per_shot": 46845.7303,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.02
     },
     {
       "development_error": 0.37855,
-      "development_ns_per_shot": 44460.2274,
+      "development_ns_per_shot": 43513.87255,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.3756,
-      "development_ns_per_shot": 44351.16145,
+      "development_ns_per_shot": 44230.68995,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.3711,
-      "development_ns_per_shot": 69261.636,
+      "development_ns_per_shot": 43977.1265,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.02,
@@ -91,112 +91,112 @@
     },
     {
       "development_error": 0.38175,
-      "development_ns_per_shot": 57483.0307,
+      "development_ns_per_shot": 44553.73895,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.3741,
-      "development_ns_per_shot": 44843.2689,
+      "development_ns_per_shot": 44194.30945,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.37275,
-      "development_ns_per_shot": 44682.22645,
+      "development_ns_per_shot": 44525.00545,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.02
     },
     {
       "development_error": 0.3916,
-      "development_ns_per_shot": 49047.6672,
+      "development_ns_per_shot": 48635.5712,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.38385,
-      "development_ns_per_shot": 45855.03385,
+      "development_ns_per_shot": 45204.51845,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.3743,
-      "development_ns_per_shot": 46099.95785,
+      "development_ns_per_shot": 45336.9989,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.02
     },
     {
       "development_error": 0.39085,
-      "development_ns_per_shot": 43115.45,
+      "development_ns_per_shot": 50300.6171,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.3816,
-      "development_ns_per_shot": 43672.70105,
+      "development_ns_per_shot": 43404.2905,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.3741,
-      "development_ns_per_shot": 43355.857,
+      "development_ns_per_shot": 43166.353,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.02
     },
     {
       "development_error": 0.39295,
-      "development_ns_per_shot": 47188.4708,
+      "development_ns_per_shot": 46772.7213,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.38205,
-      "development_ns_per_shot": 44058.0015,
+      "development_ns_per_shot": 43782.737,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.3759,
-      "development_ns_per_shot": 44260.34395,
+      "development_ns_per_shot": 43732.903,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.02
     },
     {
       "development_error": 0.3912,
-      "development_ns_per_shot": 48392.76475,
+      "development_ns_per_shot": 47893.35425,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.001
     },
     {
       "development_error": 0.3902,
-      "development_ns_per_shot": 47447.8543,
+      "development_ns_per_shot": 47186.4653,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.005
     },
     {
       "development_error": 0.37965,
-      "development_ns_per_shot": 44993.2614,
+      "development_ns_per_shot": 44964.9654,
       "measurement_probability": 0.02,
       "one_qubit_probability": 0.02,
       "two_qubit_probability": 0.02
     }
   ],
-  "code_commit": "d2b42958c5fe4fc2c5d1d19b01ae7fc269c47004",
-  "created_at": "2026-09-07T18:23:27.556319+00:00",
+  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
+  "created_at": "2026-09-07T18:35:03.188948+00:00",
   "data": {
     "circuit_group": "circuit_26",
     "development_shots": 20000,
@@ -227,7 +227,7 @@
   "schema_version": 1,
   "selected": {
     "development_error": 0.36925,
-    "development_ns_per_shot": 44468.78445,
+    "development_ns_per_shot": 44057.55845,
     "measurement_probability": 0.001,
     "one_qubit_probability": 0.005,
     "two_qubit_probability": 0.02,
@@ -235,21 +235,21 @@
   },
   "test": {
     "absolute_error_reduction": 0.0020999999999999908,
-    "blocks": 39,
+    "blocks": 40,
     "paired_block_95pct_t_interval": [
-      -0.0014140115206931645,
-      0.005772985879667528
+      -0.0007428592509521985,
+      0.0049428592509521965
     ],
     "relative_error_reduction": 0.005419704497064304,
     "typed_error": 0.385375,
-    "typed_vectorized_ns_per_shot": 45424.6369,
+    "typed_vectorized_ns_per_shot": 44852.40415,
     "uniform_error": 0.387475,
-    "uniform_vectorized_ns_per_shot": 45827.541375
+    "uniform_vectorized_ns_per_shot": 45345.06415
   },
   "validation_finalists": [
     {
       "development_error": 0.36875,
-      "development_ns_per_shot": 44538.35095,
+      "development_ns_per_shot": 44083.074,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.02,
@@ -257,7 +257,7 @@
     },
     {
       "development_error": 0.36925,
-      "development_ns_per_shot": 44468.78445,
+      "development_ns_per_shot": 44057.55845,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.02,
@@ -265,7 +265,7 @@
     },
     {
       "development_error": 0.3711,
-      "development_ns_per_shot": 69261.636,
+      "development_ns_per_shot": 43977.1265,
       "measurement_probability": 0.005,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.02,
@@ -273,7 +273,7 @@
     },
     {
       "development_error": 0.37195,
-      "development_ns_per_shot": 46514.7533,
+      "development_ns_per_shot": 45846.67285,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.005,
       "two_qubit_probability": 0.005,
@@ -281,7 +281,7 @@
     },
     {
       "development_error": 0.37215,
-      "development_ns_per_shot": 45966.40685,
+      "development_ns_per_shot": 45564.12935,
       "measurement_probability": 0.001,
       "one_qubit_probability": 0.001,
       "two_qubit_probability": 0.005,

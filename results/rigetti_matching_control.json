@@ -2,7 +2,7 @@
   "code_commit": "a5c2caed515c566d53c7dcadf4db40184ed4c665",
   "created_at": "2026-09-07T18:18:35.356648+00:00",
   "data": {
-    "chronological_test_shots": 40000,
+    "row_order_test_shots": 40000,
     "circuit_group": "circuit_26",
     "file": "stability_9_raw_data.h5",
     "independent_sessions": 1,
@@ -15,7 +15,7 @@
     "limitation": "transparent topology control, not the unpublished calibrated detector error model used for the released result",
     "noise_model": "uniform measurement flips, reset flips, one-qubit depolarization, and CZ depolarization inserted into embedded circuit",
     "released_mwpm_error_at_27_rounds": 0.38819,
-    "selection": "circuit error probability selected only by chronological training error"
+    "selection": "circuit error probability selected only on the first 60% of HDF5 row order; per-shot timestamps unavailable"
   },
   "development": [
     {

@@ -1,40 +1,40 @@
 {
-  "code_commit": "17144992c4274dd07e8fbf0bf917408c9664dadd",
+  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
   "comparisons": [
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.0005170516153159891,
-        0.0012937299204890302
+        -0.0002467755908864671,
+        0.0007024907517591654
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.0045234566037878655,
-        0.0009337130140442797
+        -0.00379499474946638,
+        0.00014499474946638746
       ],
       "first": "markov_order_0",
-      "mean_brier_reduction": 0.00038833915258652054,
-      "mean_error_reduction": -0.001794871794871793,
+      "mean_brier_reduction": 0.00022785758043634914,
+      "mean_error_reduction": -0.0018249999999999961,
       "second": "markov_order_1"
     },
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.01404040076264455,
-        -0.01165985767746108
+        -0.014111465454501893,
+        -0.011931974598334926
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.10677025732543027,
-        0.03682153937671232
+        -0.03653150490631278,
+        -0.025868495093687226
       ],
       "first": "markov_order_1",
-      "mean_brier_reduction": -0.012850129220052815,
-      "mean_error_reduction": -0.03497435897435897,
+      "mean_brier_reduction": -0.01302172002641841,
+      "mean_error_reduction": -0.031200000000000006,
       "second": "markov_order_2"
     }
   ],
-  "created_at": "2026-09-07T18:07:45.652926+00:00",
+  "created_at": "2026-09-07T18:34:21.427059+00:00",
   "data": {
-    "chronological_test_shots": 40000,
+    "row_order_test_shots": 40000,
     "circuit_group": "circuit_26",
     "file": "stability_9_raw_data.h5",
     "independent_sessions": 1,
@@ -50,7 +50,7 @@
     "primary_go_condition": "close >=20% of 42.395%-to-38.819% error gap with positive paired block interval",
     "released_mwpm_error_at_27_rounds": 0.38819,
     "rounds": 27,
-    "split": "first 60% chronological shots train; final 40% locked test"
+    "split": "first 60% of HDF5 row order train; final 40% locked test (per-shot timestamps unavailable)"
   },
   "environment": {
     "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
@@ -64,9 +64,9 @@
       "model": "markov_order_0",
       "negative_log_likelihood": 0.6780618167757978,
       "parameters": 31,
-      "python_batch_one_p50_ns": 186640.0,
-      "python_batch_one_p99_ns": 214286.91,
-      "vectorized_ns_per_shot": 569.2906675
+      "python_batch_one_p50_ns": 179745.0,
+      "python_batch_one_p99_ns": 234345.3999999999,
+      "vectorized_ns_per_shot": 488.746985
     },
     {
       "brier_loss": 0.24229891882179008,
@@ -75,9 +75,9 @@
       "model": "markov_order_1",
       "negative_log_likelihood": 0.6775306119949376,
       "parameters": 511,
-      "python_batch_one_p50_ns": 267215.0,
-      "python_batch_one_p99_ns": 360061.38999999996,
-      "vectorized_ns_per_shot": 600.9351775
+      "python_batch_one_p50_ns": 261635.0,
+      "python_batch_one_p99_ns": 361065.79,
+      "vectorized_ns_per_shot": 604.86579125
     },
     {
       "brier_loss": 0.2553206388482085,
@@ -86,9 +86,9 @@
       "model": "markov_order_2",
       "negative_log_likelihood": 0.7070226547864106,
       "parameters": 8191,
-      "python_batch_one_p50_ns": 307975.0,
-      "python_batch_one_p99_ns": 480494.68999999994,
-      "vectorized_ns_per_shot": 662.46846125
+      "python_batch_one_p50_ns": 300295.0,
+      "python_batch_one_p99_ns": 420047.91,
+      "vectorized_ns_per_shot": 648.926025
     }
   ],
   "schema_version": 1

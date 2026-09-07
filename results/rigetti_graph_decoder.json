@@ -1,55 +1,55 @@
 {
-  "code_commit": "c735e24739946c74f14e2bdc040e70dbc327f861",
+  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
   "comparisons": [
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.0004465401538271741,
-        8.376557394215706e-05
+        -0.0004394946909245804,
+        0.0001413466092062353
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.007119469657413816,
-        0.0032733158112599834
+        -0.003600820691374648,
+        0.0007008206913746507
       ],
       "first": "linear_detector",
-      "mean_brier_reduction": -0.0001813872899425085,
-      "mean_error_reduction": -0.0019230769230769162,
+      "mean_brier_reduction": -0.00014907404085917256,
+      "mean_error_reduction": -0.0014499999999999986,
       "second": "worldline_parity"
     },
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.0009066163261818002,
-        0.001627862510274677
+        -0.0004141666243366983,
+        0.0011304588912339657
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.04044803271846879,
-        0.027730084000520072
+        -0.009089472369822342,
+        -0.001460527630177665
       ],
       "first": "linear_detector",
-      "mean_brier_reduction": 0.0003606230920464384,
-      "mean_error_reduction": -0.006358974358974361,
+      "mean_brier_reduction": 0.0003581461334486337,
+      "mean_error_reduction": -0.005275000000000004,
       "second": "local_pair"
     },
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.0013925383956036276,
-        0.0012620908099329172
+        -0.0008781687020991056,
+        0.0007982923853825446
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.04551037725856932,
-        0.028177043925235998
+        -0.011008059812407777,
+        -0.0034419401875922214
       ],
       "first": "linear_detector",
-      "mean_brier_reduction": -6.52237928353551e-05,
-      "mean_error_reduction": -0.008666666666666663,
+      "mean_brier_reduction": -3.993815835828044e-05,
+      "mean_error_reduction": -0.007225,
       "second": "worldline_plus_local_pair"
     }
   ],
-  "created_at": "2026-09-07T17:58:19.349939+00:00",
+  "created_at": "2026-09-07T18:34:15.252895+00:00",
   "data": {
-    "chronological_test_shots": 40000,
+    "row_order_test_shots": 40000,
     "circuit_group": "circuit_26",
     "file": "stability_9_raw_data.h5",
     "independent_sessions": 1,
@@ -64,7 +64,7 @@
     "pair_rule": "detectors within one round and Manhattan spatial distance <=2.01; no target-informed selection",
     "primary_go_condition": "close >=20% of linear-to-released-MWPM error gap with positive paired block interval",
     "released_mwpm_error_at_27_rounds": 0.38819,
-    "split": "first 60% chronological shots train; final 40% locked test"
+    "split": "first 60% of HDF5 row order train; final 40% locked test (per-shot timestamps unavailable)"
   },
   "environment": {
     "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
@@ -78,9 +78,9 @@
       "model": "linear_detector",
       "negative_log_likelihood": 0.6737599398779291,
       "parameters": 109,
-      "python_batch_one_p50_ns": 26490.0,
-      "python_batch_one_p99_ns": 47868.09999999999,
-      "vectorized_ns_per_sample": 1059.405725
+      "python_batch_one_p50_ns": 26340.0,
+      "python_batch_one_p99_ns": 49534.99999999999,
+      "vectorized_ns_per_sample": 1020.90060375
     },
     {
       "brier_loss": 0.24067471749073785,
@@ -89,9 +89,9 @@
       "model": "worldline_parity",
       "negative_log_likelihood": 0.674021698556843,
       "parameters": 217,
-      "python_batch_one_p50_ns": 27570.0,
-      "python_batch_one_p99_ns": 56448.88999999999,
-      "vectorized_ns_per_sample": 1888.4873525
+      "python_batch_one_p50_ns": 26980.0,
+      "python_batch_one_p99_ns": 56118.09,
+      "vectorized_ns_per_sample": 1797.83337125
     },
     {
       "brier_loss": 0.24016749731643003,
@@ -100,9 +100,9 @@
       "model": "local_pair",
       "negative_log_likelihood": 0.672777846788812,
       "parameters": 687,
-      "python_batch_one_p50_ns": 30190.0,
-      "python_batch_one_p99_ns": 55303.009999999995,
-      "vectorized_ns_per_sample": 5026.7275575
+      "python_batch_one_p50_ns": 29830.5,
+      "python_batch_one_p99_ns": 57729.98999999998,
+      "vectorized_ns_per_sample": 4917.43508125
     },
     {
       "brier_loss": 0.24056558160823696,
@@ -111,9 +111,9 @@
       "model": "worldline_plus_local_pair",
       "negative_log_likelihood": 0.6736373990804525,
       "parameters": 795,
-      "python_batch_one_p50_ns": 30775.5,
-      "python_batch_one_p99_ns": 64213.799999999996,
-      "vectorized_ns_per_sample": 5880.8682325
+      "python_batch_one_p50_ns": 30300.0,
+      "python_batch_one_p99_ns": 56232.1,
+      "vectorized_ns_per_sample": 5455.177175
     }
   ],
   "schema_version": 1

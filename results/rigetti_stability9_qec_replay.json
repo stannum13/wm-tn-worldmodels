@@ -1,70 +1,70 @@
 {
-  "code_commit": "d3e496ceec1ad9852bba5217175c8ece2855489e",
+  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
   "comparisons": [
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.001244907774855167,
-        0.0006669526363153331
+        -0.0006636187286438377,
+        0.00011691051133924099
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.001961954704630356,
-        0.0036029803456560008
+        -0.001516620784273902,
+        0.0029666207842738977
       ],
       "first": "hard_syndrome_linear_decoder",
-      "mean_brier_reduction": -0.0002889775692699169,
-      "mean_error_reduction": 0.0008205128205128226,
-      "mean_nll_reduction": -0.0006153285484068246,
+      "mean_brier_reduction": -0.0002733541086522984,
+      "mean_error_reduction": 0.0007249999999999979,
+      "mean_nll_reduction": -0.0005827247999233571,
       "nll_reduction_paired_95pct_t_interval": [
-        -0.002622611033089477,
-        0.001391953936275828
+        -0.0013992766689760123,
+        0.00023382706912929813
       ],
       "second": "linear_iq_soft_syndrome_linear_decoder"
     },
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.00021634576247042144,
-        0.00010729386064202522
+        -0.00019630382601929037,
+        7.352268823049613e-05
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.002846553261274771,
-        -7.652366180215496e-05
+        -0.00286580094540903,
+        0.00036580094540903047
       ],
       "first": "linear_iq_soft_syndrome_linear_decoder",
-      "mean_brier_reduction": -5.45259509141981e-05,
-      "mean_error_reduction": -0.001461538461538463,
-      "mean_nll_reduction": -0.00010915152685271116,
+      "mean_brier_reduction": -6.139056889439712e-05,
+      "mean_error_reduction": -0.0012499999999999998,
+      "mean_nll_reduction": -0.00012279093430988842,
       "nll_reduction_paired_95pct_t_interval": [
-        -0.00044139996344704847,
-        0.00022309690974162613
+        -0.0004013983320217453,
+        0.00015581646340196846
       ],
       "second": "spline_kan_iq_soft_syndrome_linear_decoder"
     },
     {
-      "blocks": 39,
+      "blocks": 40,
       "brier_reduction_paired_95pct_t_interval": [
-        -0.0001902760920788813,
-        0.0006635003079758883
+        -6.084822828977327e-05,
+        0.0005939955076713832
       ],
       "error_reduction_paired_95pct_t_interval": [
-        -0.011170151380088157,
-        0.007990664200601004
+        -0.0037152955950541864,
+        0.0014652955950541845
       ],
       "first": "spline_kan_iq_soft_syndrome_linear_decoder",
-      "mean_brier_reduction": 0.0002366121079485035,
-      "mean_error_reduction": -0.001589743589743577,
-      "mean_nll_reduction": 0.0005574568033433598,
+      "mean_brier_reduction": 0.0002665736396908049,
+      "mean_error_reduction": -0.001125000000000001,
+      "mean_nll_reduction": 0.0006099512182102118,
       "nll_reduction_paired_95pct_t_interval": [
-        -0.00024974718505132065,
-        0.0013646607917380403
+        -6.870934250755663e-05,
+        0.0012886117789279801
       ],
       "second": "spline_kan_iq_soft_syndrome_spline_decoder"
     }
   ],
-  "created_at": "2026-09-07T17:50:57.165014+00:00",
+  "created_at": "2026-09-07T18:33:41.079155+00:00",
   "data": {
-    "chronological_test_shots": 40000,
+    "row_order_test_shots": 40000,
     "circuit_group": "circuit_26",
     "detectors_per_shot": 108,
     "file": "stability_9_raw_data.h5",
@@ -80,7 +80,7 @@
     "calibration_target": "hardware hard bits; soft I/Q is never given the logical target directly",
     "go_condition": "at least 5% relative Brier reduction with positive block interval and no >0.2 percentage-point error degradation",
     "limitations": "single session; learned replay, not prospective FPGA feedback",
-    "split": "first 60% chronological shots train; remaining shots locked test",
+    "split": "first 60% of HDF5 row order train; remaining rows locked test (per-shot timestamps unavailable)",
     "target": "logical observable reconstructed by the embedded Stim circuit",
     "uncertainty": "descriptive paired t intervals across contiguous 1000-shot test blocks"
   },
@@ -97,9 +97,9 @@
       "negative_log_likelihood": 0.6737599398779291,
       "offline_calibration_and_replay_seconds": 0.0,
       "parameters": 109,
-      "python_batch_one_p50_ns": 26920.0,
-      "python_batch_one_p99_ns": 57511.1,
-      "vectorized_ns_per_sample": 1117.0549475
+      "python_batch_one_p50_ns": 26335.5,
+      "python_batch_one_p99_ns": 50888.399999999994,
+      "vectorized_ns_per_sample": 1020.21550375
     },
     {
       "brier_loss": 0.24079899755853099,
@@ -107,11 +107,11 @@
       "expected_calibration_error_10bin": 0.013165253112997379,
       "model": "linear_iq_soft_syndrome_linear_decoder",
       "negative_log_likelihood": 0.6743426646778528,
-      "offline_calibration_and_replay_seconds": 3.5079583348706365,
+      "offline_calibration_and_replay_seconds": 3.350487666670233,
       "parameters": 136,
-      "python_batch_one_p50_ns": 26190.0,
-      "python_batch_one_p99_ns": 57470.1,
-      "vectorized_ns_per_sample": 1172.60895625
+      "python_batch_one_p50_ns": 25710.0,
+      "python_batch_one_p99_ns": 55094.299999999996,
+      "vectorized_ns_per_sample": 1037.51859
     },
     {
       "brier_loss": 0.2408603881274254,
@@ -119,11 +119,11 @@
       "expected_calibration_error_10bin": 0.014247511706274895,
       "model": "spline_kan_iq_soft_syndrome_linear_decoder",
       "negative_log_likelihood": 0.6744654556121626,
-      "offline_calibration_and_replay_seconds": 7.67845927271992,
+      "offline_calibration_and_replay_seconds": 7.3982730051502585,
       "parameters": 226,
-      "python_batch_one_p50_ns": 26211.0,
-      "python_batch_one_p99_ns": 47639.09999999999,
-      "vectorized_ns_per_sample": 1226.5950275
+      "python_batch_one_p50_ns": 25900.0,
+      "python_batch_one_p99_ns": 58313.39999999998,
+      "vectorized_ns_per_sample": 1043.00984
     },
     {
       "brier_loss": 0.24059381448773456,
@@ -131,11 +131,11 @@
       "expected_calibration_error_10bin": 0.021078348309336352,
       "model": "spline_kan_iq_soft_syndrome_spline_decoder",
       "negative_log_likelihood": 0.6738555043939525,
-      "offline_calibration_and_replay_seconds": 7.67845927271992,
+      "offline_calibration_and_replay_seconds": 7.3982730051502585,
       "parameters": 442,
-      "python_batch_one_p50_ns": 50555.0,
-      "python_batch_one_p99_ns": 100770.09999999998,
-      "vectorized_ns_per_sample": 5544.10027625
+      "python_batch_one_p50_ns": 49680.0,
+      "python_batch_one_p99_ns": 87975.69,
+      "vectorized_ns_per_sample": 5111.55003125
     }
   ],
   "schema_version": 1

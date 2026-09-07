@@ -48,9 +48,11 @@ causal-filtering baselines under matched observation access.
   the released 38.819% stability-9 anchor to within 0.0715 percentage points. Learned
   components must now improve this structural control. See the
   [matching report](docs/rigetti-matching-control-report.md).
-- Three type-specific matching rates improve error by only 0.54% relative, with an
-  interval crossing zero. The frozen rates now require independent-session transfer;
-  see the [typed-matching report](docs/rigetti-typed-matching-report.md).
+- Three type-specific matching rates improve stability-9 error by only 0.54% relative,
+  with an interval crossing zero. Frozen transfer to an independent 600,000-shot
+  acquisition is a stronger NO-GO: they significantly harm every 12--24-round circuit.
+  See the [typed-matching report](docs/rigetti-typed-matching-report.md) and
+  [transfer report](docs/rigetti-matching-transfer-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -63,8 +65,10 @@ observation contracts, mechanism families, quantitative targets, and GO/NO-GO ru
 The [process critique](docs/process-critique.md) and
 [scientific review](docs/scientific-review.md) document limitations.
 The [autonomous audit](docs/autonomous-science-audit.md) records corrections made after
-the streaming runs, and the [deployment ladder](docs/deployment-benchmark-ladder.md)
-prioritizes public real-hardware datasets.
+the streaming runs, the [real-QEC audit](docs/real-qec-science-audit.md) fixes the next
+baseline and adaptive-estimation gates, and the
+[deployment ladder](docs/deployment-benchmark-ladder.md) prioritizes public
+real-hardware datasets.
 
 The core predictive object is a compressed causal state:
 
@@ -137,6 +141,12 @@ PYTHONPATH=src python scripts/run_rigetti_qec_replay.py \
 PYTHONPATH=src python scripts/run_rigetti_matching_control.py \
   --data data/rigetti_stability9/stability_9_raw_data.h5 \
   --circuit-group circuit_26 --output results/rigetti_matching_control.json
+
+# Frozen no-retuning transfer to an independent acquisition
+./scripts/fetch_rigetti_stability8_resets.sh
+PYTHONPATH=src python scripts/run_rigetti_matching_transfer.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --output results/rigetti_matching_transfer.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -166,6 +176,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Real Ankaa-2 I/Q acquisition-order calibration screen on GCP
 - [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
 - [x] Reproduce released stability-9 MWPM scale with a transparent matching control
+- [x] Reject frozen type-only matching weights on an independent 600,000-shot transfer
+- [ ] Reproduce the released pairwise-correlation matching graph
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs
