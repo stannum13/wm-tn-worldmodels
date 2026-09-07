@@ -250,5 +250,5 @@ data/       fetched third-party data; ignored by Git
 - [ ] NMN-tomo process-matrix physicality analysis
 - [ ] Prospective hardware or held-out real-deployment confirmation
 
-Autonomous campaign changes are in draft
-[GitHub pull request #1](https://github.com/stannum13/wm-tn-worldmodels/pull/1).
+The current autonomous campaign review is in draft
+[GitHub pull request #2](https://github.com/stannum13/wm-tn-worldmodels/pull/2).
