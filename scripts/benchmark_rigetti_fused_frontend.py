@@ -90,29 +90,53 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
     fused_pipeline_ns = np.empty(len(test))
     maximum_weight_difference = 0.0
     disagreements = 0
-    for position, row in enumerate(test):
-        started = perf_counter_ns()
+    def composed_update(row: int) -> np.ndarray:
         probability = packed_head.predict(record["soft_measurements"][row])
         error = np.where(
             record["hard_measurements"][row], 1.0 - probability, probability
         )
-        composed = packed.build(error)
-        composed_ns[position] = perf_counter_ns() - started
-        started = perf_counter_ns()
-        fused = fused_affine_reweights_one(
+        return packed.build(error)
+
+    def fused_update(row: int) -> np.ndarray:
+        return fused_affine_reweights_one(
             record["soft_measurements"][row], record["hard_measurements"][row], *args
         )
+
+    for position, row in enumerate(test):
+        started = perf_counter_ns()
+        composed = composed_update(row)
+        composed_ns[position] = perf_counter_ns() - started
+        started = perf_counter_ns()
+        fused = fused_update(row)
         fused_ns[position] = perf_counter_ns() - started
         maximum_weight_difference = max(
             maximum_weight_difference, float(np.max(np.abs(composed - fused)))
         )
 
-        started = perf_counter_ns()
-        first = matching.decode(detectors[position], edge_reweights=composed)[0]
-        composed_pipeline_ns[position] = perf_counter_ns() - started + composed_ns[position]
-        started = perf_counter_ns()
-        second = matching.decode(detectors[position], edge_reweights=fused)[0]
-        fused_pipeline_ns[position] = perf_counter_ns() - started + fused_ns[position]
+        # Alternate order to avoid consistently giving either path the second-decode
+        # cache/thermal position. Pipeline timings include fresh front-end execution.
+        if position % 2 == 0:
+            started = perf_counter_ns()
+            first = matching.decode(
+                detectors[position], edge_reweights=composed_update(row)
+            )[0]
+            composed_pipeline_ns[position] = perf_counter_ns() - started
+            started = perf_counter_ns()
+            second = matching.decode(
+                detectors[position], edge_reweights=fused_update(row)
+            )[0]
+            fused_pipeline_ns[position] = perf_counter_ns() - started
+        else:
+            started = perf_counter_ns()
+            second = matching.decode(
+                detectors[position], edge_reweights=fused_update(row)
+            )[0]
+            fused_pipeline_ns[position] = perf_counter_ns() - started
+            started = perf_counter_ns()
+            first = matching.decode(
+                detectors[position], edge_reweights=composed_update(row)
+            )[0]
+            composed_pipeline_ns[position] = perf_counter_ns() - started
         disagreements += int(first != second)
 
     commit = os.environ.get("PTWM_CODE_COMMIT")
