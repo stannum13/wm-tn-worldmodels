@@ -96,6 +96,11 @@ causal-filtering baselines under matched observation access.
   batch compute plus up to 2.46/2.68 ms of fill delay under cadence-derived record
   arrivals, and still miss the 39.1/42.5-us throughput budgets.
   Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
+- An exact compiled temporal-frontier decoder has zero disagreements with reconstructed
+  matching on the same 80,000 records. Its 50.77/514.23-us throughput exposes the
+  exponential separator-width boundary: it is a semantic/oracle GO but a deployment
+  NO-GO against mutable matching. See the
+  [frontier-decoder report](docs/rigetti-frontier-decoder-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -268,6 +273,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Support the affine soft mechanism on an independent no-reset post-repair screen
 - [x] Validate packed fixed-topology soft edge updates on 80,000 held-out records
 - [x] Reject microbatching as the primary streaming-latency fix
+- [x] Validate and reject an exact temporal-frontier DP as the general hot path
 - [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model

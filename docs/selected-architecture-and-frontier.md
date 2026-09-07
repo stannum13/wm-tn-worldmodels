@@ -97,6 +97,13 @@ us per record against cadence-derived 39.1/42.5-us budgets, while batch compute 
 reaches 2.58/3.45 ms at batch 64 and queue fill can add 2.46/2.68 ms. Batching is
 therefore rejected as the primary fix.
 
+An independent exact temporal-frontier dynamic program also reproduces every one of
+the 80,000 held-out matching decisions. Natural-order retained separators are 5 and
+8, with transient peak buffers of 128 and 1,024 states. Throughput is 50.77 us/record
+with resets but 514.23 us/record without resets. It remains an exact oracle and a
+pathwidth diagnostic, but is rejected as the general deployment path; see the
+[frontier-decoder report](rigetti-frontier-decoder-report.md).
+
 The next implementation must therefore provide one of:
 
 1. a compiled indexed I/Q-to-weight front end fused to mutable matching;

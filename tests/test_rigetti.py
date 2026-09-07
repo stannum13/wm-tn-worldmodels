@@ -209,6 +209,40 @@ def test_frontier_decoder_matches_pymatching_on_small_graph():
         assert margin > 0
 
 
+def test_frontier_decoder_validates_inputs_and_keys_weight_order():
+    pymatching = pytest.importorskip("pymatching")
+    matching = pymatching.Matching()
+    matching.add_edge(0, 1, fault_ids={0}, weight=1.0)
+    matching.add_boundary_edge(1, weight=2.0)
+    decoder = compile_frontier_decoder(matching, {0: [0.0], 1: [1.0]})
+    with pytest.raises(ValueError, match="binary"):
+        decoder.decode(np.asarray([0, 2]), np.asarray([1.0, 2.0]))
+    with pytest.raises(ValueError, match="finite"):
+        decoder.decode(np.asarray([0, 1]), np.asarray([1.0, np.nan]))
+    rows = [
+        {"first": 1, "second": None, "fault_ids": frozenset(),
+         "measurements": [], "residual_probability": 0.2},
+        {"first": 1, "second": 0, "fault_ids": frozenset({0}),
+         "measurements": [], "residual_probability": 0.1},
+    ]
+    packed = pack_full_edge_weights(rows, edge_keys=decoder.edge_keys)
+    # Pair edge (residual p=.1) must be first despite reversed input-row order;
+    # endpoint direction itself is deliberately canonicalized only in the key.
+    assert np.allclose(packed.residual_factor, np.asarray([0.8, 0.6]))
+
+
+def test_frontier_decoder_rejects_self_loops():
+    class SelfLoopMatching:
+        num_nodes = 1
+
+        @staticmethod
+        def edges():
+            return [(0, 0, {"fault_ids": set(), "weight": 1.0})]
+
+    with pytest.raises(ValueError, match="self-loops"):
+        compile_frontier_decoder(SelfLoopMatching(), {0: [0.0]})
+
+
 def test_block_difference_sign_means_first_has_more_errors():
     labels = np.r_[np.zeros(4), np.ones(4)]
     first = 1 - labels

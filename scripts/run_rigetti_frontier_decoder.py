@@ -75,7 +75,7 @@ def run(
     frontier = compile_frontier_decoder(
         pairwise, record["circuit"].get_detector_coordinates()
     )
-    full_weight_plan = pack_full_edge_weights(plan)
+    full_weight_plan = pack_full_edge_weights(plan, edge_keys=frontier.edge_keys)
     weights = full_weight_plan.build(measurement_error[test])[:, :, 2]
     schedule = pack_frontier_schedule(frontier)
 
@@ -151,9 +151,11 @@ def run(
         "soft_reweighting": soft_diagnostics,
         "frontier": {
             "maximum_active_separator": frontier.maximum_active_separator,
-            "maximum_logical_parity_states": 2 ** (
+            "maximum_retained_states": 2 ** (
                 frontier.maximum_active_separator + 1
             ),
+            "maximum_bag_width": frontier.maximum_bag_width,
+            "maximum_peak_states": 2 ** (frontier.maximum_bag_width + 1),
         },
         "prediction_disagreements": int(np.sum(disagreements)),
         "python_candidate_records": python_count,

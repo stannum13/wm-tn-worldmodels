@@ -1,0 +1,74 @@
+{
+  "calibration_parameters": 24,
+  "candidate_logical_error": 0.195,
+  "code_commit": "2d2f561",
+  "compiled_batch_prediction_disagreements": 0,
+  "compiled_logical_error": 0.182775,
+  "compiled_prediction_disagreements": 0,
+  "created_at": "2026-09-07T22:19:18.954683+00:00",
+  "data": {
+    "circuit_group": "circuit_24",
+    "file": "stability_8_without_resets_raw_data.h5",
+    "md5": "721b7368a819e13eb404fea5154744a4",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "objective": "exact additive binary T-join with one logical parity bit",
+    "order": "detector time, remaining Stim coordinates, node index",
+    "prototype_go": "zero disagreements and p50 below reconstruction p50",
+    "reference": "fresh per-record PyMatching graph reconstruction"
+  },
+  "disagreement_margins": [],
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "frontier": {
+    "maximum_active_separator": 8,
+    "maximum_logical_parity_states": 512
+  },
+  "graph": {
+    "boundary_edges": 16,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 14,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 384
+  },
+  "latency": {
+    "compiled_frontier_batch_amortized_ns_per_record": 514230.8469,
+    "compiled_frontier_batch_one": {
+      "p50_ns": 522040.0,
+      "p95_ns": 551530.5,
+      "p99_ns": 706598.1900000015
+    },
+    "compiled_frontier_batch_total_ns": 20569233876.0,
+    "python_frontier_decode": {
+      "p50_ns": 174217825.0,
+      "p95_ns": 176185780.5,
+      "p99_ns": 177289591.69
+    },
+    "reference_rebuild_and_decode": {
+      "p50_ns": 3058024.5,
+      "p95_ns": 3328364.5499999993,
+      "p99_ns": 3870947.9900000035
+    }
+  },
+  "maximum_compiled_batch_margin_difference": 0.0,
+  "maximum_compiled_margin_difference": 0.0,
+  "minimum_margin": 0.001756068259957999,
+  "prediction_disagreements": 0,
+  "python_candidate_records": 200,
+  "reference_logical_error": 0.182775,
+  "schema_version": 1,
+  "soft_reweighting": {
+    "matched_measurements": 104,
+    "residual_clipped": 12,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  }
+}

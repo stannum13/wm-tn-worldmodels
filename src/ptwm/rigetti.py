@@ -107,14 +107,21 @@ class FrontierDecoderPlan:
     edge_count: int
     detector_count: int
     maximum_active_separator: int
+    edge_keys: tuple[tuple[int, int | None, frozenset[int]], ...]
+    maximum_bag_width: int
 
     def decode(self, syndrome: np.ndarray, edge_weights: np.ndarray) -> tuple[int, float]:
-        syndrome = np.asarray(syndrome, dtype=np.uint8)
+        raw_syndrome = np.asarray(syndrome)
         weights = np.asarray(edge_weights, dtype=float)
-        if syndrome.shape != (self.detector_count,):
+        if raw_syndrome.shape != (self.detector_count,):
             raise ValueError("syndrome has the wrong detector count")
+        if not np.all((raw_syndrome == 0) | (raw_syndrome == 1)):
+            raise ValueError("syndrome must be binary")
+        syndrome = raw_syndrome.astype(np.uint8, copy=False)
         if weights.shape != (self.edge_count,):
             raise ValueError("edge_weights has the wrong edge count")
+        if not np.all(np.isfinite(weights)):
+            raise ValueError("edge_weights must be finite")
         costs = np.asarray([0.0, np.inf])  # empty parity mask, logical parity 0/1
         active: tuple[int, ...] = ()
         for step in self.steps:
@@ -160,6 +167,8 @@ class FrontierDecoderPlan:
             )
         if active or len(costs) != 2:
             raise RuntimeError("frontier schedule did not terminate")
+        if not np.any(np.isfinite(costs)):
+            raise ValueError("syndrome is infeasible for this matching graph")
         margin = float(abs(costs[1] - costs[0]))
         return int(costs[1] < costs[0]), margin
 
@@ -621,8 +630,19 @@ def pack_soft_reweighting(
 def pack_full_edge_weights(
     plan: list[dict[str, object]], *, floor_probability: float = 1e-5,
     ceiling_probability: float = 0.49,
+    edge_keys: tuple[tuple[int, int | None, frozenset[int]], ...] | None = None,
 ) -> PackedSoftReweighting:
-    """Compile every plan row, including constant edges, in graph edge order."""
+    """Compile every plan row, optionally keyed to the decoder's edge order."""
+    if edge_keys is not None:
+        keyed: dict[tuple[int, int | None, frozenset[int]], dict[str, object]] = {}
+        for row in plan:
+            key = _matching_edge_key(row["first"], row["second"], row["fault_ids"])
+            if key in keyed:
+                raise ValueError(f"ambiguous duplicate matching edge {key}")
+            keyed[key] = row
+        if len(edge_keys) != len(set(edge_keys)) or set(keyed) != set(edge_keys):
+            raise ValueError("reweighting plan does not match decoder edge keys")
+        plan = [keyed[key] for key in edge_keys]
     return _pack_reweighting_rows(
         plan, floor_probability=floor_probability,
         ceiling_probability=ceiling_probability,
@@ -710,6 +730,8 @@ def compile_frontier_decoder(
         if second is None:
             incoming[position[first]].append(edge)
         else:
+            if first == second:
+                raise ValueError("frontier decoder does not support self-loops")
             later = max(position[first], position[second])
             incoming[later].append(edge)
             adjacency[first].add(second)
@@ -746,8 +768,15 @@ def compile_frontier_decoder(
         ))
         active = tuple(active_with[location] for location in retained_positions)
         maximum_separator = max(maximum_separator, len(active))
+    edge_keys = tuple(
+        _matching_edge_key(first, second, attributes["fault_ids"])
+        for first, second, attributes in edge_rows
+    )
+    if len(edge_keys) != len(set(edge_keys)):
+        raise ValueError("frontier decoder requires unambiguous matching edges")
     return FrontierDecoderPlan(
-        tuple(steps), len(edge_rows), matching.num_nodes, maximum_separator
+        tuple(steps), len(edge_rows), matching.num_nodes, maximum_separator,
+        edge_keys, max((len(step.active_with_vertex) for step in steps), default=0),
     )
 
 
