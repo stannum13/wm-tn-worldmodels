@@ -129,8 +129,9 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
         composed_updates.append(composed)
         fused_updates.append(fused)
 
-    # Separate full passes prevent an immediately repeated decode of the same
-    # syndrome from contaminating the next timing. AB/BA alternation balances order.
+    # Separate matching-only and contiguous-pipeline passes avoid constructing
+    # pipeline totals from separately timed components. Within each pass, AB/BA
+    # alternation balances first/second execution of the repeated syndrome.
     for position in range(len(test)):
         if position % 2 == 0:
             started = perf_counter_ns()
