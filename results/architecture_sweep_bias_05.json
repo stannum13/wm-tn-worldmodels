@@ -1,0 +1,172 @@
+{
+  "baseline": {
+    "mae": 0.18820951879024506,
+    "rmse": 0.21861964464187622
+  },
+  "data": "data/external/pt_recovery/experiment_data/RB_data_20230104/len40/idle100/rb_data_0.5/standard_rb_1q_full_data.json",
+  "epochs": 60,
+  "runs": [
+    {
+      "family": "oscillator",
+      "mae": 0.19165436923503876,
+      "parameters": 105,
+      "rank": 2,
+      "residual_correlation": 0.054537206941232604,
+      "rmse": 0.22567012906074524,
+      "seed": 0
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.18908782303333282,
+      "parameters": 105,
+      "rank": 2,
+      "residual_correlation": 0.050265748797100177,
+      "rmse": 0.2233331948518753,
+      "seed": 1
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.1909181773662567,
+      "parameters": 105,
+      "rank": 2,
+      "residual_correlation": 0.04480721606480399,
+      "rmse": 0.2249051183462143,
+      "seed": 2
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.1955258846282959,
+      "parameters": 209,
+      "rank": 4,
+      "residual_correlation": 0.04340149138046121,
+      "rmse": 0.2306826412677765,
+      "seed": 0
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.19303454458713531,
+      "parameters": 209,
+      "rank": 4,
+      "residual_correlation": 0.03946095495694272,
+      "rmse": 0.22859041392803192,
+      "seed": 1
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.19399197399616241,
+      "parameters": 209,
+      "rank": 4,
+      "residual_correlation": 0.0422735550133731,
+      "rmse": 0.22902926802635193,
+      "seed": 2
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.199570894241333,
+      "parameters": 417,
+      "rank": 8,
+      "residual_correlation": 0.0351788622057019,
+      "rmse": 0.2381567656993866,
+      "seed": 0
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.19619375467300415,
+      "parameters": 417,
+      "rank": 8,
+      "residual_correlation": 0.03377758137364488,
+      "rmse": 0.23483704030513763,
+      "seed": 1
+    },
+    {
+      "family": "oscillator",
+      "mae": 0.1984730362892151,
+      "parameters": 417,
+      "rank": 8,
+      "residual_correlation": 0.02929345080040508,
+      "rmse": 0.23680217564105988,
+      "seed": 2
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.1997002810239792,
+      "parameters": 149,
+      "rank": 2,
+      "residual_correlation": 0.06589475861637072,
+      "rmse": 0.23647283017635345,
+      "seed": 0
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.19359268248081207,
+      "parameters": 149,
+      "rank": 2,
+      "residual_correlation": 0.0635544168172526,
+      "rmse": 0.22943933308124542,
+      "seed": 1
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.192185178399086,
+      "parameters": 149,
+      "rank": 2,
+      "residual_correlation": 0.031104169881765915,
+      "rmse": 0.22633308172225952,
+      "seed": 2
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.20875360071659088,
+      "parameters": 489,
+      "rank": 4,
+      "residual_correlation": 0.01330517500279147,
+      "rmse": 0.24953709542751312,
+      "seed": 0
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.20385006070137024,
+      "parameters": 489,
+      "rank": 4,
+      "residual_correlation": 0.01991144970848068,
+      "rmse": 0.2445816844701767,
+      "seed": 1
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.20242108404636383,
+      "parameters": 489,
+      "rank": 4,
+      "residual_correlation": 0.012891616680494964,
+      "rmse": 0.2430613934993744,
+      "seed": 2
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.23461861908435822,
+      "parameters": 1745,
+      "rank": 8,
+      "residual_correlation": 0.017287369860648792,
+      "rmse": 0.28678494691848755,
+      "seed": 0
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.22809673845767975,
+      "parameters": 1745,
+      "rank": 8,
+      "residual_correlation": 0.04369617634292731,
+      "rmse": 0.2789464592933655,
+      "seed": 1
+    },
+    {
+      "family": "controlled_mps",
+      "mae": 0.2293277531862259,
+      "parameters": 1745,
+      "rank": 8,
+      "residual_correlation": 0.015424352872279987,
+      "rmse": 0.27957263588905334,
+      "seed": 2
+    }
+  ]
+}

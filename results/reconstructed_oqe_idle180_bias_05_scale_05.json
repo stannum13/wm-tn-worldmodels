@@ -1,0 +1,81 @@
+{
+  "bias": 0.5,
+  "condition": "idle180",
+  "initial_scale": 0.5,
+  "rb_test_rmse": 0.1722062616510438,
+  "runs": [
+    {
+      "epochs_completed": 100,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 0,
+      "test_mae": 0.23193082213401794,
+      "test_rmse": 0.28473854064941406,
+      "validation_hybrid_weight": 0.02847819210940831,
+      "validation_mae": 0.23889625072479248,
+      "validation_rmse": 0.3002000153064728
+    },
+    {
+      "epochs_completed": 60,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 1,
+      "test_mae": 0.2301248013973236,
+      "test_rmse": 0.2832171320915222,
+      "validation_hybrid_weight": 0.034554735488495435,
+      "validation_mae": 0.2408096343278885,
+      "validation_rmse": 0.3004731237888336
+    },
+    {
+      "epochs_completed": 65,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 2,
+      "test_mae": 0.23019646108150482,
+      "test_rmse": 0.28381237387657166,
+      "validation_hybrid_weight": 0.0,
+      "validation_mae": 0.27161073684692383,
+      "validation_rmse": 0.331359326839447
+    },
+    {
+      "epochs_completed": 85,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 3,
+      "test_mae": 0.23691649734973907,
+      "test_rmse": 0.28899455070495605,
+      "validation_hybrid_weight": 0.0,
+      "validation_mae": 0.24118131399154663,
+      "validation_rmse": 0.2996937930583954
+    },
+    {
+      "epochs_completed": 100,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 4,
+      "test_mae": 0.23221467435359955,
+      "test_rmse": 0.28324371576309204,
+      "validation_hybrid_weight": 0.02131116762602382,
+      "validation_mae": 0.2410544604063034,
+      "validation_rmse": 0.30096524953842163
+    }
+  ],
+  "test_rows": 4000,
+  "train_rows": 4680,
+  "validation_rows": 3120
+}

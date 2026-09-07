@@ -16,7 +16,10 @@ All splits are deterministic given their parameters.
 
 from __future__ import annotations
 
+from collections import defaultdict
 from dataclasses import dataclass
+from random import Random
+from typing import Callable, Iterable, Mapping
 
 import numpy as np
 
@@ -115,3 +118,57 @@ def summarize(split: Split) -> dict:
         }
 
     return {"name": split.name, "description": split.description, "train": stats(split.train), "test": stats(split.test)}
+
+
+Record = Mapping[str, object]
+GroupPredicate = Callable[[list[Record]], bool]
+
+
+def leakage_safe_split(
+    records: Iterable[Record],
+    *,
+    group_key: str = "sequence_id",
+    test_fraction: float = 0.2,
+    seed: int = 0,
+    test_group_predicate: GroupPredicate | None = None,
+) -> tuple[list[Record], list[Record]]:
+    """Split records while keeping every trajectory group wholly in one split.
+
+    ``test_group_predicate`` can reserve whole groups for extrapolation tests, for
+    example all sequences from a held-out bias or control family. The fraction is
+    approximate because groups are indivisible. Records retain their input order.
+    """
+    rows = list(records)
+    if not 0.0 < test_fraction < 1.0:
+        raise ValueError("test_fraction must be strictly between zero and one")
+    groups: dict[object, list[Record]] = defaultdict(list)
+    for row in rows:
+        if group_key not in row:
+            raise KeyError(f"missing group key: {group_key}")
+        groups[row[group_key]].append(row)
+    if len(groups) < 2:
+        raise ValueError("at least two trajectory groups are required")
+
+    forced = set()
+    for key, group in groups.items():
+        if test_group_predicate is not None and test_group_predicate(group):
+            forced.add(key)
+    if len(forced) == len(groups):
+        raise ValueError("test predicate selected every trajectory group")
+
+    target = max(1, round(len(rows) * test_fraction))
+    selected = set(forced)
+    candidates = [key for key in groups if key not in selected]
+    Random(seed).shuffle(candidates)
+    selected_count = sum(len(groups[key]) for key in selected)
+    for key in candidates:
+        if selected_count >= target:
+            break
+        selected.add(key)
+        selected_count += len(groups[key])
+
+    train = [row for row in rows if row[group_key] not in selected]
+    test = [row for row in rows if row[group_key] in selected]
+    if not train or not test:
+        raise ValueError("split produced an empty train or test set")
+    return train, test

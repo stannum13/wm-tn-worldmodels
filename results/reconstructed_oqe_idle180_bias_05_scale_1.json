@@ -1,0 +1,81 @@
+{
+  "bias": 0.5,
+  "condition": "idle180",
+  "initial_scale": 1.0,
+  "rb_test_rmse": 0.1722062616510438,
+  "runs": [
+    {
+      "epochs_completed": 45,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 0,
+      "test_mae": 0.2344387024641037,
+      "test_rmse": 0.28635016083717346,
+      "validation_hybrid_weight": 0.017552473183264486,
+      "validation_mae": 0.24883046746253967,
+      "validation_rmse": 0.305176317691803
+    },
+    {
+      "epochs_completed": 70,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 1,
+      "test_mae": 0.2310517281293869,
+      "test_rmse": 0.28284043073654175,
+      "validation_hybrid_weight": 0.010726802234747054,
+      "validation_mae": 0.27103424072265625,
+      "validation_rmse": 0.3322148323059082
+    },
+    {
+      "epochs_completed": 100,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 2,
+      "test_mae": 0.23509182035923004,
+      "test_rmse": 0.2869865894317627,
+      "validation_hybrid_weight": 0.01282003286280992,
+      "validation_mae": 0.2638331353664398,
+      "validation_rmse": 0.3219046890735626
+    },
+    {
+      "epochs_completed": 45,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 3,
+      "test_mae": 0.23259925842285156,
+      "test_rmse": 0.28476566076278687,
+      "validation_hybrid_weight": 0.023114747799084463,
+      "validation_mae": 0.24797585606575012,
+      "validation_rmse": 0.3070070445537567
+    },
+    {
+      "epochs_completed": 100,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.14895607241782824,
+      "hybrid_test_rmse": 0.1722062616510438,
+      "memory_dimension": 2,
+      "parameter_count": 16,
+      "seed": 4,
+      "test_mae": 0.23152536153793335,
+      "test_rmse": 0.2821364402770996,
+      "validation_hybrid_weight": 0.007682149924785819,
+      "validation_mae": 0.2434741109609604,
+      "validation_rmse": 0.30243751406669617
+    }
+  ],
+  "test_rows": 4000,
+  "train_rows": 4680,
+  "validation_rows": 3120
+}

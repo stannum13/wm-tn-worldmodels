@@ -1,0 +1,215 @@
+{
+  "memory": {
+    "mean": {
+      "markov_rmse": {
+        "mean": 0.37486639267065197,
+        "p05": 0.3669512264239961,
+        "p95": 0.38075668901605614
+      },
+      "memory_rmse": {
+        "mean": 0.02114639076060156,
+        "p05": 0.020503873618516938,
+        "p95": 0.02195665671356699
+      }
+    },
+    "per_seed": [
+      {
+        "markov_rmse": 0.3787060914062833,
+        "memory_rmse": 0.021002909163147773
+      },
+      {
+        "markov_rmse": 0.3805274139335427,
+        "memory_rmse": 0.021286901981392308
+      },
+      {
+        "markov_rmse": 0.3647940739263761,
+        "memory_rmse": 0.020978764701420318
+      },
+      {
+        "markov_rmse": 0.38065792377647295,
+        "memory_rmse": 0.02060782193438245
+      },
+      {
+        "markov_rmse": 0.3808374969393514,
+        "memory_rmse": 0.02155235592661983
+      },
+      {
+        "markov_rmse": 0.379264288268035,
+        "memory_rmse": 0.02228744826652376
+      },
+      {
+        "markov_rmse": 0.37066361773053236,
+        "memory_rmse": 0.020418824996445154
+      },
+      {
+        "markov_rmse": 0.37175418494783047,
+        "memory_rmse": 0.020866993197443364
+      },
+      {
+        "markov_rmse": 0.3695877461433094,
+        "memory_rmse": 0.021034606996880287
+      },
+      {
+        "markov_rmse": 0.3718710896347859,
+        "memory_rmse": 0.021427280441760305
+      }
+    ]
+  },
+  "no_memory_null": {
+    "mean": {
+      "markov_rmse": {
+        "mean": 0.02164928289772735,
+        "p05": 0.02010766017616519,
+        "p95": 0.023610973350769785
+      },
+      "memory_rmse": {
+        "mean": 0.021644156487664927,
+        "p05": 0.020095815143814772,
+        "p95": 0.02358523773773222
+      }
+    },
+    "per_seed": [
+      {
+        "markov_rmse": 0.023610999857354653,
+        "memory_rmse": 0.023586444764677965
+      },
+      {
+        "markov_rmse": 0.02093023698053184,
+        "memory_rmse": 0.02095435994347088
+      },
+      {
+        "markov_rmse": 0.021090629254937453,
+        "memory_rmse": 0.02107113797171918
+      },
+      {
+        "markov_rmse": 0.020598179356661136,
+        "memory_rmse": 0.020592661082808182
+      },
+      {
+        "markov_rmse": 0.021809608324860986,
+        "memory_rmse": 0.02180478141630452
+      },
+      {
+        "markov_rmse": 0.021681480318579555,
+        "memory_rmse": 0.021712762495376865
+      },
+      {
+        "markov_rmse": 0.01970632630121396,
+        "memory_rmse": 0.01968930483009289
+      },
+      {
+        "markov_rmse": 0.02361094095383272,
+        "memory_rmse": 0.02358376248257631
+      },
+      {
+        "markov_rmse": 0.02118927937787949,
+        "memory_rmse": 0.021190521643743358
+      },
+      {
+        "markov_rmse": 0.022265148251421694,
+        "memory_rmse": 0.022255828245879135
+      }
+    ]
+  },
+  "physicality": {
+    "mean": {
+      "constrained_invalid_fraction": {
+        "mean": 0.0,
+        "p05": 0.0,
+        "p95": 0.0
+      },
+      "constrained_min_eigenvalue": {
+        "mean": -2.2204460492503132e-17,
+        "p05": -1.1102230246251565e-16,
+        "p95": 0.0
+      },
+      "constrained_trace_distance": {
+        "mean": 0.015549827286644396,
+        "p05": 0.01224343004133188,
+        "p95": 0.018457248417820198
+      },
+      "raw_invalid_fraction": {
+        "mean": 0.06475,
+        "p05": 0.050458333333333334,
+        "p95": 0.08074999999999997
+      },
+      "raw_trace_distance": {
+        "mean": 0.022437280045423055,
+        "p05": 0.01681168238174937,
+        "p95": 0.028500606142443978
+      }
+    },
+    "per_seed": [
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.017016094700062986,
+        "raw_invalid_fraction": 0.065,
+        "raw_trace_distance": 0.022947988196353977
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.012231012997109457,
+        "raw_invalid_fraction": 0.060833333333333336,
+        "raw_trace_distance": 0.01779602485159153
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.01731180219668802,
+        "raw_invalid_fraction": 0.059166666666666666,
+        "raw_trace_distance": 0.021745698090368214
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.017845232823137915,
+        "raw_invalid_fraction": 0.0875,
+        "raw_trace_distance": 0.031520426329517987
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.01586955343883781,
+        "raw_invalid_fraction": 0.0725,
+        "raw_trace_distance": 0.02217162967108601
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": -1.1102230246251565e-16,
+        "constrained_trace_distance": 0.012258606428714841,
+        "raw_invalid_fraction": 0.043333333333333335,
+        "raw_trace_distance": 0.016006311270060327
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.018957988449832975,
+        "raw_invalid_fraction": 0.06166666666666667,
+        "raw_trace_distance": 0.02480971480268687
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": -1.1102230246251565e-16,
+        "constrained_trace_distance": 0.013942354781791219,
+        "raw_invalid_fraction": 0.0725,
+        "raw_trace_distance": 0.024487828667490597
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.017636506025162244,
+        "raw_invalid_fraction": 0.06583333333333333,
+        "raw_trace_distance": 0.0243339907061572
+      },
+      {
+        "constrained_invalid_fraction": 0.0,
+        "constrained_min_eigenvalue": 0.0,
+        "constrained_trace_distance": 0.012429121025106515,
+        "raw_invalid_fraction": 0.059166666666666666,
+        "raw_trace_distance": 0.018553187868917857
+      }
+    ]
+  }
+}

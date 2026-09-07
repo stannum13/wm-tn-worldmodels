@@ -1,0 +1,278 @@
+{
+  "biases": [
+    {
+      "bias": "0.5",
+      "rb": {
+        "test": {
+          "mae": 0.1489560902118683,
+          "rmse": 0.17220625281333923
+        },
+        "train": {
+          "mae": 0.18457821011543274,
+          "rmse": 0.21915635466575623
+        },
+        "validation": {
+          "mae": 0.18358725309371948,
+          "rmse": 0.2177118957042694
+        }
+      },
+      "runs": [
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9583601951599121
+          },
+          "seed": 0,
+          "test": {
+            "mae": 0.14983505010604858,
+            "rmse": 0.17329852283000946
+          },
+          "train": {
+            "mae": 0.19564925134181976,
+            "rmse": 0.22824275493621826
+          },
+          "validation": {
+            "mae": 0.19611695408821106,
+            "rmse": 0.22749444842338562
+          },
+          "wall_seconds": 9.200861250050366
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9596077799797058
+          },
+          "seed": 1,
+          "test": {
+            "mae": 0.1497327983379364,
+            "rmse": 0.1736208200454712
+          },
+          "train": {
+            "mae": 0.19410543143749237,
+            "rmse": 0.22767212986946106
+          },
+          "validation": {
+            "mae": 0.1959320455789566,
+            "rmse": 0.2282446026802063
+          },
+          "wall_seconds": 9.145383083028719
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9623088836669922
+          },
+          "seed": 2,
+          "test": {
+            "mae": 0.14959116280078888,
+            "rmse": 0.17316915094852448
+          },
+          "train": {
+            "mae": 0.19383813440799713,
+            "rmse": 0.22676274180412292
+          },
+          "validation": {
+            "mae": 0.1934872418642044,
+            "rmse": 0.22611038386821747
+          },
+          "wall_seconds": 9.045558250043541
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9612181782722473
+          },
+          "seed": 3,
+          "test": {
+            "mae": 0.15009526908397675,
+            "rmse": 0.1737367957830429
+          },
+          "train": {
+            "mae": 0.19411957263946533,
+            "rmse": 0.22682563960552216
+          },
+          "validation": {
+            "mae": 0.19519184529781342,
+            "rmse": 0.227766752243042
+          },
+          "wall_seconds": 9.172151957871392
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9566479921340942
+          },
+          "seed": 4,
+          "test": {
+            "mae": 0.14941994845867157,
+            "rmse": 0.17290708422660828
+          },
+          "train": {
+            "mae": 0.19432345032691956,
+            "rmse": 0.2266826033592224
+          },
+          "validation": {
+            "mae": 0.19524049758911133,
+            "rmse": 0.2270011007785797
+          },
+          "wall_seconds": 9.10712349996902
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9602323174476624
+          },
+          "seed": 5,
+          "test": {
+            "mae": 0.14988908171653748,
+            "rmse": 0.1738443523645401
+          },
+          "train": {
+            "mae": 0.1948675513267517,
+            "rmse": 0.22712546586990356
+          },
+          "validation": {
+            "mae": 0.1961393654346466,
+            "rmse": 0.22866635024547577
+          },
+          "wall_seconds": 9.147542374907061
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9605019092559814
+          },
+          "seed": 6,
+          "test": {
+            "mae": 0.1494411826133728,
+            "rmse": 0.17305678129196167
+          },
+          "train": {
+            "mae": 0.19353531301021576,
+            "rmse": 0.22661398351192474
+          },
+          "validation": {
+            "mae": 0.19659453630447388,
+            "rmse": 0.23032021522521973
+          },
+          "wall_seconds": 9.100051834015176
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9590549468994141
+          },
+          "seed": 7,
+          "test": {
+            "mae": 0.1492926925420761,
+            "rmse": 0.1725301593542099
+          },
+          "train": {
+            "mae": 0.19334061443805695,
+            "rmse": 0.22647805511951447
+          },
+          "validation": {
+            "mae": 0.19531498849391937,
+            "rmse": 0.22789189219474792
+          },
+          "wall_seconds": 9.165573957841843
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9600022435188293
+          },
+          "seed": 8,
+          "test": {
+            "mae": 0.14924411475658417,
+            "rmse": 0.1727234274148941
+          },
+          "train": {
+            "mae": 0.1934785693883896,
+            "rmse": 0.22629690170288086
+          },
+          "validation": {
+            "mae": 0.19576787948608398,
+            "rmse": 0.22819727659225464
+          },
+          "wall_seconds": 9.059530457947403
+        },
+        {
+          "epochs_completed": 15,
+          "memory_mode": "retain",
+          "model": "memory_retain",
+          "parameter_count": 21,
+          "physical_parameters": {
+            "retention": 0.9615722298622131
+          },
+          "seed": 9,
+          "test": {
+            "mae": 0.14948943257331848,
+            "rmse": 0.17326168715953827
+          },
+          "train": {
+            "mae": 0.19353866577148438,
+            "rmse": 0.22666503489017487
+          },
+          "validation": {
+            "mae": 0.19545695185661316,
+            "rmse": 0.2280273735523224
+          },
+          "wall_seconds": 9.138161833165213
+        }
+      ]
+    }
+  ],
+  "protocol": {
+    "condition": "idle180",
+    "early_stopping": "released test_data: disjoint random 40% at every length 2-40",
+    "epochs": 15,
+    "forecast": "independent len60 acquisition, lengths 41-60",
+    "loss": "mean squared error on analog calibrated p0",
+    "model_selection_warning": "idle100 is development; idle180 is confirmation only after freezing this script and settings",
+    "models": [
+      "memory_retain"
+    ],
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "training": "released train_data: random 60% at every length 2-40"
+  },
+  "source_commit": "47d67598a304bb72c315bf05ddfadcda5f4be290"
+}

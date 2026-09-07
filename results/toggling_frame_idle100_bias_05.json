@@ -1,0 +1,312 @@
+{
+  "biases": [
+    {
+      "all_validation_candidates": [
+        {
+          "alpha": 0.001,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.14153051346060921,
+            "rmse": 0.17856175341759478
+          }
+        },
+        {
+          "alpha": 0.01,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.1415305395085517,
+            "rmse": 0.1785617685971443
+          }
+        },
+        {
+          "alpha": 0.1,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.14153079997968332,
+            "rmse": 0.17856192040558044
+          }
+        },
+        {
+          "alpha": 1.0,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.1415334038619716,
+            "rmse": 0.17856343978256578
+          }
+        },
+        {
+          "alpha": 10.0,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.14155953963424572,
+            "rmse": 0.17857876134109596
+          }
+        },
+        {
+          "alpha": 100.0,
+          "max_lag": 0,
+          "validation": {
+            "mae": 0.14182712365165323,
+            "rmse": 0.17873859287668636
+          }
+        },
+        {
+          "alpha": 0.001,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.1419513831971324,
+            "rmse": 0.1792519243065661
+          }
+        },
+        {
+          "alpha": 0.01,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.14195140660546163,
+            "rmse": 0.17925193276103968
+          }
+        },
+        {
+          "alpha": 0.1,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.1419516406795531,
+            "rmse": 0.17925201732148774
+          }
+        },
+        {
+          "alpha": 1.0,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.1419539805008345,
+            "rmse": 0.17925286449548186
+          }
+        },
+        {
+          "alpha": 10.0,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.1419776333919086,
+            "rmse": 0.17926149148655718
+          }
+        },
+        {
+          "alpha": 100.0,
+          "max_lag": 1,
+          "validation": {
+            "mae": 0.1422106878210582,
+            "rmse": 0.1793468807945717
+          }
+        },
+        {
+          "alpha": 0.001,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.1430771019241208,
+            "rmse": 0.18049898718889162
+          }
+        },
+        {
+          "alpha": 0.01,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.14307711629892142,
+            "rmse": 0.18049898330863406
+          }
+        },
+        {
+          "alpha": 0.1,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.14307726004027918,
+            "rmse": 0.18049894452827472
+          }
+        },
+        {
+          "alpha": 1.0,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.14307869678937296,
+            "rmse": 0.18049855894395767
+          }
+        },
+        {
+          "alpha": 10.0,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.1430930169708967,
+            "rmse": 0.18049493498466535
+          }
+        },
+        {
+          "alpha": 100.0,
+          "max_lag": 2,
+          "validation": {
+            "mae": 0.14324055668814822,
+            "rmse": 0.18047807186518083
+          }
+        },
+        {
+          "alpha": 0.001,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.14470184539696063,
+            "rmse": 0.18452289272772737
+          }
+        },
+        {
+          "alpha": 0.01,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.14470184111963813,
+            "rmse": 0.18452286356998793
+          }
+        },
+        {
+          "alpha": 0.1,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.14470179834642108,
+            "rmse": 0.18452257202534508
+          }
+        },
+        {
+          "alpha": 1.0,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.14470137935079452,
+            "rmse": 0.1845196598511988
+          }
+        },
+        {
+          "alpha": 10.0,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.1446974948965587,
+            "rmse": 0.1844908625221433
+          }
+        },
+        {
+          "alpha": 100.0,
+          "max_lag": 4,
+          "validation": {
+            "mae": 0.14466866491795274,
+            "rmse": 0.18422537656175053
+          }
+        },
+        {
+          "alpha": 0.001,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.15067425184589756,
+            "rmse": 0.1953057115284329
+          }
+        },
+        {
+          "alpha": 0.01,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.15067418105181896,
+            "rmse": 0.1953055765270499
+          }
+        },
+        {
+          "alpha": 0.1,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.15067347315013163,
+            "rmse": 0.19530422665578376
+          }
+        },
+        {
+          "alpha": 1.0,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.15066641602551192,
+            "rmse": 0.19529074218308204
+          }
+        },
+        {
+          "alpha": 10.0,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.1505967003547799,
+            "rmse": 0.195157305233736
+          }
+        },
+        {
+          "alpha": 100.0,
+          "max_lag": 8,
+          "validation": {
+            "mae": 0.14998623223794297,
+            "rmse": 0.19392611654830502
+          }
+        }
+      ],
+      "bias": "0.5",
+      "parameter_count": 92,
+      "rb": {
+        "test": {
+          "mae": 0.15712161217409726,
+          "rmse": 0.18340775083992406
+        },
+        "train": {
+          "mae": 0.16399488975100648,
+          "rmse": 0.20058597312789347
+        },
+        "validation": {
+          "mae": 0.162064114281468,
+          "rmse": 0.19936170090498778
+        }
+      },
+      "selected": {
+        "alpha": 0.001,
+        "max_lag": 0,
+        "validation": {
+          "mae": 0.14153051346060921,
+          "rmse": 0.17856175341759478
+        }
+      },
+      "toggling_residual": {
+        "test": {
+          "mae": 0.18193173529985732,
+          "rmse": 0.2318378907287757
+        },
+        "train": {
+          "mae": 0.14409608436702856,
+          "rmse": 0.17936712789941092
+        },
+        "validation": {
+          "mae": 0.14153051346060921,
+          "rmse": 0.17856175341759478
+        }
+      }
+    }
+  ],
+  "protocol": {
+    "condition": "idle100",
+    "features": "quadratic cumulative toggling frames plus finite-lag frame correlations",
+    "forecast": "independent len60 acquisition at lengths 41-60",
+    "max_lags": [
+      0,
+      1,
+      2,
+      4,
+      8
+    ],
+    "model_selection": "released test_data at lengths 2-40",
+    "prediction_constraint": "clip to [0,1]",
+    "ridge_alphas": [
+      0.001,
+      0.01,
+      0.1,
+      1.0,
+      10.0,
+      100.0
+    ],
+    "status": "exploratory; this model was designed after both idle conditions had been examined",
+    "target": "residual from training-fitted RB decay",
+    "training": "released train_data at lengths 2-40"
+  },
+  "source_commit": "47d67598a304bb72c315bf05ddfadcda5f4be290"
+}
