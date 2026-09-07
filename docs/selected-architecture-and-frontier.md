@@ -117,6 +117,14 @@ falls from 50--51 us to 7.2--7.3 us, and full pipeline median falls to 51.1/60.7
 Cadence is still missed, so the remaining bounded target is a graph-owned preindexed
 Tier-1 matching plan; see the [fused-hotpath report](rigetti-fused-hotpath-report.md).
 
+That preindexed plan is now implemented and exact across the full 80,000-record
+differential. It reduces matching medians by 14.7%/11.8% and fused-pipeline medians to
+37.0/46.8 us. Because it misses the predeclared 20% matching gate, no-reset cadence,
+and both p99 targets, it is an incremental engineering gain but an optimization-screen
+NO-GO. The next bounded test is a native C++ batch-preindexed loop with one restoration
+per block; see the
+[preindexed-matching report](rigetti-preindexed-matching-report.md).
+
 The next implementation must therefore provide one of:
 
 1. a compiled indexed I/Q-to-weight front end fused to mutable matching;

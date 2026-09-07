@@ -109,6 +109,11 @@ causal-filtering baselines under matched observation access.
   7.2--7.3 us. Full pipeline p50 falls to 51.1/60.7 us but remains above cadence: a
   computational GO and deployment NO-GO. See the
   [fused-hotpath report](docs/rigetti-fused-hotpath-report.md).
+- A graph-owned preindexed PyMatching fork preserves all 80,000 endpoint-API decisions
+  and returned solution weights. It lowers matching p50 by 14.7%/11.8% and pipeline
+  p50 to 37.0/46.8 us. This is an incremental engineering gain but misses the
+  predeclared 20% gate; see the
+  [preindexed-matching report](docs/rigetti-preindexed-matching-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -284,7 +289,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Validate and reject an exact temporal-frontier DP as the general hot path
 - [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
 - [x] Fuse affine I/Q inference and odd-parity edge construction in Numba
-- [ ] Replace endpoint parsing with a graph-owned preindexed matching plan
+- [x] Replace endpoint parsing with a graph-owned preindexed matching plan
+- [ ] Test C++ batch-preindexed overwrite with one restoration per block
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
