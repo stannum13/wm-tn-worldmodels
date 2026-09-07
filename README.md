@@ -60,6 +60,10 @@ causal-filtering baselines under matched observation access.
 - Naively refitting that graph on a causal 20,000-row rolling window also misses the
   maximum-depth endpoint. Responsivity alone is a NO-GO; see the
   [adaptive pairwise report](docs/rigetti-adaptive-pairwise-report.md).
+- Cross-fitted affine I/Q reweighting is a mechanism GO: it reduces 23-round logical
+  error from the strongest hard control's 16.515% to 16.0625%, with a positive paired
+  interval, and falls within 0.20 points of the released 15.901% soft result. See the
+  [soft matching report](docs/rigetti-soft-matching-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -164,6 +168,11 @@ PYTHONPATH=src python scripts/run_rigetti_pairwise_matching.py \
 PYTHONPATH=src python scripts/run_rigetti_adaptive_pairwise.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --output results/rigetti_adaptive_pairwise.json
+
+# Cross-fitted affine I/Q edge reweighting on the locked final 40,000 rows
+PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_soft_matching.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -196,7 +205,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Reject frozen type-only matching weights on an independent 600,000-shot transfer
 - [x] Test a transparent hard-syndrome pairwise graph on a locked holdout
 - [x] Reject naive rolling pairwise refits at maximum depth
-- [ ] Reproduce the released soft-I/Q pairwise-correlation decoder
+- [x] Match the released soft-I/Q result within the 0.20-point validity gate
+- [ ] Compile soft edge updates for a deployment-relevant latency test
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs
