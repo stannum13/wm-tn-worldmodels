@@ -104,6 +104,11 @@ causal-filtering baselines under matched observation access.
 - A topology-only search cannot rescue that branch to its latency gate: beams through
   512 retain bag cardinality 9, while a treewidth lower bound of 6 proves that the
   required bag cardinality <=6 is impossible. The fused mutable backend is primary.
+- A compiled affine-I/Q-to-edge kernel exactly matches every generated weight and all
+  4,000 screened decisions while cutting median front-end latency from 50--51 us to
+  7.2--7.3 us. Full pipeline p50 falls to 51.1/60.7 us but remains above cadence: a
+  computational GO and deployment NO-GO. See the
+  [fused-hotpath report](docs/rigetti-fused-hotpath-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -278,6 +283,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Reject microbatching as the primary streaming-latency fix
 - [x] Validate and reject an exact temporal-frontier DP as the general hot path
 - [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
+- [x] Fuse affine I/Q inference and odd-parity edge construction in Numba
+- [ ] Replace endpoint parsing with a graph-owned preindexed matching plan
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark

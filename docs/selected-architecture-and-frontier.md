@@ -110,6 +110,13 @@ six, proving that the predeclared bag-at-most-six target is impossible because
 pathwidth cannot be smaller than treewidth. This closes the ordering branch and moves
 the architecture decision to the fused mutable backend.
 
+The first fusion stage is a computational GO. A Numba kernel combining affine I/Q
+scoring, surprisal conversion, odd-parity edge composition, and LLR conversion is
+exactly equal to the composed path on 4,000 screened records. Median front-end time
+falls from 50--51 us to 7.2--7.3 us, and full pipeline median falls to 51.1/60.7 us.
+Cadence is still missed, so the remaining bounded target is a graph-owned preindexed
+Tier-1 matching plan; see the [fused-hotpath report](rigetti-fused-hotpath-report.md).
+
 The next implementation must therefore provide one of:
 
 1. a compiled indexed I/Q-to-weight front end fused to mutable matching;
