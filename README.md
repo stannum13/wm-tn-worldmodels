@@ -69,6 +69,9 @@ causal-filtering baselines under matched observation access.
 - Replacing that affine calibrator with the 13-parameter spline/KAN head worsens the
   point estimate to 16.2075%; the direct paired interval is unresolved. The cheap
   affine head remains the selected soft path.
+- A causal 20,000-row rolling affine calibrator improves next-block I/Q Brier and NLL
+  by 2.49% and 2.31%, respectively. This predictive GO now requires a logical-error
+  mediation test; see the [I/Q drift report](docs/rigetti-iq-drift-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 

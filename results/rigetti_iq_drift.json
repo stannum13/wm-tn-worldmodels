@@ -1,0 +1,172 @@
+{
+  "blocks": [
+    {
+      "rolling_brier": 0.011926732921370385,
+      "rolling_nll": 0.054479971271784826,
+      "start_row": 20000,
+      "static_brier": 0.011926732921370385,
+      "static_nll": 0.054479971271784826,
+      "stop_row": 25000
+    },
+    {
+      "rolling_brier": 0.011970158547121992,
+      "rolling_nll": 0.05464817911162459,
+      "start_row": 25000,
+      "static_brier": 0.011949601452772221,
+      "static_nll": 0.05458535467301736,
+      "stop_row": 30000
+    },
+    {
+      "rolling_brier": 0.011931006044204813,
+      "rolling_nll": 0.05459945832826465,
+      "start_row": 30000,
+      "static_brier": 0.01195412982299341,
+      "static_nll": 0.054655196888919934,
+      "stop_row": 35000
+    },
+    {
+      "rolling_brier": 0.011562077989289819,
+      "rolling_nll": 0.05268682423932545,
+      "start_row": 35000,
+      "static_brier": 0.01202386602196913,
+      "static_nll": 0.054772644541078996,
+      "stop_row": 40000
+    },
+    {
+      "rolling_brier": 0.011547683349626628,
+      "rolling_nll": 0.05286046489081987,
+      "start_row": 40000,
+      "static_brier": 0.012063833247897796,
+      "static_nll": 0.055145862631433236,
+      "stop_row": 45000
+    },
+    {
+      "rolling_brier": 0.011521888377880377,
+      "rolling_nll": 0.052667863994517346,
+      "start_row": 45000,
+      "static_brier": 0.012020346252454638,
+      "static_nll": 0.05491902892814558,
+      "stop_row": 50000
+    },
+    {
+      "rolling_brier": 0.011493308280842739,
+      "rolling_nll": 0.05254528616589866,
+      "start_row": 50000,
+      "static_brier": 0.011990944852018577,
+      "static_nll": 0.05475933177221118,
+      "stop_row": 55000
+    },
+    {
+      "rolling_brier": 0.011422663699839457,
+      "rolling_nll": 0.052328678636645296,
+      "start_row": 55000,
+      "static_brier": 0.011985111328434078,
+      "static_nll": 0.05475286140964893,
+      "stop_row": 60000
+    },
+    {
+      "rolling_brier": 0.011546520337432488,
+      "rolling_nll": 0.05272396423821297,
+      "start_row": 60000,
+      "static_brier": 0.012072886193763468,
+      "static_nll": 0.05506831583335304,
+      "stop_row": 65000
+    },
+    {
+      "rolling_brier": 0.011503946476075416,
+      "rolling_nll": 0.05260784571818331,
+      "start_row": 65000,
+      "static_brier": 0.0120106760230166,
+      "static_nll": 0.05485911888070784,
+      "stop_row": 70000
+    },
+    {
+      "rolling_brier": 0.011578231281538147,
+      "rolling_nll": 0.05283038147784783,
+      "start_row": 70000,
+      "static_brier": 0.012065837857310153,
+      "static_nll": 0.05508145960375713,
+      "stop_row": 75000
+    },
+    {
+      "rolling_brier": 0.014990166894826424,
+      "rolling_nll": 0.07500079210805975,
+      "start_row": 75000,
+      "static_brier": 0.015489775864853445,
+      "static_nll": 0.07724970204838781,
+      "stop_row": 80000
+    },
+    {
+      "rolling_brier": 0.012061518723597946,
+      "rolling_nll": 0.05521202238783783,
+      "start_row": 80000,
+      "static_brier": 0.012123593895860743,
+      "static_nll": 0.05524699424853907,
+      "stop_row": 85000
+    },
+    {
+      "rolling_brier": 0.011875348778412188,
+      "rolling_nll": 0.05460489174943256,
+      "start_row": 85000,
+      "static_brier": 0.011998157336451085,
+      "static_nll": 0.05488862598623845,
+      "stop_row": 90000
+    },
+    {
+      "rolling_brier": 0.011929851445321469,
+      "rolling_nll": 0.05469878016050675,
+      "start_row": 90000,
+      "static_brier": 0.01199202976077036,
+      "static_nll": 0.0548014644757001,
+      "stop_row": 95000
+    },
+    {
+      "rolling_brier": 0.011985064300589179,
+      "rolling_nll": 0.05505376669018128,
+      "start_row": 95000,
+      "static_brier": 0.01204483945486062,
+      "static_nll": 0.05508768917293055,
+      "stop_row": 100000
+    }
+  ],
+  "code_commit": "218af330107d46db4879a9da00dc7467e7810d90",
+  "created_at": "2026-09-07T19:38:28.556483+00:00",
+  "data": {
+    "circuit_group": "circuit_22",
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c",
+    "source": "https://zenodo.org/records/15364358"
+  },
+  "design": {
+    "go_condition": ">=1% NLL reduction with positive paired block interval",
+    "initial_rows": 20000,
+    "limitation": "HDF5 row-order drift diagnostic; per-shot timestamps unavailable",
+    "rolling_window_rows": 20000,
+    "routing": "run robust EKF only after GO; particles only after residual multimodality",
+    "target": "recorded hardware hard decision; logical labels excluded",
+    "update_rows": 5000
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "schema_version": 1,
+  "summary": {
+    "blocks": 16,
+    "brier_reduction_paired_95pct_t_interval": [
+      0.00017649801750898068,
+      0.0004317763373444251
+    ],
+    "median_anchor_prediction_lag1_correlation": 0.6232990817564712,
+    "nll_reduction_paired_95pct_t_interval": [
+      0.0006980704746071347,
+      0.0019024859249817476
+    ],
+    "relative_brier_reduction": 0.024864013606336943,
+    "relative_nll_reduction": 0.02310697783615656,
+    "rolling_brier": 0.01192788546549809,
+    "rolling_nll": 0.05497182319807144,
+    "static_brier": 0.012232022642924794,
+    "static_nll": 0.05627210139786588
+  }
+}
