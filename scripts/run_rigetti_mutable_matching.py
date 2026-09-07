@@ -47,6 +47,7 @@ def _quantiles_ns(values: np.ndarray) -> dict[str, float]:
 def run(
     path: Path, circuit_group: str, train_fraction: float,
     equivalence_shots: int, latency_shots: int, batch_repeats: int,
+    microbatch_sizes: list[int], microbatch_records: int,
 ) -> dict:
     import pymatching
 
@@ -183,6 +184,39 @@ def run(
         pipeline_single_call_ns[position] = perf_counter_ns() - started
     base_after = np.asarray(pairwise.decode_batch(detectors[:check_count]))[:, 0]
 
+    microbatch_curve = []
+    for size in microbatch_sizes:
+        count = min((microbatch_records // size) * size, len(test))
+        call_ns = []
+        predictions = []
+        for start in range(0, count, size):
+            rows = test[start : start + size]
+            started = perf_counter_ns()
+            probability = packed_head.predict(record["soft_measurements"][rows])
+            shot_error = np.where(
+                record["hard_measurements"][rows], 1.0 - probability, probability
+            )
+            reweight_matrix = packed_weight_plan.build(shot_error)
+            prediction = np.asarray(pairwise.decode_batch(
+                detectors[start : start + size],
+                edge_reweights=[reweight_matrix[i] for i in range(size)],
+                reweight_stride=1,
+            ))[:, 0]
+            call_ns.append(perf_counter_ns() - started)
+            predictions.append(prediction)
+        call_ns = np.asarray(call_ns, dtype=float)
+        prediction = np.concatenate(predictions)
+        microbatch_curve.append({
+            "batch_size": size,
+            "records": count,
+            "batches": len(call_ns),
+            "prediction_disagreements": int(np.sum(prediction != mutable[:count])),
+            "compute_batch": _quantiles_ns(call_ns),
+            "compute_per_record_p50_ns": float(np.quantile(call_ns / size, 0.50)),
+            "compute_per_record_p99_ns": float(np.quantile(call_ns / size, 0.99)),
+            "worst_case_fill_delay_at_1p7us_cadence_ns": float((size - 1) * 1700.0),
+        })
+
     edge_weights_after = {
         (int(first), None if second is None else int(second)):
             float(attributes["weight"])
@@ -278,6 +312,7 @@ def run(
         },
         "maximum_packed_vs_generic_iq_probability_difference": maximum_iq_probability_difference,
         "maximum_packed_vs_generic_edge_weight_difference": maximum_packed_weight_difference,
+        "microbatch_curve": microbatch_curve,
     }
 
 
@@ -289,11 +324,15 @@ if __name__ == "__main__":
     parser.add_argument("--equivalence-shots", type=int, default=1000)
     parser.add_argument("--latency-shots", type=int, default=2000)
     parser.add_argument("--batch-repeats", type=int, default=5)
+    parser.add_argument("--microbatch-sizes", default="1,2,4,8,16,32,64")
+    parser.add_argument("--microbatch-records", type=int, default=4096)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     payload = run(
         args.data, args.circuit_group, args.train_fraction,
         args.equivalence_shots, args.latency_shots, args.batch_repeats,
+        [int(value) for value in args.microbatch_sizes.split(",")],
+        args.microbatch_records,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
