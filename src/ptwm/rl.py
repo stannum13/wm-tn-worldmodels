@@ -102,7 +102,14 @@ class LinearPolicy:
 
 
 class OnlineTransitionModel:
-    """Linear log-fidelity model updated by SGD once per episode."""
+    """Linear log-fidelity model updated by SGD once per episode.
+
+    Stability guards for online (non-batch) training: count features are normalized
+    by sequence length (comparable step size across lengths), the error is clipped,
+    and any non-finite prediction resets the model to its prior.
+    """
+
+    ERR_CLIP = 3.0
 
     def __init__(self, lr: float = 0.02):
         self.lr = lr
@@ -111,15 +118,29 @@ class OnlineTransitionModel:
         self.b = 0.0
 
     def features(self, counts: np.ndarray, bias: float, idle: int) -> np.ndarray:
-        return np.concatenate([counts, bias / BIAS_MAX * np.ones(1), idle / IDLE_MAX * np.ones(1)])
+        L = max(counts.sum(), 1.0)
+        return np.concatenate([counts / L, [bias / BIAS_MAX, idle / IDLE_MAX]])
 
     def predict(self, counts: np.ndarray, bias: float, idle: int) -> float:
-        return float(self.w @ counts + self.c[0] * bias / BIAS_MAX + self.c[1] * idle / IDLE_MAX + self.b)
+        L = max(counts.sum(), 1.0)
+        return float(
+            self.w @ (counts / L)
+            + self.c[0] * bias / BIAS_MAX
+            + self.c[1] * idle / IDLE_MAX
+            + self.b
+        )
 
     def update(self, counts: np.ndarray, bias: float, idle: int, y_true: float) -> float:
         y_pred = self.predict(counts, bias, idle)
-        err = y_pred - y_true
-        self.w -= self.lr * err * counts
+        if not np.isfinite(y_pred):
+            # Diverged: reset to prior (predict 0 = fidelity 1) and continue.
+            self.w[:] = 0.0
+            self.c[:] = 0.0
+            self.b = 0.0
+            y_pred = 0.0
+        err = float(np.clip(y_pred - y_true, -self.ERR_CLIP, self.ERR_CLIP))
+        L = max(counts.sum(), 1.0)
+        self.w -= self.lr * err * counts / L
         self.c[0] -= self.lr * err * bias / BIAS_MAX
         self.c[1] -= self.lr * err * idle / IDLE_MAX
         self.b -= self.lr * err
@@ -199,7 +220,7 @@ def run_rl(root: str, length_cap: int, idle: int, out_dir: str,
         # Online updates: transition model EVERY episode; policy via REINFORCE.
         online.update(counts, bias, ep_idle, y_true)
         baseline_reward = 0.95 * baseline_reward + 0.05 * reward
-        advantage = reward - baseline_reward
+        advantage = float(np.clip(reward - baseline_reward, -5.0, 5.0))
         grad_norm = policy.update(states, actions, advantage)
 
         curve["episode"].append(ep_i)

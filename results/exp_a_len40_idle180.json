@@ -3,5 +3,525 @@
     "length_cap": 40,
     "idle": 180
   },
-  "splits": []
+  "splits": [
+    {
+      "name": "horizon_le20",
+      "description": "train length <= 20, test length > 20 (cap 40)",
+      "sizes": {
+        "name": "horizon_le20",
+        "description": "train length <= 20, test length > 20 (cap 40)",
+        "train": {
+          "n": 53200,
+          "len_min": 2,
+          "len_max": 20,
+          "fid_mean": 0.6222047498366863,
+          "fid_std": 0.2515901654319728
+        },
+        "test": {
+          "n": 56000,
+          "len_min": 21,
+          "len_max": 40,
+          "fid_mean": 0.5546676044512533,
+          "fid_std": 0.18614868409753885
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.1262959554273933,
+          "fidelity_mae": 0.13514700040135583,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.9746329217736822,
+            "min_value": 0.2920909799607532
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 1.0,
+            "max_gate_factor": 0.9931567419661368
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.17638015747070312
+        },
+        {
+          "log_mse": 0.09622931420090919,
+          "fidelity_mae": 0.10913246914563511,
+          "physicality": {
+            "frac_above_one": 0.0035714285714285713,
+            "frac_below_zero": 0.0,
+            "max_value": 1.000056915290176,
+            "min_value": 0.38374633766453764
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 0.9946058157140306
+          },
+          "fit_seconds": 1.0877859592437744
+        },
+        {
+          "log_mse": 0.102357122483851,
+          "fidelity_mae": 0.11703735226069358,
+          "physicality": {
+            "frac_above_one": 0.015107142857142857,
+            "frac_below_zero": 0.0,
+            "max_value": 1.0605774613823633,
+            "min_value": 0.33938587417638827
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9732892513275146,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 4.582067549228668
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 43.59186577796936
+        },
+        {
+          "log_mse": 0.0988181130503144,
+          "fidelity_mae": 0.11171244148888,
+          "physicality": {
+            "frac_above_one": 0.044125,
+            "frac_below_zero": 0.0,
+            "max_value": 1.2234936184410459,
+            "min_value": 0.2915715998121065
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9728116989135742,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 4.525545746088028
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 121.44350981712341
+        },
+        {
+          "log_mse": 0.10610119039172128,
+          "fidelity_mae": 0.11568023177519483,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.9518159295369576,
+            "min_value": 0.287237208355101
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 4.07615128159523
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 6.936233997344971
+        },
+        {
+          "log_mse": 0.1312411803275444,
+          "fidelity_mae": 0.13727631227988693,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.9854412913915153,
+            "min_value": 0.26345064185452954
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 4.620245233178139
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 11.463037967681885
+        },
+        {
+          "log_mse": 0.4446656899631198,
+          "fidelity_mae": 0.24947950123184637,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.699132572278652,
+            "min_value": 0.14668512852526477
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 61.93368697166443
+        }
+      ],
+      "wall_seconds": 268.90882301330566
+    },
+    {
+      "name": "bias_ho0.61_0.63",
+      "description": "held-out biases (0.61, 0.63)",
+      "sizes": {
+        "name": "bias_ho0.61_0.63",
+        "description": "held-out biases (0.61, 0.63)",
+        "train": {
+          "n": 93600,
+          "len_min": 2,
+          "len_max": 40,
+          "fid_mean": 0.6047411477543616,
+          "fid_std": 0.23040313337170404
+        },
+        "test": {
+          "n": 15600,
+          "len_min": 2,
+          "len_max": 40,
+          "fid_mean": 0.4845453276136957,
+          "fid_std": 0.13164594627233953
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.09568243130891921,
+          "fidelity_mae": 0.11075294444088594,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.4798737005306536,
+            "min_value": 0.380026959394883
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 1.0,
+            "max_gate_factor": 0.9983917853799686
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.45413994789123535
+        },
+        {
+          "log_mse": 0.09358095707666872,
+          "fidelity_mae": 0.10892571547680005,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.6723817715761627,
+            "min_value": 0.40138873099264416
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 1.1726975170188374
+          },
+          "fit_seconds": 1.2879860401153564
+        },
+        {
+          "log_mse": 0.10365961931741431,
+          "fidelity_mae": 0.11668294496259478,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.5467210180805381,
+            "min_value": 0.3376919739947017
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9261481165885925,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 7.118083149194717
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 144.65590691566467
+        },
+        {
+          "log_mse": 0.09820976035344312,
+          "fidelity_mae": 0.11248502053232927,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.7233814776156968,
+            "min_value": 0.2986175266254119
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9874474406242371,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 6.93606635928154
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 423.62100315093994
+        },
+        {
+          "log_mse": 0.08879533480147828,
+          "fidelity_mae": 0.1001224371551023,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.7189731117011234,
+            "min_value": 0.41007755448440447
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 6.720712453126907
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 24.777385234832764
+        },
+        {
+          "log_mse": 0.08553532114523452,
+          "fidelity_mae": 0.09959821619914934,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.6834574648922981,
+            "min_value": 0.4179842724458987
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 5.989572875201702
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 49.70578908920288
+        },
+        {
+          "log_mse": 0.25930844933327835,
+          "fidelity_mae": 0.22276621202300598,
+          "physicality": {
+            "frac_above_one": 0.004358974358974359,
+            "frac_below_zero": 0.0,
+            "max_value": 1.1087510582786766,
+            "min_value": 0.4194786764729464
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 315.50844287872314
+        }
+      ],
+      "wall_seconds": 966.7142248153687
+    },
+    {
+      "name": "family_ho2",
+      "description": "train: no gates from family 2; test: >=1 gate from it",
+      "sizes": {
+        "name": "family_ho2",
+        "description": "train: no gates from family 2; test: >=1 gate from it",
+        "train": {
+          "n": 4224,
+          "len_min": 2,
+          "len_max": 21,
+          "fid_mean": 0.7355777694430603,
+          "fid_std": 0.2745628686577814
+        },
+        "test": {
+          "n": 104976,
+          "len_min": 2,
+          "len_max": 40,
+          "fid_mean": 0.5816148266504192,
+          "fid_std": 0.21862808269616016
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.4287715276890537,
+          "fidelity_mae": 0.22551405497990434,
+          "physicality": {
+            "frac_above_one": 0.02549154092363969,
+            "frac_below_zero": 0.0,
+            "max_value": 1.4743579547198868,
+            "min_value": 0.08634976889876565
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 1.0,
+            "max_gate_factor": 1.0
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.013073921203613281
+        },
+        {
+          "log_mse": 0.16516584232234605,
+          "fidelity_mae": 0.14050071091866467,
+          "physicality": {
+            "frac_above_one": 0.03228356957780826,
+            "frac_below_zero": 0.0,
+            "max_value": 1.572362330749339,
+            "min_value": 0.326279949849143
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 0.8780913542067966
+          },
+          "fit_seconds": 0.04592013359069824
+        },
+        {
+          "log_mse": 0.28510621712179635,
+          "fidelity_mae": 0.1969077094065038,
+          "physicality": {
+            "frac_above_one": 0.015051059289742418,
+            "frac_below_zero": 0.0,
+            "max_value": 3.1151028782545254,
+            "min_value": 0.06991381964410424
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.98822420835495,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 3.2241705570340855
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 6.367280721664429
+        },
+        {
+          "log_mse": 0.21750059640649644,
+          "fidelity_mae": 0.1705531789963035,
+          "physicality": {
+            "frac_above_one": 0.036836991312299956,
+            "frac_below_zero": 0.0,
+            "max_value": 2.6037643746068424,
+            "min_value": 0.07453207799920017
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9876723885536194,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 2.7557650301605463
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 7.806681156158447
+        },
+        {
+          "log_mse": 0.32701665979990163,
+          "fidelity_mae": 0.2720636739231318,
+          "physicality": {
+            "frac_above_one": 0.16771452522481328,
+            "frac_below_zero": 0.0,
+            "max_value": 7.692409695838997,
+            "min_value": 0.11920350931060601
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 3.732312967098551
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 1.688129186630249
+        },
+        {
+          "log_mse": 0.44876783017212674,
+          "fidelity_mae": 0.22801233014228384,
+          "physicality": {
+            "frac_above_one": 0.006172839506172839,
+            "frac_below_zero": 0.0,
+            "max_value": 1.2309058174953196,
+            "min_value": 0.06570032008218893
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 3.521400623764066
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 2.2604799270629883
+        },
+        {
+          "log_mse": 2.050066596145595,
+          "fidelity_mae": 1.8983782212382807,
+          "physicality": {
+            "frac_above_one": 0.5425144795000763,
+            "frac_below_zero": 0.0,
+            "max_value": 85.96206198944236,
+            "min_value": 0.13403944678749552
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 5.947911024093628
+        }
+      ],
+      "wall_seconds": 66.5327308177948
+    }
+  ]
 }
