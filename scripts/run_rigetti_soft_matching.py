@@ -19,6 +19,7 @@ from scipy import stats
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
     build_soft_reweighted_matching,
+    calibrated_uncertainty_route,
     calibrate_measurement_probabilities,
     chronological_block_error_differences,
     fit_spitz_pairwise_matching,
@@ -36,7 +37,7 @@ def _interval(values: np.ndarray) -> list[float]:
 
 def run(
     path: Path, circuit_group: str, train_fraction: float, block_size: int,
-    max_test: int | None, knots: int,
+    max_test: int | None, knots: int, route_budgets: list[float],
 ) -> dict:
     import pymatching
 
@@ -70,6 +71,11 @@ def run(
     template_prediction = np.asarray(
         template.decode_batch(record["detectors"][test].astype(np.uint8))
     )[:, 0]
+    hard_call_ns = []
+    for row in test[: min(2000, len(test))]:
+        started = perf_counter_ns()
+        template.decode(record["detectors"][row].astype(np.uint8))
+        hard_call_ns.append(perf_counter_ns() - started)
     pairwise_prediction = np.asarray(
         pairwise.decode_batch(record["detectors"][test].astype(np.uint8))
     )[:, 0]
@@ -110,6 +116,33 @@ def run(
             "paired_row_block_95pct_t_interval": _interval(differences),
             "blocks": len(differences),
         })
+    train_uncertainty = np.sum(measurement_error[train], axis=1)
+    test_uncertainty = np.sum(measurement_error[test], axis=1)
+    hard_error = float(np.mean(template_prediction != labels[test]))
+    soft_error = float(np.mean(soft_prediction != labels[test]))
+    full_gain = hard_error - soft_error
+    routing_curve = []
+    for budget in route_budgets:
+        routed, threshold = calibrated_uncertainty_route(
+            train_uncertainty, test_uncertainty, budget=budget
+        )
+        hybrid = template_prediction.copy()
+        hybrid[routed] = soft_prediction[routed]
+        hybrid_error = float(np.mean(hybrid != labels[test]))
+        differences = chronological_block_error_differences(
+            template_prediction, hybrid, labels[test], block_size=block_size
+        )
+        routing_curve.append({
+            "calibration_route_budget": budget,
+            "calibration_score_threshold": threshold,
+            "test_routed_fraction": float(np.mean(routed)),
+            "hybrid_logical_error": hybrid_error,
+            "absolute_error_reduction_vs_hard": hard_error - hybrid_error,
+            "fraction_of_full_soft_gain_recovered": (
+                float((hard_error - hybrid_error) / full_gain) if full_gain != 0 else None
+            ),
+            "paired_row_block_95pct_t_interval": _interval(differences),
+        })
     try:
         commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     except (OSError, subprocess.CalledProcessError):
@@ -144,6 +177,15 @@ def run(
             for name, prediction in predictions.items()
         },
         "comparisons": comparisons,
+        "event_triggered_routing": {
+            "score": "sum of per-measurement posterior hard-decision error probabilities",
+            "threshold_access": "quantile fixed only on calibration rows",
+            "curve": routing_curve,
+        },
+        "hard_decode_latency": {
+            "python_batch_one_p50_ns": float(np.quantile(hard_call_ns, 0.50)),
+            "python_batch_one_p99_ns": float(np.quantile(hard_call_ns, 0.99)),
+        },
         "soft_build_and_decode_latency": {
             "python_batch_one_p50_ns": float(np.quantile(call_ns, 0.50)),
             "python_batch_one_p99_ns": float(np.quantile(call_ns, 0.99)),
@@ -159,16 +201,20 @@ if __name__ == "__main__":
     parser.add_argument("--block-size", type=int, default=1000)
     parser.add_argument("--max-test", type=int)
     parser.add_argument("--knots", type=int, default=1)
+    parser.add_argument("--route-budgets", default="0,0.01,0.02,0.05,0.1,0.2,0.5,1")
     parser.add_argument("--output", type=Path, default=Path("results/rigetti_soft_matching.json"))
     args = parser.parse_args()
     payload = run(
         args.data, args.circuit_group, args.train_fraction, args.block_size,
         args.max_test, args.knots,
+        [float(value) for value in args.route_budgets.split(",")],
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps({
         "models": payload["models"], "comparisons": payload["comparisons"],
         "soft_reweighting": payload["soft_reweighting"],
+        "event_triggered_routing": payload["event_triggered_routing"],
+        "hard_decode_latency": payload["hard_decode_latency"],
         "soft_build_and_decode_latency": payload["soft_build_and_decode_latency"],
     }, indent=2))

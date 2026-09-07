@@ -13,6 +13,7 @@ from ptwm.rigetti import (
     build_soft_reweighted_matching,
     prepare_soft_reweighting,
     typed_circuit_noise_model,
+    calibrated_uncertainty_route,
     probability_metrics,
 )
 
@@ -94,6 +95,14 @@ def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():
     )
     matching = pymatching.Matching.from_detector_error_model(model)
     assert abs(matching.get_boundary_edge_data(0)["error_probability"] - 0.18) < 1e-9
+
+
+def test_uncertainty_route_threshold_is_fixed_on_calibration_scores():
+    train = np.arange(100, dtype=float)
+    test = np.asarray([0.0, 49.0, 89.5, 99.0, 120.0])
+    routed, threshold = calibrated_uncertainty_route(train, test, budget=0.1)
+    assert threshold == np.quantile(train, 0.9)
+    assert np.array_equal(routed, [False, False, True, True, True])
 
 
 def test_chronological_split_preserves_both_classes_without_overlap():

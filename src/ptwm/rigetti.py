@@ -385,6 +385,22 @@ def build_soft_reweighted_matching(
     return matching
 
 
+def calibrated_uncertainty_route(
+    calibration_scores: np.ndarray, evaluation_scores: np.ndarray, *, budget: float
+) -> tuple[np.ndarray, float]:
+    """Route high-uncertainty evaluations using a calibration-only quantile."""
+    if not 0.0 <= budget <= 1.0:
+        raise ValueError("route budget must be between zero and one")
+    calibration = np.asarray(calibration_scores, dtype=float)
+    evaluation = np.asarray(evaluation_scores, dtype=float)
+    if budget == 0.0:
+        return np.zeros(len(evaluation), dtype=bool), float("inf")
+    if budget == 1.0:
+        return np.ones(len(evaluation), dtype=bool), float("-inf")
+    threshold = float(np.quantile(calibration, 1.0 - budget))
+    return evaluation >= threshold, threshold
+
+
 def local_detector_pairs(
     circuit: object, *, maximum_time_lag: float = 1.0, maximum_spatial_distance: float = 2.01
 ) -> np.ndarray:
