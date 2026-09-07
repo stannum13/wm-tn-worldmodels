@@ -20,11 +20,12 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
     build_soft_reweighted_matching,
-    calibrate_measurement_probabilities,
     fit_spitz_pairwise_matching,
+    fit_measurement_iq_heads,
     load_qec_record,
     measurement_error_signatures,
     prepare_soft_reweighting,
+    predict_measurement_probabilities,
     soft_reweight_matrix,
     typed_circuit_noise_model,
 )
@@ -56,10 +57,16 @@ def run(
     boundary = int(train_fraction * len(labels))
     train = np.arange(boundary)
     test = np.arange(boundary, len(labels))
-    probabilities, calibration_parameters = calibrate_measurement_probabilities(
+    heads = fit_measurement_iq_heads(
         record["soft_measurements"], record["hard_measurements"],
         record["measurement_qubits"], train, knots=1, balanced=True,
     )
+    started = perf_counter_ns()
+    probabilities = predict_measurement_probabilities(
+        record["soft_measurements"], record["measurement_qubits"], heads
+    )
+    iq_batch_ns = perf_counter_ns() - started
+    calibration_parameters = sum(len(head.weights) for head in heads.values())
     measurement_error = np.where(
         record["hard_measurements"], 1.0 - probabilities, probabilities
     )
@@ -114,7 +121,15 @@ def run(
 
     one_count = min(latency_shots, len(test))
     mutable_call_ns = np.empty(one_count)
+    iq_single_call_ns = np.empty(one_count)
     for position in range(one_count):
+        row = test[position]
+        started = perf_counter_ns()
+        predict_measurement_probabilities(
+            record["soft_measurements"][row : row + 1],
+            record["measurement_qubits"], heads,
+        )
+        iq_single_call_ns[position] = perf_counter_ns() - started
         started = perf_counter_ns()
         pairwise.decode(detectors[position], edge_reweights=updates[position])
         mutable_call_ns[position] = perf_counter_ns() - started
@@ -174,6 +189,9 @@ def run(
         },
         "logical_error": float(np.mean(mutable != labels[test])),
         "latency": {
+            "iq_inference_batch_total_ns": float(iq_batch_ns),
+            "iq_inference_batch_amortized_ns_per_shot": float(iq_batch_ns / len(labels)),
+            "iq_inference_single_record": _quantiles_ns(iq_single_call_ns),
             "weight_matrix_total_ns": float(update_total_ns),
             "weight_matrix_amortized_ns_per_shot": float(update_total_ns / len(test)),
             "reference_rebuild_and_decode": _quantiles_ns(reference_call_ns),

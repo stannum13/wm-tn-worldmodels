@@ -809,14 +809,13 @@ def fit_logistic_head(features: np.ndarray, labels: np.ndarray, *, knots: int = 
     return _fit_logistic_head(features, labels, knots=knots)
 
 
-def calibrate_measurement_probabilities(
+def fit_measurement_iq_heads(
     soft: np.ndarray, hard: np.ndarray, measurement_qubits: np.ndarray,
     train_shots: np.ndarray, *, knots: int, max_examples_per_qubit: int = 100_000,
     balanced: bool = False,
-) -> tuple[np.ndarray, int]:
-    """Fit one I/Q-to-hardware-bit head per qubit and evaluate every measurement."""
-    probability = np.empty(hard.shape, dtype=np.float32)
-    parameter_count = 0
+) -> dict[int, LogisticIQHead]:
+    """Fit one I/Q-to-hardware-bit head per qubit."""
+    heads = {}
     for qubit in np.unique(measurement_qubits):
         columns = np.flatnonzero(measurement_qubits == qubit)
         values = soft[np.ix_(train_shots, columns)].reshape(-1)
@@ -833,11 +832,35 @@ def calibrate_measurement_probabilities(
             selected = np.linspace(0, len(values) - 1, max_examples_per_qubit, dtype=int)
             values, targets = values[selected], targets[selected]
         features = np.c_[values.real, values.imag]
-        head = _fit_logistic_head(features, targets, knots=knots)
+        heads[int(qubit)] = _fit_logistic_head(features, targets, knots=knots)
+    return heads
+
+
+def predict_measurement_probabilities(
+    soft: np.ndarray, measurement_qubits: np.ndarray,
+    heads: dict[int, LogisticIQHead],
+) -> np.ndarray:
+    """Apply fitted per-qubit I/Q heads while preserving measurement order."""
+    probability = np.empty(soft.shape, dtype=np.float32)
+    for qubit, head in heads.items():
+        columns = np.flatnonzero(measurement_qubits == qubit)
         all_values = soft[:, columns].reshape(-1)
         probability[:, columns] = head.predict(np.c_[all_values.real, all_values.imag]).reshape(len(soft), -1)
-        parameter_count += len(head.weights)
-    return probability, parameter_count
+    return probability
+
+
+def calibrate_measurement_probabilities(
+    soft: np.ndarray, hard: np.ndarray, measurement_qubits: np.ndarray,
+    train_shots: np.ndarray, *, knots: int, max_examples_per_qubit: int = 100_000,
+    balanced: bool = False,
+) -> tuple[np.ndarray, int]:
+    """Fit one I/Q-to-hardware-bit head per qubit and evaluate every measurement."""
+    heads = fit_measurement_iq_heads(
+        soft, hard, measurement_qubits, train_shots, knots=knots,
+        max_examples_per_qubit=max_examples_per_qubit, balanced=balanced,
+    )
+    probability = predict_measurement_probabilities(soft, measurement_qubits, heads)
+    return probability, sum(len(head.weights) for head in heads.values())
 
 
 def fit_iq_heads(features: np.ndarray, labels: np.ndarray) -> dict[str, LogisticIQHead]:
