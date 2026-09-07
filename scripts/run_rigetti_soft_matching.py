@@ -118,7 +118,11 @@ def run(
         })
     train_uncertainty = np.sum(measurement_error[train], axis=1)
     test_uncertainty = np.sum(measurement_error[test], axis=1)
-    hard_error = float(np.mean(template_prediction != labels[test]))
+    # Hold topology fixed so the routing curve isolates average versus per-shot
+    # measurement weights.  The circuit-template control remains in `models`, but
+    # switching between it and the pairwise graph would confound topology and I/Q.
+    routing_base_prediction = pairwise_prediction
+    hard_error = float(np.mean(routing_base_prediction != labels[test]))
     soft_error = float(np.mean(soft_prediction != labels[test]))
     full_gain = hard_error - soft_error
     routing_curve = []
@@ -126,11 +130,11 @@ def run(
         routed, threshold = calibrated_uncertainty_route(
             train_uncertainty, test_uncertainty, budget=budget
         )
-        hybrid = template_prediction.copy()
+        hybrid = routing_base_prediction.copy()
         hybrid[routed] = soft_prediction[routed]
         hybrid_error = float(np.mean(hybrid != labels[test]))
         differences = chronological_block_error_differences(
-            template_prediction, hybrid, labels[test], block_size=block_size
+            routing_base_prediction, hybrid, labels[test], block_size=block_size
         )
         routing_curve.append({
             "calibration_route_budget": budget,
@@ -180,6 +184,8 @@ def run(
         "event_triggered_routing": {
             "score": "sum of per-measurement posterior hard-decision error probabilities",
             "threshold_access": "quantile fixed only on calibration rows",
+            "hard_branch": "pairwise_hard (same fixed topology; calibration-average weights)",
+            "soft_branch": f"{soft_name} (same fixed topology; per-shot weights)",
             "curve": routing_curve,
         },
         "hard_decode_latency": {

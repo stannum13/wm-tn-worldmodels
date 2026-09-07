@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from ptwm.rigetti import (
     block_error_differences,
@@ -39,7 +40,7 @@ def test_spitz_boundary_probability_recovers_single_defect_rate():
 
 
 def test_pairwise_matching_fit_preserves_topology_and_fault_ids():
-    import pymatching
+    pymatching = pytest.importorskip("pymatching")
 
     rng = np.random.default_rng(29)
     shots = 1_000_000
@@ -62,7 +63,7 @@ def test_pairwise_matching_fit_preserves_topology_and_fault_ids():
 
 
 def test_measurement_error_signature_tracks_detector_and_observable():
-    import stim
+    stim = pytest.importorskip("stim")
 
     circuit = stim.Circuit("M 0\nDETECTOR rec[-1]\nOBSERVABLE_INCLUDE(0) rec[-1]")
     signatures = measurement_error_signatures(circuit)
@@ -70,7 +71,7 @@ def test_measurement_error_signature_tracks_detector_and_observable():
 
 
 def test_soft_reweighting_replaces_average_measurement_contribution():
-    import pymatching
+    pymatching = pytest.importorskip("pymatching")
 
     base = pymatching.Matching()
     total = 0.1 + 0.05 - 2 * 0.1 * 0.05
@@ -85,8 +86,8 @@ def test_soft_reweighting_replaces_average_measurement_contribution():
 
 
 def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():
-    import pymatching
-    import stim
+    pymatching = pytest.importorskip("pymatching")
+    stim = pytest.importorskip("stim")
 
     circuit = stim.Circuit("R 0\nM 0\nM 0\nDETECTOR rec[-1] rec[-2]")
     model = typed_circuit_noise_model(
