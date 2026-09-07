@@ -170,7 +170,10 @@ def run(
         "minimum_margin": float(np.min(compiled_margins)),
         "disagreement_margins": margins[disagreements].tolist(),
         "reference_logical_error": float(np.mean(reference != labels[test])),
-        "candidate_logical_error": float(np.mean(candidate != labels[test])),
+        "candidate_logical_error": float(np.mean(
+            candidate != labels[test[:python_count]]
+        )),
+        "compiled_logical_error": float(np.mean(compiled != labels[test])),
         "latency": {
             "reference_rebuild_and_decode": _quantiles(reference_ns),
             "python_frontier_decode": _quantiles(candidate_ns),
