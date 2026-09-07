@@ -1,31 +1,31 @@
 {
-  "calibration_parameters": 24,
+  "calibration_parameters": 104,
   "code_commit": "9f23df30026d73d0935140a6e1a00400398f64e8",
   "comparisons": [
     {
       "blocks": 40,
       "first": "circuit_template_hard",
-      "mean_absolute_error_reduction": 0.004525000000000001,
+      "mean_absolute_error_reduction": 0.0030749999999999944,
       "paired_row_block_95pct_t_interval": [
-        0.00048027461529035354,
-        0.008569725384709646
+        -0.0006288231806263209,
+        0.006778823180626326
       ],
-      "relative_error_reduction": 0.02739933393884353,
-      "second": "pairwise_linear_iq"
+      "relative_error_reduction": 0.018619436875567663,
+      "second": "pairwise_spline_iq_k6"
     },
     {
       "blocks": 40,
       "first": "pairwise_hard",
-      "mean_absolute_error_reduction": 0.0061500000000000166,
+      "mean_absolute_error_reduction": 0.00470000000000001,
       "paired_row_block_95pct_t_interval": [
-        0.0028306829604599465,
-        0.00946931703954005
+        0.0022576907795273044,
+        0.007142309220472698
       ],
-      "relative_error_reduction": 0.03687603058012301,
-      "second": "pairwise_linear_iq"
+      "relative_error_reduction": 0.028181681906760625,
+      "second": "pairwise_spline_iq_k6"
     }
   ],
-  "created_at": "2026-09-07T19:22:46.395608+00:00",
+  "created_at": "2026-09-07T19:24:25.489774+00:00",
   "data": {
     "circuit_group": "circuit_22",
     "file": "stability_8_with_resets_raw_data.h5",
@@ -35,7 +35,7 @@
     "train_rows": 60000
   },
   "design": {
-    "calibration": "balanced logistic P(hardware hard bit | I,Q) per qubit with 1 spline-design knots",
+    "calibration": "balanced logistic P(hardware hard bit | I,Q) per qubit with 6 spline-design knots",
     "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
     "logical_labels_in_iq_or_graph_calibration": false,
     "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
@@ -66,8 +66,8 @@
       "model": "pairwise_hard"
     },
     {
-      "logical_error": 0.160625,
-      "model": "pairwise_linear_iq"
+      "logical_error": 0.162075,
+      "model": "pairwise_spline_iq_k6"
     }
   ],
   "row_block_errors": {
@@ -155,57 +155,57 @@
       0.174,
       0.18
     ],
-    "pairwise_linear_iq": [
-      0.166,
-      0.159,
-      0.171,
-      0.149,
-      0.158,
-      0.187,
-      0.179,
+    "pairwise_spline_iq_k6": [
+      0.181,
+      0.153,
       0.164,
-      0.159,
-      0.154,
-      0.154,
-      0.197,
-      0.155,
-      0.166,
-      0.149,
-      0.183,
-      0.154,
-      0.18,
-      0.137,
-      0.154,
-      0.159,
-      0.151,
-      0.145,
-      0.154,
-      0.163,
-      0.17,
-      0.151,
-      0.153,
-      0.166,
-      0.153,
-      0.141,
-      0.138,
-      0.122,
+      0.144,
+      0.143,
+      0.195,
       0.174,
-      0.158,
-      0.157,
+      0.152,
+      0.16,
+      0.163,
+      0.159,
+      0.201,
+      0.151,
+      0.173,
+      0.151,
+      0.172,
       0.162,
-      0.178,
-      0.171,
-      0.184
+      0.18,
+      0.152,
+      0.162,
+      0.154,
+      0.154,
+      0.153,
+      0.144,
+      0.165,
+      0.167,
+      0.162,
+      0.148,
+      0.172,
+      0.155,
+      0.147,
+      0.143,
+      0.126,
+      0.167,
+      0.17,
+      0.162,
+      0.165,
+      0.18,
+      0.175,
+      0.182
     ]
   },
   "schema_version": 1,
   "soft_build_and_decode_latency": {
-    "python_batch_one_p50_ns": 2185409.0,
-    "python_batch_one_p99_ns": 2897753.5100000007
+    "python_batch_one_p50_ns": 2169315.5,
+    "python_batch_one_p99_ns": 3126748.2000000016
   },
   "soft_reweighting": {
     "matched_measurements": 96,
-    "residual_clipped": 3,
+    "residual_clipped": 2,
     "unmatched_measurements": 0,
     "unsupported_measurements": 0
   }

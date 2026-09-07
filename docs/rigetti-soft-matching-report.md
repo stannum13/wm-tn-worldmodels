@@ -56,7 +56,18 @@ qubit state. Per-shot timestamps are also absent.
 3. Freeze the winning pipeline, optimize graph publication latency, and confirm once
    on the untouched no-reset acquisition.
 
+## KAN-head ablation
+
+The same locked run was repeated with the 13-parameter-per-qubit spline/KAN-inspired
+I/Q head. Logical error is 16.2075%, compared with 16.0625% for the affine head. The
+affine head's paired advantage is 0.145 percentage points, with interval -0.090 to
++0.380 points across the same 40 row blocks. The interval is unresolved, while the
+point estimate favors the cheaper affine model. The spline/KAN branch is therefore a
+**NO-GO** at this interface.
+
 Machine-readable results are in `results/rigetti_soft_matching.json`. The method is
 anchored to [Caune et al.](https://www.nature.com/articles/s41467-026-73331-6),
 [Spitz et al.](https://arxiv.org/abs/1712.02360), and
 [Pattison et al.](https://arxiv.org/abs/2107.13589).
+The spline ablation is in `results/rigetti_soft_matching_spline.json`; both artifacts
+retain block-level errors for the direct paired comparison.

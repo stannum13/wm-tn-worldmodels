@@ -64,6 +64,9 @@ causal-filtering baselines under matched observation access.
   error from the strongest hard control's 16.515% to 16.0625%, with a positive paired
   interval, and falls within 0.20 points of the released 15.901% soft result. See the
   [soft matching report](docs/rigetti-soft-matching-report.md).
+- Replacing that affine calibrator with the 13-parameter spline/KAN head worsens the
+  point estimate to 16.2075%; the direct paired interval is unresolved. The cheap
+  affine head remains the selected soft path.
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -173,6 +176,12 @@ PYTHONPATH=src python scripts/run_rigetti_adaptive_pairwise.py \
 PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --output results/rigetti_soft_matching.json
+
+# Matched spline/KAN calibration-head ablation
+PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --knots 6 \
+  --output results/rigetti_soft_matching_spline.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
