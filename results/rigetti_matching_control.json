@@ -1,0 +1,72 @@
+{
+  "code_commit": "a5c2caed515c566d53c7dcadf4db40184ed4c665",
+  "created_at": "2026-09-07T18:18:35.356648+00:00",
+  "data": {
+    "chronological_test_shots": 40000,
+    "circuit_group": "circuit_26",
+    "file": "stability_9_raw_data.h5",
+    "independent_sessions": 1,
+    "md5": "738e37d66de114e7eacac3342d41294d",
+    "shots": 100000,
+    "source": "https://zenodo.org/records/15364358",
+    "train_shots": 60000
+  },
+  "design": {
+    "limitation": "transparent topology control, not the unpublished calibrated detector error model used for the released result",
+    "noise_model": "uniform measurement flips, reset flips, one-qubit depolarization, and CZ depolarization inserted into embedded circuit",
+    "released_mwpm_error_at_27_rounds": 0.38819,
+    "selection": "circuit error probability selected only by chronological training error"
+  },
+  "development": [
+    {
+      "circuit_error_probability": 0.002,
+      "detector_error_model_terms": 467,
+      "train_logical_error": 0.38103333333333333
+    },
+    {
+      "circuit_error_probability": 0.005,
+      "detector_error_model_terms": 467,
+      "train_logical_error": 0.38285
+    },
+    {
+      "circuit_error_probability": 0.01,
+      "detector_error_model_terms": 467,
+      "train_logical_error": 0.38426666666666665
+    },
+    {
+      "circuit_error_probability": 0.02,
+      "detector_error_model_terms": 467,
+      "train_logical_error": 0.3871
+    },
+    {
+      "circuit_error_probability": 0.05,
+      "detector_error_model_terms": 467,
+      "train_logical_error": 0.3962
+    }
+  ],
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "schema_version": 1,
+  "selected_circuit_error_probability": 0.002,
+  "test": {
+    "brier_loss": 0.2331463308306435,
+    "classification_error": 0.387475,
+    "detector_error_model_terms": 467,
+    "expected_calibration_error_10bin": 0.0064503916899855684,
+    "hard_error_block_95pct_t_interval": [
+      0.37809225750984776,
+      0.39685774249015215
+    ],
+    "hard_logical_error": 0.387475,
+    "negative_log_likelihood": 0.6588023620999041,
+    "python_batch_one_p50_ns": 85680.0,
+    "python_batch_one_p99_ns": 327798.5999999999,
+    "reliability_probabilities": {
+      "0.0": 0.3227304388205247,
+      "1.0": 0.5403162674181932
+    },
+    "vectorized_ns_per_shot": 70705.8689
+  }
+}

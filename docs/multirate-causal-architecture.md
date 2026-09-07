@@ -129,3 +129,10 @@ probabilities are propagated through long detector parities. The
 [stability-9 replay](rigetti-qec-replay-report.md) therefore rejects that interface.
 Slow heads must export graph-aware joint factors or calibrated edge weights; the hot
 decoder consumes those versioned factors without waiting for head inference.
+
+The [PyMatching control](rigetti-matching-control-report.md) resolves which component
+owns the hot path: a 467-term approximate detector error model reproduces the released
+stability-9 MWPM error scale, while learned logistic and Markov decoders do not. Slow
+world models should therefore estimate drift in measurement, one-qubit, and two-qubit
+edge rates and publish versioned matching graphs. They should not replace the graph
+decoder unless they beat it directly.

@@ -44,6 +44,10 @@ causal-filtering baselines under matched observation access.
   temporal Markov order hurts. This is below the 20% gate and redirects work to a true
   matching baseline. See the
   [Markov decoder report](docs/rigetti-markov-decoder-report.md).
+- A transparent uniform circuit-noise model plus PyMatching reaches 38.7475%, matching
+  the released 38.819% stability-9 anchor to within 0.0715 percentage points. Learned
+  components must now improve this structural control. See the
+  [matching report](docs/rigetti-matching-control-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -125,6 +129,11 @@ PYTHONPATH=src python scripts/run_rigetti_iq_benchmark.py \
 PYTHONPATH=src python scripts/run_rigetti_qec_replay.py \
   --data data/rigetti_stability9/stability_9_raw_data.h5 \
   --circuit-group circuit_26 --output results/rigetti_stability9_qec_replay.json
+
+# Matching control using an explicit approximate circuit-noise model
+PYTHONPATH=src python scripts/run_rigetti_matching_control.py \
+  --data data/rigetti_stability9/stability_9_raw_data.h5 \
+  --circuit-group circuit_26 --output results/rigetti_matching_control.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -153,6 +162,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Wrapped-phase multimodal particle positive control on GCP
 - [x] Real Ankaa-2 I/Q chronological calibration screen on GCP
 - [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
+- [x] Reproduce released stability-9 MWPM scale with a transparent matching control
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs
