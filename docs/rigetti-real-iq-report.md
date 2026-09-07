@@ -10,8 +10,9 @@ calibration measurements of qubit 50, including raw complex I/Q and the hardware
 decision.
 
 This is a measurement-calibration test, not yet a QEC-decoding result. The first 60%
-of each prepared-state trace train the heads; the final 40% form a chronological
-holdout. Because both traces come from one acquisition session, uncertainty intervals
+of each prepared-state trace train the heads; the final 40% of HDF5 rows form the
+holdout. The file supplies a session timestamp but no per-shot timestamps, so row order
+is not independently verified as temporal order. Because both traces come from one acquisition session, uncertainty intervals
 across contiguous 200-shot blocks are descriptive and must not be read as
 cross-session confidence intervals.
 

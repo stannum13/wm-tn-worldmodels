@@ -6,12 +6,12 @@ result. Detector coordinates define 578 pairs within one time step and spatial
 Manhattan distance 2.01; no logical labels select the pairs. A second feature family
 tracks cumulative parity along each of the four detector world-lines.
 
-On the same 60,000/40,000 chronological split, the 109-parameter linear detector
+On the same 60,000/40,000 HDF5-row split, the 109-parameter linear detector
 model has 42.395% logical error. World-line parity produces 42.540%, local pairs
 42.923%, and their combination 43.118%. None clears the preregistered requirement to
 recover 20% of the gap to the released 38.819% MWPM result. The local-pair model's
 small Brier improvement (0.24053 to 0.24017) has a descriptive block interval spanning
-zero, while its threshold error is worse.
+zero, while its threshold error is worse with a corrected interval entirely below zero.
 
 This is a **NO-GO for static feature expansion**. Circuit locality by itself is not
 matching: an error-chain decoder must enforce global consistency between syndrome

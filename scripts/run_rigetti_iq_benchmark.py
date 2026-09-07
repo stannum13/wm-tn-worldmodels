@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Chronological real-hardware I/Q calibration screen on Rigetti Ankaa-2."""
+"""Row-order real-hardware I/Q calibration screen on Rigetti Ankaa-2."""
 
 from __future__ import annotations
 
@@ -91,12 +91,12 @@ def run(path: Path) -> dict:
             "md5": hashlib.md5(path.read_bytes()).hexdigest(),
             "qpu": "Rigetti Ankaa-2",
             "train_shots": len(train),
-            "chronological_test_shots": len(test),
+            "row_order_test_shots": len(test),
             "independent_sessions": 1,
         },
         "design": {
             "endpoint": "prepared-state discrimination from raw complex I/Q",
-            "split": "first 60% within each preparation for training; final 40% locked test",
+            "split": "first 60% of HDF5 rows within each preparation train; final 40% test; per-shot timestamps absent",
             "uncertainty": "paired descriptive t interval across contiguous 200-shot blocks within preparation",
             "scope": "within-session calibration screen, not a QEC decoding or cross-session generalization claim",
         },

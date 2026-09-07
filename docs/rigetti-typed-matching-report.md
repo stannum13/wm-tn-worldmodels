@@ -8,8 +8,8 @@ on shots 20,000–59,999; the final 40,000 shots remain the test partition.
 
 The selected probabilities are 0.001 for measurement/reset, 0.005 for one-qubit
 gates, and 0.02 for CZ gates. On test, error falls from 38.7475% to 38.5375%: a 0.210
-percentage-point or 0.54% relative reduction. The paired interval across contiguous
-blocks is -0.141 to +0.577 percentage points, and the effect misses the preregistered
+percentage-point or 0.54% relative reduction. The corrected paired interval across
+40 raw-row-order blocks is -0.074 to +0.494 percentage points, and the effect misses the preregistered
 0.3875-point threshold. Decode throughput is unchanged within timing noise
 (45.8 versus 45.4 us/shot in these calls).
 

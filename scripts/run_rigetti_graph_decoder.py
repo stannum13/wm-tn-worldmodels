@@ -89,7 +89,7 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
             "circuit_group": circuit_group,
             "shots": len(labels),
             "train_shots": len(train),
-            "chronological_test_shots": len(test),
+            "row_order_test_shots": len(test),
             "independent_sessions": 1,
         },
         "design": {
@@ -97,7 +97,7 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
             "pair_rule": "detectors within one round and Manhattan spatial distance <=2.01; no target-informed selection",
             "released_mwpm_error_at_27_rounds": 0.38819,
             "primary_go_condition": "close >=20% of linear-to-released-MWPM error gap with positive paired block interval",
-            "split": "first 60% chronological shots train; final 40% locked test",
+            "split": "first 60% HDF5 rows train; final 40% test; per-shot timestamps absent",
             "limitations": "single-session learned replay; released MWPM value is an external anchor, not rerun in this script",
         },
         "models": rows,

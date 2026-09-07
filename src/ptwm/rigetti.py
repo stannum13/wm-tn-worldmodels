@@ -71,7 +71,7 @@ def load_measurement_fidelity(path: str) -> tuple[np.ndarray, np.ndarray, np.nda
 
 
 def load_qec_record(path: str, circuit_group: str) -> dict[str, object]:
-    """Reconstruct chronological Stim measurement records from per-qubit HDF5 arrays."""
+    """Reconstruct Stim measurement order from per-qubit HDF5 arrays."""
     try:
         import h5py
         import stim
@@ -352,7 +352,7 @@ def typed_matching_predictions(
 
 
 def chronological_preparation_split(labels: np.ndarray, train_fraction: float = 0.6) -> tuple[np.ndarray, np.ndarray]:
-    """Take the early portion of each prepared-state trace for train, later for test."""
+    """Split early and later HDF5 row ranges within each prepared-state trace."""
     labels = np.asarray(labels)
     train, test = [], []
     for label in np.unique(labels):

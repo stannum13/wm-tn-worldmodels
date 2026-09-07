@@ -14,7 +14,7 @@ measurement order of the embedded Stim circuit; Stim then reconstructs detector 
 logical-observable bits. All reconstructed hard parities match Stim after its fixed
 reference offsets.
 
-The first 60,000 chronological shots train nine per-qubit I/Q-to-hardware-bit
+The first 60,000 HDF5 rows train nine per-qubit I/Q-to-hardware-bit
 calibrators and the logical decoder. The last 40,000 shots are locked test data. Soft
 detector probabilities propagate calibrated measurement probabilities through parity
 under an explicit conditional-independence approximation. Every logical model is
@@ -30,9 +30,9 @@ trained with the same logistic objective.
 | Spline/KAN-I/Q soft syndrome + spline decoder | 442 | 42.560% | 0.24059 | 0.67386 | 5,544 |
 
 The spline calibration pipeline worsens logical error by 0.125 percentage points
-relative to linear calibration. Its first-minus-second paired interval across 39
-contiguous test blocks is -0.285 to -0.008 percentage points, so the direction is
-inconsistent with benefit. Brier and NLL differences also fail to clear zero. The
+relative to linear calibration. Its corrected first-minus-second interval across 40
+raw-row-order test blocks is -0.287 to +0.037 percentage points, so it crosses zero.
+Brier and NLL differences also fail to clear zero. The
 extra spline decoder does not rescue the result.
 
 For context, the released `lep_mwpm_stability_9.txt` reports 38.819% ± 0.154% at 27
@@ -56,7 +56,8 @@ always-on neural hot path.
 
 No cross-session or live-feedback claim is made. The block intervals are descriptive,
 the calibration targets the recorded hard decisions rather than prepared-state truth,
-and the replay excludes communication, buffering, and conditional-operation latency.
+the HDF5 file has no per-shot timestamps, and the replay excludes communication,
+buffering, and conditional-operation latency.
 
 Machine-readable records are in
 [`results/rigetti_stability9_qec_replay.json`](../results/rigetti_stability9_qec_replay.json).

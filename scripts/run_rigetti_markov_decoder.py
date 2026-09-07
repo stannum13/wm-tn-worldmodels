@@ -83,7 +83,7 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
             "circuit_group": circuit_group,
             "shots": len(labels),
             "train_shots": len(train),
-            "chronological_test_shots": len(test),
+            "row_order_test_shots": len(test),
             "independent_sessions": 1,
         },
         "design": {
@@ -92,7 +92,7 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
             "alphabet": 16,
             "released_mwpm_error_at_27_rounds": 0.38819,
             "primary_go_condition": "close >=20% of 42.395%-to-38.819% error gap with positive paired block interval",
-            "split": "first 60% chronological shots train; final 40% locked test",
+            "split": "first 60% HDF5 rows train; final 40% test; per-shot timestamps absent",
             "mechanism": "causal class-conditional syndrome likelihood updated by one table lookup per round",
         },
         "models": rows,

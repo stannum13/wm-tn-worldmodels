@@ -30,7 +30,7 @@ causal-filtering baselines under matched observation access.
   inference lane when wrapped observations make the posterior genuinely multimodal;
   64 particles recover 91% of the EKF-to-grid loss gap. See the
   [wrapped-phase report](docs/wrapped-phase-particle-report.md).
-- On a chronological holdout of real Ankaa-2 I/Q calibration shots, a 13-parameter
+- On a later-row holdout of real Ankaa-2 I/Q calibration shots, a 13-parameter
   spline/KAN logistic head reduces Brier loss 6.0% versus a matched affine logistic
   head, without an established classification-error gain. See the
   [real I/Q report](docs/rigetti-real-iq-report.md).
@@ -163,7 +163,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Multi-rate linear/KAN-inspired causal-head diagnostic on GCP
 - [x] Nonlinear robust-EKF/particle feasibility screen on GCP
 - [x] Wrapped-phase multimodal particle positive control on GCP
-- [x] Real Ankaa-2 I/Q chronological calibration screen on GCP
+- [x] Real Ankaa-2 I/Q acquisition-order calibration screen on GCP
 - [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
 - [x] Reproduce released stability-9 MWPM scale with a transparent matching control
 - [ ] Robust contamination-aware emission model

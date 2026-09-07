@@ -4,7 +4,7 @@ This experiment packs the four detector events at each of 27 rounds into one of 
 categorical symbols. A class-conditional generative decoder accumulates the log
 likelihood of logical classes zero and one with one table lookup per round. Order zero
 tests within-round joint structure; orders one and two add temporal memory. All tables
-use fixed unit Dirichlet smoothing and the same 60,000/40,000 chronological split.
+use fixed unit Dirichlet smoothing and the same 60,000/40,000 HDF5-row split.
 
 | Model | Free parameters | Logical error | Brier | GCP vectorized ns/shot |
 |---|---:|---:|---:|---:|

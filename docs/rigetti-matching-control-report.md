@@ -11,7 +11,7 @@ depolarization after CZ gates. Stim converts that hypothesis to a detector error
 and PyMatching enforces global error-chain consistency.
 
 Five uniform probabilities from 0.002 to 0.05 were compared only on the first 60,000
-chronological shots. Probability 0.002 had the lowest training logical error and was
+HDF5 rows. Probability 0.002 had the lowest training logical error and was
 then evaluated on the locked last 40,000 shots.
 
 ## Result
