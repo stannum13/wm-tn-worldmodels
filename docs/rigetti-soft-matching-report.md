@@ -27,6 +27,22 @@ contiguous 1,000-row blocks is +0.048 to +0.857 points. Against hard pairwise, t
 reduction is 0.615 points or 3.69%, with interval +0.283 to +0.947 points. The
 predeclared 1% mechanism gate passes against both controls.
 
+The identical frozen affine pipeline improves every tested circuit depth:
+
+| Decoding rounds | Hard template | Affine-I/Q pairwise | Relative reduction | Paired 95% interval |
+|---:|---:|---:|---:|---:|
+| 3 | 32.050% | 27.488% | 14.24% | +4.243 to +4.882 pp |
+| 7 | 25.565% | 23.410% | 8.43% | +1.764 to +2.546 pp |
+| 11 | 21.683% | 20.423% | 5.81% | +0.872 to +1.648 pp |
+| 15 | 20.275% | 19.403% | 4.30% | +0.553 to +1.192 pp |
+| 19 | 18.803% | 17.498% | 6.94% | +1.035 to +1.575 pp |
+| 23 | 16.515% | 16.063% | 2.74% | +0.048 to +0.857 pp |
+
+Thus the primary gain is not purchased by harming shorter circuits. The released
+curve is still lower by more than the 0.20-point reproduction margin at several
+intermediate depths, consistent with unavailable prepared-state calibration and graph
+implementation details; only the locked deepest validity target passes.
+
 The released soft-plus-pairwise result is 15.901% at 23 decoding rounds. Our locked
 holdout is 0.1615 percentage points higher, inside the 0.20-point reproduction gate.
 Because the released value may use the same shots for calibration and evaluation and
@@ -69,5 +85,6 @@ Machine-readable results are in `results/rigetti_soft_matching.json`. The method
 anchored to [Caune et al.](https://www.nature.com/articles/s41467-026-73331-6),
 [Spitz et al.](https://arxiv.org/abs/1712.02360), and
 [Pattison et al.](https://arxiv.org/abs/2107.13589).
-The spline ablation is in `results/rigetti_soft_matching_spline.json`; both artifacts
-retain block-level errors for the direct paired comparison.
+The spline ablation is in `results/rigetti_soft_matching_spline.json`; per-circuit
+artifacts use `results/rigetti_soft_matching_circuit_*.json`. All retain block-level
+errors for direct paired comparisons.

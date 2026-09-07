@@ -1,0 +1,212 @@
+{
+  "calibration_parameters": 24,
+  "code_commit": "9f23df30026d73d0935140a6e1a00400398f64e8",
+  "comparisons": [
+    {
+      "blocks": 40,
+      "first": "circuit_template_hard",
+      "mean_absolute_error_reduction": 0.021549999999999986,
+      "paired_row_block_95pct_t_interval": [
+        0.017643837091425574,
+        0.025456162908574432
+      ],
+      "relative_error_reduction": 0.08429493448073533,
+      "second": "pairwise_linear_iq"
+    },
+    {
+      "blocks": 40,
+      "first": "pairwise_hard",
+      "mean_absolute_error_reduction": 0.011575000000000002,
+      "paired_row_block_95pct_t_interval": [
+        0.008564490826057708,
+        0.0145855091739423
+      ],
+      "relative_error_reduction": 0.04711509107560807,
+      "second": "pairwise_linear_iq"
+    }
+  ],
+  "created_at": "2026-09-07T19:27:35.306454+00:00",
+  "data": {
+    "circuit_group": "circuit_6",
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "calibration": "balanced logistic P(hardware hard bit | I,Q) per qubit with 1 spline-design knots",
+    "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
+    "logical_labels_in_iq_or_graph_calibration": false,
+    "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
+    "soft_rule": "replace average measurement contribution on matched edges with per-shot posterior error",
+    "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "graph": {
+    "boundary_edges": 8,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 0,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 76
+  },
+  "models": [
+    {
+      "logical_error": 0.25565,
+      "model": "circuit_template_hard"
+    },
+    {
+      "logical_error": 0.245675,
+      "model": "pairwise_hard"
+    },
+    {
+      "logical_error": 0.2341,
+      "model": "pairwise_linear_iq"
+    }
+  ],
+  "row_block_errors": {
+    "circuit_template_hard": [
+      0.264,
+      0.272,
+      0.254,
+      0.27,
+      0.276,
+      0.29,
+      0.252,
+      0.289,
+      0.259,
+      0.273,
+      0.255,
+      0.266,
+      0.255,
+      0.256,
+      0.275,
+      0.233,
+      0.279,
+      0.258,
+      0.252,
+      0.25,
+      0.238,
+      0.229,
+      0.256,
+      0.261,
+      0.26,
+      0.236,
+      0.251,
+      0.263,
+      0.227,
+      0.264,
+      0.238,
+      0.249,
+      0.262,
+      0.212,
+      0.258,
+      0.24,
+      0.241,
+      0.235,
+      0.269,
+      0.259
+    ],
+    "pairwise_hard": [
+      0.253,
+      0.266,
+      0.242,
+      0.27,
+      0.264,
+      0.277,
+      0.255,
+      0.256,
+      0.245,
+      0.239,
+      0.26,
+      0.257,
+      0.256,
+      0.231,
+      0.256,
+      0.23,
+      0.24,
+      0.231,
+      0.244,
+      0.255,
+      0.226,
+      0.219,
+      0.231,
+      0.248,
+      0.239,
+      0.241,
+      0.235,
+      0.246,
+      0.216,
+      0.252,
+      0.229,
+      0.245,
+      0.247,
+      0.221,
+      0.259,
+      0.238,
+      0.233,
+      0.247,
+      0.272,
+      0.256
+    ],
+    "pairwise_linear_iq": [
+      0.228,
+      0.254,
+      0.237,
+      0.253,
+      0.243,
+      0.264,
+      0.24,
+      0.244,
+      0.241,
+      0.242,
+      0.241,
+      0.238,
+      0.246,
+      0.209,
+      0.246,
+      0.227,
+      0.228,
+      0.224,
+      0.24,
+      0.247,
+      0.213,
+      0.219,
+      0.245,
+      0.23,
+      0.224,
+      0.222,
+      0.226,
+      0.228,
+      0.205,
+      0.252,
+      0.228,
+      0.232,
+      0.242,
+      0.199,
+      0.226,
+      0.234,
+      0.234,
+      0.229,
+      0.241,
+      0.243
+    ]
+  },
+  "schema_version": 1,
+  "soft_build_and_decode_latency": {
+    "python_batch_one_p50_ns": 697080.0,
+    "python_batch_one_p99_ns": 1366076.4000000055
+  },
+  "soft_reweighting": {
+    "matched_measurements": 32,
+    "residual_clipped": 2,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  }
+}

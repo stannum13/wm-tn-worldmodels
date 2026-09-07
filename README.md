@@ -64,6 +64,8 @@ causal-filtering baselines under matched observation access.
   error from the strongest hard control's 16.515% to 16.0625%, with a positive paired
   interval, and falls within 0.20 points of the released 15.901% soft result. See the
   [soft matching report](docs/rigetti-soft-matching-report.md).
+- The frozen affine soft path improves all six tested depths by 2.74--14.24% relative
+  to the hard circuit template, with every paired interval above zero.
 - Replacing that affine calibrator with the 13-parameter spline/KAN head worsens the
   point estimate to 16.2075%; the direct paired interval is unresolved. The cheap
   affine head remains the selected soft path.
