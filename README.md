@@ -97,6 +97,9 @@ the streaming runs, the [real-QEC audit](docs/real-qec-science-audit.md) fixes t
 baseline and adaptive-estimation gates, and the
 [deployment ladder](docs/deployment-benchmark-ladder.md) prioritizes public
 real-hardware datasets.
+The [selected architecture and frontier](docs/selected-architecture-and-frontier.md)
+distills the surviving mechanism, rejected branches, equations, benchmark gaps, and
+deployment GO conditions.
 
 The core predictive object is a compressed causal state:
 
