@@ -50,7 +50,8 @@ def run(path: Path, block_size: int) -> dict:
         block_differences[group] = differences.tolist()
         rows.append({
             "circuit_group": group,
-            "rounds": rounds,
+            "syndrome_measurement_rounds": rounds,
+            "decoding_rounds": rounds - 1,
             "shots": len(labels),
             "uniform_error": float(np.mean(uniform != labels)),
             "typed_error": float(np.mean(typed != labels)),
@@ -61,7 +62,7 @@ def run(path: Path, block_size: int) -> dict:
             "uniform_vectorized_ns_per_shot": uniform_timing["vectorized_ns_per_shot"],
             "typed_vectorized_ns_per_shot": typed_timing["vectorized_ns_per_shot"],
         })
-    primary = max(rows, key=lambda row: row["rounds"])
+    primary = max(rows, key=lambda row: row["decoding_rounds"])
     try:
         commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     except (OSError, subprocess.CalledProcessError):

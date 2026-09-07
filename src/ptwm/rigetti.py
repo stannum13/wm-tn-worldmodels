@@ -156,6 +156,108 @@ def detector_geometry(circuit: object) -> np.ndarray:
     return np.asarray([coordinates[index][:3] for index in range(len(coordinates))], dtype=float)
 
 
+def spitz_pair_probability(first: np.ndarray, second: np.ndarray) -> float:
+    """Invert two defect moments into an independent pair-event probability.
+
+    This is Eq. (3) of Spitz et al., Adv. Quantum Technol. 1, 1800012
+    (2018). A negative radicand is returned as NaN so callers must declare their
+    finite-sample regularization instead of receiving a silent clip.
+    """
+    first, second = np.asarray(first, dtype=bool), np.asarray(second, dtype=bool)
+    if first.shape != second.shape:
+        raise ValueError("defect arrays must have the same shape")
+    covariance = np.mean(first & second) - np.mean(first) * np.mean(second)
+    denominator = 1.0 - 2.0 * np.mean(first ^ second)
+    if denominator <= 0.0:
+        return float("nan")
+    radicand = 0.25 - covariance / denominator
+    if radicand < 0.0:
+        return float("nan")
+    return float(0.5 - np.sqrt(radicand))
+
+
+def spitz_boundary_probability(defect: np.ndarray, incident_pair_probabilities: list[float]) -> float:
+    """Infer the single-defect boundary-event probability after pair edges."""
+    product = float(np.prod([1.0 - 2.0 * probability for probability in incident_pair_probabilities]))
+    if product <= 0.0:
+        return float("nan")
+    return float(0.5 + (np.mean(np.asarray(defect, dtype=bool)) - 0.5) / product)
+
+
+def fit_spitz_pairwise_matching(
+    template_matching: object, calibration_detectors: np.ndarray, *,
+    floor_probability: float = 1e-4, ceiling_probability: float = 0.49,
+) -> tuple[object, dict[str, int | float]]:
+    """Fit Spitz pairwise probabilities on a fixed, circuit-derived graph.
+
+    The graph topology and logical fault IDs come only from ``template_matching``.
+    Finite-sample invalid or sub-floor estimates use the declared global floor.
+    """
+    try:
+        import pymatching
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Install the 'real' optional dependencies for PyMatching") from exc
+    if not 0.0 < floor_probability < ceiling_probability < 0.5:
+        raise ValueError("probability bounds must satisfy 0 < floor < ceiling < 0.5")
+    detectors = np.asarray(calibration_detectors, dtype=bool)
+    if detectors.ndim != 2 or detectors.shape[1] != template_matching.num_detectors:
+        raise ValueError("calibration detector width must match the template graph")
+
+    fitted = pymatching.Matching()
+    incident: dict[int, list[float]] = {node: [] for node in range(template_matching.num_detectors)}
+    boundary_edges = []
+    invalid = clipped_low = clipped_high = 0
+    pair_edges = 0
+    for first, second, attributes in template_matching.edges():
+        if second is None:
+            boundary_edges.append((first, attributes))
+            continue
+        raw = spitz_pair_probability(detectors[:, first], detectors[:, second])
+        if not np.isfinite(raw):
+            invalid += 1
+            raw = floor_probability
+        if raw < floor_probability:
+            clipped_low += 1
+        if raw > ceiling_probability:
+            clipped_high += 1
+        probability = float(np.clip(raw, floor_probability, ceiling_probability))
+        weight = float(np.log((1.0 - probability) / probability))
+        fitted.add_edge(
+            first, second, fault_ids=attributes["fault_ids"], weight=weight,
+            error_probability=probability,
+        )
+        incident[first].append(probability)
+        incident[second].append(probability)
+        pair_edges += 1
+
+    for node, attributes in boundary_edges:
+        raw = spitz_boundary_probability(detectors[:, node], incident[node])
+        if not np.isfinite(raw):
+            invalid += 1
+            raw = floor_probability
+        if raw < floor_probability:
+            clipped_low += 1
+        if raw > ceiling_probability:
+            clipped_high += 1
+        probability = float(np.clip(raw, floor_probability, ceiling_probability))
+        weight = float(np.log((1.0 - probability) / probability))
+        fitted.add_boundary_edge(
+            node, fault_ids=attributes["fault_ids"], weight=weight,
+            error_probability=probability,
+        )
+
+    return fitted, {
+        "pair_edges": pair_edges,
+        "boundary_edges": len(boundary_edges),
+        "invalid_estimates": invalid,
+        "clipped_low": clipped_low,
+        "clipped_high": clipped_high,
+        "calibration_shots": len(detectors),
+        "floor_probability": floor_probability,
+        "ceiling_probability": ceiling_probability,
+    }
+
+
 def local_detector_pairs(
     circuit: object, *, maximum_time_lag: float = 1.0, maximum_spatial_distance: float = 2.01
 ) -> np.ndarray:

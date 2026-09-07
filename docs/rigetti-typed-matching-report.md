@@ -14,11 +14,11 @@ percentage-point or 0.54% relative reduction. The corrected paired interval acro
 (45.8 versus 45.4 us/shot in these calls).
 
 This is a **NO-GO on stability-9 alone**. The direction is physically plausible—CZ
-errors receive the highest selected rate—but neither the effect size nor uncertainty
-supports a claim. Further tuning on the already observed test session is prohibited.
-The exact triplet is frozen for transfer to the independent stability-8-with-resets
-acquisition. A positive transfer result would justify continuous drift estimation of
-these three slow graph parameters; a negative result ends the typed-rate branch.
+errors receive the highest selected effective weight—but neither the effect size nor
+uncertainty supports a claim. Further tuning on the already observed test session is
+prohibited. Frozen transfer to the independent stability-8-with-resets acquisition
+then significantly harmed the locked 23-decoding-round endpoint, ending the global
+typed-rate branch; see the [transfer report](rigetti-matching-transfer-report.md).
 
 Machine-readable results are in
 [`results/rigetti_typed_matching.json`](../results/rigetti_typed_matching.json).

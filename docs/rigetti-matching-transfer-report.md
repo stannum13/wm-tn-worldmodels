@@ -16,14 +16,14 @@ per-shot timestamps, so row order is not asserted to be wall-clock chronology.
 
 ## Result
 
-| Rounds | Uniform error | Frozen typed error | Absolute reduction | Relative reduction | Paired 95% interval |
+| Decoding rounds | Uniform error | Frozen typed error | Absolute reduction | Relative reduction | Paired 95% interval |
 |---:|---:|---:|---:|---:|---:|
-| 4 | 30.215% | 29.207% | +1.008 pp | +3.34% | +0.877 to +1.139 pp |
-| 8 | 25.045% | 24.877% | +0.168 pp | +0.67% | +0.041 to +0.295 pp |
-| 12 | 21.295% | 21.466% | -0.171 pp | -0.80% | -0.298 to -0.044 pp |
-| 16 | 19.962% | 20.216% | -0.254 pp | -1.27% | -0.383 to -0.125 pp |
-| 20 | 18.325% | 18.562% | -0.237 pp | -1.29% | -0.365 to -0.109 pp |
-| **24 (primary)** | **16.822%** | **16.993%** | **-0.171 pp** | **-1.02%** | **-0.297 to -0.045 pp** |
+| 3 | 30.215% | 29.207% | +1.008 pp | +3.34% | +0.877 to +1.139 pp |
+| 7 | 25.045% | 24.877% | +0.168 pp | +0.67% | +0.041 to +0.295 pp |
+| 11 | 21.295% | 21.466% | -0.171 pp | -0.80% | -0.298 to -0.044 pp |
+| 15 | 19.962% | 20.216% | -0.254 pp | -1.27% | -0.383 to -0.125 pp |
+| 19 | 18.325% | 18.562% | -0.237 pp | -1.29% | -0.365 to -0.109 pp |
+| **23 (primary)** | **16.822%** | **16.993%** | **-0.171 pp** | **-1.02%** | **-0.297 to -0.045 pp** |
 
 The frozen branch is a **NO-GO**. Its shallow-circuit gains reverse by 12 rounds and
 the locked primary endpoint shows statistically resolved harm. Looking only at the

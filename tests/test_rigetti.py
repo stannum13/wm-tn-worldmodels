@@ -5,9 +5,55 @@ from ptwm.rigetti import (
     block_score_differences,
     chronological_block_error_differences,
     chronological_preparation_split,
+    spitz_pair_probability,
+    spitz_boundary_probability,
     fit_iq_heads,
+    fit_spitz_pairwise_matching,
     probability_metrics,
 )
+
+
+def test_spitz_pair_probability_recovers_independent_edge_rate():
+    rng = np.random.default_rng(17)
+    shots = 1_000_000
+    shared = rng.random(shots) < 0.08
+    first = shared ^ (rng.random(shots) < 0.03)
+    second = shared ^ (rng.random(shots) < 0.05)
+    estimate = spitz_pair_probability(first, second)
+    assert abs(estimate - 0.08) < 0.002
+
+
+def test_spitz_boundary_probability_recovers_single_defect_rate():
+    rng = np.random.default_rng(23)
+    shots = 1_000_000
+    shared = rng.random(shots) < 0.08
+    boundary = rng.random(shots) < 0.03
+    first = shared ^ boundary
+    estimate = spitz_boundary_probability(first, [0.08])
+    assert abs(estimate - 0.03) < 0.002
+
+
+def test_pairwise_matching_fit_preserves_topology_and_fault_ids():
+    import pymatching
+
+    rng = np.random.default_rng(29)
+    shots = 1_000_000
+    shared = rng.random(shots) < 0.08
+    detectors = np.c_[
+        shared ^ (rng.random(shots) < 0.03),
+        shared ^ (rng.random(shots) < 0.05),
+    ]
+    template = pymatching.Matching()
+    template.add_edge(0, 1, fault_ids={0}, error_probability=0.1)
+    template.add_boundary_edge(0, error_probability=0.1)
+    template.add_boundary_edge(1, error_probability=0.1)
+    fitted, diagnostics = fit_spitz_pairwise_matching(
+        template, detectors, floor_probability=1e-4
+    )
+    assert fitted.get_edge_data(0, 1)["fault_ids"] == {0}
+    assert abs(fitted.get_edge_data(0, 1)["error_probability"] - 0.08) < 0.002
+    assert diagnostics["pair_edges"] == 1
+    assert diagnostics["boundary_edges"] == 2
 
 
 def test_chronological_split_preserves_both_classes_without_overlap():
