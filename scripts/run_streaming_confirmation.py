@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from concurrent.futures import ProcessPoolExecutor
 from datetime import datetime, timezone
@@ -71,8 +72,13 @@ def run(workers: int) -> dict:
         key = min(row["results"], key=lambda k: abs(int(k) - target))
         effects.append(row["results"][key]["relative_reduction_mean"])
     effects = np.asarray(effects)
+    try:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    except (OSError, subprocess.CalledProcessError):
+        commit = "unknown"
     return {
         "schema_version": 1,
+        "code_commit": commit,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "design": {"instances": len(specs), "development_seeds_per_instance": 5, "confirmation_seeds_per_instance": 10, "workers": workers},
         "instances": output,

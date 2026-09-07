@@ -57,3 +57,31 @@ magnitude and incurred-cost metrics: at long delays the forecast often chooses a
 soft action, which the current thresholded diagnostic records as no action. Add a direct
 history-aware policy and mismatched-model conditions. Only then extend the successful
 regime to a backaction-consistent quantum trajectory and actual closed-loop fidelity.
+
+## Parameter-family confirmation
+
+A follow-up run froze the comparator using five development seeds for each of eight
+new process settings, then evaluated ten separate seeds. The settings crossed two
+signal amplitudes (0.4 and 0.8), two mean fault dwell times (about 17 and 50 samples),
+and detector-artifact rates of 0.005 and 0.02. Delays were normalized to each fault
+dwell time. The run used commit `8b66ff404a2510232f58365b4c9c69944d5d485f`
+on the same GCP VM and consumed 2 minutes 38 seconds wall time across eight workers.
+
+| Delay / mean fault dwell | Mean relative reduction across eight instances | 95% t interval across instances |
+|---:|---:|---:|
+| 0.10 | -5.0% | -26.7–16.7% |
+| 0.25 | -0.5% | -18.0–17.0% |
+| 0.50 | 7.2% | -7.2–21.6% |
+| 1.00 | 18.8% | 13.2–24.4% |
+
+The follow-up does **not** confirm a general 20% benefit. One low-signal,
+high-artifact instance was 52% worse at a quarter dwell time. At a full dwell time,
+all instance means were positive but the cross-instance mean remained below the
+minimum worthwhile effect. The first screen therefore located a favorable operating
+point; it did not establish robust superiority.
+
+The next mechanistic comparison should replace the Gaussian HMM emission with a
+robust contamination model while keeping its transition forecast fixed. This directly
+tests whether the observed failure comes from corrupted state estimation rather than
+from the forecasting idea. The full confirmation record is
+[`results/streaming_confirmation.json`](../results/streaming_confirmation.json).
