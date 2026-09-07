@@ -100,6 +100,8 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
     fused_matching_ns = np.empty(len(test))
     maximum_weight_difference = 0.0
     disagreements = 0
+    composed_updates = []
+    fused_updates = []
     def composed_update(row: int) -> np.ndarray:
         probability = packed_head.predict(record["soft_measurements"][row])
         error = np.where(
@@ -124,26 +126,28 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
         )
         if np.any(fused[:, 2] < 0) or np.any(fused[:, 2] > maximum_weight):
             raise RuntimeError("fused weights escaped the seeded Tier-1 range")
+        composed_updates.append(composed)
+        fused_updates.append(fused)
 
-        # Time identical matching inputs in alternating order, separately from
-        # the direct end-to-end pipeline timings below.
+    # Separate full passes prevent an immediately repeated decode of the same
+    # syndrome from contaminating the next timing. AB/BA alternation balances order.
+    for position in range(len(test)):
         if position % 2 == 0:
             started = perf_counter_ns()
-            matching.decode(detectors[position], edge_reweights=composed)
+            matching.decode(detectors[position], edge_reweights=composed_updates[position])
             composed_matching_ns[position] = perf_counter_ns() - started
             started = perf_counter_ns()
-            matching.decode(detectors[position], edge_reweights=fused)
+            matching.decode(detectors[position], edge_reweights=fused_updates[position])
             fused_matching_ns[position] = perf_counter_ns() - started
         else:
             started = perf_counter_ns()
-            matching.decode(detectors[position], edge_reweights=fused)
+            matching.decode(detectors[position], edge_reweights=fused_updates[position])
             fused_matching_ns[position] = perf_counter_ns() - started
             started = perf_counter_ns()
-            matching.decode(detectors[position], edge_reweights=composed)
+            matching.decode(detectors[position], edge_reweights=composed_updates[position])
             composed_matching_ns[position] = perf_counter_ns() - started
 
-        # Alternate order to avoid consistently giving either path the second-decode
-        # cache/thermal position. Pipeline timings include fresh front-end execution.
+    for position, row in enumerate(test):
         if position % 2 == 0:
             started = perf_counter_ns()
             first = matching.decode(
