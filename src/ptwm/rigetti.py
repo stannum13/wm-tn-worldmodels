@@ -785,6 +785,50 @@ def beam_vertex_separation_order(
     }
 
 
+def graph_width_lower_bounds(matching: object) -> dict[str, int]:
+    """Return deterministic topology-only lower bounds on graph treewidth."""
+    original = {node: set() for node in range(matching.num_nodes)}
+    for first, second, _ in matching.edges():
+        if second is not None and first != second:
+            original[first].add(second)
+            original[second].add(first)
+
+    # Degeneracy is the maximum minimum degree across successive vertex deletions.
+    deletion = {node: set(neighbours) for node, neighbours in original.items()}
+    degeneracy = 0
+    while deletion:
+        vertex = min(deletion, key=lambda node: (len(deletion[node]), node))
+        degeneracy = max(degeneracy, len(deletion[vertex]))
+        for neighbour in deletion.pop(vertex):
+            deletion[neighbour].discard(vertex)
+
+    # Minor-min-width contracts a minimum-degree vertex into its minimum-degree
+    # neighbour. Every intermediate graph is a minor, so its minimum degree is a
+    # lower bound on the original graph's treewidth.
+    contraction = {node: set(neighbours) for node, neighbours in original.items()}
+    minor_min_width = 0
+    while contraction:
+        vertex = min(contraction, key=lambda node: (len(contraction[node]), node))
+        neighbours = contraction[vertex]
+        minor_min_width = max(minor_min_width, len(neighbours))
+        if not neighbours:
+            contraction.pop(vertex)
+            continue
+        target = min(neighbours, key=lambda node: (len(contraction[node]), node))
+        merged = (contraction[target] | neighbours) - {vertex, target}
+        contraction.pop(vertex)
+        contraction[target] = merged
+        for node, adjacent in contraction.items():
+            if vertex in adjacent:
+                adjacent.discard(vertex)
+                if node != target:
+                    adjacent.add(target)
+            if node in merged:
+                adjacent.add(target)
+        contraction[target].discard(target)
+    return {"degeneracy": degeneracy, "minor_min_width": minor_min_width}
+
+
 def compile_frontier_decoder(
     matching: object, detector_coordinates: dict[int, list[float]], *,
     order: list[int] | tuple[int, ...] | None = None,

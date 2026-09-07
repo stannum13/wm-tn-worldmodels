@@ -1,11 +1,11 @@
 {
   "calibration_parameters": 24,
   "candidate_logical_error": 0.195,
-  "code_commit": "2d2f561",
+  "code_commit": "c6b4874",
   "compiled_batch_prediction_disagreements": 0,
   "compiled_logical_error": 0.182775,
   "compiled_prediction_disagreements": 0,
-  "created_at": "2026-09-07T22:19:18.954683+00:00",
+  "created_at": "2026-09-07T22:37:35.015460+00:00",
   "data": {
     "circuit_group": "circuit_24",
     "file": "stability_8_without_resets_raw_data.h5",
@@ -27,7 +27,9 @@
   },
   "frontier": {
     "maximum_active_separator": 8,
-    "maximum_logical_parity_states": 512
+    "maximum_bag_width": 9,
+    "maximum_peak_states": 1024,
+    "maximum_retained_states": 512
   },
   "graph": {
     "boundary_edges": 16,
@@ -40,22 +42,22 @@
     "pair_edges": 384
   },
   "latency": {
-    "compiled_frontier_batch_amortized_ns_per_record": 514230.8469,
+    "compiled_frontier_batch_amortized_ns_per_record": 515917.104725,
     "compiled_frontier_batch_one": {
-      "p50_ns": 522040.0,
-      "p95_ns": 551530.5,
-      "p99_ns": 706598.1900000015
+      "p50_ns": 515620.0,
+      "p95_ns": 544180.5,
+      "p99_ns": 699063.2000000007
     },
-    "compiled_frontier_batch_total_ns": 20569233876.0,
+    "compiled_frontier_batch_total_ns": 20636684189.0,
     "python_frontier_decode": {
-      "p50_ns": 174217825.0,
-      "p95_ns": 176185780.5,
-      "p99_ns": 177289591.69
+      "p50_ns": 172005050.0,
+      "p95_ns": 174388360.45,
+      "p99_ns": 174983299.79
     },
     "reference_rebuild_and_decode": {
-      "p50_ns": 3058024.5,
-      "p95_ns": 3328364.5499999993,
-      "p99_ns": 3870947.9900000035
+      "p50_ns": 2985340.0,
+      "p95_ns": 3253174.4999999995,
+      "p99_ns": 3780173.000000001
     }
   },
   "maximum_compiled_batch_margin_difference": 0.0,

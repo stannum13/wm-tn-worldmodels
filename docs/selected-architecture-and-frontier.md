@@ -99,8 +99,8 @@ therefore rejected as the primary fix.
 
 An independent exact temporal-frontier dynamic program also reproduces every one of
 the 80,000 held-out matching decisions. Natural-order retained separators are 5 and
-8, with transient peak buffers of 128 and 1,024 states. Throughput is 50.77 us/record
-with resets but 514.23 us/record without resets. It remains an exact oracle and a
+8, with transient peak buffers of 128 and 1,024 states. Throughput is 50.52 us/record
+with resets but 515.92 us/record without resets. It remains an exact oracle and a
 pathwidth diagnostic, but is rejected as the general deployment path; see the
 [frontier-decoder report](rigetti-frontier-decoder-report.md).
 

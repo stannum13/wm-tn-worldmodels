@@ -66,8 +66,8 @@ Measurements use the same GCP CPU campaign host and exclude compilation.
 
 | session | frontier amortized | batch-one p50 / p99 | mutable matching | record cadence |
 |---|---:|---:|---:|---:|
-| with resets | 50.77 us | 51.40 / 72.32 us | 34.80 us | 39.1 us |
-| without resets | 514.23 us | 522.04 / 706.60 us | 69.80 us | 42.5 us |
+| with resets | 50.52 us | 51.32 / 70.80 us | 34.80 us | 39.1 us |
+| without resets | 515.92 us | 515.62 / 699.06 us | 69.80 us | 42.5 us |
 
 **Semantic GO:** this is an independent exact oracle for the selected graph-and-weight
 objective and removes reconstruction overhead.

@@ -22,6 +22,7 @@ from ptwm.rigetti import (
     pack_soft_reweighting,
     temporal_vertex_separation,
     beam_vertex_separation_order,
+    graph_width_lower_bounds,
     compile_frontier_decoder,
     pack_full_edge_weights,
 )
@@ -204,6 +205,16 @@ def test_beam_vertex_separation_order_improves_bad_path_order():
     )
     assert audit["maximum_active_separator"] == 1
     assert result["maximum_bag_width"] == 2
+
+
+def test_graph_width_lower_bounds_for_clique():
+    pymatching = pytest.importorskip("pymatching")
+    matching = pymatching.Matching()
+    for first in range(4):
+        for second in range(first + 1, 4):
+            matching.add_edge(first, second)
+    bounds = graph_width_lower_bounds(matching)
+    assert bounds == {"degeneracy": 3, "minor_min_width": 3}
 
 
 def test_frontier_decoder_matches_pymatching_on_small_graph():

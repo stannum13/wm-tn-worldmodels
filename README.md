@@ -97,7 +97,7 @@ causal-filtering baselines under matched observation access.
   arrivals, and still miss the 39.1/42.5-us throughput budgets.
   Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
 - An exact compiled temporal-frontier decoder has zero disagreements with reconstructed
-  matching on the same 80,000 records. Its 50.77/514.23-us throughput exposes the
+  matching on the same 80,000 records. Its 50.52/515.92-us throughput exposes the
   exponential separator-width boundary: it is a semantic/oracle GO but a deployment
   NO-GO against mutable matching. See the
   [frontier-decoder report](docs/rigetti-frontier-decoder-report.md).

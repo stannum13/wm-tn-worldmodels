@@ -16,6 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
     beam_vertex_separation_order,
+    graph_width_lower_bounds,
     load_qec_record,
     temporal_vertex_separation,
     typed_circuit_noise_model,
@@ -48,6 +49,8 @@ def run(path: Path, circuit_group: str, beam_widths: list[int]) -> dict:
             checked["active_separator_trace"][:-1], default=0
         ) + 1
         searches.append(result)
+        if result["verified_maximum_bag_width"] <= 6:
+            break
     best = min(searches, key=lambda row: (
         row["verified_maximum_bag_width"], row["beam_width"]
     ))
@@ -72,6 +75,7 @@ def run(path: Path, circuit_group: str, beam_widths: list[int]) -> dict:
             "circuit_group": circuit_group,
         },
         "graph": {"nodes": matching.num_nodes, "edges": matching.num_edges},
+        "treewidth_lower_bounds": graph_width_lower_bounds(matching),
         "method": (
             "deterministic topology-only beam search; no labels, syndromes, or "
             "edge weights; heuristic upper bounds, not optimality certificates"
