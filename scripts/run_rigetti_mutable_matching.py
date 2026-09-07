@@ -17,6 +17,9 @@ from time import perf_counter_ns
 
 import numpy as np
 
+MUTABLE_BACKEND_URL = "https://github.com/Allenator/PyMatching"
+MUTABLE_BACKEND_COMMIT = "435dc7ec85c10314c09f069a3d924d3a3dee8251"
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
     build_soft_reweighted_matching,
@@ -103,6 +106,15 @@ def run(
             float(attributes["weight"])
         for first, second, attributes in pairwise.edges()
     }
+    if len(base_edge_weights) != pairwise.num_edges:
+        raise RuntimeError("mutable adapter requires endpoint-unique matching edges")
+    dummy_rows = [
+        (first, second, attributes)
+        for first, second, attributes in pairwise.edges()
+        if first == dummy_node or second == dummy_node
+    ]
+    if len(dummy_rows) != 1 or dummy_rows[0][1] is not None or dummy_rows[0][2]["fault_ids"]:
+        raise RuntimeError("normalisation dummy must be one empty-fault boundary edge")
     started = perf_counter_ns()
     update_matrix = soft_reweight_matrix(plan, measurement_error[test])
     update_total_ns = perf_counter_ns() - started
@@ -121,6 +133,9 @@ def run(
     detectors = np.pad(
         record["detectors"][test].astype(np.uint8), ((0, 0), (0, 1))
     )
+    if np.any(detectors[:, dummy_node]):
+        raise RuntimeError("normalisation dummy syndrome must remain zero")
+    base_before = np.asarray(pairwise.decode_batch(detectors[:check_count]))[:, 0]
     batch_call_ns = np.empty(batch_repeats)
     mutable = None
     repeated_disagreements = 0
@@ -147,6 +162,7 @@ def run(
         started = perf_counter_ns()
         pairwise.decode(detectors[position], edge_reweights=updates[position])
         mutable_call_ns[position] = perf_counter_ns() - started
+    base_after = np.asarray(pairwise.decode_batch(detectors[:check_count]))[:, 0]
 
     edge_weights_after = {
         (int(first), None if second is None else int(second)):
@@ -155,6 +171,8 @@ def run(
     }
     base_max_weight = max(base_edge_weights.values())
     update_maxima = np.asarray([np.max(array[:, 2]) for array in updates])
+    if np.any(update_matrix[:, :, 2] < 0) or np.any(update_maxima > maximum_weight):
+        raise RuntimeError("dynamic weights escaped the nonnegative clipped seed range")
     commit = os.environ.get("PTWM_CODE_COMMIT")
     if not commit:
         try:
@@ -171,6 +189,12 @@ def run(
             "python": sys.version,
             "platform": platform.platform(),
             "pymatching_module": str(Path(pymatching.__file__).resolve()),
+            "pymatching_fork_url": MUTABLE_BACKEND_URL,
+            "pymatching_fork_commit": MUTABLE_BACKEND_COMMIT,
+            "pymatching_install": (
+                f"python -m pip install git+{MUTABLE_BACKEND_URL}.git@"
+                f"{MUTABLE_BACKEND_COMMIT}"
+            ),
         },
         "data": {
             "source": "https://zenodo.org/records/15364358",
@@ -201,6 +225,9 @@ def run(
             "shots": check_count,
             "prediction_disagreements": int(np.sum(reference != mutable[:check_count])),
             "prediction_disagreements_across_batch_repeats": repeated_disagreements,
+            "base_prediction_disagreements_after_restore": int(np.sum(
+                base_before != base_after
+            )),
         },
         "logical_error": float(np.mean(mutable != labels[test])),
         "latency": {
