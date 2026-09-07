@@ -40,6 +40,10 @@ causal-filtering baselines under matched observation access.
 - Static circuit-local pair and cumulative-parity expansions also fail to close the
   gap to released MWPM. See the
   [graph-feature report](docs/rigetti-graph-feature-report.md).
+- A 31-parameter categorical syndrome model recovers 14.1% of that gap, but adding
+  temporal Markov order hurts. This is below the 20% gate and redirects work to a true
+  matching baseline. See the
+  [Markov decoder report](docs/rigetti-markov-decoder-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
