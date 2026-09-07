@@ -257,6 +257,63 @@ def timed_markov_prediction(
     }
 
 
+def uniform_circuit_noise_model(circuit: object, probability: float) -> object:
+    """Build a transparent circuit-level noise control when no calibrated DEM ships."""
+    try:
+        import stim
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Install the 'real' optional dependencies for Stim") from exc
+    noisy = stim.Circuit()
+    single_qubit_gates = {
+        "H", "H_XY", "S", "S_DAG", "SQRT_X", "SQRT_X_DAG", "X", "Y", "Z"
+    }
+    two_qubit_gates = {"CX", "CY", "CZ", "XCX", "XCY", "XCZ", "YCX", "YCY", "YCZ"}
+    reset_gates = {"R", "RX", "RY"}
+    measure_reset_gates = {"MR", "MRX", "MRY"}
+    for instruction in circuit.flattened():
+        targets = instruction.targets_copy()
+        if instruction.name in {"M", *measure_reset_gates}:
+            noisy.append("X_ERROR", targets, probability)
+            noisy.append(instruction)
+            if instruction.name in measure_reset_gates:
+                noisy.append("X_ERROR", targets, probability)
+        else:
+            noisy.append(instruction)
+            if instruction.name in two_qubit_gates:
+                noisy.append("DEPOLARIZE2", targets, probability)
+            elif instruction.name in single_qubit_gates:
+                noisy.append("DEPOLARIZE1", targets, probability)
+            elif instruction.name in reset_gates:
+                noisy.append("X_ERROR", targets, probability)
+    return noisy.detector_error_model(decompose_errors=True)
+
+
+def matching_predictions(
+    circuit: object, detectors: np.ndarray, *, probability: float
+) -> tuple[np.ndarray, dict[str, float]]:
+    """Decode with PyMatching using the explicit uniform circuit-noise control."""
+    try:
+        import pymatching
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Install the 'real' optional dependencies for PyMatching") from exc
+    model = uniform_circuit_noise_model(circuit, probability)
+    matching = pymatching.Matching.from_detector_error_model(model)
+    started = perf_counter_ns()
+    prediction = matching.decode_batch(np.asarray(detectors, dtype=np.uint8))
+    batch_ns = (perf_counter_ns() - started) / len(detectors)
+    calls = []
+    for row in detectors[: min(2000, len(detectors))]:
+        started = perf_counter_ns()
+        matching.decode(np.asarray(row, dtype=np.uint8))
+        calls.append(perf_counter_ns() - started)
+    return np.asarray(prediction)[:, 0].astype(float), {
+        "vectorized_ns_per_shot": float(batch_ns),
+        "python_batch_one_p50_ns": float(np.quantile(calls, 0.50)),
+        "python_batch_one_p99_ns": float(np.quantile(calls, 0.99)),
+        "detector_error_model_terms": len(model),
+    }
+
+
 def chronological_preparation_split(labels: np.ndarray, train_fraction: float = 0.6) -> tuple[np.ndarray, np.ndarray]:
     """Take the early portion of each prepared-state trace for train, later for test."""
     labels = np.asarray(labels)

@@ -10,6 +10,7 @@ from ptwm.rigetti import (
     fit_markov_syndrome_decoder,
     local_detector_pairs,
     local_pair_features,
+    matching_predictions,
     soft_detector_probabilities,
 )
 
@@ -58,3 +59,17 @@ def test_markov_decoder_uses_sequence_dynamics_not_only_symbol_counts():
     markov_error = np.mean((markov.predict(symbols) >= 0.5) != labels)
     assert iid_error >= 0.49
     assert markov_error == 0.0
+
+
+def test_uniform_noise_matching_decodes_generated_repetition_data():
+    circuit = stim.Circuit.generated(
+        "repetition_code:memory", distance=3, rounds=3,
+        after_clifford_depolarization=0.01,
+        before_measure_flip_probability=0.01,
+    )
+    detectors, observables = circuit.compile_detector_sampler(seed=1).sample(
+        200, separate_observables=True
+    )
+    prediction, info = matching_predictions(circuit.without_noise(), detectors, probability=0.01)
+    assert np.mean(prediction != observables[:, 0]) < 0.1
+    assert info["detector_error_model_terms"] > 0
