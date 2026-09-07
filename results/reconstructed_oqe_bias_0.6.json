@@ -1,0 +1,23 @@
+{
+  "bias": 0.6,
+  "rb_test_rmse": 0.06949982646422194,
+  "runs": [
+    {
+      "epochs_completed": 80,
+      "gated_hybrid_weight": 0.0,
+      "hybrid_test_mae": 0.055833025821181125,
+      "hybrid_test_rmse": 0.06949982646422194,
+      "memory_dimension": 1,
+      "parameter_count": 4,
+      "seed": 0,
+      "test_mae": 0.25404611229896545,
+      "test_rmse": 0.29793670773506165,
+      "validation_hybrid_weight": 0.015749340131841698,
+      "validation_mae": 0.26631373167037964,
+      "validation_rmse": 0.3196414113044739
+    }
+  ],
+  "test_rows": 4000,
+  "train_rows": 4680,
+  "validation_rows": 3120
+}

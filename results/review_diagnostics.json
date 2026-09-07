@@ -1,0 +1,307 @@
+{
+  "protocol": {
+    "calibration_lengths": [
+      21,
+      40
+    ],
+    "calibration_parameters": [
+      "per_step_retention",
+      "report_zero_given_zero",
+      "report_zero_given_one"
+    ],
+    "condition": "idle100",
+    "existing_hybrid_gate_threshold": 0.5,
+    "forecast_lengths": [
+      41,
+      60
+    ],
+    "limitations": [
+      "Released OQE parameters are not retrained; only output calibration is fitted.",
+      "Release prediction/target row alignment is assumed, not independently verified here.",
+      "Calibration parameters need not equal physical device parameters.",
+      "Per-length mean prediction is an evaluation decomposition, not a deployed predictor.",
+      "Permutation quantity is the analytic square root of expected MSE, not expected RMSE.",
+      "No independent test, memory witness, or active-mixing transfer claim is made."
+    ],
+    "status": "exploratory_diagnostic_on_previously_examined_test_data"
+  },
+  "rows": [
+    {
+      "bias": "0.1",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.9512424614396936,
+          0.9999999999999999,
+          0.6172446344113467
+        ],
+        "depolarization_readout_test_rmse": 0.06488486361469051,
+        "depolarization_readout_validation_rmse": 0.045074969731635973,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.8456586485390257,
+          0.8147071180493611
+        ],
+        "readout_only_test_rmse": 0.0787632525338433,
+        "readout_only_validation_rmse": 0.0477578006955305
+      },
+      "dimension": 1,
+      "gated_weight": 0.0,
+      "sequence_audit": {
+        "hybrid_rmse": 0.054992501777362264,
+        "mse_gain_from_mean_correction": 8.673617379884035e-19,
+        "mse_gain_from_sequence_correction": -8.673617379884035e-19,
+        "prediction_length_mean_only_rmse": 0.05499250177736226,
+        "rb_rmse": 0.054992501777362264,
+        "sqrt_expected_within_length_permutation_mse": 0.05499250177736226,
+        "within_length_correlation": null
+      },
+      "validation_weight": 0.0
+    },
+    {
+      "bias": "0.1",
+      "dimension": 6,
+      "gated_weight": 0.0,
+      "sequence_audit": {
+        "hybrid_rmse": 0.054992501777362264,
+        "mse_gain_from_mean_correction": 8.673617379884035e-19,
+        "mse_gain_from_sequence_correction": -8.673617379884035e-19,
+        "prediction_length_mean_only_rmse": 0.05499250177736226,
+        "rb_rmse": 0.054992501777362264,
+        "sqrt_expected_within_length_permutation_mse": 0.05499250177736226,
+        "within_length_correlation": null
+      },
+      "validation_weight": 0.02051816991034911
+    },
+    {
+      "bias": "0.4",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.9881276699262551,
+          0.9969475873900612,
+          0.15578269464537503
+        ],
+        "depolarization_readout_test_rmse": 0.08673926633347741,
+        "depolarization_readout_validation_rmse": 0.06960932720045104,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.8679937995691606,
+          0.2831576271648064
+        ],
+        "readout_only_test_rmse": 0.09574485360056686,
+        "readout_only_validation_rmse": 0.07104483896384677
+      },
+      "dimension": 1,
+      "gated_weight": 0.5019068550194365,
+      "sequence_audit": {
+        "hybrid_rmse": 0.0913577234439705,
+        "mse_gain_from_mean_correction": -0.0010456234141916314,
+        "mse_gain_from_sequence_correction": 0.01248815142675449,
+        "prediction_length_mean_only_rmse": 0.14434121053815327,
+        "rb_rmse": 0.14067253337246705,
+        "sqrt_expected_within_length_permutation_mse": 0.1808742935972166,
+        "within_length_correlation": 0.7995828579175142
+      },
+      "validation_weight": 0.5019068550194365
+    },
+    {
+      "bias": "0.4",
+      "dimension": 6,
+      "gated_weight": 0.7292758871101183,
+      "sequence_audit": {
+        "hybrid_rmse": 0.10099433276792275,
+        "mse_gain_from_mean_correction": 9.635679387515195e-05,
+        "mse_gain_from_sequence_correction": 0.00949254960031479,
+        "prediction_length_mean_only_rmse": 0.14032962927177106,
+        "rb_rmse": 0.14067253337246705,
+        "sqrt_expected_within_length_permutation_mse": 0.17291539321869248,
+        "within_length_correlation": 0.6973601331145015
+      },
+      "validation_weight": 0.7292758871101183
+    },
+    {
+      "bias": "0.5",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.991242372989792,
+          0.9416014432072576,
+          1.457794200546392e-14
+        ],
+        "depolarization_readout_test_rmse": 0.07739229129522507,
+        "depolarization_readout_validation_rmse": 0.07954910712741059,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.8288922697643124,
+          0.11377042836666006
+        ],
+        "readout_only_test_rmse": 0.08713744856875943,
+        "readout_only_validation_rmse": 0.08028929779146474
+      },
+      "dimension": 1,
+      "gated_weight": 0.6983925760741101,
+      "sequence_audit": {
+        "hybrid_rmse": 0.08799504026553634,
+        "mse_gain_from_mean_correction": -0.00036065344515971015,
+        "mse_gain_from_sequence_correction": 0.02625592940198601,
+        "prediction_length_mean_only_rmse": 0.18438833074063926,
+        "rb_rmse": 0.18340775083992406,
+        "sqrt_expected_within_length_permutation_mse": 0.27229349078878234,
+        "within_length_correlation": 0.9059202309689142
+      },
+      "validation_weight": 0.6983925760741101
+    },
+    {
+      "bias": "0.5",
+      "dimension": 6,
+      "gated_weight": 0.8873327663166387,
+      "sequence_audit": {
+        "hybrid_rmse": 0.10042184845469102,
+        "mse_gain_from_mean_correction": -0.0004736271471159764,
+        "mse_gain_from_sequence_correction": 0.02402748256821871,
+        "prediction_length_mean_only_rmse": 0.1846944238878793,
+        "rb_rmse": 0.18340775083992406,
+        "sqrt_expected_within_length_permutation_mse": 0.25508434660434487,
+        "within_length_correlation": 0.8542632094626991
+      },
+      "validation_weight": 0.8873327663166387
+    },
+    {
+      "bias": "0.52",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.9883080368742442,
+          0.9308339681249336,
+          2.346705181550636e-16
+        ],
+        "depolarization_readout_test_rmse": 0.07765847340063106,
+        "depolarization_readout_validation_rmse": 0.08057455951898976,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.7883509848367173,
+          0.14307626812506807
+        ],
+        "readout_only_test_rmse": 0.08939840464055719,
+        "readout_only_validation_rmse": 0.08175909194823809
+      },
+      "dimension": 1,
+      "gated_weight": 0.633246595296402,
+      "sequence_audit": {
+        "hybrid_rmse": 0.09092708300916459,
+        "mse_gain_from_mean_correction": -0.0004784087778098717,
+        "mse_gain_from_sequence_correction": 0.019077301972465682,
+        "prediction_length_mean_only_rmse": 0.16536334659476745,
+        "rb_rmse": 0.16391042559645594,
+        "sqrt_expected_within_length_permutation_mse": 0.24662042522928715,
+        "within_length_correlation": 0.8786522387764512
+      },
+      "validation_weight": 0.633246595296402
+    },
+    {
+      "bias": "0.52",
+      "dimension": 6,
+      "gated_weight": 0.8133989996597707,
+      "sequence_audit": {
+        "hybrid_rmse": 0.10502374806803819,
+        "mse_gain_from_mean_correction": -0.000649786827409092,
+        "mse_gain_from_sequence_correction": 0.016486426788361656,
+        "prediction_length_mean_only_rmse": 0.16588072355346298,
+        "rb_rmse": 0.16391042559645594,
+        "sqrt_expected_within_length_permutation_mse": 0.22784677739918632,
+        "within_length_correlation": 0.8006875579204902
+      },
+      "validation_weight": 0.8133989996597707
+    },
+    {
+      "bias": "0.54",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.9822863037835257,
+          0.9161295725617329,
+          3.577245235590223e-16
+        ],
+        "depolarization_readout_test_rmse": 0.08184083367941258,
+        "depolarization_readout_validation_rmse": 0.09174398301028087,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.7198899750565705,
+          0.19506226707511623
+        ],
+        "readout_only_test_rmse": 0.09672239465872244,
+        "readout_only_validation_rmse": 0.0941423924871719
+      },
+      "dimension": 1,
+      "gated_weight": 0.5127064306752002,
+      "sequence_audit": {
+        "hybrid_rmse": 0.09858946279247537,
+        "mse_gain_from_mean_correction": -0.00046287303623116297,
+        "mse_gain_from_sequence_correction": 0.0074847792387026536,
+        "prediction_length_mean_only_rmse": 0.13116654075034356,
+        "rb_rmse": 0.129390062895805,
+        "sqrt_expected_within_length_permutation_mse": 0.1961567604055553,
+        "within_length_correlation": 0.7680781872267413
+      },
+      "validation_weight": 0.5127064306752002
+    },
+    {
+      "bias": "0.54",
+      "dimension": 6,
+      "gated_weight": 0.7061207910774443,
+      "sequence_audit": {
+        "hybrid_rmse": 0.11303233721794387,
+        "mse_gain_from_mean_correction": -0.000844646516288964,
+        "mse_gain_from_sequence_correction": 0.00481012563551836,
+        "prediction_length_mean_only_rmse": 0.13261385633661868,
+        "rb_rmse": 0.129390062895805,
+        "sqrt_expected_within_length_permutation_mse": 0.17658613589543107,
+        "within_length_correlation": 0.6149275013602917
+      },
+      "validation_weight": 0.7061207910774443
+    },
+    {
+      "bias": "0.6",
+      "calibration_audit": {
+        "depolarization_readout_parameters": [
+          0.7869302944809214,
+          0.9332526939056506,
+          1.746926156767689e-06
+        ],
+        "depolarization_readout_test_rmse": 0.07011754369078026,
+        "depolarization_readout_validation_rmse": 0.1083062070086128,
+        "optimizer_success": true,
+        "readout_only_parameters": [
+          0.46308244970167595,
+          0.47013414315941554
+        ],
+        "readout_only_test_rmse": 0.07017453351997817,
+        "readout_only_validation_rmse": 0.10829017988268465
+      },
+      "dimension": 1,
+      "gated_weight": 0.0,
+      "sequence_audit": {
+        "hybrid_rmse": 0.06949982665687435,
+        "mse_gain_from_mean_correction": 1.734723475976807e-18,
+        "mse_gain_from_sequence_correction": -1.734723475976807e-18,
+        "prediction_length_mean_only_rmse": 0.06949982665687433,
+        "rb_rmse": 0.06949982665687435,
+        "sqrt_expected_within_length_permutation_mse": 0.06949982665687433,
+        "within_length_correlation": null
+      },
+      "validation_weight": 0.0
+    },
+    {
+      "bias": "0.6",
+      "dimension": 6,
+      "gated_weight": 0.0,
+      "sequence_audit": {
+        "hybrid_rmse": 0.06949982665687435,
+        "mse_gain_from_mean_correction": 1.734723475976807e-18,
+        "mse_gain_from_sequence_correction": -1.734723475976807e-18,
+        "prediction_length_mean_only_rmse": 0.06949982665687433,
+        "rb_rmse": 0.06949982665687435,
+        "sqrt_expected_within_length_permutation_mse": 0.06949982665687433,
+        "within_length_correlation": null
+      },
+      "validation_weight": 0.0031831836275578763
+    }
+  ],
+  "source_commit": "47d67598a304bb72c315bf05ddfadcda5f4be290"
+}
