@@ -18,7 +18,7 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
-    block_error_differences,
+    chronological_block_error_differences,
     load_qec_record,
     matching_predictions,
     typed_matching_predictions,
@@ -46,7 +46,7 @@ def run(path: Path, block_size: int) -> dict:
         labels = record["observables"][:, 0].astype(float)
         uniform, uniform_timing = matching_predictions(record["circuit"], record["detectors"], probability=0.002)
         typed, typed_timing = typed_matching_predictions(record["circuit"], record["detectors"], **FROZEN_RATES)
-        differences = block_error_differences(uniform, typed, labels, block_size=block_size)
+        differences = chronological_block_error_differences(uniform, typed, labels, block_size=block_size)
         block_differences[group] = differences.tolist()
         rows.append({
             "circuit_group": group,

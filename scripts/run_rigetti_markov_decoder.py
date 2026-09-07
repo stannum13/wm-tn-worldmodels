@@ -17,8 +17,8 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
-    block_error_differences,
-    block_score_differences,
+    chronological_block_error_differences,
+    chronological_block_score_differences,
     detector_round_symbols,
     fit_markov_syndrome_decoder,
     load_qec_record,
@@ -56,8 +56,8 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
         })
     comparisons = []
     for first, second in (("markov_order_0", "markov_order_1"), ("markov_order_1", "markov_order_2")):
-        error = block_error_differences(predictions[first], predictions[second], labels[test], block_size=block_size)
-        brier = block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="brier_loss")
+        error = chronological_block_error_differences(predictions[first], predictions[second], labels[test], block_size=block_size)
+        brier = chronological_block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="brier_loss")
         comparisons.append({
             "first": first,
             "second": second,

@@ -420,6 +420,41 @@ def block_score_differences(
     return np.asarray(differences)
 
 
+def chronological_block_error_differences(
+    first: np.ndarray, second: np.ndarray, labels: np.ndarray, *, block_size: int
+) -> np.ndarray:
+    """Paired error differences in raw acquisition-order blocks."""
+    first, second, labels = np.asarray(first), np.asarray(second), np.asarray(labels)
+    differences = []
+    for start in range(0, len(labels) - block_size + 1, block_size):
+        block = slice(start, start + block_size)
+        first_error = (first[block] >= 0.5) != labels[block]
+        second_error = (second[block] >= 0.5) != labels[block]
+        differences.append(np.mean(first_error) - np.mean(second_error))
+    return np.asarray(differences)
+
+
+def chronological_block_score_differences(
+    first: np.ndarray, second: np.ndarray, labels: np.ndarray, *, block_size: int,
+    score: str,
+) -> np.ndarray:
+    """Paired proper-score differences in raw acquisition-order blocks."""
+    first = np.clip(np.asarray(first), 1e-6, 1.0 - 1e-6)
+    second = np.clip(np.asarray(second), 1e-6, 1.0 - 1e-6)
+    labels = np.asarray(labels)
+    if score == "brier_loss":
+        first_values, second_values = (first - labels) ** 2, (second - labels) ** 2
+    elif score == "negative_log_likelihood":
+        first_values = -(labels * np.log(first) + (1 - labels) * np.log(1 - first))
+        second_values = -(labels * np.log(second) + (1 - labels) * np.log(1 - second))
+    else:
+        raise ValueError(f"unsupported score: {score}")
+    return np.asarray([
+        np.mean(first_values[start : start + block_size] - second_values[start : start + block_size])
+        for start in range(0, len(labels) - block_size + 1, block_size)
+    ])
+
+
 def timed_head_prediction(head: LogisticIQHead, features: np.ndarray, repeats: int = 20) -> tuple[np.ndarray, dict[str, float]]:
     """Measure vectorized throughput and Python batch-one call latency."""
     prediction = head.predict(features)

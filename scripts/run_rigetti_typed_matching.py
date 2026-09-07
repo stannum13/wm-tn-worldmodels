@@ -18,7 +18,7 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
-    block_error_differences,
+    chronological_block_error_differences,
     load_qec_record,
     matching_predictions,
     typed_matching_predictions,
@@ -69,7 +69,7 @@ def run(path: Path, circuit_group: str, rates: list[float], block_size: int) -> 
     uniform, uniform_timing = matching_predictions(
         record["circuit"], detectors[test], probability=0.002
     )
-    differences = block_error_differences(uniform, typed, labels[test], block_size=block_size)
+    differences = chronological_block_error_differences(uniform, typed, labels[test], block_size=block_size)
     try:
         commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     except (OSError, subprocess.CalledProcessError):

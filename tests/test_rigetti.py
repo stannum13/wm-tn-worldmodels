@@ -3,6 +3,7 @@ import numpy as np
 from ptwm.rigetti import (
     block_error_differences,
     block_score_differences,
+    chronological_block_error_differences,
     chronological_preparation_split,
     fit_iq_heads,
     probability_metrics,
@@ -36,3 +37,7 @@ def test_block_difference_sign_means_first_has_more_errors():
         first, second, labels, block_size=2, score="brier_loss"
     )
     assert np.allclose(score_differences, np.ones(4), atol=3e-6)
+    chronological = chronological_block_error_differences(
+        first, second, labels, block_size=2
+    )
+    assert np.array_equal(chronological, np.ones(4))

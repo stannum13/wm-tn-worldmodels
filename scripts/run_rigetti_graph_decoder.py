@@ -17,8 +17,8 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
-    block_error_differences,
-    block_score_differences,
+    chronological_block_error_differences,
+    chronological_block_score_differences,
     detector_worldline_parities,
     fit_logistic_head,
     load_qec_record,
@@ -62,8 +62,8 @@ def run(path: Path, circuit_group: str, block_size: int) -> dict:
         })
     comparisons = []
     for second in ("worldline_parity", "local_pair", "worldline_plus_local_pair"):
-        error = block_error_differences(predictions["linear_detector"], predictions[second], labels[test], block_size=block_size)
-        brier = block_score_differences(predictions["linear_detector"], predictions[second], labels[test], block_size=block_size, score="brier_loss")
+        error = chronological_block_error_differences(predictions["linear_detector"], predictions[second], labels[test], block_size=block_size)
+        brier = chronological_block_score_differences(predictions["linear_detector"], predictions[second], labels[test], block_size=block_size, score="brier_loss")
         comparisons.append({
             "first": "linear_detector",
             "second": second,

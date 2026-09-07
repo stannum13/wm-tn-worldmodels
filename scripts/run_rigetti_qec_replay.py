@@ -18,8 +18,8 @@ from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
-    block_error_differences,
-    block_score_differences,
+    chronological_block_error_differences,
+    chronological_block_score_differences,
     calibrate_measurement_probabilities,
     detector_measurement_indices,
     fit_logistic_head,
@@ -100,9 +100,9 @@ def run(path: Path, circuit_group: str, train_fraction: float, block_size: int) 
         ("spline_kan_iq_soft_syndrome_linear_decoder", "spline_kan_iq_soft_syndrome_spline_decoder"),
     )
     for first, second in pairs:
-        error = block_error_differences(predictions[first], predictions[second], labels[test], block_size=block_size)
-        brier = block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="brier_loss")
-        nll = block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="negative_log_likelihood")
+        error = chronological_block_error_differences(predictions[first], predictions[second], labels[test], block_size=block_size)
+        brier = chronological_block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="brier_loss")
+        nll = chronological_block_score_differences(predictions[first], predictions[second], labels[test], block_size=block_size, score="negative_log_likelihood")
         comparisons.append({
             "first": first,
             "second": second,
