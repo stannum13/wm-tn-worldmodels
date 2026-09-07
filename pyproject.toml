@@ -1,0 +1,23 @@
+[project]
+name = "ptwm"
+version = "0.1.0"
+description = "Reduced-state and tensor-network world models: Experiment A on public superconducting-qubit process-tensor data"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "torch>=2.2",
+    "matplotlib>=3.8",
+    "pyyaml>=6.0",
+    "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.setuptools.packages.find]
+where = ["src"]
