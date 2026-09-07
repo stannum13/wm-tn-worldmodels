@@ -131,6 +131,39 @@ def detector_measurement_indices(circuit: object) -> list[np.ndarray]:
     return output
 
 
+def measurement_error_signatures(circuit: object) -> list[tuple[tuple[int, ...], frozenset[int]]]:
+    """Map each measurement-bit flip to detector endpoints and logical fault IDs."""
+    circuit = circuit.flattened()
+    detector_indices = detector_measurement_indices(circuit)
+    observable_indices: dict[int, set[int]] = {}
+    measurement_cursor = 0
+    for instruction in circuit:
+        if instruction.name == "M":
+            measurement_cursor += len(instruction.targets_copy())
+        elif instruction.name == "OBSERVABLE_INCLUDE":
+            observable = int(instruction.gate_args_copy()[0])
+            locations = observable_indices.setdefault(observable, set())
+            for target in instruction.targets_copy():
+                if target.is_measurement_record_target:
+                    index = measurement_cursor + target.value
+                    if index in locations:
+                        locations.remove(index)
+                    else:
+                        locations.add(index)
+    signatures = []
+    for measurement in range(circuit.num_measurements):
+        detectors = tuple(
+            index for index, indices in enumerate(detector_indices)
+            if measurement in indices
+        )
+        observables = frozenset(
+            observable for observable, indices in observable_indices.items()
+            if measurement in indices
+        )
+        signatures.append((detectors, observables))
+    return signatures
+
+
 def soft_detector_probabilities(
     measurement_probability: np.ndarray, detector_indices: list[np.ndarray],
     hard_measurements: np.ndarray, hard_detectors: np.ndarray,
@@ -256,6 +289,100 @@ def fit_spitz_pairwise_matching(
         "floor_probability": floor_probability,
         "ceiling_probability": ceiling_probability,
     }
+
+
+def _matching_edge_key(
+    first: int, second: int | None, fault_ids: set[int] | frozenset[int]
+) -> tuple[int, int | None, frozenset[int]]:
+    if second is not None and second < first:
+        first, second = second, first
+    return first, second, frozenset(fault_ids)
+
+
+def prepare_soft_reweighting(
+    base_matching: object,
+    signatures: list[tuple[tuple[int, ...], frozenset[int]]],
+    average_error_probability: np.ndarray,
+    *, floor_probability: float = 1e-5,
+    ceiling_probability: float = 0.49,
+) -> tuple[list[dict[str, object]], dict[str, int]]:
+    """Factor average measurement errors out of matching-edge probabilities."""
+    average = np.asarray(average_error_probability, dtype=float)
+    if len(average) != len(signatures):
+        raise ValueError("one average error probability is required per measurement")
+    plan = []
+    locations: dict[tuple[int, int | None, frozenset[int]], int] = {}
+    for first, second, attributes in base_matching.edges():
+        probability = float(attributes["error_probability"])
+        if not 0.0 <= probability < 0.5:
+            probability = 1.0 / (1.0 + np.exp(float(attributes["weight"])))
+        key = _matching_edge_key(first, second, attributes["fault_ids"])
+        locations[key] = len(plan)
+        plan.append({
+            "first": first,
+            "second": second,
+            "fault_ids": frozenset(attributes["fault_ids"]),
+            "residual_probability": probability,
+            "measurements": [],
+        })
+    unmatched = unsupported = matched = residual_clipped = 0
+    for measurement, (detectors, fault_ids) in enumerate(signatures):
+        if not detectors:
+            continue
+        if len(detectors) > 2:
+            unsupported += 1
+            continue
+        first, second = detectors[0], detectors[1] if len(detectors) == 2 else None
+        key = _matching_edge_key(first, second, fault_ids)
+        if key not in locations:
+            unmatched += 1
+            continue
+        row = plan[locations[key]]
+        probability = float(row["residual_probability"])
+        measurement_probability = float(np.clip(average[measurement], floor_probability, ceiling_probability))
+        residual = (probability - measurement_probability) / (1.0 - 2.0 * measurement_probability)
+        if residual < floor_probability or residual > ceiling_probability:
+            residual_clipped += 1
+        row["residual_probability"] = float(np.clip(residual, floor_probability, ceiling_probability))
+        row["measurements"].append(measurement)
+        matched += 1
+    return plan, {
+        "matched_measurements": matched,
+        "unmatched_measurements": unmatched,
+        "unsupported_measurements": unsupported,
+        "residual_clipped": residual_clipped,
+    }
+
+
+def build_soft_reweighted_matching(
+    plan: list[dict[str, object]], shot_error_probability: np.ndarray, *,
+    floor_probability: float = 1e-5, ceiling_probability: float = 0.49,
+) -> object:
+    """Instantiate one graph after replacing average measurement errors by shot values."""
+    try:
+        import pymatching
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Install the 'real' optional dependencies for PyMatching") from exc
+    shot_error = np.asarray(shot_error_probability, dtype=float)
+    matching = pymatching.Matching()
+    for row in plan:
+        probability = float(row["residual_probability"])
+        for measurement in row["measurements"]:
+            value = float(np.clip(shot_error[measurement], floor_probability, ceiling_probability))
+            probability = probability + value - 2.0 * probability * value
+        probability = float(np.clip(probability, floor_probability, ceiling_probability))
+        weight = float(np.log((1.0 - probability) / probability))
+        if row["second"] is None:
+            matching.add_boundary_edge(
+                row["first"], fault_ids=row["fault_ids"], weight=weight,
+                error_probability=probability,
+            )
+        else:
+            matching.add_edge(
+                row["first"], row["second"], fault_ids=row["fault_ids"], weight=weight,
+                error_probability=probability,
+            )
+    return matching
 
 
 def local_detector_pairs(
@@ -608,6 +735,7 @@ def fit_logistic_head(features: np.ndarray, labels: np.ndarray, *, knots: int = 
 def calibrate_measurement_probabilities(
     soft: np.ndarray, hard: np.ndarray, measurement_qubits: np.ndarray,
     train_shots: np.ndarray, *, knots: int, max_examples_per_qubit: int = 100_000,
+    balanced: bool = False,
 ) -> tuple[np.ndarray, int]:
     """Fit one I/Q-to-hardware-bit head per qubit and evaluate every measurement."""
     probability = np.empty(hard.shape, dtype=np.float32)
@@ -616,7 +744,15 @@ def calibrate_measurement_probabilities(
         columns = np.flatnonzero(measurement_qubits == qubit)
         values = soft[np.ix_(train_shots, columns)].reshape(-1)
         targets = hard[np.ix_(train_shots, columns)].reshape(-1).astype(float)
-        if len(values) > max_examples_per_qubit:
+        if balanced:
+            class_locations = [np.flatnonzero(targets == label) for label in (0.0, 1.0)]
+            per_class = min(*(len(locations) for locations in class_locations), max_examples_per_qubit // 2)
+            selected = np.concatenate([
+                locations[np.linspace(0, len(locations) - 1, per_class, dtype=int)]
+                for locations in class_locations
+            ])
+            values, targets = values[selected], targets[selected]
+        elif len(values) > max_examples_per_qubit:
             selected = np.linspace(0, len(values) - 1, max_examples_per_qubit, dtype=int)
             values, targets = values[selected], targets[selected]
         features = np.c_[values.real, values.imag]

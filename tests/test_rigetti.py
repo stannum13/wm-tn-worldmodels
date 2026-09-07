@@ -9,6 +9,9 @@ from ptwm.rigetti import (
     spitz_boundary_probability,
     fit_iq_heads,
     fit_spitz_pairwise_matching,
+    measurement_error_signatures,
+    build_soft_reweighted_matching,
+    prepare_soft_reweighting,
     probability_metrics,
 )
 
@@ -54,6 +57,29 @@ def test_pairwise_matching_fit_preserves_topology_and_fault_ids():
     assert abs(fitted.get_edge_data(0, 1)["error_probability"] - 0.08) < 0.002
     assert diagnostics["pair_edges"] == 1
     assert diagnostics["boundary_edges"] == 2
+
+
+def test_measurement_error_signature_tracks_detector_and_observable():
+    import stim
+
+    circuit = stim.Circuit("M 0\nDETECTOR rec[-1]\nOBSERVABLE_INCLUDE(0) rec[-1]")
+    signatures = measurement_error_signatures(circuit)
+    assert signatures == [((0,), frozenset({0}))]
+
+
+def test_soft_reweighting_replaces_average_measurement_contribution():
+    import pymatching
+
+    base = pymatching.Matching()
+    total = 0.1 + 0.05 - 2 * 0.1 * 0.05
+    base.add_edge(0, 1, fault_ids={0}, error_probability=total)
+    plan, diagnostics = prepare_soft_reweighting(
+        base, [((0, 1), frozenset({0}))], np.asarray([0.05])
+    )
+    updated = build_soft_reweighted_matching(plan, np.asarray([0.2]))
+    expected = 0.1 + 0.2 - 2 * 0.1 * 0.2
+    assert abs(updated.get_edge_data(0, 1)["error_probability"] - expected) < 1e-9
+    assert diagnostics["matched_measurements"] == 1
 
 
 def test_chronological_split_preserves_both_classes_without_overlap():

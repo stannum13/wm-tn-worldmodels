@@ -57,6 +57,9 @@ causal-filtering baselines under matched observation access.
   mid-depth circuits but misses the locked 23-round endpoint. Analog access must be
   isolated before adaptive filtering is justified; see the
   [pairwise report](docs/rigetti-pairwise-matching-report.md).
+- Naively refitting that graph on a causal 20,000-row rolling window also misses the
+  maximum-depth endpoint. Responsivity alone is a NO-GO; see the
+  [adaptive pairwise report](docs/rigetti-adaptive-pairwise-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -156,6 +159,11 @@ PYTHONPATH=src python scripts/run_rigetti_matching_transfer.py \
 PYTHONPATH=src python scripts/run_rigetti_pairwise_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --output results/rigetti_pairwise_matching.json
+
+# Exploratory causal rolling calibration on the already-accessed deepest circuit
+PYTHONPATH=src python scripts/run_rigetti_adaptive_pairwise.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_adaptive_pairwise.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -187,6 +195,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Reproduce released stability-9 MWPM scale with a transparent matching control
 - [x] Reject frozen type-only matching weights on an independent 600,000-shot transfer
 - [x] Test a transparent hard-syndrome pairwise graph on a locked holdout
+- [x] Reject naive rolling pairwise refits at maximum depth
 - [ ] Reproduce the released soft-I/Q pairwise-correlation decoder
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
