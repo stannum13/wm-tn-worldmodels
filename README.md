@@ -23,6 +23,9 @@ causal-filtering baselines under matched observation access.
 - Multi-rate causal heads are being evaluated as slow-path context models. A held
   output feeds a cheap hot-path denoiser; KAN-inspired spline heads must beat equally
   scheduled linear heads on both error and measured amortized latency.
+- The first 31-parameter spline head is a NO-GO: it adds at most about 1% over the
+  6-parameter linear head while costing 6–8 times more per update. See the
+  [multirate architecture note](docs/multirate-causal-architecture.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -34,6 +37,9 @@ selectors. The [experiment plan](docs/redistributed-experiment-plan.md) defines
 observation contracts, mechanism families, quantitative targets, and GO/NO-GO rules.
 The [process critique](docs/process-critique.md) and
 [scientific review](docs/scientific-review.md) document limitations.
+The [autonomous audit](docs/autonomous-science-audit.md) records corrections made after
+the streaming runs, and the [deployment ladder](docs/deployment-benchmark-ladder.md)
+prioritizes public real-hardware datasets.
 
 The core predictive object is a compressed causal state:
 
@@ -104,7 +110,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Released/reconstructed OQE and matched memoryless comparisons
 - [x] Idle-duration transfer test
 - [x] Streaming delay screen and eight-setting parameter-family test on GCP
-- [ ] Multi-rate linear/KAN causal-head comparison across fresh seeds
+- [x] Multi-rate linear/KAN-inspired causal-head diagnostic on GCP
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs
