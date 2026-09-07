@@ -1,0 +1,99 @@
+{
+  "code_commit": "d6d1ea63ce84db9279e7d0058e6f25abc250fbf7",
+  "comparisons": [
+    {
+      "blocks": 40,
+      "brier_reduction_paired_95pct_t_interval": [
+        0.002828380135509715,
+        0.007339535381589626
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.00025151032673849556,
+        0.003751510326738495
+      ],
+      "first": "calibrated_hardware_hard_bit",
+      "mean_brier_reduction": 0.00508395775854967,
+      "mean_error_reduction": 0.0017499999999999998,
+      "mean_nll_reduction": 0.032233791922652036,
+      "nll_reduction_paired_95pct_t_interval": [
+        0.0201201809613401,
+        0.04434740288396397
+      ],
+      "second": "linear_logistic_iq"
+    },
+    {
+      "blocks": 40,
+      "brier_reduction_paired_95pct_t_interval": [
+        0.0003593721941468019,
+        0.004153663634352339
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.0020159307696800666,
+        0.0032659307696800677
+      ],
+      "first": "linear_logistic_iq",
+      "mean_brier_reduction": 0.0022565179142495706,
+      "mean_error_reduction": 0.0006250000000000006,
+      "mean_nll_reduction": 0.013437963158467885,
+      "nll_reduction_paired_95pct_t_interval": [
+        0.010139405476584085,
+        0.016736520840351685
+      ],
+      "second": "spline_kan_logistic_iq"
+    }
+  ],
+  "created_at": "2026-09-07T17:32:45.372962+00:00",
+  "data": {
+    "chronological_test_shots": 8000,
+    "file": "fast_feedback_raw_data.h5",
+    "independent_sessions": 1,
+    "md5": "3b2503a80f2b92916660489e2f07e880",
+    "qpu": "Rigetti Ankaa-2",
+    "source": "https://zenodo.org/records/15364358",
+    "train_shots": 12000
+  },
+  "design": {
+    "endpoint": "prepared-state discrimination from raw complex I/Q",
+    "scope": "within-session calibration screen, not a QEC decoding or cross-session generalization claim",
+    "split": "first 60% within each preparation for training; final 40% locked test",
+    "uncertainty": "paired descriptive t interval across contiguous 200-shot blocks within preparation"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "models": [
+    {
+      "brier_loss": 0.04264825037605888,
+      "classification_error": 0.04475,
+      "expected_calibration_error_10bin": 0.002715179429774304,
+      "model": "calibrated_hardware_hard_bit",
+      "negative_log_likelihood": 0.18156628129088662,
+      "parameters": 2,
+      "vectorized_ns_per_sample": 0.0
+    },
+    {
+      "brier_loss": 0.03756429261750921,
+      "classification_error": 0.043,
+      "expected_calibration_error_10bin": 0.030446103586668487,
+      "model": "linear_logistic_iq",
+      "negative_log_likelihood": 0.14933248936823457,
+      "parameters": 3,
+      "python_batch_one_p50_ns": 27290.0,
+      "python_batch_one_p99_ns": 57175.59999999999,
+      "vectorized_ns_per_sample": 49.65680625
+    },
+    {
+      "brier_loss": 0.03530777470325964,
+      "classification_error": 0.042375,
+      "expected_calibration_error_10bin": 0.0070547919910392,
+      "model": "spline_kan_logistic_iq",
+      "negative_log_likelihood": 0.1358945262097667,
+      "parameters": 13,
+      "python_batch_one_p50_ns": 33800.0,
+      "python_batch_one_p99_ns": 71581.20999999999,
+      "vectorized_ns_per_sample": 343.83841875
+    }
+  ],
+  "schema_version": 1
+}

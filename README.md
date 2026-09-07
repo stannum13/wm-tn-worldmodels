@@ -26,6 +26,14 @@ causal-filtering baselines under matched observation access.
 - The first 31-parameter spline head is a NO-GO: it adds at most about 1% over the
   6-parameter linear head while costing 6–8 times more per update. See the
   [multirate architecture note](docs/multirate-causal-architecture.md).
+- Particles are a NO-GO for an ordinary nonlinear unimodal stream but a GO as a slow
+  inference lane when wrapped observations make the posterior genuinely multimodal;
+  64 particles recover 91% of the EKF-to-grid loss gap. See the
+  [wrapped-phase report](docs/wrapped-phase-particle-report.md).
+- On a chronological holdout of real Ankaa-2 I/Q calibration shots, a 13-parameter
+  spline/KAN logistic head reduces Brier loss 6.0% versus a matched affine logistic
+  head, without an established classification-error gain. See the
+  [real I/Q report](docs/rigetti-real-iq-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -96,6 +104,11 @@ PYTHONPATH=src python scripts/run_nonlinear_filter_benchmark.py \
 PYTHONPATH=src python scripts/run_wrapped_phase_benchmark.py \
   --seeds 10 --streams 30 --length 800 --delay 10 \
   --particles 32,64,128,256 --output results/wrapped_phase_benchmark.json
+
+# Real Ankaa-2 I/Q calibration (requires: pip install -e '.[real]')
+./scripts/fetch_rigetti_fast_feedback.sh
+PYTHONPATH=src python scripts/run_rigetti_iq_benchmark.py \
+  --output results/rigetti_iq_benchmark.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -122,6 +135,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Multi-rate linear/KAN-inspired causal-head diagnostic on GCP
 - [x] Nonlinear robust-EKF/particle feasibility screen on GCP
 - [x] Wrapped-phase multimodal particle positive control on GCP
+- [x] Real Ankaa-2 I/Q chronological calibration screen on GCP
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs

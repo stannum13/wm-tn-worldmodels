@@ -6,7 +6,7 @@ the first two. They cannot reproduce FPGA or quantum-hardware feedback latency.
 
 | Priority | Benchmark | Public data | Reported anchor | Our valid first claim |
 |---:|---|---|---|---|
-| 1 | Rigetti streaming stability-code decoding | [1.23 GB CC-BY archive](https://doi.org/10.5281/zenodo.13961129) | 9.6 μs full response for nine rounds; 6.5 μs decoding plus 3.1 μs communication/control | Real-hardware syndrome replay, logical error and CPU latency/load |
+| 1 | Rigetti streaming stability-code decoding | [CC-BY record](https://zenodo.org/records/15364358): 5.6 MB smoke file, 130 MB serious confirmation file, 1.23 GB total | 9.6 μs full response for nine rounds; 6.5 μs decoding plus 3.1 μs communication/control | Real-hardware syndrome replay, logical error and CPU latency/load |
 | 2 | Continuous superconducting-qubit I/Q trajectories | [code/data index](https://github.com/qnl/trajectories_lstm) | 40 ns digitization; 1.5M training and 0.5M evaluation traces in the published study | Past-only state estimation and calibration; exclude backward smoothing |
 | 3 | Real TLS jump trace | [214 MB CC-BY archive](https://zenodo.org/records/21908500) | One long superconducting-qubit jump record | Blocked-split hazard likelihood and survival calibration |
 | 4 | Google RL-QEC drift adaptation | [7.8 GB CC-BY archive](https://zenodo.org/records/18896801) | Reported 3.5× logical-error stability improvement under injected drift | Logged-data drift prediction; policy improvement only if counterfactual support is adequate |
@@ -14,6 +14,9 @@ the first two. They cannot reproduce FPGA or quantum-hardware feedback latency.
 
 The immediate applied benchmark is Rigetti because it combines manageable public raw
 data, real superconducting hardware, decoder timings, and a live-feedback reference.
+The independently downloadable `fast_feedback_raw_data.h5` is sufficient for schema
+and I/Q calibration work. Add `stability_9_raw_data.h5` for the smallest serious
+logical-error confirmation; the entire 1.23 GB record is not required.
 The continuous-I/Q set is the best next denoiser/head test, but its upstream repository
 has no explicit software license; reimplement loaders and do not vendor its code.
 
