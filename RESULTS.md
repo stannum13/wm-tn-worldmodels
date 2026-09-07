@@ -23,7 +23,7 @@ python3.10 -m ptwm.aggregate   --results results
 |---|---|---|---|
 | len40/idle100 | **process-MPO chi2** 0.128 (0.152) | **process-MPO chi2** 0.165 (0.173) | transfer-tensor 0.200 (0.229) |
 | len40/idle180 | transfer-tensor 0.096 (0.126) | GRU-8 0.086 (0.096) | transfer-tensor 0.165 (0.429) |
-| len60/idle100 | **process-MPO chi2** 0.090 (0.161) | **process-MPO chi4** 0.110 (0.116) | transformer 0.200 (0.293) |
+| len60/idle100 | **process-MPO chi2** 0.090 (0.161) | **process-MPO chi4** 0.110 (0.115) | transformer 0.200 (0.293) |
 | len60/idle180 | transfer-tensor 0.079 (0.101) | **process-MPO chi2** 0.093 (0.098) | transfer-tensor 0.189 (0.258) |
 
 Findings:
