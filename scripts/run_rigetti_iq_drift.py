@@ -64,6 +64,12 @@ def _interval(values: np.ndarray) -> list[float]:
 def run(path: Path, circuit_group: str, window: int, update_rows: int) -> dict:
     record = load_qec_record(str(path), circuit_group)
     static_heads = _fit_heads(record, np.arange(window))
+    anchors = {}
+    for qubit in sorted(static_heads):
+        columns = np.flatnonzero(record["measurement_qubits"] == qubit)
+        values = record["soft_measurements"][np.ix_(np.arange(window), columns)].reshape(-1)
+        selected = np.linspace(0, len(values) - 1, min(256, len(values)), dtype=int)
+        anchors[qubit] = np.c_[values[selected].real, values[selected].imag]
     blocks, static_brier, rolling_brier, static_nll, rolling_nll = [], [], [], [], []
     state_vectors = []
     for start in range(window, len(record["hard_measurements"]) - update_rows + 1, update_rows):
@@ -79,7 +85,9 @@ def run(path: Path, circuit_group: str, window: int, update_rows: int) -> dict:
         rolling_brier.append(rb)
         static_nll.append(sn)
         rolling_nll.append(rn)
-        state_vectors.append(np.concatenate([rolling_heads[q].weights for q in sorted(rolling_heads)]))
+        state_vectors.append(np.concatenate([
+            rolling_heads[q].predict(anchors[q]) for q in sorted(rolling_heads)
+        ]))
         blocks.append({
             "start_row": start, "stop_row": stop,
             "static_brier": sb, "rolling_brier": rb,
@@ -124,7 +132,7 @@ def run(path: Path, circuit_group: str, window: int, update_rows: int) -> dict:
             "relative_nll_reduction": float(1 - np.mean(rolling_nll) / np.mean(static_nll)),
             "nll_reduction_paired_95pct_t_interval": _interval(nll_difference),
             "blocks": len(blocks),
-            "median_parameter_lag1_correlation": float(np.nanmedian(lag_correlation)),
+            "median_anchor_prediction_lag1_correlation": float(np.nanmedian(lag_correlation)),
         },
         "blocks": blocks,
     }
