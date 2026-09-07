@@ -64,6 +64,30 @@ packed I/Q-to-weight-to-decode computation for 2,000 records, but still runs thr
 Python on a shared GCP CPU. The 30-repeat tail summaries are descriptive, not a
 production tail-latency certification.
 
+## Streaming microbatch Pareto
+
+Could small microbatches reach the 1.7-microsecond-per-round throughput target without
+creating an unacceptable response delay? The packed computation was replayed over
+4,096 records at batch sizes 1--64. Every microbatch prediction matched the full-batch
+mutable result.
+
+| Session | Batch | Median compute / record | Median batch response | Worst fill wait at 1.7-us cadence |
+|---|---:|---:|---:|---:|
+| with resets | 1 | 115.0 us | 115.0 us | 0.0 us |
+| with resets | 4 | 62.7 us | 250.6 us | 5.1 us |
+| with resets | 16 | 45.4 us | 726.4 us | 25.5 us |
+| with resets | 64 | 41.0 us | 2,622.6 us | 107.1 us |
+| without resets | 1 | 123.3 us | 123.3 us | 0.0 us |
+| without resets | 4 | 75.7 us | 302.6 us | 5.1 us |
+| without resets | 16 | 58.8 us | 940.0 us | 25.5 us |
+| without resets | 64 | 55.5 us | 3,549.3 us | 107.1 us |
+
+The asymptotes remain about 41 and 55 microseconds per record, versus 39.1 and 42.5
+microseconds for 23/25 rounds arriving every 1.7 microseconds. Microbatching therefore
+does not meet the throughput target, and its millisecond-scale batch completion makes
+response worse. It is a **NO-GO as the primary latency fix**; the next gain must remove
+Python/backend parsing and allocation rather than accumulate more records.
+
 ## Decision
 
 **Engineering GO.** Both sessions pass the predeclared mutable-matching gate of less
@@ -83,4 +107,6 @@ the deadline, measure the extracted graph's temporal pathwidth before attempting
 exact narrow-strip dynamic program.
 
 Machine-readable results are in `results/rigetti_mutable_matching_with_resets.json`
-and `results/rigetti_mutable_matching_no_resets.json`.
+and `results/rigetti_mutable_matching_no_resets.json`. The microbatch curves are in
+`results/rigetti_mutable_microbatch_with_resets.json` and
+`results/rigetti_mutable_microbatch_no_resets.json`.

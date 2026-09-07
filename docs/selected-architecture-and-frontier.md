@@ -92,6 +92,10 @@ per syndrome round. This passes the campaign's <100-us matching-throughput gate 
 does not establish the paper's 1.7-us cadence. See the
 [mutable-decoder report](fixed-topology-mutable-decoder-report.md).
 
+Microbatches of 1--64 records do not close the gap: throughput asymptotes near 41/55
+us per record against cadence-derived 39.1/42.5-us budgets, while median completion
+reaches 2.62/3.55 ms at batch 64. Batching is therefore rejected as the primary fix.
+
 The next implementation must therefore provide one of:
 
 1. a compiled indexed I/Q-to-weight front end fused to mutable matching;

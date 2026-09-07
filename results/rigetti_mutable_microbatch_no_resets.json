@@ -1,0 +1,194 @@
+{
+  "base_max_weight": 11.512915464920228,
+  "calibration_parameters": 24,
+  "code_commit": "f94eb8f",
+  "created_at": "2026-09-07T21:41:41.464259+00:00",
+  "data": {
+    "circuit_group": "circuit_24",
+    "file": "stability_8_without_resets_raw_data.h5",
+    "md5": "721b7368a819e13eb404fea5154744a4",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "backend": "experimental fixed-topology edge_reweights API",
+    "equivalence_gate": "zero logical-prediction disagreements",
+    "latency_gate": "batch amortized <100 us/shot and >=20x faster than reconstruction",
+    "reference": "fresh PyMatching graph reconstruction per shot"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "pymatching_fork_commit": "435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_fork_url": "https://github.com/Allenator/PyMatching",
+    "pymatching_install": "python -m pip install git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_module": "/home/shiva/wm-tn-autonomous-run/.venv-mutable/lib/python3.10/site-packages/pymatching/__init__.py",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "equivalence": {
+    "base_prediction_disagreements_after_restore": 0,
+    "prediction_disagreements": 0,
+    "prediction_disagreements_across_batch_repeats": 0,
+    "shots": 1000
+  },
+  "graph": {
+    "boundary_edges": 16,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 14,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 384
+  },
+  "latency": {
+    "batch_speedup_vs_reference_p50": 63.67679020740469,
+    "generic_iq_inference_batch_total_ns": 827820733.0,
+    "generic_weight_matrix_total_ns": 105155945.0,
+    "mutable_batch_amortized_ns_per_shot": 46818.942825,
+    "mutable_batch_repeats": 5,
+    "mutable_batch_total": {
+      "p50_ns": 1872757713.0,
+      "p95_ns": 2270281119.6,
+      "p99_ns": 2348708380.72
+    },
+    "mutable_single_decode": {
+      "p50_ns": 53165.0,
+      "p95_ns": 113021.5,
+      "p99_ns": 141075.4
+    },
+    "packed_compute_pipeline_single_record": {
+      "p50_ns": 105535.0,
+      "p95_ns": 166225.5,
+      "p99_ns": 208246.49
+    },
+    "packed_iq_inference_batch_amortized_ns_per_shot": 3120.15542,
+    "packed_iq_inference_batch_total_ns": 312015542.0,
+    "packed_iq_inference_single_record": {
+      "p50_ns": 24880.5,
+      "p95_ns": 36324.0,
+      "p99_ns": 49200.6
+    },
+    "packed_weight_matrix_amortized_ns_per_shot": 3867.1843,
+    "packed_weight_matrix_total_ns": 154687372.0,
+    "reference_rebuild_and_decode": {
+      "p50_ns": 2981280.0,
+      "p95_ns": 3194959.0,
+      "p99_ns": 3504208.2899999996
+    }
+  },
+  "logical_error": 0.182775,
+  "maximum_packed_vs_generic_edge_weight_difference": 1.8545165403338615e-12,
+  "maximum_packed_vs_generic_iq_probability_difference": 0.0,
+  "microbatch_curve": [
+    {
+      "batch_size": 1,
+      "batches": 4096,
+      "compute_batch": {
+        "p50_ns": 123275.0,
+        "p95_ns": 187414.0,
+        "p99_ns": 235052.00000000055
+      },
+      "compute_per_record_p50_ns": 123275.0,
+      "compute_per_record_p99_ns": 235052.00000000055,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 0.0
+    },
+    {
+      "batch_size": 2,
+      "batches": 2048,
+      "compute_batch": {
+        "p50_ns": 189305.0,
+        "p95_ns": 269969.0,
+        "p99_ns": 421314.69999999925
+      },
+      "compute_per_record_p50_ns": 94652.5,
+      "compute_per_record_p99_ns": 210657.34999999963,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 1700.0
+    },
+    {
+      "batch_size": 4,
+      "batches": 1024,
+      "compute_batch": {
+        "p50_ns": 302619.5,
+        "p95_ns": 420478.35,
+        "p99_ns": 510966.52999999985
+      },
+      "compute_per_record_p50_ns": 75654.875,
+      "compute_per_record_p99_ns": 127741.63249999996,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 5100.0
+    },
+    {
+      "batch_size": 8,
+      "batches": 512,
+      "compute_batch": {
+        "p50_ns": 522380.0,
+        "p95_ns": 661814.05,
+        "p99_ns": 753036.6999999998
+      },
+      "compute_per_record_p50_ns": 65297.5,
+      "compute_per_record_p99_ns": 94129.58749999998,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 11900.0
+    },
+    {
+      "batch_size": 16,
+      "batches": 256,
+      "compute_batch": {
+        "p50_ns": 940030.0,
+        "p95_ns": 1151067.5,
+        "p99_ns": 1260130.5
+      },
+      "compute_per_record_p50_ns": 58751.875,
+      "compute_per_record_p99_ns": 78758.15625,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 25500.0
+    },
+    {
+      "batch_size": 32,
+      "batches": 128,
+      "compute_batch": {
+        "p50_ns": 1784440.5,
+        "p95_ns": 2028866.0,
+        "p99_ns": 2079977.83
+      },
+      "compute_per_record_p50_ns": 55763.765625,
+      "compute_per_record_p99_ns": 64999.3071875,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 52700.0
+    },
+    {
+      "batch_size": 64,
+      "batches": 64,
+      "compute_batch": {
+        "p50_ns": 3549340.0,
+        "p95_ns": 3851049.8499999996,
+        "p99_ns": 3995511.3
+      },
+      "compute_per_record_p50_ns": 55458.4375,
+      "compute_per_record_p99_ns": 62429.8640625,
+      "prediction_disagreements": 0,
+      "records": 4096,
+      "worst_case_fill_delay_at_1p7us_cadence_ns": 107100.0
+    }
+  ],
+  "normalisation_dummy_detector": 100,
+  "schema_version": 1,
+  "shots_exceeding_base_max_weight": 0,
+  "soft_reweighting": {
+    "matched_measurements": 104,
+    "residual_clipped": 12,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  },
+  "updated_edges_per_shot": 104,
+  "weights_not_restored_after_decode": 0
+}

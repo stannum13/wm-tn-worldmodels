@@ -92,6 +92,9 @@ causal-filtering baselines under matched observation access.
   batch-one p99 remains 195--768 us per completed record, so this is an engineering
   GO and a Python deployment NO-GO; see the
   [mutable-decoder report](docs/fixed-topology-mutable-decoder-report.md).
+- Microbatches up to 64 records approach 41/55 us per record but incur 2.62/3.55 ms
+  median completion time and still miss the 39.1/42.5-us cadence-derived budgets.
+  Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -262,6 +265,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Reject rolling calibration and particle/EKF escalation at the logical endpoint
 - [x] Support the affine soft mechanism on an independent no-reset post-repair screen
 - [x] Validate packed fixed-topology soft edge updates on 80,000 held-out records
+- [x] Reject microbatching as the primary streaming-latency fix
 - [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
