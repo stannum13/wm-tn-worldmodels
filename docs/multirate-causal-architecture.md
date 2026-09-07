@@ -122,3 +122,10 @@ changes the routing decision but not the latency decision: 64 particles recover 
 of the EKF-to-grid loss gap when sparse quadrature probes create and then resolve a
 genuinely multimodal posterior. They cost 3.5 times the EKF, so particles advance as a
 slow teacher/reference or event-triggered lane, not as an always-on hot-path filter.
+
+Real QEC replay adds a second routing constraint. A nonlinear I/Q calibrator can
+improve single-measurement probability scores yet fail after independent marginal
+probabilities are propagated through long detector parities. The
+[stability-9 replay](rigetti-qec-replay-report.md) therefore rejects that interface.
+Slow heads must export graph-aware joint factors or calibrated edge weights; the hot
+decoder consumes those versioned factors without waiting for head inference.

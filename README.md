@@ -34,6 +34,9 @@ causal-filtering baselines under matched observation access.
   spline/KAN logistic head reduces Brier loss 6.0% versus a matched affine logistic
   head, without an established classification-error gain. See the
   [real I/Q report](docs/rigetti-real-iq-report.md).
+- That calibration gain does not survive the locked 100,000-shot stability-9 logical
+  replay. Independent soft-parity propagation is a NO-GO; graph-aware joint evidence
+  is now required. See the [QEC replay report](docs/rigetti-qec-replay-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -109,6 +112,12 @@ PYTHONPATH=src python scripts/run_wrapped_phase_benchmark.py \
 ./scripts/fetch_rigetti_fast_feedback.sh
 PYTHONPATH=src python scripts/run_rigetti_iq_benchmark.py \
   --output results/rigetti_iq_benchmark.json
+
+# Logical replay on the 100,000-shot stability-9 file
+./scripts/fetch_rigetti_stability9.sh
+PYTHONPATH=src python scripts/run_rigetti_qec_replay.py \
+  --data data/rigetti_stability9/stability_9_raw_data.h5 \
+  --circuit-group circuit_26 --output results/rigetti_stability9_qec_replay.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -136,6 +145,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Nonlinear robust-EKF/particle feasibility screen on GCP
 - [x] Wrapped-phase multimodal particle positive control on GCP
 - [x] Real Ankaa-2 I/Q chronological calibration screen on GCP
+- [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs

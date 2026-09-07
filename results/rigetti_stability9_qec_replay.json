@@ -1,0 +1,142 @@
+{
+  "code_commit": "d3e496ceec1ad9852bba5217175c8ece2855489e",
+  "comparisons": [
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.001244907774855167,
+        0.0006669526363153331
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.001961954704630356,
+        0.0036029803456560008
+      ],
+      "first": "hard_syndrome_linear_decoder",
+      "mean_brier_reduction": -0.0002889775692699169,
+      "mean_error_reduction": 0.0008205128205128226,
+      "mean_nll_reduction": -0.0006153285484068246,
+      "nll_reduction_paired_95pct_t_interval": [
+        -0.002622611033089477,
+        0.001391953936275828
+      ],
+      "second": "linear_iq_soft_syndrome_linear_decoder"
+    },
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.00021634576247042144,
+        0.00010729386064202522
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.002846553261274771,
+        -7.652366180215496e-05
+      ],
+      "first": "linear_iq_soft_syndrome_linear_decoder",
+      "mean_brier_reduction": -5.45259509141981e-05,
+      "mean_error_reduction": -0.001461538461538463,
+      "mean_nll_reduction": -0.00010915152685271116,
+      "nll_reduction_paired_95pct_t_interval": [
+        -0.00044139996344704847,
+        0.00022309690974162613
+      ],
+      "second": "spline_kan_iq_soft_syndrome_linear_decoder"
+    },
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.0001902760920788813,
+        0.0006635003079758883
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.011170151380088157,
+        0.007990664200601004
+      ],
+      "first": "spline_kan_iq_soft_syndrome_linear_decoder",
+      "mean_brier_reduction": 0.0002366121079485035,
+      "mean_error_reduction": -0.001589743589743577,
+      "mean_nll_reduction": 0.0005574568033433598,
+      "nll_reduction_paired_95pct_t_interval": [
+        -0.00024974718505132065,
+        0.0013646607917380403
+      ],
+      "second": "spline_kan_iq_soft_syndrome_spline_decoder"
+    }
+  ],
+  "created_at": "2026-09-07T17:50:57.165014+00:00",
+  "data": {
+    "chronological_test_shots": 40000,
+    "circuit_group": "circuit_26",
+    "detectors_per_shot": 108,
+    "file": "stability_9_raw_data.h5",
+    "independent_sessions": 1,
+    "md5": "738e37d66de114e7eacac3342d41294d",
+    "measurements_per_shot": 144,
+    "qpu": "Rigetti Ankaa-2",
+    "shots": 100000,
+    "source": "https://zenodo.org/records/15364358",
+    "train_shots": 60000
+  },
+  "design": {
+    "calibration_target": "hardware hard bits; soft I/Q is never given the logical target directly",
+    "go_condition": "at least 5% relative Brier reduction with positive block interval and no >0.2 percentage-point error degradation",
+    "limitations": "single session; learned replay, not prospective FPGA feedback",
+    "split": "first 60% chronological shots train; remaining shots locked test",
+    "target": "logical observable reconstructed by the embedded Stim circuit",
+    "uncertainty": "descriptive paired t intervals across contiguous 1000-shot test blocks"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "models": [
+    {
+      "brier_loss": 0.24052564344987867,
+      "classification_error": 0.42395,
+      "expected_calibration_error_10bin": 0.01402382705896722,
+      "model": "hard_syndrome_linear_decoder",
+      "negative_log_likelihood": 0.6737599398779291,
+      "offline_calibration_and_replay_seconds": 0.0,
+      "parameters": 109,
+      "python_batch_one_p50_ns": 26920.0,
+      "python_batch_one_p99_ns": 57511.1,
+      "vectorized_ns_per_sample": 1117.0549475
+    },
+    {
+      "brier_loss": 0.24079899755853099,
+      "classification_error": 0.423225,
+      "expected_calibration_error_10bin": 0.013165253112997379,
+      "model": "linear_iq_soft_syndrome_linear_decoder",
+      "negative_log_likelihood": 0.6743426646778528,
+      "offline_calibration_and_replay_seconds": 3.5079583348706365,
+      "parameters": 136,
+      "python_batch_one_p50_ns": 26190.0,
+      "python_batch_one_p99_ns": 57470.1,
+      "vectorized_ns_per_sample": 1172.60895625
+    },
+    {
+      "brier_loss": 0.2408603881274254,
+      "classification_error": 0.424475,
+      "expected_calibration_error_10bin": 0.014247511706274895,
+      "model": "spline_kan_iq_soft_syndrome_linear_decoder",
+      "negative_log_likelihood": 0.6744654556121626,
+      "offline_calibration_and_replay_seconds": 7.67845927271992,
+      "parameters": 226,
+      "python_batch_one_p50_ns": 26211.0,
+      "python_batch_one_p99_ns": 47639.09999999999,
+      "vectorized_ns_per_sample": 1226.5950275
+    },
+    {
+      "brier_loss": 0.24059381448773456,
+      "classification_error": 0.4256,
+      "expected_calibration_error_10bin": 0.021078348309336352,
+      "model": "spline_kan_iq_soft_syndrome_spline_decoder",
+      "negative_log_likelihood": 0.6738555043939525,
+      "offline_calibration_and_replay_seconds": 7.67845927271992,
+      "parameters": 442,
+      "python_batch_one_p50_ns": 50555.0,
+      "python_batch_one_p99_ns": 100770.09999999998,
+      "vectorized_ns_per_sample": 5544.10027625
+    }
+  ],
+  "schema_version": 1
+}
