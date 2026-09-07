@@ -93,7 +93,8 @@ causal-filtering baselines under matched observation access.
   GO and a Python deployment NO-GO; see the
   [mutable-decoder report](docs/fixed-topology-mutable-decoder-report.md).
 - Microbatches up to 64 records approach 41/55 us per record but incur 2.62/3.55 ms
-  median completion time and still miss the 39.1/42.5-us cadence-derived budgets.
+  batch compute plus up to 2.46/2.68 ms of fill delay under cadence-derived record
+  arrivals, and still miss the 39.1/42.5-us throughput budgets.
   Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
@@ -227,7 +228,8 @@ python -m pip install --force-reinstall --no-deps \
   git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251
 PYTHONPATH=src python scripts/run_rigetti_mutable_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
-  --circuit-group circuit_22 --equivalence-shots 40000 --batch-repeats 30 \
+  --circuit-group circuit_22 --syndrome-rounds 23 \
+  --equivalence-shots 40000 --batch-repeats 30 \
   --output results/rigetti_mutable_matching_with_resets.json
 ```
 

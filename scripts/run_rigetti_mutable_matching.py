@@ -47,7 +47,7 @@ def _quantiles_ns(values: np.ndarray) -> dict[str, float]:
 def run(
     path: Path, circuit_group: str, train_fraction: float,
     equivalence_shots: int, latency_shots: int, batch_repeats: int,
-    microbatch_sizes: list[int], microbatch_records: int,
+    microbatch_sizes: list[int], microbatch_records: int, syndrome_rounds: int,
 ) -> dict:
     import pymatching
 
@@ -89,6 +89,9 @@ def run(
     ))
     pairwise, graph_diagnostics = fit_spitz_pairwise_matching(
         template, record["detectors"][train], floor_probability=1e-4
+    )
+    original_max_weight = max(
+        float(attributes["weight"]) for _, _, attributes in pairwise.edges()
     )
     plan, soft_diagnostics = prepare_soft_reweighting(
         pairwise, measurement_error_signatures(record["circuit"]),
@@ -214,7 +217,10 @@ def run(
             "compute_batch": _quantiles_ns(call_ns),
             "compute_per_record_p50_ns": float(np.quantile(call_ns / size, 0.50)),
             "compute_per_record_p99_ns": float(np.quantile(call_ns / size, 0.99)),
-            "worst_case_fill_delay_at_1p7us_cadence_ns": float((size - 1) * 1700.0),
+            "assumed_completed_record_interval_ns": float(syndrome_rounds * 1700.0),
+            "worst_case_fill_delay_ns": float(
+                (size - 1) * syndrome_rounds * 1700.0
+            ),
         })
 
     edge_weights_after = {
@@ -268,8 +274,14 @@ def run(
         "soft_reweighting": soft_diagnostics,
         "updated_edges_per_shot": int(updates[0].shape[0]),
         "normalisation_dummy_detector": int(dummy_node),
-        "base_max_weight": base_max_weight,
-        "shots_exceeding_base_max_weight": int(np.sum(update_maxima > base_max_weight)),
+        "original_max_weight": original_max_weight,
+        "seeded_base_max_weight": base_max_weight,
+        "shots_exceeding_original_max_weight": int(np.sum(
+            update_maxima > original_max_weight
+        )),
+        "shots_exceeding_seeded_base_max_weight": int(np.sum(
+            update_maxima > base_max_weight
+        )),
         "weights_not_restored_after_decode": int(sum(
             edge_weights_after[key] != weight
             for key, weight in base_edge_weights.items()
@@ -326,13 +338,14 @@ if __name__ == "__main__":
     parser.add_argument("--batch-repeats", type=int, default=5)
     parser.add_argument("--microbatch-sizes", default="1,2,4,8,16,32,64")
     parser.add_argument("--microbatch-records", type=int, default=4096)
+    parser.add_argument("--syndrome-rounds", type=int, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     payload = run(
         args.data, args.circuit_group, args.train_fraction,
         args.equivalence_shots, args.latency_shots, args.batch_repeats,
         [int(value) for value in args.microbatch_sizes.split(",")],
-        args.microbatch_records,
+        args.microbatch_records, args.syndrome_rounds,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
