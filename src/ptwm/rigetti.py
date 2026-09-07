@@ -259,6 +259,19 @@ def timed_markov_prediction(
 
 def uniform_circuit_noise_model(circuit: object, probability: float) -> object:
     """Build a transparent circuit-level noise control when no calibrated DEM ships."""
+    return typed_circuit_noise_model(
+        circuit,
+        measurement_probability=probability,
+        one_qubit_probability=probability,
+        two_qubit_probability=probability,
+    )
+
+
+def typed_circuit_noise_model(
+    circuit: object, *, measurement_probability: float,
+    one_qubit_probability: float, two_qubit_probability: float,
+) -> object:
+    """Circuit model whose three rates can be calibrated off the hot path."""
     try:
         import stim
     except ImportError as exc:  # pragma: no cover
@@ -273,18 +286,18 @@ def uniform_circuit_noise_model(circuit: object, probability: float) -> object:
     for instruction in circuit.flattened():
         targets = instruction.targets_copy()
         if instruction.name in {"M", *measure_reset_gates}:
-            noisy.append("X_ERROR", targets, probability)
+            noisy.append("X_ERROR", targets, measurement_probability)
             noisy.append(instruction)
             if instruction.name in measure_reset_gates:
-                noisy.append("X_ERROR", targets, probability)
+                noisy.append("X_ERROR", targets, measurement_probability)
         else:
             noisy.append(instruction)
             if instruction.name in two_qubit_gates:
-                noisy.append("DEPOLARIZE2", targets, probability)
+                noisy.append("DEPOLARIZE2", targets, two_qubit_probability)
             elif instruction.name in single_qubit_gates:
-                noisy.append("DEPOLARIZE1", targets, probability)
+                noisy.append("DEPOLARIZE1", targets, one_qubit_probability)
             elif instruction.name in reset_gates:
-                noisy.append("X_ERROR", targets, probability)
+                noisy.append("X_ERROR", targets, measurement_probability)
     return noisy.detector_error_model(decompose_errors=True)
 
 
@@ -310,6 +323,30 @@ def matching_predictions(
         "vectorized_ns_per_shot": float(batch_ns),
         "python_batch_one_p50_ns": float(np.quantile(calls, 0.50)),
         "python_batch_one_p99_ns": float(np.quantile(calls, 0.99)),
+        "detector_error_model_terms": len(model),
+    }
+
+
+def typed_matching_predictions(
+    circuit: object, detectors: np.ndarray, *, measurement_probability: float,
+    one_qubit_probability: float, two_qubit_probability: float,
+) -> tuple[np.ndarray, dict[str, float]]:
+    try:
+        import pymatching
+    except ImportError as exc:  # pragma: no cover
+        raise RuntimeError("Install the 'real' optional dependencies for PyMatching") from exc
+    model = typed_circuit_noise_model(
+        circuit,
+        measurement_probability=measurement_probability,
+        one_qubit_probability=one_qubit_probability,
+        two_qubit_probability=two_qubit_probability,
+    )
+    matching = pymatching.Matching.from_detector_error_model(model)
+    started = perf_counter_ns()
+    prediction = matching.decode_batch(np.asarray(detectors, dtype=np.uint8))
+    elapsed = perf_counter_ns() - started
+    return np.asarray(prediction)[:, 0].astype(float), {
+        "vectorized_ns_per_shot": float(elapsed / len(detectors)),
         "detector_error_model_terms": len(model),
     }
 
