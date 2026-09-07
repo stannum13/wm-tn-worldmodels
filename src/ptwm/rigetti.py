@@ -530,6 +530,59 @@ def pack_soft_reweighting(
     )
 
 
+def temporal_vertex_separation(
+    matching: object, detector_coordinates: dict[int, list[float]],
+) -> dict[str, object]:
+    """Audit a fixed graph under the natural time, space, node vertex order.
+
+    The maximum active separator is an upper bound supplied by this specific order,
+    not a proof of globally minimum pathwidth.
+    """
+    nodes = list(range(matching.num_nodes))
+    if set(nodes) != set(detector_coordinates):
+        raise ValueError("every matching node must have detector coordinates")
+    order = sorted(nodes, key=lambda node: (
+        detector_coordinates[node][-1],
+        *detector_coordinates[node][:-1],
+        node,
+    ))
+    position = {node: index for index, node in enumerate(order)}
+    adjacency = {node: set() for node in nodes}
+    temporal_spans = []
+    boundary_edges = 0
+    for first, second, _ in matching.edges():
+        if second is None:
+            boundary_edges += 1
+            continue
+        adjacency[first].add(second)
+        adjacency[second].add(first)
+        temporal_spans.append(abs(
+            detector_coordinates[first][-1] - detector_coordinates[second][-1]
+        ))
+    active: set[int] = set()
+    trace = []
+    for index, node in enumerate(order):
+        active.add(node)
+        active = {
+            candidate for candidate in active
+            if any(position[neighbour] > index for neighbour in adjacency[candidate])
+        }
+        trace.append(len(active))
+    span_values, span_counts = np.unique(temporal_spans, return_counts=True)
+    return {
+        "order": order,
+        "active_separator_trace": trace,
+        "maximum_active_separator": max(trace, default=0),
+        "path_decomposition_bag_upper_bound": max(trace, default=0) + 1,
+        "one_logical_parity_state_upper_bound": 2 ** (max(trace, default=0) + 1),
+        "boundary_edges": boundary_edges,
+        "temporal_edge_span_counts": {
+            str(float(span)): int(count)
+            for span, count in zip(span_values, span_counts)
+        },
+    }
+
+
 def calibrated_uncertainty_route(
     calibration_scores: np.ndarray, evaluation_scores: np.ndarray, *, budget: float
 ) -> tuple[np.ndarray, float]:

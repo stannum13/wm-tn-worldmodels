@@ -20,6 +20,7 @@ from ptwm.rigetti import (
     probability_metrics,
     pack_affine_iq_heads,
     pack_soft_reweighting,
+    temporal_vertex_separation,
 )
 
 
@@ -170,6 +171,20 @@ def test_packed_affine_iq_heads_match_individual_heads():
             np.c_[values.real, values.imag]
         ).reshape(20, -1)
     assert np.allclose(packed.predict(soft), expected, atol=2e-7)
+
+
+def test_temporal_vertex_separation_for_path_graph():
+    pymatching = pytest.importorskip("pymatching")
+    matching = pymatching.Matching()
+    matching.add_edge(0, 1)
+    matching.add_edge(1, 2)
+    matching.add_edge(2, 3)
+    audit = temporal_vertex_separation(
+        matching, {node: [0.0, 0.0, float(node)] for node in range(4)}
+    )
+    assert audit["maximum_active_separator"] == 1
+    assert audit["path_decomposition_bag_upper_bound"] == 2
+    assert audit["one_logical_parity_state_upper_bound"] == 4
 
 
 def test_block_difference_sign_means_first_has_more_errors():
