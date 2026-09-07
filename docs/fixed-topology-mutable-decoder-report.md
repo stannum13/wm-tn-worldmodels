@@ -30,8 +30,9 @@ One packed affine kernel emits every `q_m`; one indexed kernel emits only the 96
 104 matched measurement-bearing edge weights. The backend receives endpoint/weight
 triples and restores the original weights after each decode.
 
-Per-record weights can exceed the original graph's normalization maximum, which
-forces the fork to reconstruct internal state. A new degree-one detector with a
+The original maximum LLR is `9.210240`; 13,427 reset and 32,638 no-reset holdout
+records emit at least one larger weight, which otherwise forces the fork to
+reconstruct internal state. A new degree-one detector with a
 single boundary edge at the clipped maximum LLR `11.512915`, zero syndrome, and empty
 fault mask seeds that maximum. Its parity equation forces the dummy edge to zero, so
 it is inert in the ideal matching objective. The runner asserts its structure,
@@ -73,19 +74,19 @@ mutable result.
 
 | Session | Batch | Median compute / record | Median batch compute | Worst fill wait at cadence-derived record arrivals |
 |---|---:|---:|---:|---:|
-| with resets | 1 | 115.0 us | 115.0 us | 0.0 us |
-| with resets | 4 | 62.7 us | 250.6 us | 117.3 us |
-| with resets | 16 | 45.4 us | 726.4 us | 586.5 us |
-| with resets | 64 | 41.0 us | 2,622.6 us | 2,463.3 us |
-| without resets | 1 | 123.3 us | 123.3 us | 0.0 us |
-| without resets | 4 | 75.7 us | 302.6 us | 127.5 us |
-| without resets | 16 | 58.8 us | 940.0 us | 637.5 us |
-| without resets | 64 | 55.5 us | 3,549.3 us | 2,677.5 us |
+| with resets | 1 | 108.7 us | 108.7 us | 0.0 us |
+| with resets | 4 | 61.8 us | 247.1 us | 117.3 us |
+| with resets | 16 | 45.3 us | 725.2 us | 586.5 us |
+| with resets | 64 | 40.3 us | 2,577.2 us | 2,463.3 us |
+| without resets | 1 | 121.6 us | 121.6 us | 0.0 us |
+| without resets | 4 | 74.0 us | 295.9 us | 127.5 us |
+| without resets | 16 | 57.6 us | 920.9 us | 637.5 us |
+| without resets | 64 | 53.9 us | 3,448.6 us | 2,677.5 us |
 
-The asymptotes remain about 41 and 55 microseconds per record, versus 39.1 and 42.5
+The asymptotes remain about 40 and 54 microseconds per record, versus 39.1 and 42.5
 microseconds for 23/25 rounds arriving every 1.7 microseconds. Microbatching therefore
 does not meet the throughput target, and its millisecond-scale batch completion makes
-response worse. At batch 64, oldest-record completion is about 5.09/6.23 ms after
+response worse. At batch 64, oldest-record completion is about 5.04/6.13 ms after
 including fill. It is a **NO-GO as the primary latency fix**; the next gain must remove
 Python/backend parsing and allocation rather than accumulate more records.
 

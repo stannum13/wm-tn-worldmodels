@@ -92,7 +92,7 @@ causal-filtering baselines under matched observation access.
   batch-one p99 remains 195--768 us per completed record, so this is an engineering
   GO and a Python deployment NO-GO; see the
   [mutable-decoder report](docs/fixed-topology-mutable-decoder-report.md).
-- Microbatches up to 64 records approach 41/55 us per record but incur 2.62/3.55 ms
+- Microbatches up to 64 records approach 40/54 us per record but incur 2.58/3.45 ms
   batch compute plus up to 2.46/2.68 ms of fill delay under cadence-derived record
   arrivals, and still miss the 39.1/42.5-us throughput budgets.
   Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
