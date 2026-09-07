@@ -87,6 +87,84 @@ class PackedSoftReweighting:
 
 
 @dataclass(frozen=True)
+class FrontierStep:
+    """Precompiled transitions for one introduced detector vertex."""
+
+    active_with_vertex: tuple[int, ...]
+    edge_indices: tuple[int, ...]
+    parity_toggles: tuple[int, ...]
+    logical_toggles: tuple[int, ...]
+    retained_positions: tuple[int, ...]
+    forgotten_positions: tuple[int, ...]
+    forgotten_vertices: tuple[int, ...]
+
+
+@dataclass(frozen=True)
+class FrontierDecoderPlan:
+    """Exact binary T-join dynamic program for a fixed narrow graph."""
+
+    steps: tuple[FrontierStep, ...]
+    edge_count: int
+    detector_count: int
+    maximum_active_separator: int
+
+    def decode(self, syndrome: np.ndarray, edge_weights: np.ndarray) -> tuple[int, float]:
+        syndrome = np.asarray(syndrome, dtype=np.uint8)
+        weights = np.asarray(edge_weights, dtype=float)
+        if syndrome.shape != (self.detector_count,):
+            raise ValueError("syndrome has the wrong detector count")
+        if weights.shape != (self.edge_count,):
+            raise ValueError("edge_weights has the wrong edge count")
+        costs = np.asarray([0.0, np.inf])  # empty parity mask, logical parity 0/1
+        active: tuple[int, ...] = ()
+        for step in self.steps:
+            old_width = len(active)
+            new_width = old_width + 1
+            introduced = np.full(2 ** (new_width + 1), np.inf)
+            for parity in range(2 ** old_width):
+                introduced[parity] = costs[parity]
+                introduced[parity | (1 << new_width)] = costs[
+                    parity | (1 << old_width)
+                ]
+            costs = introduced
+            for edge, parity_toggle, logical_toggle in zip(
+                step.edge_indices, step.parity_toggles, step.logical_toggles
+            ):
+                toggle = parity_toggle | (logical_toggle << new_width)
+                costs = np.minimum(costs, costs[np.arange(len(costs)) ^ toggle] + weights[edge])
+
+            retained_width = len(step.retained_positions)
+            compressed = np.full(2 ** (retained_width + 1), np.inf)
+            for state, cost in enumerate(costs):
+                if not np.isfinite(cost):
+                    continue
+                parity = state & ((1 << new_width) - 1)
+                if any(
+                    ((parity >> position) & 1) != int(syndrome[vertex])
+                    for position, vertex in zip(
+                        step.forgotten_positions, step.forgotten_vertices
+                    )
+                ):
+                    continue
+                retained = sum(
+                    ((parity >> position) & 1) << target
+                    for target, position in enumerate(step.retained_positions)
+                )
+                logical = (state >> new_width) & 1
+                target = retained | (logical << retained_width)
+                compressed[target] = min(compressed[target], cost)
+            costs = compressed
+            active = tuple(
+                step.active_with_vertex[position]
+                for position in step.retained_positions
+            )
+        if active or len(costs) != 2:
+            raise RuntimeError("frontier schedule did not terminate")
+        margin = float(abs(costs[1] - costs[0]))
+        return int(costs[1] < costs[0]), margin
+
+
+@dataclass(frozen=True)
 class MarkovSyndromeDecoder:
     """Causal class-conditional lookup model over per-round syndrome symbols."""
 
@@ -504,18 +582,16 @@ def soft_reweight_matrix(
     return output
 
 
-def pack_soft_reweighting(
-    plan: list[dict[str, object]], *, floor_probability: float = 1e-5,
+def _pack_reweighting_rows(
+    rows: list[dict[str, object]], *, floor_probability: float,
     ceiling_probability: float = 0.49,
 ) -> PackedSoftReweighting:
-    """Compile dynamic plan rows into dense measurement-to-edge indices."""
-    dynamic = [row for row in plan if row["measurements"]]
-    width = max((len(row["measurements"]) for row in dynamic), default=0)
-    indices = np.zeros((len(dynamic), width), dtype=int)
-    mask = np.zeros((len(dynamic), width), dtype=bool)
-    endpoints = np.empty((len(dynamic), 2), dtype=float)
-    residual_factor = np.empty(len(dynamic), dtype=float)
-    for edge, row in enumerate(dynamic):
+    width = max((len(row["measurements"]) for row in rows), default=0)
+    indices = np.zeros((len(rows), width), dtype=int)
+    mask = np.zeros((len(rows), width), dtype=bool)
+    endpoints = np.empty((len(rows), 2), dtype=float)
+    residual_factor = np.empty(len(rows), dtype=float)
+    for edge, row in enumerate(rows):
         measurements = np.asarray(row["measurements"], dtype=int)
         indices[edge, :len(measurements)] = measurements
         mask[edge, :len(measurements)] = True
@@ -527,6 +603,29 @@ def pack_soft_reweighting(
     return PackedSoftReweighting(
         endpoints, residual_factor, indices, mask,
         floor_probability, ceiling_probability,
+    )
+
+
+def pack_soft_reweighting(
+    plan: list[dict[str, object]], *, floor_probability: float = 1e-5,
+    ceiling_probability: float = 0.49,
+) -> PackedSoftReweighting:
+    """Compile dynamic plan rows into dense measurement-to-edge indices."""
+    return _pack_reweighting_rows(
+        [row for row in plan if row["measurements"]],
+        floor_probability=floor_probability,
+        ceiling_probability=ceiling_probability,
+    )
+
+
+def pack_full_edge_weights(
+    plan: list[dict[str, object]], *, floor_probability: float = 1e-5,
+    ceiling_probability: float = 0.49,
+) -> PackedSoftReweighting:
+    """Compile every plan row, including constant edges, in graph edge order."""
+    return _pack_reweighting_rows(
+        plan, floor_probability=floor_probability,
+        ceiling_probability=ceiling_probability,
     )
 
 
@@ -581,6 +680,75 @@ def temporal_vertex_separation(
             for span, count in zip(span_values, span_counts)
         },
     }
+
+
+def compile_frontier_decoder(
+    matching: object, detector_coordinates: dict[int, list[float]],
+) -> FrontierDecoderPlan:
+    """Compile an exact one-logical-observable T-join schedule.
+
+    Edges are consumed when their later endpoint is introduced. Boundary edges are
+    consumed with their detector endpoint. This supports graphlike edges and fault ID
+    zero; correlated/hyperedge decoding is deliberately outside the contract.
+    """
+    nodes = list(range(matching.num_nodes))
+    if set(nodes) != set(detector_coordinates):
+        raise ValueError("every matching node must have detector coordinates")
+    order = sorted(nodes, key=lambda node: (
+        detector_coordinates[node][-1],
+        *detector_coordinates[node][:-1],
+        node,
+    ))
+    position = {node: index for index, node in enumerate(order)}
+    edge_rows = list(matching.edges())
+    incoming: list[list[int]] = [[] for _ in nodes]
+    adjacency = {node: set() for node in nodes}
+    for edge, (first, second, attributes) in enumerate(edge_rows):
+        fault_ids = set(attributes["fault_ids"])
+        if not fault_ids.issubset({0}):
+            raise ValueError("frontier prototype supports only logical fault ID zero")
+        if second is None:
+            incoming[position[first]].append(edge)
+        else:
+            later = max(position[first], position[second])
+            incoming[later].append(edge)
+            adjacency[first].add(second)
+            adjacency[second].add(first)
+
+    active: tuple[int, ...] = ()
+    steps = []
+    maximum_separator = 0
+    for index, vertex in enumerate(order):
+        active_with = active + (vertex,)
+        locations = {node: location for location, node in enumerate(active_with)}
+        parity_toggles = []
+        logical_toggles = []
+        for edge in incoming[index]:
+            first, second, attributes = edge_rows[edge]
+            toggle = 1 << locations[first]
+            if second is not None:
+                toggle |= 1 << locations[second]
+            parity_toggles.append(toggle)
+            logical_toggles.append(int(0 in attributes["fault_ids"]))
+        retained_positions = tuple(
+            location for location, node in enumerate(active_with)
+            if any(position[neighbour] > index for neighbour in adjacency[node])
+        )
+        forgotten_positions = tuple(
+            location for location in range(len(active_with))
+            if location not in retained_positions
+        )
+        forgotten_vertices = tuple(active_with[location] for location in forgotten_positions)
+        steps.append(FrontierStep(
+            active_with, tuple(incoming[index]), tuple(parity_toggles),
+            tuple(logical_toggles), retained_positions,
+            forgotten_positions, forgotten_vertices,
+        ))
+        active = tuple(active_with[location] for location in retained_positions)
+        maximum_separator = max(maximum_separator, len(active))
+    return FrontierDecoderPlan(
+        tuple(steps), len(edge_rows), matching.num_nodes, maximum_separator
+    )
 
 
 def calibrated_uncertainty_route(

@@ -21,6 +21,8 @@ from ptwm.rigetti import (
     pack_affine_iq_heads,
     pack_soft_reweighting,
     temporal_vertex_separation,
+    compile_frontier_decoder,
+    pack_full_edge_weights,
 )
 
 
@@ -112,6 +114,8 @@ def test_soft_reweight_array_matches_rebuilt_graph_weights():
     packed = pack_soft_reweighting(plan)
     assert np.allclose(packed.build(np.stack([shot, shot * 0.5])), batch)
     assert np.allclose(packed.build(shot), updates)
+    full = pack_full_edge_weights(plan).build(shot)
+    assert full.shape == (2, 3)
 
 
 def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():
@@ -185,6 +189,24 @@ def test_temporal_vertex_separation_for_path_graph():
     assert audit["maximum_active_separator"] == 1
     assert audit["path_decomposition_bag_upper_bound"] == 2
     assert audit["one_logical_parity_state_upper_bound"] == 4
+
+
+def test_frontier_decoder_matches_pymatching_on_small_graph():
+    pymatching = pytest.importorskip("pymatching")
+    matching = pymatching.Matching()
+    matching.add_edge(0, 1, fault_ids={0}, weight=1.13)
+    matching.add_edge(1, 2, weight=2.07)
+    matching.add_boundary_edge(0, weight=3.19)
+    matching.add_boundary_edge(2, fault_ids={0}, weight=0.71)
+    coordinates = {node: [0.0, 0.0, float(node)] for node in range(3)}
+    plan = compile_frontier_decoder(matching, coordinates)
+    weights = np.asarray([attributes["weight"] for _, _, attributes in matching.edges()])
+    for value in range(8):
+        syndrome = np.asarray([(value >> bit) & 1 for bit in range(3)], dtype=np.uint8)
+        expected = int(matching.decode(syndrome)[0])
+        observed, margin = plan.decode(syndrome, weights)
+        assert observed == expected
+        assert margin > 0
 
 
 def test_block_difference_sign_means_first_has_more_errors():
