@@ -124,6 +124,49 @@ def soft_detector_probabilities(
     return output
 
 
+def detector_geometry(circuit: object) -> np.ndarray:
+    coordinates = circuit.get_detector_coordinates()
+    return np.asarray([coordinates[index][:3] for index in range(len(coordinates))], dtype=float)
+
+
+def local_detector_pairs(
+    circuit: object, *, maximum_time_lag: float = 1.0, maximum_spatial_distance: float = 2.01
+) -> np.ndarray:
+    """Circuit-local detector pairs without target-informed feature selection."""
+    geometry = detector_geometry(circuit)
+    pairs = []
+    for first in range(len(geometry)):
+        delta = np.abs(geometry[first + 1 :] - geometry[first])
+        selected = np.flatnonzero(
+            (delta[:, 2] <= maximum_time_lag)
+            & (delta[:, 0] + delta[:, 1] <= maximum_spatial_distance)
+        )
+        pairs.extend((first, first + 1 + int(offset)) for offset in selected)
+    return np.asarray(pairs, dtype=int)
+
+
+def local_pair_features(detectors: np.ndarray, pairs: np.ndarray) -> np.ndarray:
+    detectors = np.asarray(detectors, dtype=float)
+    return detectors[:, pairs[:, 0]] * detectors[:, pairs[:, 1]]
+
+
+def detector_worldline_parities(detectors: np.ndarray, circuit: object) -> np.ndarray:
+    """Cumulative parity state along each repeated detector coordinate."""
+    detectors = np.asarray(detectors)
+    geometry = detector_geometry(circuit)
+    output = np.empty_like(detectors, dtype=float)
+    for coordinate in np.unique(geometry[:, :2], axis=0):
+        columns = np.flatnonzero(np.all(geometry[:, :2] == coordinate, axis=1))
+        columns = columns[np.argsort(geometry[columns, 2])]
+        if np.all((detectors[:, columns] == 0) | (detectors[:, columns] == 1)):
+            output[:, columns] = np.logical_xor.accumulate(detectors[:, columns].astype(bool), axis=1)
+        else:
+            output[:, columns] = 0.5 * (
+                1.0 - np.cumprod(1.0 - 2.0 * detectors[:, columns], axis=1)
+            )
+    return output
+
+
 def chronological_preparation_split(labels: np.ndarray, train_fraction: float = 0.6) -> tuple[np.ndarray, np.ndarray]:
     """Take the early portion of each prepared-state trace for train, later for test."""
     labels = np.asarray(labels)
