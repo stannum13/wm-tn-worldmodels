@@ -28,6 +28,11 @@ from ptwm.rigetti import (  # noqa: E402
     prepare_soft_reweighting,
     typed_circuit_noise_model,
 )
+from ptwm.rigetti_jit import (  # noqa: E402
+    decode_frontier_batch,
+    decode_frontier_one,
+    pack_frontier_schedule,
+)
 
 
 def _quantiles(values: np.ndarray) -> dict[str, float]:
@@ -69,6 +74,7 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
     )
     full_weight_plan = pack_full_edge_weights(plan)
     weights = full_weight_plan.build(measurement_error[test])[:, :, 2]
+    schedule = pack_frontier_schedule(frontier)
 
     reference = np.empty(len(test), dtype=np.uint8)
     reference_ns = np.empty(len(test))
@@ -86,6 +92,25 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
             record["detectors"][row], weights[position]
         )
         candidate_ns[position] = perf_counter_ns() - started
+
+    # Compile outside all recorded timing, then measure both batch-one latency and
+    # amortized throughput for exactly the same DP schedule and weights.
+    decode_frontier_one(record["detectors"][test[0]], weights[0], *schedule)
+    compiled = np.empty(len(test), dtype=np.uint8)
+    compiled_margins = np.empty(len(test))
+    compiled_ns = np.empty(len(test))
+    for position, row in enumerate(test):
+        started = perf_counter_ns()
+        compiled[position], compiled_margins[position] = decode_frontier_one(
+            record["detectors"][row], weights[position], *schedule
+        )
+        compiled_ns[position] = perf_counter_ns() - started
+    decode_frontier_batch(record["detectors"][test[:1]], weights[:1], *schedule)
+    started = perf_counter_ns()
+    compiled_batch, compiled_batch_margins = decode_frontier_batch(
+        record["detectors"][test], weights, *schedule
+    )
+    compiled_batch_ns = perf_counter_ns() - started
 
     commit = os.environ.get("PTWM_CODE_COMMIT")
     if not commit:
@@ -126,6 +151,16 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
             ),
         },
         "prediction_disagreements": int(np.sum(disagreements)),
+        "compiled_prediction_disagreements": int(np.sum(compiled != reference)),
+        "compiled_batch_prediction_disagreements": int(np.sum(
+            compiled_batch != reference
+        )),
+        "maximum_compiled_margin_difference": float(np.max(np.abs(
+            compiled_margins - margins
+        ))),
+        "maximum_compiled_batch_margin_difference": float(np.max(np.abs(
+            compiled_batch_margins - margins
+        ))),
         "minimum_margin": float(np.min(margins)),
         "disagreement_margins": margins[disagreements].tolist(),
         "reference_logical_error": float(np.mean(reference != labels[test])),
@@ -133,6 +168,11 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
         "latency": {
             "reference_rebuild_and_decode": _quantiles(reference_ns),
             "python_frontier_decode": _quantiles(candidate_ns),
+            "compiled_frontier_batch_one": _quantiles(compiled_ns),
+            "compiled_frontier_batch_total_ns": float(compiled_batch_ns),
+            "compiled_frontier_batch_amortized_ns_per_record": float(
+                compiled_batch_ns / len(test)
+            ),
         },
     }
 
