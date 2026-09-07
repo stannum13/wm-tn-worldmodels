@@ -1,136 +1,115 @@
-# Reduced-State and Tensor-Network World Models
+# World models for quantum dynamics and control
 
-Falsification-first study of learned open-system dynamics on public experimental data,
-following the plan in `docs/reduced-state-tn-worldmodels.docx`.
+This repository asks: **when does a learned predictive state improve quantum-system
+inference or control enough to justify its measurement, training, and response-time
+costs?**
 
-The current research rationale is in [Why explore world models for quantum
-control?](docs/world-models-quantum-control-background.md). The
-[redistributed experiment plan](docs/redistributed-experiment-plan.md) replaces the
-original RB-gated sequence with independent tests of predictive memory, planning and
-policies, streaming observations and response latency, experimental access, physical
-constraints, and compression. Its new experiments are planned, not yet executed.
+The work combines public superconducting-qubit data with auditable simulations. It
+does not treat a history-dependent prediction gain as proof of physical quantum
+memory. Models are compared with Markov, classical hidden-state, direct-search, and
+causal-filtering baselines under matched observation access.
 
-**Core object:** a controlled process tensor — a map from a history of interventions to
-future reduced states and multi-time observables. The learned model maintains a compressed
-predictive state `z_{t+1} = F(z_t, rho_t, a_t)` with `rho_hat_{t+1} = G(z_{t+1})`.
+## Current evidence
 
-## First runnable controls
+- The public `pt_recovery` randomized-benchmarking data have been reproduced across
+  four length/idle cells; see [Experiment A](RESULTS.md).
+- A compact coherent-plus-damping model and a general Markov CPTP channel explain the
+  active `idle100` forecast gain without persistent memory. It does not transfer to
+  `idle180`; see the [memoryless benchmark](docs/memoryless-benchmark-findings.md).
+- A synthetic streaming screen found favorable delay-aware forecasting conditions,
+  but an eight-setting test did not establish a general 20% advantage and exposed
+  failures under low signal and detector artifacts; see the
+  [streaming report](docs/streaming-benchmark-report.md).
+- Multi-rate causal heads are being evaluated as slow-path context models. A held
+  output feeds a cheap hot-path denoiser; KAN-inspired spline heads must beat equally
+  scheduled linear heads on both error and measured amortized latency.
 
-The original plan is broad; see [`docs/process-critique.md`](docs/process-critique.md)
-for the process critique. Before fetching tomography data, run:
+These are bounded prediction findings, not closed-loop hardware-control claims.
+
+## Research structure
+
+The [background note](docs/world-models-quantum-control-background.md) explains how
+world models might help as predictors, planners, policies, belief states, and probe
+selectors. The [experiment plan](docs/redistributed-experiment-plan.md) defines
+observation contracts, mechanism families, quantitative targets, and GO/NO-GO rules.
+The [process critique](docs/process-critique.md) and
+[scientific review](docs/scientific-review.md) document limitations.
+
+The core predictive object is a compressed causal state:
+
+```text
+z[t+1] = F(z[t], observation[t], action[t])
+prediction[t+1] = G(z[t+1])
+```
+
+Simulator-only states are privileged references, never free policy observations.
+Streaming claims use only data available at the decision timestamp.
+
+## Install and verify
 
 ```bash
-PYTHONPATH=src python scripts/run_directional_experiments.py --seeds 10
-PYTHONPATH=src pytest -q
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+pytest -q
 ```
 
-Add `--output results/directional_controls.json` to save per-seed values and the
-5th–95th percentile seed interval.
+Fetch public data with `./scripts/fetch_data.sh`. Raw third-party data are stored in
+`data/external/` and are not committed.
 
-These controls test known action-memory and physical Bloch-ball effects. They are
-implementation checks, not claims about a real device.
-
-## Real benchmark
-
-After fetching the raw `pt_recovery` release, run the length-extrapolation benchmark:
+## Principal commands
 
 ```bash
-python scripts/run_pt_recovery_benchmark.py \
-  data/external/pt_recovery/experiment_data/RB_data_20230104/len40/idle100/rb_data_0.1/standard_rb_1q_full_data.json \
-  --output results/pt_recovery_rb_01.json
-```
+# Cheap implementation controls
+PYTHONPATH=src python scripts/run_directional_experiments.py \
+  --seeds 10 --output results/directional_controls.json
 
-The current result and its comparison to the published OQE/process-tensor work are in
-[`docs/real-benchmark-report.md`](docs/real-benchmark-report.md). The architectural
-analysis in [`docs/architecture-findings.md`](docs/architecture-findings.md) shows
-that validation-gated shrinkage of the released OQE correction improves the specific
-length-41–60 survival-probability forecast. It is not a claim about every process-
-tensor observable.
-
-The subsequent [matched memoryless benchmark](docs/memoryless-benchmark-findings.md)
-finds that a compact coherent-plus-damping qubit model and a general Markov CPTP
-channel explain the active `idle100` sequence-forecast gain without persistent state.
-That gain does not transfer to `idle180`; increasing pure-unitary OQE memory through
-D6 does not rescue it. See the [independent scientific review](docs/scientific-review.md)
-for the revised identification question and experimental controls.
-
-The [delay-aware streaming study](docs/streaming-benchmark-report.md) finds a bounded
-favorable regime, then shows in a fresh eight-setting parameter-family test that the
-advantage is not generally above 20% and can reverse under low signal and frequent
-detector artifacts. This synthetic boundary result motivates a robust-emission model;
-it is not a general quantum-feedback claim.
-
-## Original experiment (A) — real-device process world model
-
-Data: `guochu/pt_recovery` (superconducting-qubit randomized-benchmarking sequences with
-correlated noise, recovered process tensors) and `Christina-Giar/NMN-tomo` (multi-time
-process tomography on a superconducting qubit).
-
-Models under comparison at matched parameter count:
-
-1. time-homogeneous Markov channel,
-2. transfer-tensor / linear autoregression,
-3. GRU (and a small Transformer variant),
-4. causality/CPTP-constrained process-MPO with bond dimension chi.
-
-Split discipline (from the plan): train on sequence length <= 20 and a subset of bias
-settings; test on length 40/60, held-out bias, and held-out control families. Random
-time-point splits are forbidden — they leak the same physical trajectory.
-
-## Repository interface
-
-Every model implements one contract (`src/ptwm/api.py`):
-
-- `observe` — density matrix, local marginals, or measurement outcomes,
-- `act` — pulse, channel, Hamiltonian/quench parameter, or geometry update,
-- `latent` — recurrent vector, ADO stack, or MPO bond,
-- `predict` — next RDM plus selected multi-time observables,
-- `check` — positivity, trace, causality/CPTP residual, N-representability relaxations,
-  conservation,
-- `budget` — bond/latent dimension, runtime, peak memory.
-
-## Layout
-
-```
-src/ptwm/        package: data loading, models, metrics, splits
-scripts/         entry points (fetch data, train, evaluate, figures)
-configs/         experiment configs (YAML)
-tests/           unit + integration tests
-results/         metrics tables and figures (small artifacts, tracked)
-data/            fetched third-party data (gitignored; see scripts/fetch_data.sh)
-docs/            the plan document
-```
-
-## Quickstart
-
-```bash
-./scripts/fetch_pt_recovery.sh
-PYTHONPATH=src python -m pytest tests -q
-python scripts/compare_released_oqe.py data/external/pt_recovery \
-  --output results/released_oqe_comparison.json
-python scripts/train_reconstructed_oqe.py data/external/pt_recovery \
-  --bias 0.5 --memory-dimensions 1,2 --seeds 0,1,2 \
-  --output results/reconstructed_oqe_bias_05.json
-python scripts/run_markov_model_comparison.py data/external/pt_recovery \
-  --condition idle100 --biases 0.4,0.5,0.52,0.54 \
-  --models damped_d1,markov_cptp --seeds 0,1,2,3,4 --epochs 50 \
+# Matched real-data Markov comparison
+PYTHONPATH=src python scripts/run_markov_model_comparison.py \
+  data/external/pt_recovery --condition idle100 \
+  --biases 0.4,0.5,0.52,0.54 --models damped_d1,markov_cptp \
+  --seeds 0,1,2,3,4 --epochs 50 \
   --output results/markov_models_idle100_active.json
+
+# Streaming delay and fresh parameter-family screens
+PYTHONPATH=src python scripts/run_streaming_benchmark.py \
+  --output results/streaming_benchmark.json
+PYTHONPATH=src python scripts/run_streaming_confirmation.py \
+  --workers 8 --output results/streaming_confirmation.json
+
+# Multi-rate causal heads
+PYTHONPATH=src python scripts/run_causal_head_benchmark.py \
+  --seeds 10 --delay 25 --strides 1,8,32,128 \
+  --output results/causal_head_benchmark.json
 ```
 
-## Status
+The causal-head benchmark currently uses delayed simulator-state targets as a
+privileged diagnostic. It cannot support a deployable learned-policy claim until an
+experimentally accessible delayed verification signal replaces those targets.
 
-- [x] Plan ingested (docx), data sources pinned
-- [x] Experiment A: ingestion, leakage-safe splits, and four baseline cells (see `RESULTS.md`)
-- [x] Directional residual analysis across bias and horizon
-- [x] Iterative rollout-based RL on real sequences (per-episode updates, not batch)
-- [x] Released OQE forecast comparison and memory-dimension sweep
-- [x] Clifford group recovery and independent differentiable OQE reconstruction
-- [x] Matched memoryless-channel comparison and idle-duration transfer test
-- [x] Independent `idle180` check (active mixing failed to transfer)
-- [ ] NMN-tomo process-matrix physicality residuals (loader present, analysis pending)
-- [ ] Acquisition-block uncertainty and prospective active-mixing confirmation
-- [ ] Matched planning/policy comparisons in simulations with explicit observation access
-- [x] First hidden-detuning streaming/delay screen on GCP
-- [x] Fresh eight-setting streaming parameter-family confirmation
-- [ ] Robust-emission streaming model and quantum-trajectory extension
-- [ ] Observation-design, constraint, and compression experiments from the redistributed plan
+## Repository map
+
+```text
+src/ptwm/   loaders, models, splits, metrics, and streaming primitives
+scripts/    reproducible experiment entry points
+tests/      unit and public-data integration tests
+results/    versioned metrics, predictions, and figures
+docs/       rationale, critiques, plans, and evidence reports
+data/       fetched third-party data; ignored by Git
+```
+
+## Campaign status
+
+- [x] Public-data ingestion, leakage-aware splits, and Experiment A baselines
+- [x] Released/reconstructed OQE and matched memoryless comparisons
+- [x] Idle-duration transfer test
+- [x] Streaming delay screen and eight-setting parameter-family test on GCP
+- [ ] Multi-rate linear/KAN causal-head comparison across fresh seeds
+- [ ] Robust contamination-aware emission model
+- [ ] Backaction-consistent quantum-trajectory control benchmark
+- [ ] Matched planning/policy comparison with explicit observation costs
+- [ ] NMN-tomo process-matrix physicality analysis
+- [ ] Prospective hardware or held-out real-deployment confirmation
+
+Autonomous campaign changes are in draft
+[GitHub pull request #1](https://github.com/stannum13/wm-tn-worldmodels/pull/1).

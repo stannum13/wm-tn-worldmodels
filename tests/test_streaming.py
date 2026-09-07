@@ -42,7 +42,7 @@ def test_delay_forecast_improves_delayed_control_for_oracle_model():
     data = simulate_switching_streams(seed=6, n_streams=80, length=1000)
     params = StreamParameters(data["transition"], np.array([-0.8, 0.8]), np.ones(2))
     report = benchmark_estimators(data, params, delays=[25])
-    assert report[25]["hmm_delay_forecast"]["control_mse"] < report[25]["hmm_filter_current"]["control_mse"]
+    assert report[25]["hmm_delay_forecast"]["brier_loss"] < report[25]["hmm_filter_current"]["brier_loss"]
 
 
 def test_forecast_at_zero_delay_is_identity():

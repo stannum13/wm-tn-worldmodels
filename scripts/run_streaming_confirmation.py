@@ -52,15 +52,15 @@ def run(workers: int) -> dict:
         for delay in delay_keys:
             development = group[:5]
             candidates = ["instantaneous", "ewma", "hmm_filter_current"]
-            baseline = min(candidates, key=lambda name: np.mean([r["delays"][delay][name]["control_mse"] for r in development]))
+            baseline = min(candidates, key=lambda name: np.mean([r["delays"][delay][name]["brier_loss"] for r in development]))
             confirm = group[5:]
-            b = np.array([r["delays"][delay][baseline]["control_mse"] for r in confirm])
-            f = np.array([r["delays"][delay]["hmm_delay_forecast"]["control_mse"] for r in confirm])
+            b = np.array([r["delays"][delay][baseline]["brier_loss"] for r in confirm])
+            f = np.array([r["delays"][delay]["hmm_delay_forecast"]["brier_loss"] for r in confirm])
             relative = (b - f) / b
             summaries[str(delay)] = {
                 "baseline_frozen_on_development": baseline,
-                "baseline_mse": float(b.mean()),
-                "forecast_mse": float(f.mean()),
+                "baseline_brier_loss": float(b.mean()),
+                "forecast_brier_loss": float(f.mean()),
                 "relative_reduction_mean": float(relative.mean()),
                 "relative_reduction_95_t_interval": interval(relative),
             }
