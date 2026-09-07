@@ -87,6 +87,11 @@ causal-filtering baselines under matched observation access.
   gain is recovered. This is an exploratory selector NO-GO, while fixed-topology
   mutable weights remain the primary path; see the
   [event-routing report](docs/event-triggered-soft-routing-report.md).
+- Fixed-topology mutable decoding exactly matches graph reconstruction on all 80,000
+  held-out records and improves amortized matching throughput by 42--62x. Packed
+  batch-one p99 remains 195--768 us per completed record, so this is an engineering
+  GO and a Python deployment NO-GO; see the
+  [mutable-decoder report](docs/fixed-topology-mutable-decoder-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -213,6 +218,14 @@ PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
 PYTHONPATH=src python scripts/run_rigetti_adaptive_soft_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --output results/rigetti_adaptive_soft_matching.json
+
+# Experimental mutable backend (pin is also recorded in every result artifact)
+python -m pip install --force-reinstall --no-deps \
+  git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251
+PYTHONPATH=src python scripts/run_rigetti_mutable_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --equivalence-shots 40000 --batch-repeats 30 \
+  --output results/rigetti_mutable_matching_with_resets.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -247,9 +260,9 @@ data/       fetched third-party data; ignored by Git
 - [x] Reject naive rolling pairwise refits at maximum depth
 - [x] Match the released soft-I/Q result within the 0.20-point validity gate
 - [x] Reject rolling calibration and particle/EKF escalation at the logical endpoint
-- [x] Confirm the affine soft mechanism on the independent no-reset session after a
-  circuit-topology repair
-- [ ] Compile soft edge updates for a deployment-relevant latency test
+- [x] Support the affine soft mechanism on an independent no-reset post-repair screen
+- [x] Validate packed fixed-topology soft edge updates on 80,000 held-out records
+- [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark

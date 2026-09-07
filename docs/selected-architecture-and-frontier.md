@@ -81,14 +81,20 @@ the graph-publication lane; PyMatching owns the decision path.
 
 ## Deployment boundary
 
-The current Python reference rebuilds 268--plus-edge graphs per shot. P50/p99 are
-2.20/2.90 ms with resets and 2.97/3.86 ms without resets. Fixed-graph batch-one decode
-is tens of microseconds, so graph reconstruction—not affine inference—is the dominant
-cost. PyMatching 2.4 exposes edge addition but no public in-place weight setter.
+The original Python reference rebuilt 276/400-edge graphs per record. A pinned
+experimental PyMatching fork now accepts 96/104 mutable measurement-edge weights on
+fixed topology. Across all 80,000 held-out records it produces zero disagreements
+with reconstruction and improves amortized matching throughput by 42--62x.
+
+Packed batch-one I/Q-to-weight-to-decode p50/p99 is still 95.9/195.2 us with resets
+and 198.3/768.0 us without resets. Amortized component throughput is 1.79--3.06 us
+per syndrome round. This passes the campaign's <100-us matching-throughput gate but
+does not establish the paper's 1.7-us cadence. See the
+[mutable-decoder report](fixed-topology-mutable-decoder-report.md).
 
 The next implementation must therefore provide one of:
 
-1. a C++/Rust matching backend with fixed topology and mutable weight buffers;
+1. a compiled indexed I/Q-to-weight front end fused to mutable matching;
 2. an incremental decoder that consumes per-measurement likelihoods directly; or
 3. a compiled local-clustering/FPGA path with the affine head fused into edge loading.
 

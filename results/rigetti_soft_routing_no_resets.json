@@ -1,6 +1,6 @@
 {
   "calibration_parameters": 24,
-  "code_commit": "b8c3eaffda1d8d73a2481bf95024e1dfe8bf1014",
+  "code_commit": "c413040",
   "comparisons": [
     {
       "blocks": 40,
@@ -25,7 +25,7 @@
       "second": "pairwise_linear_iq"
     }
   ],
-  "created_at": "2026-09-07T20:47:15.482428+00:00",
+  "created_at": "2026-09-07T21:15:28.762535+00:00",
   "data": {
     "circuit_group": "circuit_24",
     "file": "stability_8_without_resets_raw_data.h5",
@@ -39,7 +39,7 @@
     "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
     "logical_labels_in_iq_or_graph_calibration": false,
     "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
-    "soft_rule": "replace average measurement contribution on matched edges with per-shot posterior error",
+    "soft_rule": "replace average matched-edge contribution with the per-shot balanced-head hard-bit surprisal surrogate",
     "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked"
   },
   "environment": {
@@ -53,7 +53,7 @@
         "calibration_route_budget": 0.0,
         "calibration_score_threshold": null,
         "fraction_of_full_soft_gain_recovered": 0.0,
-        "hybrid_logical_error": 0.20415,
+        "hybrid_logical_error": 0.27205,
         "paired_row_block_95pct_t_interval": [
           0.0,
           0.0
@@ -61,91 +61,93 @@
         "test_routed_fraction": 0.0
       },
       {
-        "absolute_error_reduction_vs_hard": 0.00027499999999999747,
+        "absolute_error_reduction_vs_hard": 0.0014250000000000096,
         "calibration_route_budget": 0.01,
         "calibration_score_threshold": 7.081939210891725,
-        "fraction_of_full_soft_gain_recovered": 0.012865497076023271,
-        "hybrid_logical_error": 0.203875,
+        "fraction_of_full_soft_gain_recovered": 0.015961915429851686,
+        "hybrid_logical_error": 0.270625,
         "paired_row_block_95pct_t_interval": [
-          -0.0004345607169281724,
-          0.0009845607169281703
+          0.000719516719407854,
+          0.0021304832805921488
         ],
         "test_routed_fraction": 0.02005
       },
       {
-        "absolute_error_reduction_vs_hard": 0.0006249999999999867,
+        "absolute_error_reduction_vs_hard": 0.0027000000000000357,
         "calibration_route_budget": 0.02,
         "calibration_score_threshold": 6.762837352752685,
-        "fraction_of_full_soft_gain_recovered": 0.029239766081870715,
-        "hybrid_logical_error": 0.203525,
+        "fraction_of_full_soft_gain_recovered": 0.030243629235508655,
+        "hybrid_logical_error": 0.26935,
         "paired_row_block_95pct_t_interval": [
-          -0.00034852313818160927,
-          0.0015985231381816063
+          0.0017804724571898378,
+          0.0036195275428101614
         ],
         "test_routed_fraction": 0.03405
       },
       {
-        "absolute_error_reduction_vs_hard": 0.0018249999999999933,
+        "absolute_error_reduction_vs_hard": 0.0063750000000000195,
         "calibration_route_budget": 0.05,
         "calibration_score_threshold": 6.2826527595520005,
-        "fraction_of_full_soft_gain_recovered": 0.08538011695906399,
-        "hybrid_logical_error": 0.202325,
+        "fraction_of_full_soft_gain_recovered": 0.0714085690282836,
+        "hybrid_logical_error": 0.265675,
         "paired_row_block_95pct_t_interval": [
-          0.0003894565915627784,
-          0.003260543408437222
+          0.004978724230535848,
+          0.00777127576946415
         ],
         "test_routed_fraction": 0.070275
       },
       {
-        "absolute_error_reduction_vs_hard": 0.004174999999999984,
+        "absolute_error_reduction_vs_hard": 0.012750000000000039,
         "calibration_route_budget": 0.1,
         "calibration_score_threshold": 5.83888349533081,
-        "fraction_of_full_soft_gain_recovered": 0.1953216374268998,
-        "hybrid_logical_error": 0.199975,
+        "fraction_of_full_soft_gain_recovered": 0.1428171380565672,
+        "hybrid_logical_error": 0.2593,
         "paired_row_block_95pct_t_interval": [
-          0.0020500171736442083,
-          0.006299982826355792
+          0.010961626902941663,
+          0.014538373097058339
         ],
         "test_routed_fraction": 0.12945
       },
       {
-        "absolute_error_reduction_vs_hard": 0.0072500000000000064,
+        "absolute_error_reduction_vs_hard": 0.022650000000000003,
         "calibration_route_budget": 0.2,
         "calibration_score_threshold": 5.3497316360473635,
-        "fraction_of_full_soft_gain_recovered": 0.3391812865497078,
-        "hybrid_logical_error": 0.1969,
+        "fraction_of_full_soft_gain_recovered": 0.2537104452534304,
+        "hybrid_logical_error": 0.2494,
         "paired_row_block_95pct_t_interval": [
-          0.004738287619143962,
-          0.009761712380856033
+          0.02045023048011431,
+          0.024849769519885684
         ],
         "test_routed_fraction": 0.241025
       },
       {
-        "absolute_error_reduction_vs_hard": 0.015199999999999991,
+        "absolute_error_reduction_vs_hard": 0.052525000000000016,
         "calibration_route_budget": 0.5,
         "calibration_score_threshold": 4.467874526977539,
-        "fraction_of_full_soft_gain_recovered": 0.7111111111111106,
-        "hybrid_logical_error": 0.18895,
+        "fraction_of_full_soft_gain_recovered": 0.5883506020722488,
+        "hybrid_logical_error": 0.219525,
         "paired_row_block_95pct_t_interval": [
-          0.012079712525703135,
-          0.018320287474296856
+          0.049308049410574026,
+          0.05574195058942598
         ],
         "test_routed_fraction": 0.544125
       },
       {
-        "absolute_error_reduction_vs_hard": 0.021375000000000005,
+        "absolute_error_reduction_vs_hard": 0.08927500000000002,
         "calibration_route_budget": 1.0,
         "calibration_score_threshold": null,
         "fraction_of_full_soft_gain_recovered": 1.0,
         "hybrid_logical_error": 0.182775,
         "paired_row_block_95pct_t_interval": [
-          0.017695829344838276,
-          0.02505417065516172
+          0.08522250124185576,
+          0.09332749875814428
         ],
         "test_routed_fraction": 1.0
       }
     ],
-    "score": "sum of per-measurement posterior hard-decision error probabilities",
+    "hard_branch": "pairwise_hard (same fixed topology; calibration-average weights)",
+    "score": "sum of per-measurement balanced-head hard-bit surprisal surrogates",
+    "soft_branch": "pairwise_linear_iq (same fixed topology; per-shot weights)",
     "threshold_access": "quantile fixed only on calibration rows"
   },
   "graph": {
@@ -157,10 +159,6 @@
     "floor_probability": 0.0001,
     "invalid_estimates": 0,
     "pair_edges": 384
-  },
-  "hard_decode_latency": {
-    "python_batch_one_p50_ns": 28124.5,
-    "python_batch_one_p99_ns": 70781.18999999999
   },
   "models": [
     {
@@ -176,6 +174,10 @@
       "model": "pairwise_linear_iq"
     }
   ],
+  "pairwise_hard_decode_latency": {
+    "python_batch_one_p50_ns": 71010.0,
+    "python_batch_one_p99_ns": 367944.18999999994
+  },
   "row_block_errors": {
     "circuit_template_hard": [
       0.203,
@@ -305,9 +307,10 @@
     ]
   },
   "schema_version": 1,
-  "soft_build_and_decode_latency": {
-    "python_batch_one_p50_ns": 2991345.0,
-    "python_batch_one_p99_ns": 3854361.1
+  "soft_graph_build_and_decode_latency": {
+    "excludes": "I/Q inference, selector scoring, routing, queueing, and data movement",
+    "python_batch_one_p50_ns": 3013355.0,
+    "python_batch_one_p99_ns": 6312303.9
   },
   "soft_reweighting": {
     "matched_measurements": 104,

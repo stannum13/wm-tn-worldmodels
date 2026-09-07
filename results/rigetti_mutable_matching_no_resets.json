@@ -1,0 +1,94 @@
+{
+  "base_max_weight": 11.512915464920228,
+  "calibration_parameters": 24,
+  "code_commit": "9c91c2f",
+  "created_at": "2026-09-07T21:36:10.778123+00:00",
+  "data": {
+    "circuit_group": "circuit_24",
+    "file": "stability_8_without_resets_raw_data.h5",
+    "md5": "721b7368a819e13eb404fea5154744a4",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "backend": "experimental fixed-topology edge_reweights API",
+    "equivalence_gate": "zero logical-prediction disagreements",
+    "latency_gate": "batch amortized <100 us/shot and >=20x faster than reconstruction",
+    "reference": "fresh PyMatching graph reconstruction per shot"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "pymatching_fork_commit": "435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_fork_url": "https://github.com/Allenator/PyMatching",
+    "pymatching_install": "python -m pip install git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_module": "/home/shiva/wm-tn-autonomous-run/.venv-mutable/lib/python3.10/site-packages/pymatching/__init__.py",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "equivalence": {
+    "base_prediction_disagreements_after_restore": 0,
+    "prediction_disagreements": 0,
+    "prediction_disagreements_across_batch_repeats": 0,
+    "shots": 40000
+  },
+  "graph": {
+    "boundary_edges": 16,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 14,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 384
+  },
+  "latency": {
+    "batch_speedup_vs_reference_p50": 42.54903813508428,
+    "generic_iq_inference_batch_total_ns": 825584263.0,
+    "generic_weight_matrix_total_ns": 95631944.0,
+    "mutable_batch_amortized_ns_per_shot": 69801.6954125,
+    "mutable_batch_repeats": 30,
+    "mutable_batch_total": {
+      "p50_ns": 2792067816.5,
+      "p95_ns": 3228886572.5,
+      "p99_ns": 3340906641.1
+    },
+    "mutable_single_decode": {
+      "p50_ns": 89690.0,
+      "p95_ns": 290674.5,
+      "p99_ns": 418599.0999999999
+    },
+    "packed_compute_pipeline_single_record": {
+      "p50_ns": 198265.5,
+      "p95_ns": 616412.5,
+      "p99_ns": 767979.9999999999
+    },
+    "packed_iq_inference_batch_amortized_ns_per_shot": 2935.08043,
+    "packed_iq_inference_batch_total_ns": 293508043.0,
+    "packed_iq_inference_single_record": {
+      "p50_ns": 34370.0,
+      "p95_ns": 185525.0,
+      "p99_ns": 239194.6
+    },
+    "packed_weight_matrix_amortized_ns_per_shot": 3868.5818,
+    "packed_weight_matrix_total_ns": 154743272.0,
+    "reference_rebuild_and_decode": {
+      "p50_ns": 2969995.0,
+      "p95_ns": 3233881.55,
+      "p99_ns": 3800365.5000000033
+    }
+  },
+  "logical_error": 0.182775,
+  "maximum_packed_vs_generic_edge_weight_difference": 1.8545165403338615e-12,
+  "maximum_packed_vs_generic_iq_probability_difference": 0.0,
+  "normalisation_dummy_detector": 100,
+  "schema_version": 1,
+  "shots_exceeding_base_max_weight": 0,
+  "soft_reweighting": {
+    "matched_measurements": 104,
+    "residual_clipped": 12,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  },
+  "updated_edges_per_shot": 104,
+  "weights_not_restored_after_decode": 0
+}
