@@ -19,6 +19,7 @@ from ptwm.rigetti import (
     calibrated_uncertainty_route,
     probability_metrics,
     pack_affine_iq_heads,
+    pack_soft_reweighting,
 )
 
 
@@ -107,6 +108,9 @@ def test_soft_reweight_array_matches_rebuilt_graph_weights():
     batch = soft_reweight_matrix(plan, np.stack([shot, shot * 0.5]))
     assert batch.shape == (2, 2, 3)
     assert np.array_equal(batch[0], updates)
+    packed = pack_soft_reweighting(plan)
+    assert np.allclose(packed.build(np.stack([shot, shot * 0.5])), batch)
+    assert np.allclose(packed.build(shot), updates)
 
 
 def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():

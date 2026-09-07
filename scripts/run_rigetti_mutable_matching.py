@@ -28,6 +28,7 @@ from ptwm.rigetti import (  # noqa: E402
     load_qec_record,
     measurement_error_signatures,
     pack_affine_iq_heads,
+    pack_soft_reweighting,
     prepare_soft_reweighting,
     predict_measurement_probabilities,
     soft_reweight_matrix,
@@ -116,8 +117,15 @@ def run(
     if len(dummy_rows) != 1 or dummy_rows[0][1] is not None or dummy_rows[0][2]["fault_ids"]:
         raise RuntimeError("normalisation dummy must be one empty-fault boundary edge")
     started = perf_counter_ns()
-    update_matrix = soft_reweight_matrix(plan, measurement_error[test])
-    update_total_ns = perf_counter_ns() - started
+    generic_update_matrix = soft_reweight_matrix(plan, measurement_error[test])
+    generic_update_total_ns = perf_counter_ns() - started
+    packed_weight_plan = pack_soft_reweighting(plan)
+    started = perf_counter_ns()
+    update_matrix = packed_weight_plan.build(measurement_error[test])
+    packed_update_total_ns = perf_counter_ns() - started
+    maximum_packed_weight_difference = float(np.max(np.abs(
+        update_matrix - generic_update_matrix
+    )))
     updates = [update_matrix[position] for position in range(len(test))]
 
     check_count = min(equivalence_shots, len(test))
@@ -154,6 +162,7 @@ def run(
     one_count = min(latency_shots, len(test))
     mutable_call_ns = np.empty(one_count)
     iq_single_call_ns = np.empty(one_count)
+    pipeline_single_call_ns = np.empty(one_count)
     for position in range(one_count):
         row = test[position]
         started = perf_counter_ns()
@@ -162,6 +171,16 @@ def run(
         started = perf_counter_ns()
         pairwise.decode(detectors[position], edge_reweights=updates[position])
         mutable_call_ns[position] = perf_counter_ns() - started
+        started = perf_counter_ns()
+        probability = packed_head.predict(
+            record["soft_measurements"][row : row + 1]
+        )[0]
+        shot_error = np.where(
+            record["hard_measurements"][row], 1.0 - probability, probability
+        )
+        edge_reweights = packed_weight_plan.build(shot_error)
+        pairwise.decode(detectors[position], edge_reweights=edge_reweights)
+        pipeline_single_call_ns[position] = perf_counter_ns() - started
     base_after = np.asarray(pairwise.decode_batch(detectors[:check_count]))[:, 0]
 
     edge_weights_after = {
@@ -237,8 +256,14 @@ def run(
                 packed_iq_batch_ns / len(labels)
             ),
             "packed_iq_inference_single_record": _quantiles_ns(iq_single_call_ns),
-            "weight_matrix_total_ns": float(update_total_ns),
-            "weight_matrix_amortized_ns_per_shot": float(update_total_ns / len(test)),
+            "generic_weight_matrix_total_ns": float(generic_update_total_ns),
+            "packed_weight_matrix_total_ns": float(packed_update_total_ns),
+            "packed_weight_matrix_amortized_ns_per_shot": float(
+                packed_update_total_ns / len(test)
+            ),
+            "packed_compute_pipeline_single_record": _quantiles_ns(
+                pipeline_single_call_ns
+            ),
             "reference_rebuild_and_decode": _quantiles_ns(reference_call_ns),
             "mutable_single_decode": _quantiles_ns(mutable_call_ns),
             "mutable_batch_repeats": batch_repeats,
@@ -252,6 +277,7 @@ def run(
             ),
         },
         "maximum_packed_vs_generic_iq_probability_difference": maximum_iq_probability_difference,
+        "maximum_packed_vs_generic_edge_weight_difference": maximum_packed_weight_difference,
     }
 
 

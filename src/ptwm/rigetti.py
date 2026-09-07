@@ -49,6 +49,44 @@ class PackedAffineIQHeads:
 
 
 @dataclass(frozen=True)
+class PackedSoftReweighting:
+    """Vectorized fixed-topology map from measurement surrogates to edge LLRs."""
+
+    endpoints: np.ndarray
+    residual_factor: np.ndarray
+    measurement_indices: np.ndarray
+    measurement_mask: np.ndarray
+    floor_probability: float
+    ceiling_probability: float
+
+    def build(self, shot_error_probability: np.ndarray) -> np.ndarray:
+        values = np.asarray(shot_error_probability, dtype=float)
+        single = values.ndim == 1
+        if single:
+            values = values[None, :]
+        if values.ndim != 2:
+            raise ValueError("shot_error_probability must be one- or two-dimensional")
+        selected = np.clip(
+            values[:, self.measurement_indices],
+            self.floor_probability,
+            self.ceiling_probability,
+        )
+        factors = np.where(
+            self.measurement_mask[None, :, :], 1.0 - 2.0 * selected, 1.0
+        )
+        alpha = self.residual_factor[None, :] * np.prod(factors, axis=2)
+        probability = np.clip(
+            (1.0 - alpha) / 2.0,
+            self.floor_probability,
+            self.ceiling_probability,
+        )
+        output = np.empty((len(values), len(self.endpoints), 3), dtype=float)
+        output[:, :, :2] = self.endpoints
+        output[:, :, 2] = np.log((1.0 - probability) / probability)
+        return output[0] if single else output
+
+
+@dataclass(frozen=True)
 class MarkovSyndromeDecoder:
     """Causal class-conditional lookup model over per-round syndrome symbols."""
 
@@ -464,6 +502,32 @@ def soft_reweight_matrix(
         output[:, edge, 1] = -1.0 if row["second"] is None else float(row["second"])
         output[:, edge, 2] = np.log((1.0 - probability) / probability)
     return output
+
+
+def pack_soft_reweighting(
+    plan: list[dict[str, object]], *, floor_probability: float = 1e-5,
+    ceiling_probability: float = 0.49,
+) -> PackedSoftReweighting:
+    """Compile dynamic plan rows into dense measurement-to-edge indices."""
+    dynamic = [row for row in plan if row["measurements"]]
+    width = max((len(row["measurements"]) for row in dynamic), default=0)
+    indices = np.zeros((len(dynamic), width), dtype=int)
+    mask = np.zeros((len(dynamic), width), dtype=bool)
+    endpoints = np.empty((len(dynamic), 2), dtype=float)
+    residual_factor = np.empty(len(dynamic), dtype=float)
+    for edge, row in enumerate(dynamic):
+        measurements = np.asarray(row["measurements"], dtype=int)
+        indices[edge, :len(measurements)] = measurements
+        mask[edge, :len(measurements)] = True
+        endpoints[edge] = (
+            float(row["first"]),
+            -1.0 if row["second"] is None else float(row["second"]),
+        )
+        residual_factor[edge] = 1.0 - 2.0 * float(row["residual_probability"])
+    return PackedSoftReweighting(
+        endpoints, residual_factor, indices, mask,
+        floor_probability, ceiling_probability,
+    )
 
 
 def calibrated_uncertainty_route(
