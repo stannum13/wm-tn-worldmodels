@@ -56,9 +56,9 @@ Pipeline reductions are 9.70% and 8.27%. The current fused kernel still emits tr
 and hands the preindexed call a strided `[:, 2]` view, so this is not yet a native
 weights-only fused pipeline.
 
-**Predeclared optimization-screen NO-GO:** both matching reductions miss the required
-20%. The speedup is real and the reset median is 2.15 us below its cadence-derived
-budget, but that is only a descriptive median compute screen on one shared CPU run.
+**Predeclared optimization-screen NO-GO:** both observed matching reductions miss the
+required 20%. In this single shared-CPU run, the reset median is 2.15 us below its
+cadence-derived budget, but that is only a descriptive median compute screen.
 The no-reset median remains 4.26 us above cadence, and both p99 values fail badly.
 This is neither stable-throughput nor deployment evidence.
 

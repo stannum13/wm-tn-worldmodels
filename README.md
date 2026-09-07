@@ -110,8 +110,8 @@ causal-filtering baselines under matched observation access.
   computational GO and deployment NO-GO. See the
   [fused-hotpath report](docs/rigetti-fused-hotpath-report.md).
 - A graph-owned preindexed PyMatching fork preserves all 80,000 endpoint-API decisions
-  and returned solution weights. It lowers matching p50 by 14.7%/11.8% and pipeline
-  p50 to 37.0/46.8 us. This is an incremental engineering gain but misses the
+  and returned solution weights. In one shared-CPU run, observed matching p50 was
+  14.7%/11.8% lower and pipeline p50 was 37.0/46.8 us. This misses the
   predeclared 20% gate; see the
   [preindexed-matching report](docs/rigetti-preindexed-matching-report.md).
 
