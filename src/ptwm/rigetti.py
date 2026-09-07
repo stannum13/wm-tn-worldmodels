@@ -650,7 +650,8 @@ def pack_full_edge_weights(
 
 
 def temporal_vertex_separation(
-    matching: object, detector_coordinates: dict[int, list[float]],
+    matching: object, detector_coordinates: dict[int, list[float]], *,
+    order: list[int] | tuple[int, ...] | None = None,
 ) -> dict[str, object]:
     """Audit a fixed graph under the natural time, space, node vertex order.
 
@@ -660,11 +661,16 @@ def temporal_vertex_separation(
     nodes = list(range(matching.num_nodes))
     if set(nodes) != set(detector_coordinates):
         raise ValueError("every matching node must have detector coordinates")
-    order = sorted(nodes, key=lambda node: (
-        detector_coordinates[node][-1],
-        *detector_coordinates[node][:-1],
-        node,
-    ))
+    if order is None:
+        order = sorted(nodes, key=lambda node: (
+            detector_coordinates[node][-1],
+            *detector_coordinates[node][:-1],
+            node,
+        ))
+    else:
+        order = list(order)
+        if len(order) != len(nodes) or set(order) != set(nodes):
+            raise ValueError("order must contain every matching node exactly once")
     position = {node: index for index, node in enumerate(order)}
     adjacency = {node: set() for node in nodes}
     temporal_spans = []
@@ -702,8 +708,86 @@ def temporal_vertex_separation(
     }
 
 
+def beam_vertex_separation_order(
+    matching: object, seed_order: list[int] | tuple[int, ...], *, beam_width: int = 256,
+) -> dict[str, object]:
+    """Find a low-separator order using a deterministic topology-only beam search.
+
+    This supplies a heuristic upper bound, not a certificate of minimum pathwidth.
+    Labels and edge weights are deliberately absent from the search contract.
+    """
+    if beam_width < 1:
+        raise ValueError("beam_width must be positive")
+    nodes = list(range(matching.num_nodes))
+    seed = tuple(seed_order)
+    if len(seed) != len(nodes) or set(seed) != set(nodes):
+        raise ValueError("seed_order must contain every matching node exactly once")
+    rank = {node: index for index, node in enumerate(seed)}
+    adjacency = [0] * len(nodes)
+    for first, second, _ in matching.edges():
+        if second is None:
+            continue
+        adjacency[first] |= 1 << second
+        adjacency[second] |= 1 << first
+    all_nodes = (1 << len(nodes)) - 1
+    def state_score(state: tuple[int, int, int, tuple[int, ...]]) -> tuple:
+        chosen, active, maximum, prefix = state
+        future = all_nodes ^ chosen
+        cut_edges = 0
+        scan = active
+        while scan:
+            vertex_bit = scan & -scan
+            scan ^= vertex_bit
+            cut_edges += (adjacency[vertex_bit.bit_length() - 1] & future).bit_count()
+        return (
+            maximum, active.bit_count(), cut_edges,
+            tuple(rank[value] for value in prefix),
+        )
+    # state: chosen mask, active mask, maximum separator, order
+    beam = [(0, 0, 0, ())]
+    for _ in nodes:
+        candidates: dict[int, tuple[int, int, int, tuple[int, ...]]] = {}
+        for chosen, active, maximum, prefix in beam:
+            remaining = all_nodes ^ chosen
+            while remaining:
+                bit = remaining & -remaining
+                remaining ^= bit
+                node = bit.bit_length() - 1
+                next_chosen = chosen | bit
+                future = all_nodes ^ next_chosen
+                next_active = active | bit
+                scan = next_active
+                retained = 0
+                while scan:
+                    vertex_bit = scan & -scan
+                    scan ^= vertex_bit
+                    vertex = vertex_bit.bit_length() - 1
+                    crossing = adjacency[vertex] & future
+                    if crossing:
+                        retained |= vertex_bit
+                next_maximum = max(maximum, retained.bit_count())
+                state = (next_chosen, retained, next_maximum, prefix + (node,))
+                previous = candidates.get(next_chosen)
+                if previous is None:
+                    candidates[next_chosen] = state
+                elif state_score(state) < state_score(previous):
+                    candidates[next_chosen] = state
+        beam = sorted(
+            candidates.values(), key=state_score,
+        )[:beam_width]
+    best = beam[0]
+    return {
+        "order": list(best[3]),
+        "maximum_active_separator": best[2],
+        "maximum_bag_width": best[2] + 1,
+        "beam_width": beam_width,
+        "interpretation": "deterministic heuristic upper bound; not an optimum certificate",
+    }
+
+
 def compile_frontier_decoder(
-    matching: object, detector_coordinates: dict[int, list[float]],
+    matching: object, detector_coordinates: dict[int, list[float]], *,
+    order: list[int] | tuple[int, ...] | None = None,
 ) -> FrontierDecoderPlan:
     """Compile an exact one-logical-observable T-join schedule.
 
@@ -714,11 +798,16 @@ def compile_frontier_decoder(
     nodes = list(range(matching.num_nodes))
     if set(nodes) != set(detector_coordinates):
         raise ValueError("every matching node must have detector coordinates")
-    order = sorted(nodes, key=lambda node: (
-        detector_coordinates[node][-1],
-        *detector_coordinates[node][:-1],
-        node,
-    ))
+    if order is None:
+        order = sorted(nodes, key=lambda node: (
+            detector_coordinates[node][-1],
+            *detector_coordinates[node][:-1],
+            node,
+        ))
+    else:
+        order = list(order)
+        if len(order) != len(nodes) or set(order) != set(nodes):
+            raise ValueError("order must contain every matching node exactly once")
     position = {node: index for index, node in enumerate(order)}
     edge_rows = list(matching.edges())
     incoming: list[list[int]] = [[] for _ in nodes]

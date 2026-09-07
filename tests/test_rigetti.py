@@ -21,6 +21,7 @@ from ptwm.rigetti import (
     pack_affine_iq_heads,
     pack_soft_reweighting,
     temporal_vertex_separation,
+    beam_vertex_separation_order,
     compile_frontier_decoder,
     pack_full_edge_weights,
 )
@@ -189,6 +190,20 @@ def test_temporal_vertex_separation_for_path_graph():
     assert audit["maximum_active_separator"] == 1
     assert audit["path_decomposition_bag_upper_bound"] == 2
     assert audit["one_logical_parity_state_upper_bound"] == 4
+
+
+def test_beam_vertex_separation_order_improves_bad_path_order():
+    pymatching = pytest.importorskip("pymatching")
+    matching = pymatching.Matching()
+    for node in range(5):
+        matching.add_edge(node, node + 1)
+    bad = [0, 2, 4, 1, 3, 5]
+    result = beam_vertex_separation_order(matching, bad, beam_width=32)
+    audit = temporal_vertex_separation(
+        matching, {node: [float(node)] for node in range(6)}, order=result["order"]
+    )
+    assert audit["maximum_active_separator"] == 1
+    assert result["maximum_bag_width"] == 2
 
 
 def test_frontier_decoder_matches_pymatching_on_small_graph():

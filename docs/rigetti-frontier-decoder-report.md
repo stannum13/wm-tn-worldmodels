@@ -41,8 +41,10 @@ two steps. State count is exponential in separator width.
 
 ## Locked real-data differential
 
-Both sessions use 60,000 chronological calibration records and 40,000 untouched test
-records from public Ankaa-2 stability-8 data. Per-shot weights use the selected
+Both sessions use 60,000 chronological calibration records and a previously
+designated 40,000-record test partition from public Ankaa-2 stability-8 data. That
+partition has already been accessed elsewhere in this campaign; this is an
+implementation differential, not fresh confirmation. Per-shot weights use the selected
 sample-split affine-I/Q mechanism. The reference reconstructs and decodes a fresh
 PyMatching graph for every record.
 
@@ -53,8 +55,10 @@ PyMatching graph for every record.
 
 Python and compiled recurrences also agree, including margins, on 200 candidate
 records per session. Zero bitwise disagreements over 80,000 records gives a
-rule-of-three one-sided 95% empirical upper bound of approximately
-\(3.75\times10^{-5}\). Structural tests, not that interval alone, support correctness.
+heuristic rule-of-three one-sided 95% empirical upper bound of approximately
+\(3.75\times10^{-5}\), if records were independent draws from the intended deployment
+distribution. Acquisition dependence and deterministic corner cases mean this is not
+a software-correctness bound. Structural tests remain the primary correctness evidence.
 
 ## Latency and decision
 
@@ -72,7 +76,8 @@ objective and removes reconstruction overhead.
 record cadence. No-reset is 7.4 times slower than mutable matching and 12.1 times its
 cadence budget. Separator growth explains the failure mechanistically.
 
-Retain the decoder as a test oracle and measured pathwidth boundary. Give a
+Retain the decoder as a test oracle and separator-width diagnostic for this natural
+order. Give a
 topology-only ordering search one bounded screen: continue only if it lowers the
 no-reset transient bag width to at most six. Otherwise prioritize a fused indexed
 mutable backend combining affine I/Q calibration, odd-parity edge-weight construction,
