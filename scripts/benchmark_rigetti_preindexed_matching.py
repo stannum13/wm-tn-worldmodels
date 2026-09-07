@@ -19,6 +19,9 @@ import numpy as np
 
 BASE_FORK_URL = "https://github.com/Allenator/PyMatching"
 BASE_FORK_COMMIT = "435dc7ec85c10314c09f069a3d924d3a3dee8251"
+PREINDEXED_FORK_URL = "https://github.com/stannum13/PyMatching"
+PREINDEXED_FORK_COMMIT = "f53805b6acbadadc13dc314c9791912c99313747"
+PREINDEXED_PATCH_SHA256 = "d5bc0de2dad9c1c3c6c4bbeaa02c7cf9a0c8fc79f161be7432657b6de362c7fe"
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.rigetti import (  # noqa: E402
@@ -190,7 +193,13 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
             "pymatching_module": str(Path(pymatching.__file__).resolve()),
             "base_fork_url": BASE_FORK_URL,
             "base_fork_commit": BASE_FORK_COMMIT,
-            "preindexed_patch_sha256": os.environ.get("PTWM_PREINDEXED_PATCH_SHA256", "unknown"),
+            "preindexed_fork_url": PREINDEXED_FORK_URL,
+            "preindexed_fork_commit": PREINDEXED_FORK_COMMIT,
+            "preindexed_patch_sha256": PREINDEXED_PATCH_SHA256,
+            "preindexed_install": (
+                f"python -m pip install git+{PREINDEXED_FORK_URL}.git@"
+                f"{PREINDEXED_FORK_COMMIT}"
+            ),
         },
         "data": {
             "file": path.name, "md5": hashlib.md5(path.read_bytes()).hexdigest(),
