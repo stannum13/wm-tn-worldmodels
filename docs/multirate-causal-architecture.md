@@ -98,3 +98,21 @@ if robust filtering improves fresh-instance reducible Brier loss by at least 20%
 without more than 5% clean-regime degradation.
 
 Original KAN reference: [Liu et al.](https://arxiv.org/abs/2404.19756).
+
+## Particle lane
+
+Particles are justified only for continuous, hybrid, or multimodal uncertainty—not
+merely because detector noise is non-Gaussian. The cheapest configuration uses
+systematic resampling when effective sample size falls below half the population and a
+contaminated likelihood that prevents one artifact from collapsing the weights.
+
+For a quantum trajectory, use a Rao–Blackwellized filter: particles represent unknown
+detuning, efficiency, or jump mode, while each particle's conditional density matrix
+is propagated by the physical stochastic-master-equation update. The slow calibrator
+may update proposal spread and contamination parameters atomically between filter
+steps; it must not rewrite live weights asynchronously.
+
+The first nonlinear screen finds only a 5.5% MSE gain at 128 particles for 4.8 times
+the robust-EKF runtime. Particles therefore remain outside the hot path pending a
+multimodal wrapped-phase positive control. See the
+[particle report](nonlinear-particle-filter-report.md).

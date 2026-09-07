@@ -87,6 +87,10 @@ PYTHONPATH=src python scripts/run_streaming_confirmation.py \
 PYTHONPATH=src python scripts/run_causal_head_benchmark.py \
   --seeds 10 --delay 25 --strides 1,8,32,128 \
   --output results/causal_head_benchmark.json
+
+# Nonlinear EKF/particle feasibility screen
+PYTHONPATH=src python scripts/run_nonlinear_filter_benchmark.py \
+  --seeds 10 --delay 10 --output results/nonlinear_filter_benchmark.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -111,6 +115,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Idle-duration transfer test
 - [x] Streaming delay screen and eight-setting parameter-family test on GCP
 - [x] Multi-rate linear/KAN-inspired causal-head diagnostic on GCP
+- [x] Nonlinear robust-EKF/particle feasibility screen on GCP
+- [ ] Wrapped-phase multimodal particle positive control
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs
