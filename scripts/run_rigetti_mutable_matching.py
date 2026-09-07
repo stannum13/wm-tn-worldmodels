@@ -24,6 +24,7 @@ from ptwm.rigetti import (  # noqa: E402
     fit_measurement_iq_heads,
     load_qec_record,
     measurement_error_signatures,
+    pack_affine_iq_heads,
     prepare_soft_reweighting,
     predict_measurement_probabilities,
     soft_reweight_matrix,
@@ -62,10 +63,17 @@ def run(
         record["measurement_qubits"], train, knots=1, balanced=True,
     )
     started = perf_counter_ns()
-    probabilities = predict_measurement_probabilities(
+    generic_probabilities = predict_measurement_probabilities(
         record["soft_measurements"], record["measurement_qubits"], heads
     )
-    iq_batch_ns = perf_counter_ns() - started
+    generic_iq_batch_ns = perf_counter_ns() - started
+    packed_head = pack_affine_iq_heads(record["measurement_qubits"], heads)
+    started = perf_counter_ns()
+    probabilities = packed_head.predict(record["soft_measurements"])
+    packed_iq_batch_ns = perf_counter_ns() - started
+    maximum_iq_probability_difference = float(np.max(np.abs(
+        probabilities - generic_probabilities
+    )))
     calibration_parameters = sum(len(head.weights) for head in heads.values())
     measurement_error = np.where(
         record["hard_measurements"], 1.0 - probabilities, probabilities
@@ -134,10 +142,7 @@ def run(
     for position in range(one_count):
         row = test[position]
         started = perf_counter_ns()
-        predict_measurement_probabilities(
-            record["soft_measurements"][row : row + 1],
-            record["measurement_qubits"], heads,
-        )
+        packed_head.predict(record["soft_measurements"][row : row + 1])
         iq_single_call_ns[position] = perf_counter_ns() - started
         started = perf_counter_ns()
         pairwise.decode(detectors[position], edge_reweights=updates[position])
@@ -199,9 +204,12 @@ def run(
         },
         "logical_error": float(np.mean(mutable != labels[test])),
         "latency": {
-            "iq_inference_batch_total_ns": float(iq_batch_ns),
-            "iq_inference_batch_amortized_ns_per_shot": float(iq_batch_ns / len(labels)),
-            "iq_inference_single_record": _quantiles_ns(iq_single_call_ns),
+            "generic_iq_inference_batch_total_ns": float(generic_iq_batch_ns),
+            "packed_iq_inference_batch_total_ns": float(packed_iq_batch_ns),
+            "packed_iq_inference_batch_amortized_ns_per_shot": float(
+                packed_iq_batch_ns / len(labels)
+            ),
+            "packed_iq_inference_single_record": _quantiles_ns(iq_single_call_ns),
             "weight_matrix_total_ns": float(update_total_ns),
             "weight_matrix_amortized_ns_per_shot": float(update_total_ns / len(test)),
             "reference_rebuild_and_decode": _quantiles_ns(reference_call_ns),
@@ -216,6 +224,7 @@ def run(
                 / (np.median(batch_call_ns) / len(test))
             ),
         },
+        "maximum_packed_vs_generic_iq_probability_difference": maximum_iq_probability_difference,
     }
 
 

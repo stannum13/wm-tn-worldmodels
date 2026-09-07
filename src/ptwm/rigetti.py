@@ -25,6 +25,30 @@ class LogisticIQHead:
 
 
 @dataclass(frozen=True)
+class PackedAffineIQHeads:
+    """One vectorized hot-path kernel for per-measurement affine I/Q heads."""
+
+    weights: np.ndarray
+    feature_min: np.ndarray
+    feature_range: np.ndarray
+
+    def predict(self, soft: np.ndarray) -> np.ndarray:
+        soft = np.asarray(soft)
+        scaled_real = np.clip(
+            (soft.real - self.feature_min[:, 0]) / self.feature_range[:, 0], 0.0, 1.0
+        )
+        scaled_imag = np.clip(
+            (soft.imag - self.feature_min[:, 1]) / self.feature_range[:, 1], 0.0, 1.0
+        )
+        scores = (
+            self.weights[:, 0]
+            + scaled_real * self.weights[:, 1]
+            + scaled_imag * self.weights[:, 2]
+        )
+        return expit(scores).astype(np.float32)
+
+
+@dataclass(frozen=True)
 class MarkovSyndromeDecoder:
     """Causal class-conditional lookup model over per-round syndrome symbols."""
 
@@ -847,6 +871,23 @@ def predict_measurement_probabilities(
         all_values = soft[:, columns].reshape(-1)
         probability[:, columns] = head.predict(np.c_[all_values.real, all_values.imag]).reshape(len(soft), -1)
     return probability
+
+
+def pack_affine_iq_heads(
+    measurement_qubits: np.ndarray, heads: dict[int, LogisticIQHead]
+) -> PackedAffineIQHeads:
+    """Pack knots=1 heads into arrays indexed directly by measurement location."""
+    qubits = np.asarray(measurement_qubits)
+    rows = [heads[int(qubit)] for qubit in qubits]
+    if any(head.knots != 1 or len(head.weights) != 3 for head in rows):
+        raise ValueError("only three-parameter affine I/Q heads can be packed")
+    low = np.stack([head.feature_min for head in rows])
+    high = np.stack([head.feature_max for head in rows])
+    return PackedAffineIQHeads(
+        weights=np.stack([head.weights for head in rows]),
+        feature_min=low,
+        feature_range=np.maximum(high - low, 1e-9),
+    )
 
 
 def calibrate_measurement_probabilities(

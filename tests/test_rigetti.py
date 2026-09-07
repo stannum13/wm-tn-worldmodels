@@ -18,6 +18,7 @@ from ptwm.rigetti import (
     typed_circuit_noise_model,
     calibrated_uncertainty_route,
     probability_metrics,
+    pack_affine_iq_heads,
 )
 
 
@@ -144,6 +145,27 @@ def test_iq_heads_fit_separable_calibration_data():
     heads = fit_iq_heads(features, labels)
     for head in heads.values():
         assert probability_metrics(head.predict(features), labels)["classification_error"] < 0.01
+
+
+def test_packed_affine_iq_heads_match_individual_heads():
+    rng = np.random.default_rng(43)
+    measurement_qubits = np.asarray([7, 8, 7, 8])
+    features = rng.normal(size=(300, 2))
+    labels = (features[:, 0] - 0.3 * features[:, 1] > 0).astype(float)
+    head = fit_iq_heads(features, labels)["linear_logistic_iq"]
+    heads = {7: head, 8: head}
+    soft = (
+        rng.normal(size=(20, 4)) + 1j * rng.normal(size=(20, 4))
+    ).astype(np.complex64)
+    packed = pack_affine_iq_heads(measurement_qubits, heads)
+    expected = np.empty((20, 4), dtype=np.float32)
+    for qubit in (7, 8):
+        columns = np.flatnonzero(measurement_qubits == qubit)
+        values = soft[:, columns].reshape(-1)
+        expected[:, columns] = head.predict(
+            np.c_[values.real, values.imag]
+        ).reshape(20, -1)
+    assert np.allclose(packed.predict(soft), expected, atol=2e-7)
 
 
 def test_block_difference_sign_means_first_has_more_errors():
