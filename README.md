@@ -76,6 +76,11 @@ causal-filtering baselines under matched observation access.
   matching improves error by only 0.062% relative with an interval crossing zero.
   EKF/particle escalation is stopped; see the
   [adaptive soft report](docs/rigetti-adaptive-soft-report.md).
+- Post-repair transfer to the independent no-reset session reduces 25-round logical
+  error from the strongest hard control's 20.415% to 18.2775% (10.47% relative), with
+  a positive paired interval. A retained topology bug invalidated the first look, so
+  this is not described as pristine confirmation; see the
+  [no-reset report](docs/rigetti-noreset-confirmation-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -233,6 +238,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Reject naive rolling pairwise refits at maximum depth
 - [x] Match the released soft-I/Q result within the 0.20-point validity gate
 - [x] Reject rolling calibration and particle/EKF escalation at the logical endpoint
+- [x] Confirm the affine soft mechanism on the independent no-reset session after a
+  circuit-topology repair
 - [ ] Compile soft edge updates for a deployment-relevant latency test
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
