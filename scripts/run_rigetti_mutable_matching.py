@@ -41,7 +41,7 @@ def _quantiles_ns(values: np.ndarray) -> dict[str, float]:
 
 def run(
     path: Path, circuit_group: str, train_fraction: float,
-    equivalence_shots: int, latency_shots: int,
+    equivalence_shots: int, latency_shots: int, batch_repeats: int,
 ) -> dict:
     import pymatching
 
@@ -113,11 +113,20 @@ def run(
     detectors = np.pad(
         record["detectors"][test].astype(np.uint8), ((0, 0), (0, 1))
     )
-    started = perf_counter_ns()
-    mutable = np.asarray(pairwise.decode_batch(
-        detectors, edge_reweights=updates, reweight_stride=1
-    ))[:, 0]
-    batch_ns = perf_counter_ns() - started
+    batch_call_ns = np.empty(batch_repeats)
+    mutable = None
+    repeated_disagreements = 0
+    for repeat in range(batch_repeats):
+        started = perf_counter_ns()
+        prediction = np.asarray(pairwise.decode_batch(
+            detectors, edge_reweights=updates, reweight_stride=1
+        ))[:, 0]
+        batch_call_ns[repeat] = perf_counter_ns() - started
+        if mutable is None:
+            mutable = prediction
+        else:
+            repeated_disagreements += int(np.sum(mutable != prediction))
+    assert mutable is not None
 
     one_count = min(latency_shots, len(test))
     mutable_call_ns = np.empty(one_count)
@@ -186,6 +195,7 @@ def run(
         "equivalence": {
             "shots": check_count,
             "prediction_disagreements": int(np.sum(reference != mutable[:check_count])),
+            "prediction_disagreements_across_batch_repeats": repeated_disagreements,
         },
         "logical_error": float(np.mean(mutable != labels[test])),
         "latency": {
@@ -196,10 +206,14 @@ def run(
             "weight_matrix_amortized_ns_per_shot": float(update_total_ns / len(test)),
             "reference_rebuild_and_decode": _quantiles_ns(reference_call_ns),
             "mutable_single_decode": _quantiles_ns(mutable_call_ns),
-            "mutable_batch_total_ns": float(batch_ns),
-            "mutable_batch_amortized_ns_per_shot": float(batch_ns / len(test)),
+            "mutable_batch_repeats": batch_repeats,
+            "mutable_batch_total": _quantiles_ns(batch_call_ns),
+            "mutable_batch_amortized_ns_per_shot": float(
+                np.median(batch_call_ns) / len(test)
+            ),
             "batch_speedup_vs_reference_p50": float(
-                np.quantile(reference_call_ns, 0.50) / (batch_ns / len(test))
+                np.quantile(reference_call_ns, 0.50)
+                / (np.median(batch_call_ns) / len(test))
             ),
         },
     }
@@ -212,11 +226,12 @@ if __name__ == "__main__":
     parser.add_argument("--train-fraction", type=float, default=0.6)
     parser.add_argument("--equivalence-shots", type=int, default=1000)
     parser.add_argument("--latency-shots", type=int, default=2000)
+    parser.add_argument("--batch-repeats", type=int, default=5)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     payload = run(
         args.data, args.circuit_group, args.train_fraction,
-        args.equivalence_shots, args.latency_shots,
+        args.equivalence_shots, args.latency_shots, args.batch_repeats,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
