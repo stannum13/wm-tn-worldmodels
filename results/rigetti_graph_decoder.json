@@ -1,0 +1,120 @@
+{
+  "code_commit": "c735e24739946c74f14e2bdc040e70dbc327f861",
+  "comparisons": [
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.0004465401538271741,
+        8.376557394215706e-05
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.007119469657413816,
+        0.0032733158112599834
+      ],
+      "first": "linear_detector",
+      "mean_brier_reduction": -0.0001813872899425085,
+      "mean_error_reduction": -0.0019230769230769162,
+      "second": "worldline_parity"
+    },
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.0009066163261818002,
+        0.001627862510274677
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.04044803271846879,
+        0.027730084000520072
+      ],
+      "first": "linear_detector",
+      "mean_brier_reduction": 0.0003606230920464384,
+      "mean_error_reduction": -0.006358974358974361,
+      "second": "local_pair"
+    },
+    {
+      "blocks": 39,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.0013925383956036276,
+        0.0012620908099329172
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.04551037725856932,
+        0.028177043925235998
+      ],
+      "first": "linear_detector",
+      "mean_brier_reduction": -6.52237928353551e-05,
+      "mean_error_reduction": -0.008666666666666663,
+      "second": "worldline_plus_local_pair"
+    }
+  ],
+  "created_at": "2026-09-07T17:58:19.349939+00:00",
+  "data": {
+    "chronological_test_shots": 40000,
+    "circuit_group": "circuit_26",
+    "file": "stability_9_raw_data.h5",
+    "independent_sessions": 1,
+    "md5": "738e37d66de114e7eacac3342d41294d",
+    "shots": 100000,
+    "source": "https://zenodo.org/records/15364358",
+    "train_shots": 60000
+  },
+  "design": {
+    "limitations": "single-session learned replay; released MWPM value is an external anchor, not rerun in this script",
+    "local_pairs": 578,
+    "pair_rule": "detectors within one round and Manhattan spatial distance <=2.01; no target-informed selection",
+    "primary_go_condition": "close >=20% of linear-to-released-MWPM error gap with positive paired block interval",
+    "released_mwpm_error_at_27_rounds": 0.38819,
+    "split": "first 60% chronological shots train; final 40% locked test"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "models": [
+    {
+      "brier_loss": 0.24052564344987867,
+      "classification_error": 0.42395,
+      "expected_calibration_error_10bin": 0.01402382705896722,
+      "model": "linear_detector",
+      "negative_log_likelihood": 0.6737599398779291,
+      "parameters": 109,
+      "python_batch_one_p50_ns": 26490.0,
+      "python_batch_one_p99_ns": 47868.09999999999,
+      "vectorized_ns_per_sample": 1059.405725
+    },
+    {
+      "brier_loss": 0.24067471749073785,
+      "classification_error": 0.4254,
+      "expected_calibration_error_10bin": 0.019197277656945917,
+      "model": "worldline_parity",
+      "negative_log_likelihood": 0.674021698556843,
+      "parameters": 217,
+      "python_batch_one_p50_ns": 27570.0,
+      "python_batch_one_p99_ns": 56448.88999999999,
+      "vectorized_ns_per_sample": 1888.4873525
+    },
+    {
+      "brier_loss": 0.24016749731643003,
+      "classification_error": 0.429225,
+      "expected_calibration_error_10bin": 0.03056796990710235,
+      "model": "local_pair",
+      "negative_log_likelihood": 0.672777846788812,
+      "parameters": 687,
+      "python_batch_one_p50_ns": 30190.0,
+      "python_batch_one_p99_ns": 55303.009999999995,
+      "vectorized_ns_per_sample": 5026.7275575
+    },
+    {
+      "brier_loss": 0.24056558160823696,
+      "classification_error": 0.431175,
+      "expected_calibration_error_10bin": 0.03214642447700578,
+      "model": "worldline_plus_local_pair",
+      "negative_log_likelihood": 0.6736373990804525,
+      "parameters": 795,
+      "python_batch_one_p50_ns": 30775.5,
+      "python_batch_one_p99_ns": 64213.799999999996,
+      "vectorized_ns_per_sample": 5880.8682325
+    }
+  ],
+  "schema_version": 1
+}

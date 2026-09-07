@@ -37,6 +37,9 @@ causal-filtering baselines under matched observation access.
 - That calibration gain does not survive the locked 100,000-shot stability-9 logical
   replay. Independent soft-parity propagation is a NO-GO; graph-aware joint evidence
   is now required. See the [QEC replay report](docs/rigetti-qec-replay-report.md).
+- Static circuit-local pair and cumulative-parity expansions also fail to close the
+  gap to released MWPM. See the
+  [graph-feature report](docs/rigetti-graph-feature-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
