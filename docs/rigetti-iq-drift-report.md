@@ -23,10 +23,10 @@ absent.
 
 ## Routing decision
 
-This is a mechanism-only GO. The next experiment must show that causal recalibration
-improves logical error relative to the static affine soft-matching pipeline. A robust
-EKF is the first compact state model if rolling refits help. A switching filter or
-particle representation is allowed only if residual calibration states are
-multimodal and improve locked logical error under the same update budget.
+This is a mechanism-only GO. The subsequent mediation test found only a 0.062%
+relative logical-error reduction with an interval crossing zero. Therefore a robust
+EKF has no established logical effect to preserve, and switching or particle models
+are stopped at this interface; see the
+[adaptive soft report](rigetti-adaptive-soft-report.md).
 
 Machine-readable block scores are in `results/rigetti_iq_drift.json`.

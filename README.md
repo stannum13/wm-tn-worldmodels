@@ -72,6 +72,10 @@ causal-filtering baselines under matched observation access.
 - A causal 20,000-row rolling affine calibrator improves next-block I/Q Brier and NLL
   by 2.49% and 2.31%, respectively. This predictive GO now requires a logical-error
   mediation test; see the [I/Q drift report](docs/rigetti-iq-drift-report.md).
+- That predictive drift gain does not mediate logical performance: rolling soft
+  matching improves error by only 0.062% relative with an interval crossing zero.
+  EKF/particle escalation is stopped; see the
+  [adaptive soft report](docs/rigetti-adaptive-soft-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -167,6 +171,9 @@ PYTHONPATH=src python scripts/run_rigetti_matching_transfer.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --output results/rigetti_matching_transfer.json
 
+# Independent no-reset confirmation data (large download)
+./scripts/fetch_rigetti_stability8_no_resets.sh
+
 # Label-free pairwise-correlation graph with a locked hard-syndrome holdout
 PYTHONPATH=src python scripts/run_rigetti_pairwise_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
@@ -187,6 +194,11 @@ PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --knots 6 \
   --output results/rigetti_soft_matching_spline.json
+
+# Causal calibration-drift mediation at the logical endpoint
+PYTHONPATH=src python scripts/run_rigetti_adaptive_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_adaptive_soft_matching.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -220,6 +232,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Test a transparent hard-syndrome pairwise graph on a locked holdout
 - [x] Reject naive rolling pairwise refits at maximum depth
 - [x] Match the released soft-I/Q result within the 0.20-point validity gate
+- [x] Reject rolling calibration and particle/EKF escalation at the logical endpoint
 - [ ] Compile soft edge updates for a deployment-relevant latency test
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark

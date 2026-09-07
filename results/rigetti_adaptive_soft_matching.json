@@ -1,0 +1,117 @@
+{
+  "blocks": [
+    {
+      "rolling_error": 0.1606,
+      "rolling_residual_clipped": 3,
+      "start_row": 60000,
+      "static_error": 0.1606,
+      "stop_row": 65000
+    },
+    {
+      "rolling_error": 0.1686,
+      "rolling_residual_clipped": 3,
+      "start_row": 65000,
+      "static_error": 0.1686,
+      "stop_row": 70000
+    },
+    {
+      "rolling_error": 0.165,
+      "rolling_residual_clipped": 3,
+      "start_row": 70000,
+      "static_error": 0.1642,
+      "stop_row": 75000
+    },
+    {
+      "rolling_error": 0.1628,
+      "rolling_residual_clipped": 3,
+      "start_row": 75000,
+      "static_error": 0.1616,
+      "stop_row": 80000
+    },
+    {
+      "rolling_error": 0.1524,
+      "rolling_residual_clipped": 3,
+      "start_row": 80000,
+      "static_error": 0.1544,
+      "stop_row": 85000
+    },
+    {
+      "rolling_error": 0.1574,
+      "rolling_residual_clipped": 3,
+      "start_row": 85000,
+      "static_error": 0.1586,
+      "stop_row": 90000
+    },
+    {
+      "rolling_error": 0.1466,
+      "rolling_residual_clipped": 3,
+      "start_row": 90000,
+      "static_error": 0.1466,
+      "stop_row": 95000
+    },
+    {
+      "rolling_error": 0.1708,
+      "rolling_residual_clipped": 3,
+      "start_row": 95000,
+      "static_error": 0.1704,
+      "stop_row": 100000
+    }
+  ],
+  "calibration_parameters": 24,
+  "code_commit": "feaf942f8b46230543eba3dc2d850f797351a0f1",
+  "created_at": "2026-09-07T19:45:06.174489+00:00",
+  "data": {
+    "circuit_group": "circuit_22",
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "fixed_graph": "Spitz pairwise graph fitted on the initial row range",
+    "go_condition": ">=1% relative logical-error reduction with positive paired block interval",
+    "logical_labels_in_calibration": false,
+    "rolling_calibrator": "balanced affine I/Q head fitted only on the preceding row window",
+    "rolling_window_rows": 20000,
+    "static_calibrator": "balanced affine I/Q head fitted on the initial row range",
+    "status": "exploratory mediation test on an accessed acquisition",
+    "update_rows": 5000
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "graph": {
+    "boundary_edges": 8,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 1,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 268
+  },
+  "result": {
+    "absolute_error_reduction": 9.999999999998899e-05,
+    "blocks": 8,
+    "paired_row_block_95pct_t_interval": [
+      -0.0007711138566439548,
+      0.0009711138566439467
+    ],
+    "relative_error_reduction": 0.000622568093385123,
+    "rolling_logical_error": 0.160525,
+    "static_logical_error": 0.160625
+  },
+  "schema_version": 1,
+  "slow_update": {
+    "p50_ms": 1342.866017,
+    "p99_ms": 1365.0069905
+  },
+  "static_soft_reweighting": {
+    "matched_measurements": 96,
+    "residual_clipped": 3,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  }
+}
