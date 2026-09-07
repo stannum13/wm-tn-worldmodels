@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import inspect
 import json
 import os
 import platform
@@ -28,6 +29,9 @@ from ptwm.rigetti import (  # noqa: E402
 )
 from ptwm.rigetti_jit import fused_affine_reweights_one  # noqa: E402
 
+MUTABLE_BACKEND_URL = "https://github.com/Allenator/PyMatching"
+MUTABLE_BACKEND_COMMIT = "435dc7ec85c10314c09f069a3d924d3a3dee8251"
+
 
 def quantiles(values: np.ndarray) -> dict[str, float]:
     return {name: float(np.quantile(values, q)) for name, q in (
@@ -37,6 +41,9 @@ def quantiles(values: np.ndarray) -> dict[str, float]:
 
 def run(path: Path, circuit_group: str, records: int) -> dict:
     import pymatching
+
+    if "edge_reweights" not in inspect.signature(pymatching.Matching.decode).parameters:
+        raise RuntimeError("pinned mutable PyMatching edge_reweights API is required")
 
     record = load_qec_record(str(path), circuit_group)
     boundary = int(0.6 * len(record["detectors"]))
@@ -65,8 +72,9 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
     )
     # Seed a harmless maximum so every tested update remains on the Tier-1 path.
     dummy = matching.num_nodes
+    maximum_weight = float(np.log((1.0 - 1e-5) / 1e-5))
     matching.add_boundary_edge(
-        dummy, fault_ids=set(), weight=float(np.log((1.0 - 1e-5) / 1e-5)),
+        dummy, fault_ids=set(), weight=maximum_weight,
         error_probability=1e-5,
     )
     detectors = np.pad(
@@ -88,6 +96,8 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
     fused_ns = np.empty(len(test))
     composed_pipeline_ns = np.empty(len(test))
     fused_pipeline_ns = np.empty(len(test))
+    composed_matching_ns = np.empty(len(test))
+    fused_matching_ns = np.empty(len(test))
     maximum_weight_difference = 0.0
     disagreements = 0
     def composed_update(row: int) -> np.ndarray:
@@ -112,6 +122,25 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
         maximum_weight_difference = max(
             maximum_weight_difference, float(np.max(np.abs(composed - fused)))
         )
+        if np.any(fused[:, 2] < 0) or np.any(fused[:, 2] > maximum_weight):
+            raise RuntimeError("fused weights escaped the seeded Tier-1 range")
+
+        # Time identical matching inputs in alternating order, separately from
+        # the direct end-to-end pipeline timings below.
+        if position % 2 == 0:
+            started = perf_counter_ns()
+            matching.decode(detectors[position], edge_reweights=composed)
+            composed_matching_ns[position] = perf_counter_ns() - started
+            started = perf_counter_ns()
+            matching.decode(detectors[position], edge_reweights=fused)
+            fused_matching_ns[position] = perf_counter_ns() - started
+        else:
+            started = perf_counter_ns()
+            matching.decode(detectors[position], edge_reweights=fused)
+            fused_matching_ns[position] = perf_counter_ns() - started
+            started = perf_counter_ns()
+            matching.decode(detectors[position], edge_reweights=composed)
+            composed_matching_ns[position] = perf_counter_ns() - started
 
         # Alternate order to avoid consistently giving either path the second-decode
         # cache/thermal position. Pipeline timings include fresh front-end execution.
@@ -146,7 +175,17 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
         "schema_version": 1,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "code_commit": commit,
-        "environment": {"python": sys.version, "platform": platform.platform()},
+        "environment": {
+            "python": sys.version,
+            "platform": platform.platform(),
+            "pymatching_module": str(Path(pymatching.__file__).resolve()),
+            "pymatching_fork_url": MUTABLE_BACKEND_URL,
+            "pymatching_fork_commit": MUTABLE_BACKEND_COMMIT,
+            "pymatching_install": (
+                f"python -m pip install git+{MUTABLE_BACKEND_URL}.git@"
+                f"{MUTABLE_BACKEND_COMMIT}"
+            ),
+        },
         "data": {"file": path.name, "circuit_group": circuit_group,
                  "calibration_records": len(train), "benchmark_records": len(test)},
         "design": {
@@ -159,6 +198,8 @@ def run(path: Path, circuit_group: str, records: int) -> dict:
         "latency": {
             "composed_frontend": quantiles(composed_ns),
             "fused_frontend": quantiles(fused_ns),
+            "composed_matching_call": quantiles(composed_matching_ns),
+            "fused_matching_call": quantiles(fused_matching_ns),
             "composed_pipeline": quantiles(composed_pipeline_ns),
             "fused_pipeline": quantiles(fused_pipeline_ns),
         },
