@@ -230,10 +230,23 @@ def fit_gaussian_hmm(
     return StreamParameters(transition=transition, means=means, stds=stds)
 
 
-def causal_hmm_filter(observations: np.ndarray, params: StreamParameters) -> np.ndarray:
-    """Return P(state=1 | observations through t) for every stream and time."""
+def causal_hmm_filter(
+    observations: np.ndarray,
+    params: StreamParameters,
+    *,
+    log_likelihood_ratio_clip: float | None = None,
+) -> np.ndarray:
+    """Return a causal belief, optionally bounding each sample's log-odds influence."""
     y = np.asarray(observations, dtype=float)
     log_emits = _emission_log_prob(y, params)
+    if log_likelihood_ratio_clip is not None:
+        ratio = np.clip(
+            log_emits[..., 1] - log_emits[..., 0],
+            -log_likelihood_ratio_clip,
+            log_likelihood_ratio_clip,
+        )
+        log_emits[..., 0] = 0.0
+        log_emits[..., 1] = ratio
     log_emits -= np.max(log_emits, axis=2, keepdims=True)
     emits = np.exp(log_emits)
     belief = np.broadcast_to(stationary_distribution(params.transition), (len(y), 2)).copy()
@@ -311,11 +324,19 @@ def benchmark_estimators(
     samples = observations.size
     reports: dict[int, dict[str, dict[str, float]]] = {}
     for delay in delays:
+        robust_belief = causal_hmm_filter(
+            observations, params, log_likelihood_ratio_clip=3.0
+        )
+        prior = np.full_like(belief, stationary_distribution(params.transition)[1])
         policies = {
             "instantaneous": (instant, instant_ns),
             "ewma": (ewma, ewma_ns),
             "hmm_filter_current": (belief, filter_ns),
             "hmm_delay_forecast": (forecast_belief(belief, params.transition, delay), filter_ns),
+            "hmm_clipped_forecast": (
+                forecast_belief(robust_belief, params.transition, delay), filter_ns
+            ),
+            "stationary_prior": (prior, 0),
         }
         reports[delay] = {}
         for name, (action, elapsed) in policies.items():

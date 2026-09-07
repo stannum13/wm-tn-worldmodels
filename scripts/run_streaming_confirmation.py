@@ -23,10 +23,14 @@ def one_seed(spec: dict, seed: int) -> dict:
     means = (-spec["amplitude"], spec["amplitude"])
     common = dict(transition=transition, means=means, artifact_probability=spec["artifact_probability"])
     train = simulate_switching_streams(seed=seed, n_streams=10, length=1000, **common)
-    fitted = fit_gaussian_hmm(train["observations"])
+    fitted = fit_gaussian_hmm(train["observations"], clip_quantile=0.98)
     test = simulate_switching_streams(seed=100_000 + seed, n_streams=30, length=1000, **common)
     delays = sorted({0, *[max(1, round(frac / spec["p10"])) for frac in (0.1, 0.25, 0.5, 1.0)]})
-    return {"seed": seed, "delays": benchmark_estimators(test, fitted, delays)}
+    return {
+        "seed": seed,
+        "fit": {"transition": fitted.transition.tolist(), "means": fitted.means.tolist(), "stds": fitted.stds.tolist()},
+        "delays": benchmark_estimators(test, fitted, delays),
+    }
 
 
 def interval(values: np.ndarray) -> list[float]:
@@ -51,7 +55,7 @@ def run(workers: int) -> dict:
         summaries = {}
         for delay in delay_keys:
             development = group[:5]
-            candidates = ["instantaneous", "ewma", "hmm_filter_current"]
+            candidates = ["instantaneous", "ewma", "hmm_filter_current", "hmm_clipped_forecast", "stationary_prior"]
             baseline = min(candidates, key=lambda name: np.mean([r["delays"][delay][name]["brier_loss"] for r in development]))
             confirm = group[5:]
             b = np.array([r["delays"][delay][baseline]["brier_loss"] for r in confirm])
@@ -64,7 +68,8 @@ def run(workers: int) -> dict:
                 "relative_reduction_mean": float(relative.mean()),
                 "relative_reduction_95_t_interval": interval(relative),
             }
-        output.append({"spec": spec, "results": summaries})
+        output.append({"spec": spec, "results": summaries,
+                       "fits": [{"seed": row["seed"], **row["fit"]} for row in group]})
     # Use the delay nearest one quarter of each fault dwell time.
     effects = []
     for row in output:

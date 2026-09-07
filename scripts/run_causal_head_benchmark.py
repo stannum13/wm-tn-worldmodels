@@ -41,12 +41,16 @@ def run(*, seeds: int, delay: int, strides: list[int]) -> dict[str, object]:
         train = simulate_switching_streams(
             seed=seed, n_streams=16, length=1200, **process
         )
-        params = fit_gaussian_hmm(train["observations"])
-        train_belief = causal_hmm_filter(train["observations"], params)
+        params = fit_gaussian_hmm(train["observations"], clip_quantile=0.98)
+        train_belief = causal_hmm_filter(
+            train["observations"], params, log_likelihood_ratio_clip=3.0
+        )
         test = simulate_switching_streams(
             seed=100_000 + seed, n_streams=40, length=1200, **process
         )
-        test_belief = causal_hmm_filter(test["observations"], params)
+        test_belief = causal_hmm_filter(
+            test["observations"], params, log_likelihood_ratio_clip=3.0
+        )
         base = forecast_belief(test_belief, params.transition, delay)
         base_metrics = score_delayed_prediction(
             base, test["states"], delay=delay, artifacts=test["artifacts"]
