@@ -1,0 +1,527 @@
+{
+  "cell": {
+    "length_cap": 60,
+    "idle": 100
+  },
+  "splits": [
+    {
+      "name": "horizon_le20",
+      "description": "train length <= 20, test length > 20 (cap 60)",
+      "sizes": {
+        "name": "horizon_le20",
+        "description": "train length <= 20, test length > 20 (cap 60)",
+        "train": {
+          "n": 53200,
+          "len_min": 2,
+          "len_max": 20,
+          "fid_mean": 0.6427966013307739,
+          "fid_std": 0.25707754519898124
+        },
+        "test": {
+          "n": 112000,
+          "len_min": 21,
+          "len_max": 60,
+          "fid_mean": 0.5562635932418017,
+          "fid_std": 0.1894932447239537
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.1607954516223331,
+          "fidelity_mae": 0.15613008473771886,
+          "physicality": {
+            "frac_above_one": 0.0046696428571428574,
+            "frac_below_zero": 0.0,
+            "max_value": 1.1064450440326137,
+            "min_value": 0.20465723853990622
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 0.8333333333333334,
+            "max_gate_factor": 1.003960929644925
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.17168092727661133
+        },
+        {
+          "log_mse": 0.10289147783366041,
+          "fidelity_mae": 0.12415922941683588,
+          "physicality": {
+            "frac_above_one": 0.08035714285714286,
+            "frac_below_zero": 0.0,
+            "max_value": 1.20102791469317,
+            "min_value": 0.44582172630055367
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 6.076772793645932
+          },
+          "fit_seconds": 0.7557692527770996
+        },
+        {
+          "log_mse": 0.08979599263076272,
+          "fidelity_mae": 0.1165320702431994,
+          "physicality": {
+            "frac_above_one": 0.07066071428571429,
+            "frac_below_zero": 0.0,
+            "max_value": 1.1976216035049907,
+            "min_value": 0.3412961115960892
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9863541722297668,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 4.444126829504967
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 43.61895990371704
+        },
+        {
+          "log_mse": 0.0922540407580273,
+          "fidelity_mae": 0.11864491943765328,
+          "physicality": {
+            "frac_above_one": 0.06798214285714285,
+            "frac_below_zero": 0.0,
+            "max_value": 1.5734797974977877,
+            "min_value": 0.2192470046335021
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9775775074958801,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 4.411846041679382
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 122.46384620666504
+        },
+        {
+          "log_mse": 0.140539774991591,
+          "fidelity_mae": 0.14088182197495858,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.9157620370622669,
+            "min_value": 0.21231147598797293
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 4.052886992692947
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 6.869953155517578
+        },
+        {
+          "log_mse": 0.1023778285587371,
+          "fidelity_mae": 0.1112449656474454,
+          "physicality": {
+            "frac_above_one": 0.0014642857142857142,
+            "frac_below_zero": 0.0,
+            "max_value": 1.0715724188597184,
+            "min_value": 0.23140969036139022
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 3.899878278374672
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 11.171005964279175
+        },
+        {
+          "log_mse": 31.312607327494042,
+          "fidelity_mae": 373.34257397915337,
+          "physicality": {
+            "frac_above_one": 1.0,
+            "frac_below_zero": 0.0,
+            "max_value": 4316.137714741145,
+            "min_value": 2.8915339170091614
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 62.00562882423401
+        }
+      ],
+      "wall_seconds": 307.6509027481079
+    },
+    {
+      "name": "bias_ho0.61_0.63",
+      "description": "held-out biases (0.61, 0.63)",
+      "sizes": {
+        "name": "bias_ho0.61_0.63",
+        "description": "held-out biases (0.61, 0.63)",
+        "train": {
+          "n": 141600,
+          "len_min": 2,
+          "len_max": 60,
+          "fid_mean": 0.6046179892451572,
+          "fid_std": 0.22211328821180354
+        },
+        "test": {
+          "n": 23600,
+          "len_min": 2,
+          "len_max": 60,
+          "fid_mean": 0.46120315071036927,
+          "fid_std": 0.13114018912392159
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.11549689117009966,
+          "fidelity_mae": 0.10678061178171455,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.4941190091430418,
+            "min_value": 0.3679666341150918
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 0.9583333333333334,
+            "max_gate_factor": 1.000058149704367
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.9299700260162354
+        },
+        {
+          "log_mse": 0.1269326395987819,
+          "fidelity_mae": 0.10432002827612308,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.6606827489207225,
+            "min_value": 0.44063223616254693
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 4.691765590284227
+          },
+          "fit_seconds": 2.6597418785095215
+        },
+        {
+          "log_mse": 0.11051001982220303,
+          "fidelity_mae": 0.10596679263596229,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.5163289795326567,
+            "min_value": 0.3655044301326215
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9147787094116211,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 8.21289462596178
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 318.74677300453186
+        },
+        {
+          "log_mse": 0.11046810071766609,
+          "fidelity_mae": 0.10623812948650754,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.5360779972664105,
+            "min_value": 0.36706530475476823
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.8784534335136414,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 8.204136617481709
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 1287.0125210285187
+        },
+        {
+          "log_mse": 0.13483388000543106,
+          "fidelity_mae": 0.10767272539310224,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.6310369089215574,
+            "min_value": 0.4282755737519569
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 7.4108548648655415
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 86.48497200012207
+        },
+        {
+          "log_mse": 0.1277688921635062,
+          "fidelity_mae": 0.10946988404397455,
+          "physicality": {
+            "frac_above_one": 0.0,
+            "frac_below_zero": 0.0,
+            "max_value": 0.7831684360078487,
+            "min_value": 0.3353628192498812
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 7.03889274969697
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 147.6433048248291
+        },
+        {
+          "log_mse": 0.2860746661340998,
+          "fidelity_mae": 0.20243581774062422,
+          "physicality": {
+            "frac_above_one": 4.2372881355932206e-05,
+            "frac_below_zero": 0.0,
+            "max_value": 1.000823874223196,
+            "min_value": 0.35472380182446395
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 856.5793571472168
+        }
+      ],
+      "wall_seconds": 2717.879138946533
+    },
+    {
+      "name": "family_ho2",
+      "description": "train: no gates from family 2; test: >=1 gate from it",
+      "sizes": {
+        "name": "family_ho2",
+        "description": "train: no gates from family 2; test: >=1 gate from it",
+        "train": {
+          "n": 4224,
+          "len_min": 2,
+          "len_max": 22,
+          "fid_mean": 0.7144273551597917,
+          "fid_std": 0.27855996412362805
+        },
+        "test": {
+          "n": 160976,
+          "len_min": 2,
+          "len_max": 60,
+          "fid_mean": 0.5807111649294554,
+          "fid_std": 0.21449650966748937
+        }
+      },
+      "models": [
+        {
+          "log_mse": 0.29316804298261967,
+          "fidelity_mae": 0.19274892324777523,
+          "physicality": {
+            "frac_above_one": 0.04014262995726071,
+            "frac_below_zero": 0.0,
+            "max_value": 1.952250232344916,
+            "min_value": 0.06981118570667032
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "gate_factors_in_unit_range": 0.7916666666666666,
+            "max_gate_factor": 1.074400458980074
+          },
+          "budget": {
+            "name": "markov",
+            "params": 27
+          },
+          "fit_seconds": 0.016338825225830078
+        },
+        {
+          "log_mse": 4.7397640015768445,
+          "fidelity_mae": 8.20209250776252,
+          "physicality": {
+            "frac_above_one": 0.6492893350561575,
+            "frac_below_zero": 0.0,
+            "max_value": 147.86482214808976,
+            "min_value": 0.518950705530303
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transfer_tensor",
+            "params": 6,
+            "tau": 420.3798737013854
+          },
+          "fit_seconds": 0.2863321304321289
+        },
+        {
+          "log_mse": 0.22393663806317227,
+          "fidelity_mae": 0.1838546093507787,
+          "physicality": {
+            "frac_above_one": 0.04366489414571116,
+            "frac_below_zero": 0.0,
+            "max_value": 4.679935355886728,
+            "min_value": 0.025702741797796115
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9344075322151184,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 2.917744140533614
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 79,
+            "chi": 2,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 5.097559690475464
+        },
+        {
+          "log_mse": 0.26870135724529015,
+          "fidelity_mae": 0.19913011423373245,
+          "physicality": {
+            "frac_above_one": 0.04029793261107246,
+            "frac_below_zero": 0.0,
+            "max_value": 4.04068519347597,
+            "min_value": 0.01967529098863532
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "max_spectral_norm": 0.9907820224761963,
+            "rho_max": 0.999,
+            "causality_violation": 0.0,
+            "final_train_loss": 2.3358130920678377
+          },
+          "budget": {
+            "name": "process_mpo",
+            "params": 133,
+            "chi": 4,
+            "rho_max": 0.999
+          },
+          "fit_seconds": 8.1352698802948
+        },
+        {
+          "log_mse": 0.24363703512334625,
+          "fidelity_mae": 0.18697966988021691,
+          "physicality": {
+            "frac_above_one": 0.034874763939966205,
+            "frac_below_zero": 0.0,
+            "max_value": 3.015816572815681,
+            "min_value": 0.0753525518436032
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 3.002751197782345
+          },
+          "budget": {
+            "name": "gru",
+            "params": 171
+          },
+          "fit_seconds": 2.621048927307129
+        },
+        {
+          "log_mse": 0.4378884934337611,
+          "fidelity_mae": 0.3688094161565179,
+          "physicality": {
+            "frac_above_one": 0.20402420236557003,
+            "frac_below_zero": 0.0,
+            "max_value": 11.916132020942435,
+            "min_value": 0.07880445174487453
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {
+            "final_train_loss": 4.311044180765748
+          },
+          "budget": {
+            "name": "gru",
+            "params": 825
+          },
+          "fit_seconds": 2.5675110816955566
+        },
+        {
+          "log_mse": 0.19967493336393863,
+          "fidelity_mae": 0.18892844745746504,
+          "physicality": {
+            "frac_above_one": 0.09687158334161614,
+            "frac_below_zero": 0.0,
+            "max_value": 2.6406660815827436,
+            "min_value": 0.2882614767792134
+          },
+          "horizon_at_0.05": null,
+          "horizon_at_0.02": null,
+          "check": {},
+          "budget": {
+            "name": "transformer",
+            "params": 7697
+          },
+          "fit_seconds": 5.803923845291138
+        }
+      ],
+      "wall_seconds": 131.13793873786926
+    }
+  ]
+}

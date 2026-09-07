@@ -60,6 +60,8 @@ python scripts/evaluate.py --config configs/exp_a_baselines.yaml
 ## Status
 
 - [x] Plan ingested (docx), data sources pinned
-- [ ] Experiment A: ingestion, splits, four baselines
-- [ ] Directional residual analysis (bias, idle duration, control family, horizon)
-- [ ] Iterative rollout-based RL on real sequences (per-episode updates, not batch)
+- [x] Experiment A: ingestion, splits, four baselines — all 4 cells (see RESULTS.md)
+- [x] Directional residual analysis (bias, idle duration, control family, horizon)
+- [x] Iterative rollout-based RL on real sequences (per-episode updates, not batch)
+- [ ] NMN-tomo process-matrix physicality residuals (loader present, analysis pending)
+- [ ] Experiments B–E (plan ladder)
