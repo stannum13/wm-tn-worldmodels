@@ -385,6 +385,63 @@ def build_soft_reweighted_matching(
     return matching
 
 
+def soft_reweight_array(
+    plan: list[dict[str, object]], shot_error_probability: np.ndarray, *,
+    floor_probability: float = 1e-5, ceiling_probability: float = 0.49,
+) -> np.ndarray:
+    """Return mutable-backend rows ``[node1, node2_or_-1, weight]``.
+
+    Only edges with a shot-dependent measurement contribution are emitted.  The
+    fixed graph retains all other weights, endpoints, and logical fault IDs.
+    """
+    shot_error = np.asarray(shot_error_probability, dtype=float)
+    rows = []
+    for row in plan:
+        if not row["measurements"]:
+            continue
+        probability = float(row["residual_probability"])
+        for measurement in row["measurements"]:
+            value = float(np.clip(
+                shot_error[measurement], floor_probability, ceiling_probability
+            ))
+            probability = probability + value - 2.0 * probability * value
+        probability = float(np.clip(probability, floor_probability, ceiling_probability))
+        rows.append((
+            float(row["first"]),
+            -1.0 if row["second"] is None else float(row["second"]),
+            float(np.log((1.0 - probability) / probability)),
+        ))
+    return np.asarray(rows, dtype=float).reshape(-1, 3)
+
+
+def soft_reweight_matrix(
+    plan: list[dict[str, object]], shot_error_probability: np.ndarray, *,
+    floor_probability: float = 1e-5, ceiling_probability: float = 0.49,
+) -> np.ndarray:
+    """Vectorize mutable edge weights for a batch of shots.
+
+    Returns shape ``(shots, updated_edges, 3)``. Endpoints are fixed across the
+    first dimension; only the final weight column varies.
+    """
+    shot_error = np.asarray(shot_error_probability, dtype=float)
+    if shot_error.ndim != 2:
+        raise ValueError("shot_error_probability must have shape (shots, measurements)")
+    dynamic = [row for row in plan if row["measurements"]]
+    output = np.empty((len(shot_error), len(dynamic), 3), dtype=float)
+    for edge, row in enumerate(dynamic):
+        probability = np.full(len(shot_error), float(row["residual_probability"]))
+        for measurement in row["measurements"]:
+            value = np.clip(
+                shot_error[:, measurement], floor_probability, ceiling_probability
+            )
+            probability = probability + value - 2.0 * probability * value
+        probability = np.clip(probability, floor_probability, ceiling_probability)
+        output[:, edge, 0] = float(row["first"])
+        output[:, edge, 1] = -1.0 if row["second"] is None else float(row["second"])
+        output[:, edge, 2] = np.log((1.0 - probability) / probability)
+    return output
+
+
 def calibrated_uncertainty_route(
     calibration_scores: np.ndarray, evaluation_scores: np.ndarray, *, budget: float
 ) -> tuple[np.ndarray, float]:

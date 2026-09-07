@@ -60,12 +60,13 @@ causal-filtering baselines under matched observation access.
 - Naively refitting that graph on a causal 20,000-row rolling window also misses the
   maximum-depth endpoint. Responsivity alone is a NO-GO; see the
   [adaptive pairwise report](docs/rigetti-adaptive-pairwise-report.md).
-- Cross-fitted affine I/Q reweighting is a mechanism GO: it reduces 23-round logical
+- Sample-split affine I/Q reweighting is a mechanism GO: it reduces 23-round logical
   error from the strongest hard control's 16.515% to 16.0625%, with a positive paired
   interval, and falls within 0.20 points of the released 15.901% soft result. See the
   [soft matching report](docs/rigetti-soft-matching-report.md).
-- The frozen affine soft path improves all six tested depths by 2.74--14.24% relative
-  to the hard circuit template, with every paired interval above zero.
+- The frozen recipe, with graph and I/Q parameters refit per circuit, improves all six
+  tested depths by 2.74--14.24% relative to the hard circuit template, with every
+  paired interval above zero.
 - Replacing that affine calibrator with the 13-parameter spline/KAN head worsens the
   point estimate to 16.2075%; the direct paired interval is unresolved. The cheap
   affine head remains the selected soft path.
@@ -81,9 +82,10 @@ causal-filtering baselines under matched observation access.
   a positive paired interval. A retained topology bug invalidated the first look, so
   this is not described as pristine confirmation; see the
   [no-reset report](docs/rigetti-noreset-confirmation-report.md).
-- Calibration-only uncertainty routing is not selective enough: sending 20--24% of
-  shots through the slow soft decoder recovers only 21--34% of its gain. Fixed-topology
-  mutable weights remain necessary; see the
+- Terminal record-level uncertainty routing is not selective enough: at the nominal
+  20% budget, actual load is 20.54--24.10% and only 25--28% of the same-topology soft
+  gain is recovered. This is an exploratory selector NO-GO, while fixed-topology
+  mutable weights remain the primary path; see the
   [event-routing report](docs/event-triggered-soft-routing-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
@@ -196,7 +198,7 @@ PYTHONPATH=src python scripts/run_rigetti_adaptive_pairwise.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --output results/rigetti_adaptive_pairwise.json
 
-# Cross-fitted affine I/Q edge reweighting on the locked final 40,000 rows
+# Sample-split affine I/Q edge reweighting on the locked final 40,000 rows
 PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --circuit-group circuit_22 --output results/rigetti_soft_matching.json

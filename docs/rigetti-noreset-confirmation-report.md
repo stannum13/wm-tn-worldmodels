@@ -1,4 +1,4 @@
-# No-reset transfer confirmation
+# No-reset post-repair transfer screen
 
 ## Frozen test and validity incident
 
@@ -33,7 +33,8 @@ contiguous 1,000-row blocks is +1.770 to +2.505 points. All 104 measurement
 signatures match; 12 residual probabilities hit the declared floor.
 
 The released soft-pairwise value at 25 rounds is 17.623%. Our result is 0.655 points
-higher, so it confirms a transferable analog-information mechanism but does not meet
+higher, so the post-repair screen supports a transferable analog-information mechanism
+but does not meet
 the 0.20-point exact-reproduction margin on this acquisition. The poor hard-pairwise
 result also shows that our disclosed Spitz topology/regularization is not the authors'
 unreleased graph implementation.
@@ -44,7 +45,7 @@ Across reset and no-reset sessions, the robust contribution is now specific: a c
 affine I/Q confidence model can improve a structured decoder when it reweights
 circuit-aligned measurement edges. Extra spline capacity and causal calibration
 tracking have not improved the logical endpoint. The promising research contribution
-is therefore the identifiable analog-to-graph interface and its deployable
+is therefore the empirically useful operational analog-to-graph interface and its deployable
 compilation—not a generic learned decoder or particle world model.
 
 The current Python reference rebuilds a graph per shot and costs 2.97/3.86 ms p50/p99.

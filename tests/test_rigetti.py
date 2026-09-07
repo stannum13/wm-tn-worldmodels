@@ -12,6 +12,8 @@ from ptwm.rigetti import (
     fit_spitz_pairwise_matching,
     measurement_error_signatures,
     build_soft_reweighted_matching,
+    soft_reweight_array,
+    soft_reweight_matrix,
     prepare_soft_reweighting,
     typed_circuit_noise_model,
     calibrated_uncertainty_route,
@@ -83,6 +85,27 @@ def test_soft_reweighting_replaces_average_measurement_contribution():
     expected = 0.1 + 0.2 - 2 * 0.1 * 0.2
     assert abs(updated.get_edge_data(0, 1)["error_probability"] - expected) < 1e-9
     assert diagnostics["matched_measurements"] == 1
+
+
+def test_soft_reweight_array_matches_rebuilt_graph_weights():
+    pymatching = pytest.importorskip("pymatching")
+
+    base = pymatching.Matching()
+    base.add_edge(0, 1, fault_ids={0}, error_probability=0.14)
+    base.add_boundary_edge(1, fault_ids={0}, error_probability=0.08)
+    signatures = [((0, 1), frozenset({0})), ((1,), frozenset({0}))]
+    plan, _ = prepare_soft_reweighting(base, signatures, np.asarray([0.04, 0.03]))
+    shot = np.asarray([0.21, 0.12])
+    rebuilt = build_soft_reweighted_matching(plan, shot)
+    updates = soft_reweight_array(plan, shot)
+    observed = {(int(a), None if b == -1 else int(b)): w for a, b, w in updates}
+    assert observed[(0, 1)] == pytest.approx(rebuilt.get_edge_data(0, 1)["weight"])
+    assert observed[(1, None)] == pytest.approx(
+        rebuilt.get_boundary_edge_data(1)["weight"]
+    )
+    batch = soft_reweight_matrix(plan, np.stack([shot, shot * 0.5]))
+    assert batch.shape == (2, 2, 3)
+    assert np.array_equal(batch[0], updates)
 
 
 def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():

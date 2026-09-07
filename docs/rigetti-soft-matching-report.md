@@ -1,4 +1,4 @@
-# Cross-fitted analog pairwise matching
+# Sample-split analog pairwise matching
 
 ## Controlled question
 
@@ -9,8 +9,10 @@ the existing hardware hard decision; they never see the logical observable. The 
 40,000 rows are locked evaluation data.
 
 For each shot, the average measurement-error contribution is factored out of its
-matched graph edge and replaced with the shot's posterior hard-decision error. All 96
-measurement locations map to a circuit-derived graph edge; none are discarded. Three
+matched graph edge and replaced with the shot's balanced-head hard-bit surprisal
+surrogate. This is an operational weighting ansatz, not an identified probability of
+physical measurement error. All 96 measurement locations map to a circuit-derived
+graph edge; none are discarded. Three
 residual edge probabilities reach the declared numerical floor.
 
 ## Result

@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import platform
 import subprocess
 import sys
@@ -71,14 +72,14 @@ def run(
     template_prediction = np.asarray(
         template.decode_batch(record["detectors"][test].astype(np.uint8))
     )[:, 0]
-    hard_call_ns = []
-    for row in test[: min(2000, len(test))]:
-        started = perf_counter_ns()
-        template.decode(record["detectors"][row].astype(np.uint8))
-        hard_call_ns.append(perf_counter_ns() - started)
     pairwise_prediction = np.asarray(
         pairwise.decode_batch(record["detectors"][test].astype(np.uint8))
     )[:, 0]
+    hard_call_ns = []
+    for row in test[: min(2000, len(test))]:
+        started = perf_counter_ns()
+        pairwise.decode(record["detectors"][row].astype(np.uint8))
+        hard_call_ns.append(perf_counter_ns() - started)
     soft_prediction = np.empty(len(test))
     call_ns = np.empty(len(test))
     for position, row in enumerate(test):
@@ -147,10 +148,14 @@ def run(
             ),
             "paired_row_block_95pct_t_interval": _interval(differences),
         })
-    try:
-        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-    except (OSError, subprocess.CalledProcessError):
-        commit = "unknown"
+    commit = os.environ.get("PTWM_CODE_COMMIT")
+    if not commit:
+        try:
+            commit = subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], text=True, stderr=subprocess.DEVNULL
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            commit = "unknown"
     return {
         "schema_version": 1,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -167,7 +172,7 @@ def run(
         "design": {
             "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked",
             "calibration": f"balanced logistic P(hardware hard bit | I,Q) per qubit with {knots} spline-design knots",
-            "soft_rule": "replace average measurement contribution on matched edges with per-shot posterior error",
+            "soft_rule": "replace average matched-edge contribution with the per-shot balanced-head hard-bit surprisal surrogate",
             "logical_labels_in_iq_or_graph_calibration": False,
             "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
             "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
@@ -182,19 +187,20 @@ def run(
         },
         "comparisons": comparisons,
         "event_triggered_routing": {
-            "score": "sum of per-measurement posterior hard-decision error probabilities",
+            "score": "sum of per-measurement balanced-head hard-bit surprisal surrogates",
             "threshold_access": "quantile fixed only on calibration rows",
             "hard_branch": "pairwise_hard (same fixed topology; calibration-average weights)",
             "soft_branch": f"{soft_name} (same fixed topology; per-shot weights)",
             "curve": routing_curve,
         },
-        "hard_decode_latency": {
+        "pairwise_hard_decode_latency": {
             "python_batch_one_p50_ns": float(np.quantile(hard_call_ns, 0.50)),
             "python_batch_one_p99_ns": float(np.quantile(hard_call_ns, 0.99)),
         },
-        "soft_build_and_decode_latency": {
+        "soft_graph_build_and_decode_latency": {
             "python_batch_one_p50_ns": float(np.quantile(call_ns, 0.50)),
             "python_batch_one_p99_ns": float(np.quantile(call_ns, 0.99)),
+            "excludes": "I/Q inference, selector scoring, routing, queueing, and data movement",
         },
     }
 
@@ -221,6 +227,6 @@ if __name__ == "__main__":
         "models": payload["models"], "comparisons": payload["comparisons"],
         "soft_reweighting": payload["soft_reweighting"],
         "event_triggered_routing": payload["event_triggered_routing"],
-        "hard_decode_latency": payload["hard_decode_latency"],
-        "soft_build_and_decode_latency": payload["soft_build_and_decode_latency"],
+        "pairwise_hard_decode_latency": payload["pairwise_hard_decode_latency"],
+        "soft_graph_build_and_decode_latency": payload["soft_graph_build_and_decode_latency"],
     }, indent=2))
