@@ -139,6 +139,10 @@ def run(
         "graph": graph_diagnostics,
         "soft_reweighting": soft_diagnostics,
         "models": rows,
+        "row_block_errors": {
+            name: (prediction != labels[test]).reshape(-1, block_size).mean(axis=1).tolist()
+            for name, prediction in predictions.items()
+        },
         "comparisons": comparisons,
         "soft_build_and_decode_latency": {
             "python_batch_one_p50_ns": float(np.quantile(call_ns, 0.50)),
