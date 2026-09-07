@@ -613,8 +613,8 @@
       -0.008000000000000007
     ]
   },
-  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
-  "created_at": "2026-09-07T18:35:19.333022+00:00",
+  "code_commit": "45f042a0dee96ee5bcc6452773c8a58775e2fdb5",
+  "created_at": "2026-09-07T18:59:05.067168+00:00",
   "data": {
     "circuits": 6,
     "file": "stability_8_with_resets_raw_data.h5",
@@ -643,114 +643,121 @@
       "absolute_error_reduction": 0.010079999999999978,
       "blocks": 100,
       "circuit_group": "circuit_2",
+      "decoding_rounds": 3,
       "paired_block_95pct_t_interval": [
         0.008766638463477874,
         0.011393361536522126
       ],
       "relative_error_reduction": 0.03336091345358261,
-      "rounds": 4,
       "shots": 100000,
+      "syndrome_measurement_rounds": 4,
       "typed_error": 0.29207,
-      "typed_vectorized_ns_per_shot": 1207.95123,
+      "typed_vectorized_ns_per_shot": 1191.43273,
       "uniform_error": 0.30215,
-      "uniform_vectorized_ns_per_shot": 1160.66583
+      "uniform_vectorized_ns_per_shot": 1157.59944
     },
     {
       "absolute_error_reduction": 0.0016800000000000148,
       "blocks": 100,
       "circuit_group": "circuit_6",
+      "decoding_rounds": 7,
       "paired_block_95pct_t_interval": [
         0.0004115550715103834,
         0.002948444928489619
       ],
       "relative_error_reduction": 0.0067079257336793985,
-      "rounds": 8,
       "shots": 100000,
+      "syndrome_measurement_rounds": 8,
       "typed_error": 0.24877,
-      "typed_vectorized_ns_per_shot": 4097.50226,
+      "typed_vectorized_ns_per_shot": 4132.04186,
       "uniform_error": 0.25045,
-      "uniform_vectorized_ns_per_shot": 4097.98477
+      "uniform_vectorized_ns_per_shot": 4079.88637
     },
     {
       "absolute_error_reduction": -0.0017099999999999893,
       "blocks": 100,
       "circuit_group": "circuit_10",
+      "decoding_rounds": 11,
       "paired_block_95pct_t_interval": [
         -0.0029760646116610556,
         -0.00044393538833894315
       ],
       "relative_error_reduction": -0.008030054003287157,
-      "rounds": 12,
       "shots": 100000,
+      "syndrome_measurement_rounds": 12,
       "typed_error": 0.21466,
-      "typed_vectorized_ns_per_shot": 7284.51868,
+      "typed_vectorized_ns_per_shot": 7274.69307,
       "uniform_error": 0.21295,
-      "uniform_vectorized_ns_per_shot": 7285.72278
+      "uniform_vectorized_ns_per_shot": 7365.76647
     },
     {
       "absolute_error_reduction": -0.0025400000000000145,
       "blocks": 100,
       "circuit_group": "circuit_14",
+      "decoding_rounds": 15,
       "paired_block_95pct_t_interval": [
         -0.0038312956952192404,
         -0.0012487043047807599
       ],
       "relative_error_reduction": -0.012724175934275106,
-      "rounds": 16,
       "shots": 100000,
+      "syndrome_measurement_rounds": 16,
       "typed_error": 0.20216,
-      "typed_vectorized_ns_per_shot": 11029.37736,
+      "typed_vectorized_ns_per_shot": 11102.57914,
       "uniform_error": 0.19962,
-      "uniform_vectorized_ns_per_shot": 11099.12056
+      "uniform_vectorized_ns_per_shot": 11060.56905
     },
     {
       "absolute_error_reduction": -0.002370000000000011,
       "blocks": 100,
       "circuit_group": "circuit_18",
+      "decoding_rounds": 19,
       "paired_block_95pct_t_interval": [
         -0.0036499228615182837,
         -0.0010900771384817147
       ],
       "relative_error_reduction": -0.012933151432469314,
-      "rounds": 20,
       "shots": 100000,
+      "syndrome_measurement_rounds": 20,
       "typed_error": 0.18562,
-      "typed_vectorized_ns_per_shot": 15261.68032,
+      "typed_vectorized_ns_per_shot": 15183.35662,
       "uniform_error": 0.18325,
-      "uniform_vectorized_ns_per_shot": 15041.62023
+      "uniform_vectorized_ns_per_shot": 15198.42631
     },
     {
       "absolute_error_reduction": -0.0017099999999999893,
       "blocks": 100,
       "circuit_group": "circuit_22",
+      "decoding_rounds": 23,
       "paired_block_95pct_t_interval": [
         -0.0029656560655009915,
         -0.0004543439344990082
       ],
       "relative_error_reduction": -0.010165259778860847,
-      "rounds": 24,
       "shots": 100000,
+      "syndrome_measurement_rounds": 24,
       "typed_error": 0.16993,
-      "typed_vectorized_ns_per_shot": 19874.51296,
+      "typed_vectorized_ns_per_shot": 20050.36913,
       "uniform_error": 0.16822,
-      "uniform_vectorized_ns_per_shot": 19812.89866
+      "uniform_vectorized_ns_per_shot": 19941.28994
     }
   ],
   "primary": {
     "absolute_error_reduction": -0.0017099999999999893,
     "blocks": 100,
     "circuit_group": "circuit_22",
+    "decoding_rounds": 23,
     "paired_block_95pct_t_interval": [
       -0.0029656560655009915,
       -0.0004543439344990082
     ],
     "relative_error_reduction": -0.010165259778860847,
-    "rounds": 24,
     "shots": 100000,
+    "syndrome_measurement_rounds": 24,
     "typed_error": 0.16993,
-    "typed_vectorized_ns_per_shot": 19874.51296,
+    "typed_vectorized_ns_per_shot": 20050.36913,
     "uniform_error": 0.16822,
-    "uniform_vectorized_ns_per_shot": 19812.89866
+    "uniform_vectorized_ns_per_shot": 19941.28994
   },
   "schema_version": 1
 }

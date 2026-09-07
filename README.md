@@ -53,6 +53,10 @@ causal-filtering baselines under matched observation access.
   acquisition is a stronger NO-GO: they significantly harm every 12--24-round circuit.
   See the [typed-matching report](docs/rigetti-typed-matching-report.md) and
   [transfer report](docs/rigetti-matching-transfer-report.md).
+- A label-free hard-syndrome pairwise-correlation graph improves several shallow and
+  mid-depth circuits but misses the locked 23-round endpoint. Analog access must be
+  isolated before adaptive filtering is justified; see the
+  [pairwise report](docs/rigetti-pairwise-matching-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -147,6 +151,11 @@ PYTHONPATH=src python scripts/run_rigetti_matching_control.py \
 PYTHONPATH=src python scripts/run_rigetti_matching_transfer.py \
   --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
   --output results/rigetti_matching_transfer.json
+
+# Label-free pairwise-correlation graph with a locked hard-syndrome holdout
+PYTHONPATH=src python scripts/run_rigetti_pairwise_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --output results/rigetti_pairwise_matching.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -177,7 +186,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
 - [x] Reproduce released stability-9 MWPM scale with a transparent matching control
 - [x] Reject frozen type-only matching weights on an independent 600,000-shot transfer
-- [ ] Reproduce the released pairwise-correlation matching graph
+- [x] Test a transparent hard-syndrome pairwise graph on a locked holdout
+- [ ] Reproduce the released soft-I/Q pairwise-correlation decoder
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
 - [ ] Matched planning/policy comparison with explicit observation costs

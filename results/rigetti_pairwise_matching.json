@@ -1,0 +1,218 @@
+{
+  "code_commit": "45f042a0dee96ee5bcc6452773c8a58775e2fdb5",
+  "created_at": "2026-09-07T18:59:16.055160+00:00",
+  "data": {
+    "circuits": 6,
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c",
+    "shots": 600000,
+    "source": "https://zenodo.org/records/15364358"
+  },
+  "design": {
+    "access_contract": "hard detector bits only; no logical labels or I/Q in graph fit",
+    "calibration": "label-free detector moments on the first HDF5 row range",
+    "evaluation": "locked final HDF5 row range; per-shot timestamps unavailable",
+    "floor_probability": 0.0001,
+    "limitation": "template follows disclosed gate rates but omits idle-location faults; not an exact reproduction of the unreleased graph implementation",
+    "pair_formula": "Spitz et al. 2018 Eq. 3 on fixed circuit-derived candidate edges",
+    "primary_endpoint": "maximum decoding-round circuit",
+    "primary_go_condition": ">=1% relative reduction with positive paired interval",
+    "train_fraction": 0.6
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "per_circuit": [
+    {
+      "absolute_error_reduction": 0.027274999999999994,
+      "blocks": 40,
+      "circuit_group": "circuit_2",
+      "decoding_rounds": 3,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 0,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 28
+      },
+      "paired_row_block_95pct_t_interval": [
+        0.023277888326989453,
+        0.03127211167301057
+      ],
+      "pairwise_error": 0.293225,
+      "pairwise_vectorized_ns_per_shot": 1528.502675,
+      "relative_error_reduction": 0.08510140405616218,
+      "syndrome_measurement_rounds": 4,
+      "template_error": 0.3205,
+      "test_rows": 40000,
+      "train_rows": 60000
+    },
+    {
+      "absolute_error_reduction": 0.009974999999999984,
+      "blocks": 40,
+      "circuit_group": "circuit_6",
+      "decoding_rounds": 7,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 0,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 76
+      },
+      "paired_row_block_95pct_t_interval": [
+        0.006186398229475831,
+        0.013763601770524173
+      ],
+      "pairwise_error": 0.245675,
+      "pairwise_vectorized_ns_per_shot": 6124.446375,
+      "relative_error_reduction": 0.039018188930177944,
+      "syndrome_measurement_rounds": 8,
+      "template_error": 0.25565,
+      "test_rows": 40000,
+      "train_rows": 60000
+    },
+    {
+      "absolute_error_reduction": 0.0019249999999999823,
+      "blocks": 40,
+      "circuit_group": "circuit_10",
+      "decoding_rounds": 11,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 1,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 124
+      },
+      "paired_row_block_95pct_t_interval": [
+        -0.0015350064917301072,
+        0.0053850064917301075
+      ],
+      "pairwise_error": 0.2149,
+      "pairwise_vectorized_ns_per_shot": 11051.6801,
+      "relative_error_reduction": 0.00887812752219519,
+      "syndrome_measurement_rounds": 12,
+      "template_error": 0.216825,
+      "test_rows": 40000,
+      "train_rows": 60000
+    },
+    {
+      "absolute_error_reduction": 0.0007250000000000034,
+      "blocks": 40,
+      "circuit_group": "circuit_14",
+      "decoding_rounds": 15,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 1,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 172
+      },
+      "paired_row_block_95pct_t_interval": [
+        -0.002251428410256633,
+        0.0037014284102566304
+      ],
+      "pairwise_error": 0.202025,
+      "pairwise_vectorized_ns_per_shot": 16578.254525,
+      "relative_error_reduction": 0.003575832305795279,
+      "syndrome_measurement_rounds": 16,
+      "template_error": 0.20275,
+      "test_rows": 40000,
+      "train_rows": 60000
+    },
+    {
+      "absolute_error_reduction": 0.004349999999999993,
+      "blocks": 40,
+      "circuit_group": "circuit_18",
+      "decoding_rounds": 19,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 1,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 220
+      },
+      "paired_row_block_95pct_t_interval": [
+        0.0014435066767786702,
+        0.007256493323221333
+      ],
+      "pairwise_error": 0.183675,
+      "pairwise_vectorized_ns_per_shot": 22649.773675,
+      "relative_error_reduction": 0.023135221380135573,
+      "syndrome_measurement_rounds": 20,
+      "template_error": 0.188025,
+      "test_rows": 40000,
+      "train_rows": 60000
+    },
+    {
+      "absolute_error_reduction": -0.0016250000000000153,
+      "blocks": 40,
+      "circuit_group": "circuit_22",
+      "decoding_rounds": 23,
+      "graph": {
+        "boundary_edges": 8,
+        "calibration_shots": 60000,
+        "ceiling_probability": 0.49,
+        "clipped_high": 0,
+        "clipped_low": 1,
+        "floor_probability": 0.0001,
+        "invalid_estimates": 0,
+        "pair_edges": 268
+      },
+      "paired_row_block_95pct_t_interval": [
+        -0.005389434806074485,
+        0.002139434806074489
+      ],
+      "pairwise_error": 0.166775,
+      "pairwise_vectorized_ns_per_shot": 29410.974775,
+      "relative_error_reduction": -0.009839539812291909,
+      "syndrome_measurement_rounds": 24,
+      "template_error": 0.16515,
+      "test_rows": 40000,
+      "train_rows": 60000
+    }
+  ],
+  "primary": {
+    "absolute_error_reduction": -0.0016250000000000153,
+    "blocks": 40,
+    "circuit_group": "circuit_22",
+    "decoding_rounds": 23,
+    "graph": {
+      "boundary_edges": 8,
+      "calibration_shots": 60000,
+      "ceiling_probability": 0.49,
+      "clipped_high": 0,
+      "clipped_low": 1,
+      "floor_probability": 0.0001,
+      "invalid_estimates": 0,
+      "pair_edges": 268
+    },
+    "paired_row_block_95pct_t_interval": [
+      -0.005389434806074485,
+      0.002139434806074489
+    ],
+    "pairwise_error": 0.166775,
+    "pairwise_vectorized_ns_per_shot": 29410.974775,
+    "relative_error_reduction": -0.009839539812291909,
+    "syndrome_measurement_rounds": 24,
+    "template_error": 0.16515,
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "schema_version": 1
+}
