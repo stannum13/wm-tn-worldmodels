@@ -4,8 +4,13 @@ import pytest
 numba = pytest.importorskip("numba")
 pymatching = pytest.importorskip("pymatching")
 
-from ptwm.rigetti import compile_frontier_decoder
-from ptwm.rigetti_jit import decode_frontier_batch, decode_frontier_one, pack_frontier_schedule
+from ptwm.rigetti import compile_frontier_decoder, PackedAffineIQHeads, PackedSoftReweighting
+from ptwm.rigetti_jit import (
+    decode_frontier_batch,
+    decode_frontier_one,
+    fused_affine_reweights_one,
+    pack_frontier_schedule,
+)
 
 
 def test_compiled_frontier_matches_python_and_pymatching():
@@ -32,3 +37,30 @@ def test_compiled_frontier_matches_python_and_pymatching():
         assert compiled[row] == one == python == expected
         assert margins[row] == pytest.approx(compiled_margin)
         assert compiled_margin == pytest.approx(margin)
+
+
+def test_fused_affine_reweights_match_composed_packed_path():
+    heads = PackedAffineIQHeads(
+        weights=np.asarray([[0.2, -0.4, 0.7], [-0.3, 0.8, 0.1]]),
+        feature_min=np.asarray([[-1.0, -2.0], [0.0, -1.0]]),
+        feature_range=np.asarray([[2.0, 4.0], [3.0, 2.0]]),
+    )
+    reweighting = PackedSoftReweighting(
+        endpoints=np.asarray([[0.0, 1.0], [1.0, -1.0]]),
+        residual_factor=np.asarray([0.8, 0.6]),
+        measurement_indices=np.asarray([[0, 1], [1, 0]]),
+        measurement_mask=np.asarray([[True, True], [True, False]]),
+        floor_probability=1e-5,
+        ceiling_probability=0.49,
+    )
+    soft = np.asarray([0.4 - 0.7j, 1.2 + 0.3j])
+    hard = np.asarray([False, True])
+    probability = heads.predict(soft)
+    expected = reweighting.build(np.where(hard, 1.0 - probability, probability))
+    observed = fused_affine_reweights_one(
+        soft, hard, heads.weights, heads.feature_min, heads.feature_range,
+        reweighting.endpoints, reweighting.residual_factor,
+        reweighting.measurement_indices, reweighting.measurement_mask,
+        reweighting.floor_probability, reweighting.ceiling_probability,
+    )
+    assert np.allclose(observed, expected, atol=2e-7)
