@@ -116,3 +116,9 @@ The first nonlinear screen finds only a 5.5% MSE gain at 128 particles for 4.8 t
 the robust-EKF runtime. Particles therefore remain outside the hot path pending a
 multimodal wrapped-phase positive control. See the
 [particle report](nonlinear-particle-filter-report.md).
+
+The subsequent [wrapped-phase positive control](wrapped-phase-particle-report.md)
+changes the routing decision but not the latency decision: 64 particles recover 91%
+of the EKF-to-grid loss gap when sparse quadrature probes create and then resolve a
+genuinely multimodal posterior. They cost 3.5 times the EKF, so particles advance as a
+slow teacher/reference or event-triggered lane, not as an always-on hot-path filter.
