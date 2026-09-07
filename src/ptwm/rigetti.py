@@ -24,6 +24,33 @@ class LogisticIQHead:
         return expit(design @ self.weights)
 
 
+@dataclass(frozen=True)
+class MarkovSyndromeDecoder:
+    """Causal class-conditional lookup model over per-round syndrome symbols."""
+
+    log_prior: np.ndarray
+    log_conditionals: tuple[np.ndarray, ...]
+    alphabet: int
+    order: int
+
+    def predict(self, symbols: np.ndarray) -> np.ndarray:
+        symbols = np.asarray(symbols, dtype=int)
+        scores = np.broadcast_to(self.log_prior, (len(symbols), 2)).copy()
+        for t in range(symbols.shape[1]):
+            context_order = min(t, self.order)
+            if context_order:
+                context = np.zeros(len(symbols), dtype=int)
+                for previous in symbols[:, t - context_order : t].T:
+                    context = context * self.alphabet + previous
+            else:
+                context = np.zeros(len(symbols), dtype=int)
+            for label in (0, 1):
+                scores[:, label] += self.log_conditionals[context_order][
+                    label, context, symbols[:, t]
+                ]
+        return expit(scores[:, 1] - scores[:, 0])
+
+
 def load_measurement_fidelity(path: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Load labelled complex I/Q calibration shots and hardware hard decisions."""
     try:
@@ -165,6 +192,69 @@ def detector_worldline_parities(detectors: np.ndarray, circuit: object) -> np.nd
                 1.0 - np.cumprod(1.0 - 2.0 * detectors[:, columns], axis=1)
             )
     return output
+
+
+def detector_round_symbols(detectors: np.ndarray, circuit: object) -> np.ndarray:
+    """Pack the four spatial detector bits at each time into a categorical symbol."""
+    geometry = detector_geometry(circuit)
+    times = np.unique(geometry[:, 2])
+    groups = [np.flatnonzero(geometry[:, 2] == time) for time in times]
+    widths = {len(group) for group in groups}
+    if len(widths) != 1:
+        raise ValueError(f"detector width changes across rounds: {sorted(widths)}")
+    output = np.empty((len(detectors), len(groups)), dtype=int)
+    for t, columns in enumerate(groups):
+        columns = columns[np.lexsort((geometry[columns, 1], geometry[columns, 0]))]
+        output[:, t] = np.asarray(detectors[:, columns], dtype=int) @ (1 << np.arange(len(columns)))
+    return output
+
+
+def fit_markov_syndrome_decoder(
+    symbols: np.ndarray, labels: np.ndarray, *, order: int, alpha: float = 1.0
+) -> MarkovSyndromeDecoder:
+    """Fit an order-k generative decoder with Dirichlet-smoothed lookup tables."""
+    symbols, labels = np.asarray(symbols, dtype=int), np.asarray(labels, dtype=int)
+    if order < 0 or order >= symbols.shape[1]:
+        raise ValueError("order must be non-negative and shorter than the sequence")
+    alphabet = int(symbols.max()) + 1
+    # The packed alphabet is a power of two even when some symbols are absent in train.
+    alphabet = 1 << int(np.ceil(np.log2(max(alphabet, 2))))
+    prior = np.bincount(labels, minlength=2).astype(float) + alpha
+    prior /= prior.sum()
+    tables = []
+    for context_order in range(order + 1):
+        counts = np.full((2, alphabet**context_order, alphabet), alpha, dtype=float)
+        for t in range(context_order, symbols.shape[1]):
+            if context_order:
+                context = np.zeros(len(symbols), dtype=int)
+                for previous in symbols[:, t - context_order : t].T:
+                    context = context * alphabet + previous
+            else:
+                context = np.zeros(len(symbols), dtype=int)
+            np.add.at(counts, (labels, context, symbols[:, t]), 1.0)
+        counts /= counts.sum(axis=2, keepdims=True)
+        tables.append(np.log(counts))
+    return MarkovSyndromeDecoder(np.log(prior), tuple(tables), alphabet, order)
+
+
+def timed_markov_prediction(
+    decoder: MarkovSyndromeDecoder, symbols: np.ndarray, repeats: int = 20
+) -> tuple[np.ndarray, dict[str, float]]:
+    prediction = decoder.predict(symbols)
+    started = perf_counter_ns()
+    for _ in range(repeats):
+        decoder.predict(symbols)
+    vectorized = (perf_counter_ns() - started) / (repeats * len(symbols))
+    calls = []
+    for row in symbols[: min(2000, len(symbols))]:
+        started = perf_counter_ns()
+        decoder.predict(row[None, :])
+        calls.append(perf_counter_ns() - started)
+    return prediction, {
+        "vectorized_ns_per_shot": float(vectorized),
+        "python_batch_one_p50_ns": float(np.quantile(calls, 0.50)),
+        "python_batch_one_p99_ns": float(np.quantile(calls, 0.99)),
+    }
 
 
 def chronological_preparation_split(labels: np.ndarray, train_fraction: float = 0.6) -> tuple[np.ndarray, np.ndarray]:
