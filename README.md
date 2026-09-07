@@ -54,6 +54,12 @@ That gain does not transfer to `idle180`; increasing pure-unitary OQE memory thr
 D6 does not rescue it. See the [independent scientific review](docs/scientific-review.md)
 for the revised identification question and experimental controls.
 
+The first [delay-aware streaming screen](docs/streaming-benchmark-report.md) finds a
+bounded regime where forecasting the fitted hidden-state belief to the actuation time
+reduces compensation error by more than 20% relative to the strongest tested causal
+non-forecast comparator. This is a synthetic directional result, not yet a general
+quantum-feedback claim.
+
 ## Original experiment (A) — real-device process world model
 
 Data: `guochu/pt_recovery` (superconducting-qubit randomized-benchmarking sequences with
@@ -124,4 +130,6 @@ python scripts/run_markov_model_comparison.py data/external/pt_recovery \
 - [ ] NMN-tomo process-matrix physicality residuals (loader present, analysis pending)
 - [ ] Acquisition-block uncertainty and prospective active-mixing confirmation
 - [ ] Matched planning/policy comparisons in simulations with explicit observation access
+- [x] First hidden-detuning streaming/delay screen on GCP
+- [ ] Fresh streaming parameter-family confirmation and quantum-trajectory extension
 - [ ] Observation-design, constraint, and compression experiments from the redistributed plan
