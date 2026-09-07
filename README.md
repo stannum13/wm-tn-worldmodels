@@ -48,6 +48,9 @@ causal-filtering baselines under matched observation access.
   the released 38.819% stability-9 anchor to within 0.0715 percentage points. Learned
   components must now improve this structural control. See the
   [matching report](docs/rigetti-matching-control-report.md).
+- Three type-specific matching rates improve error by only 0.54% relative, with an
+  interval crossing zero. The frozen rates now require independent-session transfer;
+  see the [typed-matching report](docs/rigetti-typed-matching-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
