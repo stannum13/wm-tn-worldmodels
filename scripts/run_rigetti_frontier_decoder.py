@@ -43,7 +43,10 @@ def _quantiles(values: np.ndarray) -> dict[str, float]:
     }
 
 
-def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) -> dict:
+def run(
+    path: Path, circuit_group: str, train_fraction: float, max_test: int,
+    python_candidate_limit: int,
+) -> dict:
     import pymatching
 
     record = load_qec_record(str(path), circuit_group)
@@ -78,20 +81,22 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
 
     reference = np.empty(len(test), dtype=np.uint8)
     reference_ns = np.empty(len(test))
-    candidate = np.empty(len(test), dtype=np.uint8)
-    candidate_ns = np.empty(len(test))
-    margins = np.empty(len(test))
+    python_count = min(python_candidate_limit, len(test))
+    candidate = np.empty(python_count, dtype=np.uint8)
+    candidate_ns = np.empty(python_count)
+    margins = np.empty(python_count)
     for position, row in enumerate(test):
         started = perf_counter_ns()
         reference[position] = build_soft_reweighted_matching(
             plan, measurement_error[row]
         ).decode(record["detectors"][row].astype(np.uint8))[0]
         reference_ns[position] = perf_counter_ns() - started
-        started = perf_counter_ns()
-        candidate[position], margins[position] = frontier.decode(
-            record["detectors"][row], weights[position]
-        )
-        candidate_ns[position] = perf_counter_ns() - started
+        if position < python_count:
+            started = perf_counter_ns()
+            candidate[position], margins[position] = frontier.decode(
+                record["detectors"][row], weights[position]
+            )
+            candidate_ns[position] = perf_counter_ns() - started
 
     # Compile outside all recorded timing, then measure both batch-one latency and
     # amortized throughput for exactly the same DP schedule and weights.
@@ -121,7 +126,7 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
             ).strip()
         except (OSError, subprocess.CalledProcessError):
             commit = "unknown"
-    disagreements = candidate != reference
+    disagreements = candidate != reference[:python_count]
     return {
         "schema_version": 1,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -151,17 +156,18 @@ def run(path: Path, circuit_group: str, train_fraction: float, max_test: int) ->
             ),
         },
         "prediction_disagreements": int(np.sum(disagreements)),
+        "python_candidate_records": python_count,
         "compiled_prediction_disagreements": int(np.sum(compiled != reference)),
         "compiled_batch_prediction_disagreements": int(np.sum(
             compiled_batch != reference
         )),
         "maximum_compiled_margin_difference": float(np.max(np.abs(
-            compiled_margins - margins
+            compiled_margins[:python_count] - margins
         ))),
         "maximum_compiled_batch_margin_difference": float(np.max(np.abs(
-            compiled_batch_margins - margins
+            compiled_batch_margins - compiled_margins
         ))),
-        "minimum_margin": float(np.min(margins)),
+        "minimum_margin": float(np.min(compiled_margins)),
         "disagreement_margins": margins[disagreements].tolist(),
         "reference_logical_error": float(np.mean(reference != labels[test])),
         "candidate_logical_error": float(np.mean(candidate != labels[test])),
@@ -183,9 +189,13 @@ if __name__ == "__main__":
     parser.add_argument("--circuit-group", required=True)
     parser.add_argument("--train-fraction", type=float, default=0.6)
     parser.add_argument("--max-test", type=int, default=200)
+    parser.add_argument("--python-candidate-limit", type=int, default=200)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    payload = run(args.data, args.circuit_group, args.train_fraction, args.max_test)
+    payload = run(
+        args.data, args.circuit_group, args.train_fraction, args.max_test,
+        args.python_candidate_limit,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps(payload, indent=2, sort_keys=True))
