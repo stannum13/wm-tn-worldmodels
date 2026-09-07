@@ -515,8 +515,12 @@ def typed_circuit_noise_model(
     for instruction in circuit.flattened():
         targets = instruction.targets_copy()
         if instruction.name in {"M", *measure_reset_gates}:
-            noisy.append("X_ERROR", targets, measurement_probability)
-            noisy.append(instruction)
+            if instruction.gate_args_copy():
+                raise ValueError("typed noise model expects noiseless measurement instructions")
+            # A readout-classification error flips the classical record without
+            # changing the post-measurement qubit state. X_ERROR before M is not
+            # equivalent when the qubit is measured again without a reset.
+            noisy.append(instruction.name, targets, measurement_probability)
             if instruction.name in measure_reset_gates:
                 noisy.append("X_ERROR", targets, measurement_probability)
         else:

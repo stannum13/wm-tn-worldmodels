@@ -12,6 +12,7 @@ from ptwm.rigetti import (
     measurement_error_signatures,
     build_soft_reweighted_matching,
     prepare_soft_reweighting,
+    typed_circuit_noise_model,
     probability_metrics,
 )
 
@@ -80,6 +81,19 @@ def test_soft_reweighting_replaces_average_measurement_contribution():
     expected = 0.1 + 0.2 - 2 * 0.1 * 0.2
     assert abs(updated.get_edge_data(0, 1)["error_probability"] - expected) < 1e-9
     assert diagnostics["matched_measurements"] == 1
+
+
+def test_measurement_noise_is_a_record_flip_not_persistent_state_flip():
+    import pymatching
+    import stim
+
+    circuit = stim.Circuit("R 0\nM 0\nM 0\nDETECTOR rec[-1] rec[-2]")
+    model = typed_circuit_noise_model(
+        circuit, measurement_probability=0.1,
+        one_qubit_probability=0.0, two_qubit_probability=0.0,
+    )
+    matching = pymatching.Matching.from_detector_error_model(model)
+    assert abs(matching.get_boundary_edge_data(0)["error_probability"] - 0.18) < 1e-9
 
 
 def test_chronological_split_preserves_both_classes_without_overlap():
