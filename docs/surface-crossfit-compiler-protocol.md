@@ -1,8 +1,10 @@
 # Cross-fitted graph-router compiler protocol
 
-Precommitted confirmation, 8 September 2026. Final seed 20261231 was not inspected
-when this protocol was committed. This protocol corrects the validation-reuse defect
-identified in the residual-router result.
+Corrected confirmatory protocol, 8 September 2026. The first execution was discarded
+after independent audit found calibration/final Stim seed reuse. The corrected rerun
+uses base seed 20261231 with disjoint sampler namespaces: calibration +100, residual
+fit +1000, policy selection +2000, final test +3000, and controls +4000. Corrected
+final outcomes were not inspected when these namespaces were committed.
 
 ## Compiler
 
@@ -22,6 +24,7 @@ The policy-selection set chooses the lowest-LER member of a fixed candidate fami
 
 - the previous aggregate causal router at threshold 0.5;
 - detailed causal posterior thresholds {0.1, ..., 0.9};
+- detailed memoryless thresholds {0.1, ..., 0.9};
 - the cross-fitted energy-residual router.
 
 ## GO conditions

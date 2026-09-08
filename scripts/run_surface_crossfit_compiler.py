@@ -87,6 +87,13 @@ def candidate_predictions(
         horizon=horizon,
         temporal=True,
     )
+    memoryless_probability = posterior(
+        detailed,
+        evidence_model,
+        streams=streams,
+        horizon=horizon,
+        temporal=False,
+    )
     aggregate_probability = posterior(
         aggregate,
         aggregate_model,
@@ -102,6 +109,9 @@ def candidate_predictions(
     for threshold in THRESHOLDS:
         candidates[f"detailed_{threshold:.1f}"] = threshold_prediction(
             detailed_probability, endpoints, threshold
+        )
+        candidates[f"memoryless_{threshold:.1f}"] = threshold_prediction(
+            memoryless_probability, endpoints, threshold
         )
     action_score = affine_log_likelihood_ratio(
         energy_action_features(detailed, detailed_probability, weights),
@@ -129,7 +139,7 @@ def run_distance(
     circuits = [circuit(distance, *parameters) for parameters in REGIMES]
     endpoint_matchings = [matching(value) for value in circuits]
     calibration = [
-        sample(value, calibration_shots, seed + 10 + mode)
+        sample(value, calibration_shots, seed + 100 + mode)
         for mode, value in enumerate(circuits)
     ]
     detailed_calibration = [
@@ -213,17 +223,22 @@ def run_distance(
         for name, prediction in selection_candidates.items()
     }
     selected_policy = min(selection_scores, key=selection_scores.get)
+    selected_memoryless = min(
+        (name for name in selection_scores if name.startswith("memoryless_")),
+        key=selection_scores.get,
+    )
     selection_metadata = {
         "records": int(selection_labels.size),
         "scores": selection_scores,
         "selected_policy": selected_policy,
+        "selected_memoryless_comparator": selected_memoryless,
     }
     del selection_detectors, selection_detailed, selection_aggregate
     del selection_candidates, selection_endpoints, selection_weights
     gc.collect()
 
     detectors, labels, hidden = stream_data(
-        circuits, seed=seed, streams=streams, horizon=horizon
+        circuits, seed=seed + 3000, streams=streams, horizon=horizon
     )
     detailed = detailed_morphology_features(detectors, circuits[0])
     aggregate = morphology_features(detectors, circuits[0])
@@ -241,6 +256,7 @@ def run_distance(
     )
     compiled = candidates[selected_policy]
     prior_aggregate = candidates["aggregate_0.5"]
+    memoryless_comparator = candidates[selected_memoryless]
     benchmark = (
         benchmark_matching.decode_batch(detectors)[:, 0]
         .reshape(streams, horizon)
@@ -256,6 +272,7 @@ def run_distance(
         "selected_static_benchmark": benchmark,
         "prior_aggregate_causal_router": prior_aggregate,
         "compiled_policy": compiled,
+        "selected_detailed_memoryless": memoryless_comparator,
         "mode_informed_endpoints": mode_informed,
     }
     methods = {
@@ -265,6 +282,9 @@ def run_distance(
     methods["compiled_policy"][
         "paired_stream_95pct_interval_vs_prior_aggregate"
     ] = paired_episode_interval(compiled, prior_aggregate, truth)
+    methods["compiled_policy"][
+        "paired_stream_95pct_interval_vs_selected_memoryless"
+    ] = paired_episode_interval(compiled, memoryless_comparator, truth)
     oracle_gain = (
         methods["selected_static_benchmark"]["logical_error"]
         - methods["mode_informed_endpoints"]["logical_error"]
@@ -280,7 +300,7 @@ def run_distance(
     stationary_controls = []
     for mode, physical_circuit in enumerate(circuits):
         control_detectors, control_labels = sample(
-            physical_circuit, streams * horizon, seed + 30 + mode
+            physical_circuit, streams * horizon, seed + 4000 + mode
         )
         control_detailed = detailed_morphology_features(
             control_detectors, circuits[0]
@@ -359,6 +379,13 @@ def main() -> None:
             "pymatching": pymatching.__version__,
         },
         "seed": args.seed,
+        "seed_namespaces": {
+            "calibration": 100,
+            "action_fit": 1000,
+            "policy_selection": 2000,
+            "final_test": 3000,
+            "stationary_controls": 4000,
+        },
         "streams": args.streams,
         "horizon": args.horizon,
         "calibration_shots_per_regime": args.calibration_shots,
