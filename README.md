@@ -159,6 +159,12 @@ causal-filtering baselines under matched observation access.
   slow-path two-rate estimator exactly identifies all 24 finite-grid cells and
   recovers 100% of the FORK recalibration gain in 4/4 eligible cells; see the
   [deployment-shift report](docs/factor-deployment-shift-report.md).
+- On a precommitted Stim/PyMatching rotated surface-code benchmark, a one-scalar
+  causal mode filter beats a matched memoryless graph router at distances 3 and 5.
+  It passes temporal-value and nominal-null conditions, but fails the stricter
+  graph-relevance and 80%-oracle-recovery conditions. This is evidence for tiny
+  causal state and against coarse whole-graph switching; see the
+  [surface-code routing report](docs/surface-mode-routing-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 

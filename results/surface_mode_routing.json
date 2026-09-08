@@ -1,0 +1,246 @@
+{
+  "calibration_shots_per_mode": 65536,
+  "code_commit": "ca7612f0a20925690b6de41f86943f36375658f8",
+  "created_at": "2026-09-08T06:21:33.209321+00:00",
+  "distances": [
+    {
+      "burst_mode_fraction": 0.041927337646484375,
+      "calibration_mean_detector_density": [
+        0.010761896769205729,
+        0.047513326009114586
+      ],
+      "detectors": 24,
+      "distance": 3,
+      "methods": {
+        "always_burst": {
+          "disagreements_vs_static": 102,
+          "logical_error": 0.000789642333984375,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.00016154186732288622,
+            -6.304812364613783e-06
+          ]
+        },
+        "memoryless_router": {
+          "disagreements_vs_static": 10,
+          "logical_error": 0.000888824462890625,
+          "oracle_gain_recovery": -0.21052631578947367,
+          "paired_stream_95pct_interval_vs_static": [
+            -8.426730058452606e-06,
+            3.8944308183452606e-05
+          ]
+        },
+        "mode_oracle": {
+          "disagreements_vs_static": 45,
+          "logical_error": 0.00080108642578125,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.00012352143020621952,
+            -2.143706588753049e-05
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.000873565673828125,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_router": {
+          "disagreements_vs_static": 28,
+          "logical_error": 0.000827789306640625,
+          "oracle_gain_recovery": 0.631578947368421,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -0.00010178008505849545,
+            -2.029022744150455e-05
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -8.527202723310545e-05,
+            -6.280707141894554e-06
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 3,
+        "logical_error": 0.000457763671875,
+        "paired_stream_95pct_interval_vs_static": [
+          -9.174483619387878e-06,
+          1.6803878150637878e-05
+        ],
+        "router_burst_selection_fraction": 0.002315521240234375,
+        "static_logical_error": 0.000453948974609375
+      },
+      "records": 262144,
+      "rounds": 3,
+      "router_diagnostics": {
+        "memoryless_burst_selection_fraction": 0.000766754150390625,
+        "memoryless_mode_error": 0.041961669921875,
+        "temporal_burst_selection_fraction": 0.019916534423828125,
+        "temporal_mode_error": 0.03338623046875
+      }
+    },
+    {
+      "burst_mode_fraction": 0.049205780029296875,
+      "calibration_mean_detector_density": [
+        0.012767155965169271,
+        0.049278004964192705
+      ],
+      "detectors": 120,
+      "distance": 5,
+      "methods": {
+        "always_burst": {
+          "disagreements_vs_static": 18,
+          "logical_error": 0.00012969970703125,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.944971428864747e-05,
+            2.419092522614747e-05
+          ]
+        },
+        "memoryless_router": {
+          "disagreements_vs_static": 13,
+          "logical_error": 0.000133514404296875,
+          "oracle_gain_recovery": 0.14285714285714285,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.086060765416108e-05,
+            2.3231213122911075e-05
+          ]
+        },
+        "mode_oracle": {
+          "disagreements_vs_static": 13,
+          "logical_error": 0.000110626220703125,
+          "paired_stream_95pct_interval_vs_static": [
+            -5.365107877293386e-05,
+            2.4531705418386315e-07
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.0001373291015625,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_router": {
+          "disagreements_vs_static": 12,
+          "logical_error": 0.0001068115234375,
+          "oracle_gain_recovery": 1.1428571428571428,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -4.6414499300782956e-05,
+            -6.991262417967044e-06
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -5.636869817440702e-05,
+            -4.66645807559298e-06
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 1,
+        "logical_error": 5.7220458984375e-05,
+        "paired_stream_95pct_interval_vs_static": [
+          -1.1309117211648573e-05,
+          3.679722680398572e-06
+        ],
+        "router_burst_selection_fraction": 0.00188446044921875,
+        "static_logical_error": 6.103515625e-05
+      },
+      "records": 262144,
+      "rounds": 5,
+      "router_diagnostics": {
+        "memoryless_burst_selection_fraction": 0.014499664306640625,
+        "memoryless_mode_error": 0.0435791015625,
+        "temporal_burst_selection_fraction": 0.03900146484375,
+        "temporal_mode_error": 0.020557403564453125
+      }
+    },
+    {
+      "burst_mode_fraction": 0.0466156005859375,
+      "calibration_mean_detector_density": [
+        0.013767923627580916,
+        0.04973824818929037
+      ],
+      "detectors": 336,
+      "distance": 7,
+      "methods": {
+        "always_burst": {
+          "disagreements_vs_static": 4,
+          "logical_error": 1.9073486328125e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -7.359445360797144e-06,
+            2.2618234423297146e-05
+          ]
+        },
+        "memoryless_router": {
+          "disagreements_vs_static": 2,
+          "logical_error": 1.1444091796875e-05,
+          "oracle_gain_recovery": null,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.060907581913844e-05,
+            1.060907581913844e-05
+          ]
+        },
+        "mode_oracle": {
+          "disagreements_vs_static": 2,
+          "logical_error": 1.1444091796875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.060907581913844e-05,
+            1.060907581913844e-05
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 1.1444091796875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_router": {
+          "disagreements_vs_static": 2,
+          "logical_error": 1.1444091796875e-05,
+          "oracle_gain_recovery": null,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -1.060907581913844e-05,
+            1.060907581913844e-05
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 0,
+        "logical_error": 1.1444091796875e-05,
+        "paired_stream_95pct_interval_vs_static": [
+          0.0,
+          0.0
+        ],
+        "router_burst_selection_fraction": 0.001155853271484375,
+        "static_logical_error": 1.1444091796875e-05
+      },
+      "records": 262144,
+      "rounds": 7,
+      "router_diagnostics": {
+        "memoryless_burst_selection_fraction": 0.038181304931640625,
+        "memoryless_mode_error": 0.025493621826171875,
+        "temporal_burst_selection_fraction": 0.043064117431640625,
+        "temporal_mode_error": 0.008472442626953125
+      }
+    }
+  ],
+  "horizon": 512,
+  "noise": {
+    "after_clifford_depolarization": 0.001,
+    "burst_measure_reset_flip": 0.01,
+    "nominal_measure_reset_flip": 0.001
+  },
+  "protocol": "docs/surface-mode-routing-protocol.md",
+  "schema_version": 1,
+  "seed": 20260908,
+  "streams": 512,
+  "versions": {
+    "pymatching": "2.4.0",
+    "stim": "1.16.0"
+  }
+}
