@@ -4,11 +4,54 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 import numpy as np
 from scipy.stats import binomtest, sem, t
+
+from scripts.run_surface_frontier_challenge import CAMPAIGN, CONDITIONS, seed_value
+
+
+def validate_provenance(rows):
+    expected_versions = {"numpy": "2.4.1", "pymatching": "2.4.0", "stim": "1.16.0"}
+    expected_config = {"streams": 256, "horizon": 512, "calibration_shots": 65536,
+                       "action_streams": 256, "selection_streams": 256, "optimizer_evaluations": 32}
+    source_names = {"scripts/run_surface_frontier_challenge.py", "scripts/run_surface_crossfit_compiler.py",
+                    "scripts/run_surface_regime_switch.py", "src/ptwm/surface_mode.py", "src/ptwm/surface_program.py"}
+    expected_commit = subprocess.check_output(["git", "rev-parse", "be70e3e"], text=True).strip()
+    expected_sources = {name: hashlib.sha256(subprocess.check_output(
+        ["git", "show", f"{expected_commit}:{name}"])).hexdigest() for name in source_names}
+    dataset_keys = {"calibration_0", "calibration_1", "action", "selection"} | {f"test_{c}" for c in CONDITIONS}
+    for row in rows:
+        if row["campaign"] != CAMPAIGN or row["code_commit"] != expected_commit:
+            raise ValueError("artifact is not from the frozen campaign commit")
+        if row["versions"] != expected_versions or row["source_sha256"] != expected_sources:
+            raise ValueError("source or dependency provenance differs from frozen campaign")
+        if any(row["config"][k] != v for k, v in expected_config.items()):
+            raise ValueError("artifact does not use the full frozen configuration")
+        if set(row["conditions"]) != set(CONDITIONS) or set(row["data_hashes"]) != dataset_keys:
+            raise ValueError("condition or data-role manifest is incomplete")
+        keys = [("calibration", "stim", mode) for mode in range(2)]
+        for role, conditions in (("action", ("nominal",)), ("selection", ("nominal",)), ("test", CONDITIONS)):
+            for condition in conditions:
+                keys += [(role, condition, "modes"), (role, condition, "stim", 0), (role, condition, "stim", 1)]
+        expected_seeds = {json.dumps(key, separators=(",", ":")): seed_value(
+            2026090801, row["replicate"], row["distance"], *key) for key in keys}
+        if row["seeds"] != expected_seeds or row["root_seed"] != 2026090801:
+            raise ValueError("actual sampler seeds differ from declared derivation")
+        for condition in row["conditions"].values():
+            if condition["records"] != 256 * 512:
+                raise ValueError("incorrect evaluation record count")
+            for metrics in condition["methods"].values():
+                counts = metrics["errors_per_stream"]
+                if len(counts) != 256 or any(not 0 <= n <= 512 for n in counts):
+                    raise ValueError("invalid stream error counts")
+                if sum(counts) / (256 * 512) != metrics["ler"]:
+                    raise ValueError("stored LER disagrees with paired error counts")
+    return {"commit": expected_commit, "sources": expected_sources, "versions": expected_versions}
 
 
 def interval(values, confidence):
@@ -40,6 +83,7 @@ def comparison(rows, condition, candidate, reference):
 
 
 def summarize(rows):
+    provenance = validate_provenance(rows)
     identities = [(r["replicate"], r["distance"]) for r in rows]
     if len(identities) != len(set(identities)):
         raise ValueError("duplicate replicate/distance artifact")
@@ -100,9 +144,11 @@ def summarize(rows):
             distances[str(d)]["conditions"]["iid"]["temporal_vs_matched_memoryless"][
                 "replicate_97_5pct_interval"][1] < .0002 for d in (3, 5))
         gates["selective_decisions_exact"] = all(
-            c["selective_decode_disagreements"] == 0 for r in rows for c in r["conditions"].values())
+            c["selective_decode_disagreements"] == 0 and c["compiled_choice_disagreements"] == 0
+            for r in rows for c in r["conditions"].values())
         gates["latency"] = "measured separately; cannot infer from batch throughput"
-    return {"schema_version": 1, "artifact_count": len(rows), "actual_unique_seeds": len(actual_seeds),
+    return {"schema_version": 1, "provenance_verified": provenance,
+            "artifact_count": len(rows), "actual_unique_seeds": len(actual_seeds),
             "actual_unique_data_hashes": len(hashes), "code_commits": sorted({r["code_commit"] for r in rows}),
             "test_records": sum(c["records"] for r in rows for c in r["conditions"].values()),
             "gates": gates, "distances": distances}
@@ -118,6 +164,9 @@ def main():
         raise ValueError("no replicate artifacts found")
     result = summarize([json.loads(path.read_text()) for path in files])
     result["input_artifacts"] = [str(path) for path in files]
+    result["input_artifact_sha256"] = {str(path): hashlib.sha256(path.read_bytes()).hexdigest() for path in files}
+    result["summarizer_sha256"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    result["summarizer_commit"] = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps(result["gates"], indent=2))
     for distance, record in result["distances"].items():
