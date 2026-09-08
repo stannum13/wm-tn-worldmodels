@@ -1,0 +1,884 @@
+{
+  "arms": [
+    {
+      "distance": 3,
+      "emission_sigma": 0.5,
+      "episodes": 512,
+      "horizon": 512,
+      "methods": {
+        "compiled_ema": {
+          "logical_error": 0.0045928955078125,
+          "paired_episode_95pct_interval_vs_static": [
+            -3.3607756301275755e-05,
+            1.8348967238775755e-05
+          ],
+          "teacher_gain_recovery": 0.05714285714285714
+        },
+        "local_hmm": {
+          "logical_error": 0.004467010498046875,
+          "oracle_gap_recovery": 0.8333333333333334,
+          "paired_episode_95pct_interval_vs_static": [
+            -0.0002064811805705906,
+            -6.05476280231594e-05
+          ]
+        },
+        "memoryless": {
+          "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_static": [
+            -0.00015803254791485146,
+            -3.270231536639855e-05
+          ]
+        },
+        "oracle": {
+          "logical_error": 0.0044403076171875,
+          "paired_episode_95pct_interval_vs_static": [
+            -0.000256448880217051,
+            -6.398569009544902e-05
+          ]
+        },
+        "shared_hmm": {
+          "logical_error": 0.00460052490234375,
+          "oracle_gap_recovery": 0.0,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "static": {
+          "logical_error": 0.00460052490234375,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "router": {
+        "helpful_event_count": 34,
+        "largest_innovation": {
+          "auroc_for_helpful_event": 0.7204670468393378,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.029635901778154106,
+              "helpful_event_capture": 0.029411764705882353,
+              "logical_error": 0.00452423095703125,
+              "net_slow_gain_recovery": -0.5,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.07874682472480948,
+              "helpful_event_capture": 0.11764705882352941,
+              "logical_error": 0.00452423095703125,
+              "net_slow_gain_recovery": -0.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.13378492802709568,
+              "helpful_event_capture": 0.2647058823529412,
+              "logical_error": 0.00450897216796875,
+              "net_slow_gain_recovery": -0.1,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.2489415749364945,
+              "helpful_event_capture": 0.4411764705882353,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": 0.3,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "mode_entropy": {
+          "auroc_for_helpful_event": 0.8305884148325692,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.03217612193056731,
+              "helpful_event_capture": 0.17647058823529413,
+              "logical_error": 0.004486083984375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.1100762066045724,
+              "helpful_event_capture": 0.4411764705882353,
+              "logical_error": 0.004486083984375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.1896697713801863,
+              "helpful_event_capture": 0.6176470588235294,
+              "logical_error": 0.004467010498046875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.3310753598645216,
+              "helpful_event_capture": 0.7058823529411765,
+              "logical_error": 0.00446319580078125,
+              "net_slow_gain_recovery": 1.1,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "random": {
+          "auroc_for_helpful_event": 0.5737337489648486,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.011854360711261643,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.004505157470703125,
+              "net_slow_gain_recovery": 0.0,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.04995766299745978,
+              "helpful_event_capture": 0.058823529411764705,
+              "logical_error": 0.004505157470703125,
+              "net_slow_gain_recovery": 0.0,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.1100762066045724,
+              "helpful_event_capture": 0.11764705882352941,
+              "logical_error": 0.0045013427734375,
+              "net_slow_gain_recovery": 0.1,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.21253175275190517,
+              "helpful_event_capture": 0.2647058823529412,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": 0.3,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "syndrome_density": {
+          "auroc_for_helpful_event": 0.9337618691748188,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.07112616426756986,
+              "helpful_event_capture": 0.029411764705882353,
+              "logical_error": 0.0045013427734375,
+              "net_slow_gain_recovery": 0.1,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.39796782387806945,
+              "helpful_event_capture": 0.3235294117647059,
+              "logical_error": 0.004482269287109375,
+              "net_slow_gain_recovery": 0.6,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.8492802709568162,
+              "helpful_event_capture": 0.8529411764705882,
+              "logical_error": 0.00446319580078125,
+              "net_slow_gain_recovery": 1.1,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.9847586790855207,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.004467010498046875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.2
+            }
+          ]
+        }
+      },
+      "scope": "local",
+      "selected_ema_alpha": 0.8,
+      "teacher_mode_entropy_mean": 0.18568906579054556,
+      "validation_ema_logical_error": {
+        "0.0": 0.0043487548828125,
+        "0.5": 0.0043182373046875,
+        "0.8": 0.004302978515625,
+        "0.9": 0.004364013671875,
+        "0.97": 0.0043487548828125,
+        "0.99": 0.0043487548828125
+      }
+    },
+    {
+      "distance": 3,
+      "emission_sigma": 0.5,
+      "episodes": 512,
+      "horizon": 512,
+      "methods": {
+        "compiled_ema": {
+          "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ],
+          "teacher_gain_recovery": null
+        },
+        "local_hmm": {
+          "logical_error": 0.007396697998046875,
+          "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_static": [
+            -1.2543898807215143e-05,
+            0.00014224360583846513
+          ]
+        },
+        "memoryless": {
+          "logical_error": 0.007465362548828125,
+          "paired_episode_95pct_interval_vs_static": [
+            3.552897145221625e-05,
+            0.00023149983714153375
+          ]
+        },
+        "oracle": {
+          "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "shared_hmm": {
+          "logical_error": 0.00733184814453125,
+          "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "static": {
+          "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "router": {
+        "helpful_event_count": 103,
+        "largest_innovation": {
+          "auroc_for_helpful_event": 0.6979652224436975,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.09044455799693409,
+              "helpful_event_capture": 0.1553398058252427,
+              "logical_error": 0.00742340087890625,
+              "net_slow_gain_recovery": 0.3142857142857143,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.19059785385794584,
+              "helpful_event_capture": 0.27184466019417475,
+              "logical_error": 0.007419586181640625,
+              "net_slow_gain_recovery": 0.34285714285714286,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.24374041900868676,
+              "helpful_event_capture": 0.36893203883495146,
+              "logical_error": 0.0074005126953125,
+              "net_slow_gain_recovery": 0.4857142857142857,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.34747061829330605,
+              "helpful_event_capture": 0.5242718446601942,
+              "logical_error": 0.0073699951171875,
+              "net_slow_gain_recovery": 0.7142857142857143,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "mode_entropy": {
+          "auroc_for_helpful_event": 0.9099987428781156,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.045988758303525806,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.007476806640625,
+              "net_slow_gain_recovery": -0.08571428571428572,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.2641798671435871,
+              "helpful_event_capture": 0.2524271844660194,
+              "logical_error": 0.00745391845703125,
+              "net_slow_gain_recovery": 0.08571428571428572,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.4741951967296883,
+              "helpful_event_capture": 0.6796116504854369,
+              "logical_error": 0.007381439208984375,
+              "net_slow_gain_recovery": 0.6285714285714286,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.6346448645886561,
+              "helpful_event_capture": 0.9514563106796117,
+              "logical_error": 0.007343292236328125,
+              "net_slow_gain_recovery": 0.9142857142857143,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "random": {
+          "auroc_for_helpful_event": 0.5391147750057493,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.012263668880940215,
+              "helpful_event_capture": 0.02912621359223301,
+              "logical_error": 0.007457733154296875,
+              "net_slow_gain_recovery": 0.05714285714285714,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.05058763413387839,
+              "helpful_event_capture": 0.08737864077669903,
+              "logical_error": 0.00743865966796875,
+              "net_slow_gain_recovery": 0.2,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.10577414409810935,
+              "helpful_event_capture": 0.13592233009708737,
+              "logical_error": 0.00743865966796875,
+              "net_slow_gain_recovery": 0.2,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.21359223300970873,
+              "helpful_event_capture": 0.27184466019417475,
+              "logical_error": 0.00740814208984375,
+              "net_slow_gain_recovery": 0.42857142857142855,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "syndrome_density": {
+          "auroc_for_helpful_event": 0.9254814234028373,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.05365355135411344,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.007465362548828125,
+              "net_slow_gain_recovery": 0.0,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.3331630045988758,
+              "helpful_event_capture": 0.20388349514563106,
+              "logical_error": 0.00742340087890625,
+              "net_slow_gain_recovery": 0.3142857142857143,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.8099131323454267,
+              "helpful_event_capture": 0.8543689320388349,
+              "logical_error": 0.007343292236328125,
+              "net_slow_gain_recovery": 0.9142857142857143,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.9473684210526315,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.00733184814453125,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.2
+            }
+          ]
+        }
+      },
+      "scope": "shared",
+      "selected_ema_alpha": 0.97,
+      "teacher_mode_entropy_mean": 0.07691019921390019,
+      "validation_ema_logical_error": {
+        "0.0": 0.0090484619140625,
+        "0.5": 0.008514404296875,
+        "0.8": 0.0086212158203125,
+        "0.9": 0.0084991455078125,
+        "0.97": 0.00848388671875,
+        "0.99": 0.00848388671875
+      }
+    },
+    {
+      "distance": 3,
+      "emission_sigma": 1.25,
+      "episodes": 512,
+      "horizon": 512,
+      "methods": {
+        "compiled_ema": {
+          "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ],
+          "teacher_gain_recovery": 0.0
+        },
+        "local_hmm": {
+          "logical_error": 0.00449371337890625,
+          "oracle_gap_recovery": 0.09090909090909091,
+          "paired_episode_95pct_interval_vs_static": [
+            -5.1830003576955975e-05,
+            2.8941819983205975e-05
+          ]
+        },
+        "memoryless": {
+          "logical_error": 0.00449371337890625,
+          "paired_episode_95pct_interval_vs_static": [
+            -3.126691912321711e-05,
+            8.378735529467113e-06
+          ]
+        },
+        "oracle": {
+          "logical_error": 0.0043792724609375,
+          "paired_episode_95pct_interval_vs_static": [
+            -0.00022279212223847586,
+            -2.8977897292774144e-05
+          ]
+        },
+        "shared_hmm": {
+          "logical_error": 0.004505157470703125,
+          "oracle_gap_recovery": 0.0,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "static": {
+          "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "router": {
+        "helpful_event_count": 11,
+        "largest_innovation": {
+          "auroc_for_helpful_event": 0.7136328782439726,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.011884550084889643,
+              "helpful_event_capture": 0.09090909090909091,
+              "logical_error": 0.004489898681640625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.04838709677419355,
+              "helpful_event_capture": 0.18181818181818182,
+              "logical_error": 0.004497528076171875,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.10950764006791172,
+              "helpful_event_capture": 0.18181818181818182,
+              "logical_error": 0.004497528076171875,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.2071307300509338,
+              "helpful_event_capture": 0.45454545454545453,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "mode_entropy": {
+          "auroc_for_helpful_event": 0.9648530256847409,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.02631578947368421,
+              "helpful_event_capture": 0.2727272727272727,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.11205432937181664,
+              "helpful_event_capture": 0.7272727272727273,
+              "logical_error": 0.004486083984375,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.19185059422750425,
+              "helpful_event_capture": 0.9090909090909091,
+              "logical_error": 0.004486083984375,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.30560271646859083,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.004489898681640625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "random": {
+          "auroc_for_helpful_event": 0.37004636438893096,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.010186757215619695,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.05857385398981324,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.004497528076171875,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.10611205432937182,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.0045013427734375,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.1969439728353141,
+              "helpful_event_capture": 0.18181818181818182,
+              "logical_error": 0.004497528076171875,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "syndrome_density": {
+          "auroc_for_helpful_event": 0.9273460418947633,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.07470288624787776,
+              "helpful_event_capture": 0.09090909090909091,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.3845500848896435,
+              "helpful_event_capture": 0.09090909090909091,
+              "logical_error": 0.0045013427734375,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.8421052631578947,
+              "helpful_event_capture": 0.5454545454545454,
+              "logical_error": 0.004505157470703125,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.9838709677419355,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.00449371337890625,
+              "net_slow_gain_recovery": null,
+              "target_fraction": 0.2
+            }
+          ]
+        }
+      },
+      "scope": "local",
+      "selected_ema_alpha": 0.97,
+      "teacher_mode_entropy_mean": 0.5720358152323322,
+      "validation_ema_logical_error": {
+        "0.0": 0.0071258544921875,
+        "0.5": 0.0045928955078125,
+        "0.8": 0.0044097900390625,
+        "0.9": 0.00433349609375,
+        "0.97": 0.0043182373046875,
+        "0.99": 0.0043182373046875
+      }
+    },
+    {
+      "distance": 3,
+      "emission_sigma": 1.25,
+      "episodes": 512,
+      "horizon": 512,
+      "methods": {
+        "compiled_ema": {
+          "logical_error": 0.00782012939453125,
+          "paired_episode_95pct_interval_vs_static": [
+            1.9308627532111377e-06,
+            5.1474898965538866e-05
+          ],
+          "teacher_gain_recovery": null
+        },
+        "local_hmm": {
+          "logical_error": 0.00795745849609375,
+          "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_static": [
+            6.525109684275818e-05,
+            0.0002628128680009918
+          ]
+        },
+        "memoryless": {
+          "logical_error": 0.007801055908203125,
+          "paired_episode_95pct_interval_vs_static": [
+            -3.4801728216287755e-05,
+            5.0060517278787755e-05
+          ]
+        },
+        "oracle": {
+          "logical_error": 0.007793426513671875,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "shared_hmm": {
+          "logical_error": 0.007793426513671875,
+          "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "static": {
+          "logical_error": 0.007793426513671875,
+          "paired_episode_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "router": {
+        "helpful_event_count": 18,
+        "largest_innovation": {
+          "auroc_for_helpful_event": 0.8120863418525611,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.019559902200488997,
+              "helpful_event_capture": 0.05555555555555555,
+              "logical_error": 0.0077972412109375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.07677261613691931,
+              "helpful_event_capture": 0.3333333333333333,
+              "logical_error": 0.0077972412109375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.13643031784841075,
+              "helpful_event_capture": 0.5,
+              "logical_error": 0.007793426513671875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.24596577017114915,
+              "helpful_event_capture": 0.7222222222222222,
+              "logical_error": 0.007785797119140625,
+              "net_slow_gain_recovery": 2.0,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "mode_entropy": {
+          "auroc_for_helpful_event": 0.988187826549912,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.1960880195599022,
+              "helpful_event_capture": 0.5,
+              "logical_error": 0.00780487060546875,
+              "net_slow_gain_recovery": -0.5,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.43765281173594134,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.00778961181640625,
+              "net_slow_gain_recovery": 1.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.5242053789731052,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.007793426513671875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.6342298288508558,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.007793426513671875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "random": {
+          "auroc_for_helpful_event": 0.558504519031136,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.011246943765281174,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.007801055908203125,
+              "net_slow_gain_recovery": 0.0,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.06308068459657702,
+              "helpful_event_capture": 0.16666666666666666,
+              "logical_error": 0.00778961181640625,
+              "net_slow_gain_recovery": 1.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.1100244498777506,
+              "helpful_event_capture": 0.16666666666666666,
+              "logical_error": 0.00778961181640625,
+              "net_slow_gain_recovery": 1.5,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.20146699266503668,
+              "helpful_event_capture": 0.2777777777777778,
+              "logical_error": 0.0077972412109375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.2
+            }
+          ]
+        },
+        "syndrome_density": {
+          "auroc_for_helpful_event": 0.924553459023523,
+          "budgets": [
+            {
+              "actual_fraction": 0.009998321533203125,
+              "cheap_failure_capture": 0.06161369193154034,
+              "helpful_event_capture": 0.0,
+              "logical_error": 0.007801055908203125,
+              "net_slow_gain_recovery": 0.0,
+              "target_fraction": 0.01
+            },
+            {
+              "actual_fraction": 0.049999237060546875,
+              "cheap_failure_capture": 0.33643031784841076,
+              "helpful_event_capture": 0.2222222222222222,
+              "logical_error": 0.0077972412109375,
+              "net_slow_gain_recovery": 0.5,
+              "target_fraction": 0.05
+            },
+            {
+              "actual_fraction": 0.09999847412109375,
+              "cheap_failure_capture": 0.8400977995110025,
+              "helpful_event_capture": 0.8333333333333334,
+              "logical_error": 0.007793426513671875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.1
+            },
+            {
+              "actual_fraction": 0.20000076293945312,
+              "cheap_failure_capture": 0.9599022004889975,
+              "helpful_event_capture": 1.0,
+              "logical_error": 0.007793426513671875,
+              "net_slow_gain_recovery": 1.0,
+              "target_fraction": 0.2
+            }
+          ]
+        }
+      },
+      "scope": "shared",
+      "selected_ema_alpha": 0.9,
+      "teacher_mode_entropy_mean": 0.3021882935764088,
+      "validation_ema_logical_error": {
+        "0.0": 0.011260986328125,
+        "0.5": 0.00860595703125,
+        "0.8": 0.0074920654296875,
+        "0.9": 0.00726318359375,
+        "0.97": 0.00726318359375,
+        "0.99": 0.00726318359375
+      }
+    }
+  ],
+  "code_commit": "417fc85e62edd98c24b73933b274d20ef299de0f",
+  "created_at": "2026-09-08T01:50:39.227773+00:00",
+  "design": {
+    "covered_operations": [
+      "REWEIGHT",
+      "ACTIVATE_MODE"
+    ],
+    "not_covered": [
+      "INSERT_FACTOR",
+      "REWIRE",
+      "FORK",
+      "GROW_REGION",
+      "LOCAL_SOLVE"
+    ],
+    "routing": "retrospective exact-budget ranking; not an online threshold result",
+    "selection": "EMA alpha selected on independent validation episodes by downstream LER",
+    "status": "directional synthetic mechanism screen",
+    "trusted_layer": "exact MAP between two repetition-code-consistent error chains"
+  },
+  "schema_version": 1
+}

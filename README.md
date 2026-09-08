@@ -127,6 +127,12 @@ causal-filtering baselines under matched observation access.
   one byte as the conservative probability-field compiler target, not a measured
   hardware bandwidth or latency claim; see the
   [quantization report](docs/rigetti-soft-quantization-report.md).
+- A first synthetic graph-overlay compiler screen isolates when reduced causal state
+  helps. In an observable local-mode arm, a four-state HMM closes 83.3% of the oracle
+  gap with a positive paired episode interval; under noisier observations it closes
+  only 9.1%. A one-EMA/LUT student retains only 5.7% of teacher gain, and mode-entropy
+  routing loses to syndrome density. These are useful bounded NO-GOs, not hardware
+  results; see the [compiler screen report](docs/adaptive-compiler-screen-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -320,6 +326,8 @@ data/       fetched third-party data; ignored by Git
 - [x] Replace endpoint parsing with a graph-owned preindexed matching plan
 - [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
 - [x] Establish an exploratory 8-bit soft-probability accuracy target on both sessions
+- [x] Run the first REWEIGHT/ACTIVATE_MODE compiler mechanism screen
+- [ ] Build defect-isolating INSERT_FACTOR, FORK, and local-region solve screens
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
