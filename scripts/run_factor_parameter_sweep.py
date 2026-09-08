@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import numpy as np
+from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from ptwm.factor_gating import (  # noqa: E402
@@ -28,6 +29,24 @@ FROZEN = {
     0.5: {"hmm_threshold": 0.01, "fsm": (0.0, 0.25, 1.0)},
     1.25: {"hmm_threshold": 0.02, "fsm": (0.5, 0.25, 1.0)},
 }
+
+
+def paired_episode_interval(
+    candidate: np.ndarray, reference: np.ndarray, labels: np.ndarray,
+) -> list[float]:
+    """95% t interval for the candidate-minus-reference episode error rate."""
+    difference = np.mean(
+        (candidate != labels).astype(float) - (reference != labels).astype(float),
+        axis=1,
+    )
+    mean = float(np.mean(difference))
+    if len(difference) < 2:
+        return [mean, mean]
+    half_width = float(
+        stats.t.ppf(0.975, len(difference) - 1)
+        * stats.sem(difference)
+    )
+    return [mean - half_width, mean + half_width]
 
 
 def evaluate(
@@ -80,10 +99,17 @@ def evaluate(
         if opportunity > 0 else None
         for name, value in errors.items()
     }
+    intervals = {
+        name: paired_episode_interval(
+            value, predictions["static_mixture"], data["labels"],
+        )
+        for name, value in predictions.items()
+    }
     return {
         "sigma": sigma, "base_probability": base_probability,
         "on_probability": on_probability, "logical_error": errors,
         "mode_oracle_opportunity": opportunity, "mode_oracle_gain_recovery": recovery,
+        "paired_episode_95pct_interval_vs_static_mixture": intervals,
     }
 
 
@@ -106,15 +132,23 @@ def main() -> None:
                     base_probability=base, on_probability=on,
                 ))
     payload = {
-        "schema_version": 1,
+        "schema_version": 2,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "code_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "design": {
-            "status": "exploratory frozen-program parameter sweep after nominal selection",
+            "status": "exploratory frozen decision-rule sweep with oracle-known per-cell noise parameters",
             "frozen_programs": {str(k): v for k, v in FROZEN.items()},
-            "selection": "no per-cell retuning",
+            "selection": "no per-cell threshold or FSM retuning",
+            "calibration": "HMM and every decoder likelihood use the true per-cell base and factor probabilities",
         },
+        "episodes_per_cell": args.episodes,
+        "horizon": args.horizon,
         "records_per_cell": args.episodes * args.horizon,
+        "seed": args.seed,
+        "off_probability": OFF_P,
+        "base_probabilities": args.base_probabilities,
+        "on_probabilities": args.on_probabilities,
+        "sigmas": list(FROZEN),
         "cells": cells,
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)

@@ -11,6 +11,13 @@ from ptwm.factor_gating import (
     joint_syndrome_logical,
     predict_mixture,
 )
+from scripts.run_factor_parameter_sweep import paired_episode_interval
+
+
+def test_paired_episode_interval_collapses_for_identical_predictions() -> None:
+    labels = np.array([[False, True], [True, False]])
+    prediction = np.array([[False, False], [True, True]])
+    assert paired_episode_interval(prediction, prediction, labels) == [0.0, 0.0]
 
 
 def test_factor_belief_is_causal():

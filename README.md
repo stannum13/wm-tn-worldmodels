@@ -145,6 +145,12 @@ causal-filtering baselines under matched observation access.
   by 0.00401 percentage points; an EMA/hysteresis FSM retains 85.5% of the hard-selector
   gain but only 74.7% of the richer fork gain. All are synthetic mechanism results;
   see the [factor-gating report](docs/factor-gating-screen-report.md).
+- An exploratory 24-cell factor-rate sweep with frozen decision rules but
+  oracle-known per-cell noise parameters finds at least 80% point-estimate recovery
+  in 8/8 selected low-noise cells for ACTIVATE, FORK, and FSM, versus 0/8, 1/8, and
+  0/8 at high noise. This is sensitivity evidence—not a causal observability result
+  or deployment-transfer test; see the
+  [factor sensitivity sweep](docs/factor-parameter-sweep-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
