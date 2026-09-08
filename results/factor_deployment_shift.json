@@ -1,0 +1,3330 @@
+{
+  "calibration_episodes_per_cell": 128,
+  "calibration_seed": 20261908,
+  "cells": [
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 46,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.8068976257669174e-05,
+              2.8068976257669174e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.624176565525253e-05,
+              4.098297659275253e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 46,
+            "logical_error": 0.0001373291015625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.8068976257669174e-05,
+              2.8068976257669174e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.624176565525253e-05,
+              4.098297659275253e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 60,
+            "logical_error": 0.0001373291015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.376343103720021e-05,
+              4.8504641974700215e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.02,
+      "sigma": 0.5,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 46,
+            "logical_error": 0.000141143798828125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.2866956359901164e-05,
+              2.523756182865116e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.624176565525253e-05,
+              4.098297659275253e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 46,
+            "logical_error": 0.000141143798828125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.2866956359901164e-05,
+              2.523756182865116e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.624176565525253e-05,
+              4.098297659275253e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 61,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -6.0450693265887404e-05,
+              5.2821298734637404e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.04,
+      "sigma": 0.5,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 66,
+            "logical_error": 0.000194549560546875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -4.3795157030635365e-05,
+              7.431273515563536e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 43,
+            "logical_error": 0.00017547607421875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.3410831576577785e-05,
+              1.5263858920327785e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.184818688538837e-05,
+              4.421879235413837e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 64,
+            "logical_error": 0.000186920166015625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.047512365730232e-05,
+              6.573391271980233e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 66,
+            "logical_error": 0.000194549560546875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -4.3795157030635365e-05,
+              7.431273515563536e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 43,
+            "logical_error": 0.00017547607421875,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.3410831576577785e-05,
+              1.5263858920327785e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.184818688538837e-05,
+              4.421879235413837e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 64,
+            "logical_error": 0.000186920166015625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.047512365730232e-05,
+              6.573391271980233e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 66,
+            "logical_error": 0.000194549560546875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -4.3795157030635365e-05,
+              7.431273515563536e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 66,
+            "logical_error": 0.000194549560546875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -4.3795157030635365e-05,
+              7.431273515563536e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 64,
+            "logical_error": 0.000186920166015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -5.047512365730232e-05,
+              6.573391271980233e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.08,
+      "sigma": 0.5,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 72,
+            "logical_error": 0.000278472900390625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.452954357345263e-05,
+              0.00010082348888595263
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 40,
+            "logical_error": 0.000247955322265625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.15206611241466e-05,
+              1.0485504874146605e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.860974091509349e-05,
+              5.386852997759349e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 70,
+            "logical_error": 0.000270843505859375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.128654892508652e-05,
+              9.232170517508652e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 72,
+            "logical_error": 0.000278472900390625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.452954357345263e-05,
+              0.00010082348888595263
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 40,
+            "logical_error": 0.000247955322265625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.15206611241466e-05,
+              1.0485504874146605e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.860974091509349e-05,
+              5.386852997759349e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 70,
+            "logical_error": 0.000270843505859375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.128654892508652e-05,
+              9.232170517508652e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 72,
+            "logical_error": 0.000278472900390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.452954357345263e-05,
+              0.00010082348888595263
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 72,
+            "logical_error": 0.000278472900390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.452954357345263e-05,
+              0.00010082348888595263
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 70,
+            "logical_error": 0.000270843505859375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.128654892508652e-05,
+              9.232170517508652e-05
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.16,
+      "sigma": 0.5,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.16
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.0002288818359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007469312072465674,
+              -0.0005271776794721826
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 228,
+            "logical_error": 0.000225067138671875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.0585842420318874e-05,
+              1.2956447889068874e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007533641208006378,
+              -0.0005283741604493622
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 219,
+            "logical_error": 0.000244140625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007297550354892535,
+              -0.0005138362731044965
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.0002288818359375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007469312072465674,
+              -0.0005271776794721826
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 228,
+            "logical_error": 0.000225067138671875,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.0585842420318874e-05,
+              1.2956447889068874e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007533641208006378,
+              -0.0005283741604493622
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 219,
+            "logical_error": 0.000244140625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007297550354892535,
+              -0.0005138362731044965
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.0002288818359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007469312072465674,
+              -0.0005271776794721826
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.0002288818359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007469312072465674,
+              -0.0005271776794721826
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 219,
+            "logical_error": 0.000244140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007297550354892535,
+              -0.0005138362731044965
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.02,
+      "sigma": 0.5,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 224,
+            "logical_error": 0.000270843505859375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007430269427039474,
+              -0.0005234525494835526
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 226,
+            "logical_error": 0.000263214111328125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8217729224354287e-05,
+              2.9589401618542853e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007513449778283098,
+              -0.0005303933034216902
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 220,
+            "logical_error": 0.000286102294921875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007258451029200463,
+              -0.0005101168111424537
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 224,
+            "logical_error": 0.000270843505859375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007430269427039474,
+              -0.0005234525494835526
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 226,
+            "logical_error": 0.000263214111328125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8217729224354287e-05,
+              2.9589401618542853e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007513449778283098,
+              -0.0005303933034216902
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 220,
+            "logical_error": 0.000286102294921875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007258451029200463,
+              -0.0005101168111424537
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 224,
+            "logical_error": 0.000270843505859375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007430269427039474,
+              -0.0005234525494835526
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 224,
+            "logical_error": 0.000270843505859375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007430269427039474,
+              -0.0005234525494835526
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 220,
+            "logical_error": 0.000286102294921875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007258451029200463,
+              -0.0005101168111424537
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.04,
+      "sigma": 0.5,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.000370025634765625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007156668354793717,
+              -0.0004974068949893783
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.000370025634765625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007156668354793717,
+              -0.0004974068949893783
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000362396240234375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007250229918955846,
+              -0.0005033095276356654
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 223,
+            "logical_error": 0.000370025634765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007156668354793717,
+              -0.0004974068949893783
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.08,
+      "sigma": 0.5,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 235,
+            "logical_error": 0.000614166259765625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007045709289783056,
+              -0.0004779852233654444
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 233,
+            "logical_error": 0.000606536865234375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8217729224354287e-05,
+              2.9589401618542853e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007118972216701333,
+              -0.0004859177197361168
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000621795654296875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0006952406522083213,
+              -0.0004720567110729287
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 235,
+            "logical_error": 0.000614166259765625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007045709289783056,
+              -0.0004779852233654444
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 233,
+            "logical_error": 0.000606536865234375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8217729224354287e-05,
+              2.9589401618542853e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007118972216701333,
+              -0.0004859177197361168
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000621795654296875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0006952406522083213,
+              -0.0004720567110729287
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 235,
+            "logical_error": 0.000614166259765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007045709289783056,
+              -0.0004779852233654444
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 235,
+            "logical_error": 0.000614166259765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0007045709289783056,
+              -0.0004779852233654444
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 229,
+            "logical_error": 0.000621795654296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0006952406522083213,
+              -0.0004720567110729287
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.16,
+      "sigma": 0.5,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.16
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 871,
+            "logical_error": 0.000400543212890625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003367293706824531,
+              -0.002911697992394219
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 889,
+            "logical_error": 0.000362396240234375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -6.98010553873962e-05,
+              -6.4928899251037945e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0034073664360072973,
+              -0.0029479192085239527
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 853,
+            "logical_error": 0.000469207763671875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032940415863074155,
+              -0.0028476210113488345
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1112,
+            "logical_error": 0.00092315673828125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002872037455704747,
+              -0.002361727192732753
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 871,
+            "logical_error": 0.000400543212890625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003367293706824531,
+              -0.002911697992394219
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 889,
+            "logical_error": 0.000362396240234375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -6.98010553873962e-05,
+              -6.4928899251037945e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0034073664360072973,
+              -0.0029479192085239527
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 853,
+            "logical_error": 0.000469207763671875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032940415863074155,
+              -0.0028476210113488345
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1112,
+            "logical_error": 0.00092315673828125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002872037455704747,
+              -0.002361727192732753
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 871,
+            "logical_error": 0.000400543212890625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003367293706824531,
+              -0.002911697992394219
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 871,
+            "logical_error": 0.000400543212890625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003367293706824531,
+              -0.002911697992394219
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 853,
+            "logical_error": 0.000469207763671875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032940415863074155,
+              -0.0028476210113488345
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.02,
+      "sigma": 0.5,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 872,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033635053047876015,
+              -0.0029078569998998985
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 886,
+            "logical_error": 0.0004730224609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.846096549205129e-05,
+              -2.574190757948709e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033960134735784163,
+              -0.0029363839873590837
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 854,
+            "logical_error": 0.00057220458984375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003290244861865856,
+              -0.002843788341259144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1316,
+            "logical_error": 0.001800537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002133479182871515,
+              -0.001543888981190985
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 872,
+            "logical_error": 0.0005035400390625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033635053047876015,
+              -0.0029078569998998985
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 886,
+            "logical_error": 0.0004730224609375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.846096549205129e-05,
+              -2.574190757948709e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033960134735784163,
+              -0.0029363839873590837
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 854,
+            "logical_error": 0.00057220458984375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003290244861865856,
+              -0.002843788341259144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1316,
+            "logical_error": 0.001800537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002133479182871515,
+              -0.001543888981190985
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 872,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033635053047876015,
+              -0.0029078569998998985
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 872,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033635053047876015,
+              -0.0029078569998998985
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 854,
+            "logical_error": 0.00057220458984375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003290244861865856,
+              -0.002843788341259144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00363922119140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.04,
+      "sigma": 0.5,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 877,
+            "logical_error": 0.000637054443359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033448027643744327,
+              -0.0028884125676568173
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 892,
+            "logical_error": 0.00061798095703125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.8080309827135695e-05,
+              9.933337170885692e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003366694197004285,
+              -0.002904668107683215
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 857,
+            "logical_error": 0.000698089599609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032796065830161206,
+              -0.0028315384365151294
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1680,
+            "logical_error": 0.003326416015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000797463319681333,
+              -5.702886781866701e-05
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 877,
+            "logical_error": 0.000637054443359375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033448027643744327,
+              -0.0028884125676568173
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 892,
+            "logical_error": 0.00061798095703125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.8080309827135695e-05,
+              9.933337170885692e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.003366694197004285,
+              -0.002904668107683215
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 857,
+            "logical_error": 0.000698089599609375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032796065830161206,
+              -0.0028315384365151294
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1680,
+            "logical_error": 0.003326416015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000797463319681333,
+              -5.702886781866701e-05
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 877,
+            "logical_error": 0.000637054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033448027643744327,
+              -0.0028884125676568173
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 877,
+            "logical_error": 0.000637054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033448027643744327,
+              -0.0028884125676568173
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 857,
+            "logical_error": 0.000698089599609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032796065830161206,
+              -0.0028315384365151294
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.003753662109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.08,
+      "sigma": 0.5,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 883,
+            "logical_error": 0.001064300537109375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033232765302121043,
+              -0.0028641624346316457
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 892,
+            "logical_error": 0.00103759765625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.9088152609252914e-05,
+              -4.317609109497086e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033515343518328734,
+              -0.0028893103747296266
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 863,
+            "logical_error": 0.001125335693359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032580586762221025,
+              -0.0028073099761216475
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 883,
+            "logical_error": 0.001064300537109375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033232765302121043,
+              -0.0028641624346316457
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 892,
+            "logical_error": 0.00103759765625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.9088152609252914e-05,
+              -4.317609109497086e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033515343518328734,
+              -0.0028893103747296266
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 863,
+            "logical_error": 0.001125335693359375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032580586762221025,
+              -0.0028073099761216475
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 883,
+            "logical_error": 0.001064300537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033232765302121043,
+              -0.0028641624346316457
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 883,
+            "logical_error": 0.001064300537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0033232765302121043,
+              -0.0028641624346316457
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 863,
+            "logical_error": 0.001125335693359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032580586762221025,
+              -0.0028073099761216475
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.16,
+      "sigma": 0.5,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.16
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 75,
+            "logical_error": 0.000217437744140625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.1309117211648573e-05,
+              3.679722680398572e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              9.583030065008703e-06,
+              0.00013537546602874128
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 2,
+            "logical_error": 0.000152587890625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.916382048154e-05,
+              2.5758058762789996e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.9589401618542853e-06,
+              1.8217729224354287e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 79,
+            "logical_error": 0.000225067138671875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              1.5515716861493644e-05,
+              0.00014470156829475637
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 75,
+            "logical_error": 0.000217437744140625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.1309117211648573e-05,
+              3.679722680398572e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              9.583030065008703e-06,
+              0.00013537546602874128
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 2,
+            "logical_error": 0.000152587890625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.916382048154e-05,
+              2.5758058762789996e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.9589401618542853e-06,
+              1.8217729224354287e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 79,
+            "logical_error": 0.000225067138671875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              1.5515716861493644e-05,
+              0.00014470156829475637
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 76,
+            "logical_error": 0.00022125244140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              1.2985779850207589e-05,
+              0.0001396021107747924
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 57,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -1.915777424921374e-05,
+              8.782232503046374e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 79,
+            "logical_error": 0.000225067138671875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              1.5515716861493644e-05,
+              0.00014470156829475637
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00014495849609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.02,
+      "sigma": 1.25,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 87,
+            "logical_error": 0.00026702880859375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.4399380436558783e-05,
+              1.5111968428087812e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              5.152670125663397e-05,
+              0.00018498452921211604
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 2,
+            "logical_error": 0.000156402587890625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00011692193098410258,
+              -5.148381515897418e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.9589401618542853e-06,
+              1.8217729224354287e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 95,
+            "logical_error": 0.0002899169921875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              7.144363536372275e-05,
+              0.00021084396229252724
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 87,
+            "logical_error": 0.00026702880859375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -2.4399380436558783e-05,
+              1.5111968428087812e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              5.152670125663397e-05,
+              0.00018498452921211604
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 2,
+            "logical_error": 0.000156402587890625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00011692193098410258,
+              -5.148381515897418e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -2.9589401618542853e-06,
+              1.8217729224354287e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 95,
+            "logical_error": 0.0002899169921875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              7.144363536372275e-05,
+              0.00021084396229252724
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 90,
+            "logical_error": 0.000278472900390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              6.271022375164067e-05,
+              0.00019668919031085933
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 66,
+            "logical_error": 0.000217437744140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              1.1845452837468742e-05,
+              0.00012548364872503126
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 95,
+            "logical_error": 0.0002899169921875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              7.144363536372275e-05,
+              0.00021084396229252724
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000148773193359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.04,
+      "sigma": 1.25,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 120,
+            "logical_error": 0.000423431396484375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0001654616129606223,
+              0.0003228196370393777
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 1,
+            "logical_error": 0.00018310546875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0001890393361454291,
+              -6.27306833858209e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.679722680398572e-06,
+              1.1309117211648573e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 132,
+            "logical_error": 0.000461578369140625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00019764582447888367,
+              0.0003669293708336163
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 120,
+            "logical_error": 0.000423431396484375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0001654616129606223,
+              0.0003228196370393777
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 1,
+            "logical_error": 0.00018310546875,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0001890393361454291,
+              -6.27306833858209e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.679722680398572e-06,
+              1.1309117211648573e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 132,
+            "logical_error": 0.000461578369140625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00019764582447888367,
+              0.0003669293708336163
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 120,
+            "logical_error": 0.000423431396484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0001654616129606223,
+              0.0003228196370393777
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 82,
+            "logical_error": 0.000308990478515625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              6.615931900029644e-05,
+              0.00019324009506220356
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 132,
+            "logical_error": 0.000461578369140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00019764582447888367,
+              0.0003669293708336163
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000179290771484375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.08,
+      "sigma": 1.25,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 182,
+            "logical_error": 0.000720977783203125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.049324802086682e-07,
+              3.885190513645867e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0003780691174853335,
+              0.0005832345934521665
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 1,
+            "logical_error": 0.000244140625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0003398357834931312,
+              -0.0001789630446318688
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.679722680398572e-06,
+              1.1309117211648573e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 208,
+            "logical_error": 0.000812530517578125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00045792787998323787,
+              0.0006864812997042621
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 182,
+            "logical_error": 0.000720977783203125,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -7.049324802086682e-07,
+              3.885190513645867e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0003780691174853335,
+              0.0005832345934521665
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 1,
+            "logical_error": 0.000244140625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0003398357834931312,
+              -0.0001789630446318688
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -3.679722680398572e-06,
+              1.1309117211648573e-05
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 208,
+            "logical_error": 0.000812530517578125,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00045792787998323787,
+              0.0006864812997042621
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 177,
+            "logical_error": 0.000701904296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.000361378948501276,
+              0.000561777789779974
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 117,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00018252193401232044,
+              0.00034390628864392956
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 208,
+            "logical_error": 0.000812530517578125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.00045792787998323787,
+              0.0006864812997042621
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000240325927734375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.01,
+      "estimated_on_probability": 0.16,
+      "sigma": 1.25,
+      "true_base_probability": 0.01,
+      "true_on_probability": 0.16
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 206,
+            "logical_error": 0.000423431396484375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.0687540504367506e-06,
+              3.358633217543675e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005485210196962483,
+              -0.0003364887459287518
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 234,
+            "logical_error": 0.000392913818359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -9.317356412621434e-05,
+              1.687961881371434e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000584283483934473,
+              -0.000361761437940527
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 211,
+            "logical_error": 0.00042724609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005440276565819459,
+              -0.0003333527145118041
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 206,
+            "logical_error": 0.000423431396484375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.0687540504367506e-06,
+              3.358633217543675e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005485210196962483,
+              -0.0003364887459287518
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 234,
+            "logical_error": 0.000392913818359375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -9.317356412621434e-05,
+              1.687961881371434e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000584283483934473,
+              -0.000361761437940527
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 211,
+            "logical_error": 0.00042724609375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005440276565819459,
+              -0.0003333527145118041
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 212,
+            "logical_error": 0.000408172607421875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005643505703792276,
+              -0.00035117677337077245
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 178,
+            "logical_error": 0.000431060791015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005334363685136989,
+              -0.0003363146080488011
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 211,
+            "logical_error": 0.00042724609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005440276565819459,
+              -0.0003333527145118041
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000865936279296875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.02,
+      "sigma": 1.25,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 219,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.603029705375035e-05,
+              2.365969158500035e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005070222943748869,
+              -0.00029406413140636314
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 225,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.624388937998546e-05,
+              4.624388937998546e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005075495084225623,
+              -0.00029353691735868766
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 227,
+            "logical_error": 0.00052642822265625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0004842372872101116,
+              -0.0002710727713836384
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 219,
+            "logical_error": 0.0005035400390625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.603029705375035e-05,
+              2.365969158500035e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005070222943748869,
+              -0.00029406413140636314
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 225,
+            "logical_error": 0.0005035400390625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -4.624388937998546e-05,
+              4.624388937998546e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005075495084225623,
+              -0.00029353691735868766
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 227,
+            "logical_error": 0.00052642822265625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0004842372872101116,
+              -0.0002710727713836384
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 226,
+            "logical_error": 0.000499725341796875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0005115186845106586,
+              -0.0002971971358018414
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 187,
+            "logical_error": 0.0005035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0004999142973526611,
+              -0.0003011721284285889
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 227,
+            "logical_error": 0.00052642822265625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0004842372872101116,
+              -0.0002710727713836384
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.000904083251953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.04,
+      "sigma": 1.25,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 255,
+            "logical_error": 0.000682830810546875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000408344065227007,
+              -0.000179119313679243
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 202,
+            "logical_error": 0.00063323974609375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00044677611858179544,
+              -0.00023986938923070456
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 264,
+            "logical_error": 0.00074005126953125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00035381043000604794,
+              -0.00011921203093145206
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 255,
+            "logical_error": 0.000682830810546875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000408344065227007,
+              -0.000179119313679243
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 202,
+            "logical_error": 0.00063323974609375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00044677611858179544,
+              -0.00023986938923070456
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 264,
+            "logical_error": 0.00074005126953125,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00035381043000604794,
+              -0.00011921203093145206
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 255,
+            "logical_error": 0.000682830810546875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000408344065227007,
+              -0.000179119313679243
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 202,
+            "logical_error": 0.00063323974609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00044677611858179544,
+              -0.00023986938923070456
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 264,
+            "logical_error": 0.00074005126953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00035381043000604794,
+              -0.00011921203093145206
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0009765625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.08,
+      "sigma": 1.25,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 319,
+            "logical_error": 0.001125335693359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8688108987646342e-05,
+              2.6317503518896342e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0002122201100648998,
+              5.200282490864979e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 188,
+            "logical_error": 0.00091552734375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00012461231672045237,
+              -2.034617937329762e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0003924246996853665,
+              -0.0001874092846896335
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 337,
+            "logical_error": 0.001247406005859375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -9.893621785154945e-05,
+              0.00018285955769529945
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 319,
+            "logical_error": 0.001125335693359375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.8688108987646342e-05,
+              2.6317503518896342e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0002122201100648998,
+              5.200282490864979e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 188,
+            "logical_error": 0.00091552734375,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00012461231672045237,
+              -2.034617937329762e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0003924246996853665,
+              -0.0001874092846896335
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 337,
+            "logical_error": 0.001247406005859375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -9.893621785154945e-05,
+              0.00018285955769529945
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 310,
+            "logical_error": 0.00112152099609375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0002132180509999728,
+              4.537137131247279e-05
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 235,
+            "logical_error": 0.000988006591796875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0003323527678333198,
+              -0.00010252272044793017
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 337,
+            "logical_error": 0.001247406005859375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -9.893621785154945e-05,
+              0.00018285955769529945
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0012054443359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.03,
+      "estimated_on_probability": 0.16,
+      "sigma": 1.25,
+      "true_base_probability": 0.03,
+      "true_on_probability": 0.16
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 783,
+            "logical_error": 0.000858306884765625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.0223936856175623e-06,
+              4.8798760873117566e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028959919192553226,
+              -0.0024674724362134274
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 928,
+            "logical_error": 0.00055694580078125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0006051462559011726,
+              -0.0003943044276925774
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032128008463482138,
+              -0.0027533856770892862
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 792,
+            "logical_error": 0.0008544921875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028990504073903856,
+              -0.0024720433426096144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1112,
+            "logical_error": 0.00092315673828125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002872037455704747,
+              -0.002361727192732753
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 783,
+            "logical_error": 0.000858306884765625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.0223936856175623e-06,
+              4.8798760873117566e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028959919192553226,
+              -0.0024674724362134274
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 928,
+            "logical_error": 0.00055694580078125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0006051462559011726,
+              -0.0003943044276925774
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0032128008463482138,
+              -0.0027533856770892862
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 792,
+            "logical_error": 0.0008544921875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028990504073903856,
+              -0.0024720433426096144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1112,
+            "logical_error": 0.00092315673828125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002872037455704747,
+              -0.002361727192732753
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 791,
+            "logical_error": 0.000835418701171875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0029201179789805996,
+              -0.0024891227436756504
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 709,
+            "logical_error": 0.001056671142578125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0026876117347860583,
+              -0.0022791241050576917
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 792,
+            "logical_error": 0.0008544921875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028990504073903856,
+              -0.0024720433426096144
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.0035400390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.02,
+      "sigma": 1.25,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.02
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 796,
+            "logical_error": 0.00099945068359375,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.917880323708571e-06,
+              3.6435458448708574e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028549437446069225,
+              -0.0024245972710180775
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 934,
+            "logical_error": 0.00077056884765625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0005287062418139856,
+              -0.0003181565511547644
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0030968708018673037,
+              -0.0026404338856326963
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 807,
+            "logical_error": 0.001010894775390625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002844685316964528,
+              -0.002411967515066722
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1316,
+            "logical_error": 0.001800537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002133479182871515,
+              -0.001543888981190985
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 796,
+            "logical_error": 0.00099945068359375,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -5.917880323708571e-06,
+              3.6435458448708574e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028549437446069225,
+              -0.0024245972710180775
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 934,
+            "logical_error": 0.00077056884765625,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0005287062418139856,
+              -0.0003181565511547644
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0030968708018673037,
+              -0.0026404338856326963
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 807,
+            "logical_error": 0.001010894775390625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002844685316964528,
+              -0.002411967515066722
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1316,
+            "logical_error": 0.001800537109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002133479182871515,
+              -0.001543888981190985
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 802,
+            "logical_error": 0.00098419189453125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028719161479728358,
+              -0.0024381424457771642
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 717,
+            "logical_error": 0.001194000244140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0026501846193626734,
+              -0.0022402572751685766
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 807,
+            "logical_error": 0.001010894775390625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002844685316964528,
+              -0.002411967515066722
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00363922119140625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.04,
+      "sigma": 1.25,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.04
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 831,
+            "logical_error": 0.001209259033203125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.1309117211648573e-05,
+              3.679722680398572e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00276695055908514,
+              -0.00232185559325861
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 937,
+            "logical_error": 0.001110076904296875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00036468313363189177,
+              -0.00015411569449310823
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028783089003618966,
+              -0.0024088615097943534
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 844,
+            "logical_error": 0.0012664794921875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002712199933604334,
+              -0.002262165300770666
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1680,
+            "logical_error": 0.003326416015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000797463319681333,
+              -5.702886781866701e-05
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 831,
+            "logical_error": 0.001209259033203125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -1.1309117211648573e-05,
+              3.679722680398572e-06
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.00276695055908514,
+              -0.00232185559325861
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 937,
+            "logical_error": 0.001110076904296875,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.00036468313363189177,
+              -0.00015411569449310823
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0028783089003618966,
+              -0.0024088615097943534
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 844,
+            "logical_error": 0.0012664794921875,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002712199933604334,
+              -0.002262165300770666
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 1680,
+            "logical_error": 0.003326416015625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.000797463319681333,
+              -5.702886781866701e-05
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 830,
+            "logical_error": 0.00121307373046875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0027633385124393012,
+              -0.0023178382453731988
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 731,
+            "logical_error": 0.001369476318359375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0025931685017082083,
+              -0.0021752030803230417
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 844,
+            "logical_error": 0.0012664794921875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002712199933604334,
+              -0.002262165300770666
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.003753662109375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.08,
+      "sigma": 1.25,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.08
+    },
+    {
+      "arms": {
+        "calibrated_oracle": {
+          "activate": {
+            "disagreements_vs_frozen_static": 897,
+            "logical_error": 0.001819610595703125,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.569053795040817e-05,
+              2.0431748887908166e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002569516418631246,
+              -0.002107302429025004
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 923,
+            "logical_error": 0.001842498779296875,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0001563693764765294,
+              3.42990639765294e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0025498080994981755,
+              -0.0020812343809705745
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 912,
+            "logical_error": 0.00193023681640625,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0024673551865347213,
+              -0.0019882112197152787
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "estimated": {
+          "activate": {
+            "disagreements_vs_frozen_static": 897,
+            "logical_error": 0.001819610595703125,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -3.569053795040817e-05,
+              2.0431748887908166e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.002569516418631246,
+              -0.002107302429025004
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 923,
+            "logical_error": 0.001842498779296875,
+            "oracle_recalibration_gain_recovery": 1.0,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              -0.0001563693764765294,
+              3.42990639765294e-05
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0025498080994981755,
+              -0.0020812343809705745
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 912,
+            "logical_error": 0.00193023681640625,
+            "oracle_recalibration_gain_recovery": null,
+            "paired_episode_95pct_interval_vs_frozen_same_operation": [
+              0.0,
+              0.0
+            ],
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0024673551865347213,
+              -0.0019882112197152787
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        },
+        "frozen": {
+          "activate": {
+            "disagreements_vs_frozen_static": 883,
+            "logical_error": 0.001827239990234375,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0025612507462958556,
+              -0.0021003093122978944
+            ]
+          },
+          "fork_k2": {
+            "disagreements_vs_frozen_static": 761,
+            "logical_error": 0.001903533935546875,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0024714942756365746,
+              -0.0020374778923321754
+            ]
+          },
+          "fsm": {
+            "disagreements_vs_frozen_static": 912,
+            "logical_error": 0.00193023681640625,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              -0.0024673551865347213,
+              -0.0019882112197152787
+            ]
+          },
+          "static": {
+            "disagreements_vs_frozen_static": 0,
+            "logical_error": 0.00415802001953125,
+            "paired_episode_95pct_interval_vs_frozen_static": [
+              0.0,
+              0.0
+            ]
+          }
+        }
+      },
+      "estimated_base_probability": 0.06,
+      "estimated_on_probability": 0.16,
+      "sigma": 1.25,
+      "true_base_probability": 0.06,
+      "true_on_probability": 0.16
+    }
+  ],
+  "code_commit": "3bef70b3ebdabca9cfe27c5a10c674fcaae9c6a1",
+  "common_random_numbers_across_cells": true,
+  "created_at": "2026-09-08T05:17:52.978279+00:00",
+  "episodes_per_cell": 512,
+  "horizon": 512,
+  "nominal": {
+    "base_probability": 0.03,
+    "on_probability": 0.08
+  },
+  "protocol": "docs/factor-deployment-shift-protocol.md",
+  "schema_version": 1,
+  "test_seed": 20260908
+}

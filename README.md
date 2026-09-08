@@ -151,6 +151,14 @@ causal-filtering baselines under matched observation access.
   0/8 at high noise. This is sensitivity evidence—not a causal observability result
   or deployment-transfer test; see the
   [factor sensitivity sweep](docs/factor-parameter-sweep-report.md).
+- A precommitted paired deployment-shift test finds that frozen `FORK(K=2)` alone
+  meets the +0.05 percentage-point safety cap in 24/24 cells and recovers at least
+  70% of calibrated-oracle opportunity in 14/14 informative non-nominal cells.
+  However, it significantly harms the sparse/high-ambiguity corner (+0.0263 pp,
+  95% CI [+0.0183, +0.0344]), showing the absolute cap was too permissive. A
+  slow-path two-rate estimator exactly identifies all 24 finite-grid cells and
+  recovers 100% of the FORK recalibration gain in 4/4 eligible cells; see the
+  [deployment-shift report](docs/factor-deployment-shift-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
