@@ -121,13 +121,19 @@ That preindexed plan is now implemented and exact across the full 80,000-record
 differential. In one shared-CPU run, observed matching medians were 14.7%/11.8% lower
 and fused-pipeline medians were 37.0/46.8 us. Because this misses the predeclared 20% matching gate, no-reset cadence,
 and both p99 targets, it is an incremental engineering gain but an optimization-screen
-NO-GO. The next bounded test is a native C++ batch-preindexed loop with one restoration
-per block; see the
+NO-GO; see the
 [preindexed-matching report](rigetti-preindexed-matching-report.md).
+
+The native C++ batch-preindexed loop is exact across the same 80,000 decisions, but
+also fails its predeclared gate. Its best observed reduction is 19.17%, and the only
+nominal new cadence crossing is no-reset batch 32 at 42.494 us/record versus 42.500
+us—before the roughly 7.2-us front end. The oldest record then waits 2.68 ms. This
+closes restoration-amortizing batches as the primary real-time path; see the
+[batch-preindexed report](rigetti-batch-preindexed-report.md).
 
 The next implementation must therefore provide one of:
 
-1. a compiled indexed I/Q-to-weight front end fused to mutable matching;
+1. a compiled batch-one I/Q-to-weight front end fused directly to persistent matching;
 2. an incremental decoder that consumes per-measurement likelihoods directly; or
 3. a compiled local-clustering/FPGA path with the affine head fused into edge loading.
 

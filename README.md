@@ -114,6 +114,12 @@ causal-filtering baselines under matched observation access.
   14.7%/11.8% lower and pipeline p50 was 37.0/46.8 us. This misses the
   predeclared 20% gate; see the
   [preindexed-matching report](docs/rigetti-preindexed-matching-report.md).
+- Transactional C++ batch preindexing is also exact on all 80,000 decisions, but its
+  largest median per-record reduction is 19.17%, below the 20% gate. A nominal
+  no-reset batch-32 matching-only cadence crossing is just 6.4 ns, excludes the
+  roughly 7.2-us front end, and makes the oldest record wait 2.68 ms. It is an offline
+  throughput primitive, not the real-time fix; see the
+  [batch-preindexed report](docs/rigetti-batch-preindexed-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -290,7 +296,7 @@ data/       fetched third-party data; ignored by Git
 - [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
 - [x] Fuse affine I/Q inference and odd-parity edge construction in Numba
 - [x] Replace endpoint parsing with a graph-owned preindexed matching plan
-- [ ] Test C++ batch-preindexed overwrite with one restoration per block
+- [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
