@@ -11,6 +11,28 @@ causal-filtering baselines under matched observation access.
 
 ## Latest benchmark results — 8 September 2026
 
+The newest [time-resolved graph experiment](docs/surface-time-template-report.md)
+adds ten complete d5 refits and **10,485,760 fresh test shots**. Selecting among
+AA/AB/BA/BB graphs lowers four-mode logical error from **1.5361% to 1.4237%** against
+77 equally calibrated static candidates, and midpoint-switch error from 1.4539%
+to 1.3261%. Matched memory/action ablations and the stated safety margins pass.
+However, moving the switch to two-thirds of the circuit causes resolved harm:
+1.4623% → 1.5096%. **The timing-transfer gate fails.** These are completed-record
+decisions, not demonstrated within-cycle feedback.
+
+The [native follow-up](docs/surface-time-template-latency-report.md) preserves all
+10.5 million replayed graph choices with a 160-byte recurrent state and 13,344-byte
+parameter buffers (decoder graphs excluded). Frontend p99 is 1.58–2.04 µs.
+The full-pipeline tail-cost gate still fails in one of ten fits, and all measured
+pipelines miss a hypothetical 5-µs arrival cadence. No deployment win is claimed.
+
+![Time-resolved graph gains and transfer failure](results/figures/surface_time_templates.png)
+
+Together with the four campaigns below, this is **47,710,208 held-out synthetic
+shots**. The [decision-theory note](docs/decoder-adaptation-risk-decomposition.md)
+separates errors in state estimation, graph choice and available graph actions;
+a small state does not imply a small sufficient decoder.
+
 The current thesis is to **learn a small adaptation law around a trusted decoder**.
 Four completed synthetic surface-code campaigns sharpen both its value and limits:
 
@@ -38,6 +60,11 @@ Read the [stronger benchmark report](docs/surface-frontier-challenge-report.md),
 [independent agent audit](docs/surface-frontier-science-audit.md).
 Earlier results below remain part of the record; their narrower controls do not
 supersede this stronger challenge.
+
+Recheck the archived counts, source hashes, seed separation and reported gates with
+`PYTHONPATH=src:. python scripts/verify_surface_campaigns.py` after installing the
+optional QEC dependencies. The current verified suite has 145 passing tests and
+one optional-Numba skip in the QEC environment.
 
 ## Current evidence
 
