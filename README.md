@@ -139,6 +139,12 @@ causal-filtering baselines under matched observation access.
   factor is present, while inserting the correct compiled factor reaches 0.3212%.
   Unconditional insertion causes 0.0887-point harm when the factor is absent, so mode
   gating is necessary; see the [factor screen](docs/graph-factor-screen-report.md).
+- A persistent-factor control now separates causal memory, mode selection, and local
+  hypothesis width. Known-parameter temporal belief beats matched memoryless inference
+  in both ambiguity arms. At high noise, semantic `FORK(K=2)` beats hard mode selection
+  by 0.00401 percentage points; an EMA/hysteresis FSM retains 85.5% of the hard-selector
+  gain but only 74.7% of the richer fork gain. All are synthetic mechanism results;
+  see the [factor-gating report](docs/factor-gating-screen-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -333,9 +339,9 @@ data/       fetched third-party data; ignored by Git
 - [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
 - [x] Establish an exploratory 8-bit soft-probability accuracy target on both sessions
 - [x] Run the first observation-conditioned REWEIGHT mechanism screen
-- [ ] Build defect-isolating INSERT_FACTOR, FORK, and local-region solve screens
+- [ ] Build a defect-isolating local-region solve screen
 - [x] Establish the INSERT_FACTOR positive/null control
-- [ ] Add causal factor activation and local FORK(K=2)
+- [x] Test causal ACTIVATE_MODE and semantic local FORK(K=2)
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark
