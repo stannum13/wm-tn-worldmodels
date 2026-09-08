@@ -74,6 +74,8 @@ def main():
     for extension in ("png", "pdf", "svg"):
         target = args.output_dir / f"surface_frontier_campaigns.{extension}"
         fig.savefig(target, dpi=200)
+        if extension == "svg":
+            target.write_text("\n".join(line.rstrip() for line in target.read_text().splitlines()) + "\n")
         print(target)
 
 
