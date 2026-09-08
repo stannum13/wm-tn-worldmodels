@@ -137,6 +137,25 @@ local element recover the gap to an adaptive teacher on logical error. A predict
 failure boundary is equally important: bounded reweighting cannot create a missing
 long-range correlated mechanism.
 
+The first architecture candidate is a **contractive local-global residual filter**,
+not a generic RNN. Each site receives a small bank of fixed stable poles (for example,
+fast, medium, and slow leaky integrators), while a 2--4-dimensional robustly pooled
+global state tracks common-mode drift:
+
+\[
+z_{v,t+1}=\operatorname{sat}(\Lambda_vz_{v,t}+B_v\phi_v(o_t)),\qquad
+h_{t+1}=\operatorname{sat}(\Lambda_hh_t+B_h\operatorname{robustpool}_v\phi_v(o_t)).
+\]
+
+Both diagonal transition matrices have spectral radius below one, and edge residuals
+read only their endpoint states plus the tiny broadcast state. This is our proposed
+middle point between independent local filters and AlphaQubit-style global mixing. It
+borrows the long-memory motivation of state-space world models and the residual
+adaptation pattern used in recent robot world-model transfer, but makes stability,
+state bytes, spatial access, and the trusted-decoder interface explicit. Retain the
+global state only if it closes a prespecified part of the local-to-shared-oracle gap;
+otherwise compile it out.
+
 ### H2 — finite-grammar sufficiency
 
 A rich teacher's useful adaptive behaviour may lie close to a small fixed grammar:
@@ -189,6 +208,14 @@ This hypothesis draws on decoder-free latent planning in
 the model as a compiler for a verifiable causal decoder rather than as the deployed
 policy.
 
+The memory design is additionally motivated by
+[Recall to Imagine](https://openreview.net/forum?id=1vDArHJ68h), which uses structured
+state-space memory for long-horizon world-model tasks, and
+[ReDRAW](https://proceedings.mlr.press/v331/lanier26a.html), which adapts a pretrained
+robot world model through residual corrections in latent dynamics. Neither result is
+evidence for QEC; the transferable ideas are stable compressed memory and residual
+rather than wholesale replacement.
+
 ### Runtime form — finite mode library instead of continuous online planning
 
 Compile a small library of decoder configurations for normal, drift, leakage-like, and
@@ -220,6 +247,23 @@ meets the same LER bound, and uses no learned hot-path matrix operation. Advance
 only if its failure capture at fixed 1%, 5%, and 10% escalation beats every simple
 router baseline with a positive paired interval. These thresholds are program choices,
 not claims imported from the literature, and will be frozen before the first sweep.
+
+## Evidence and replay boundary
+
+All currently opened stability-8/9 files are development data. Their row order is not
+verified wall-clock chronology, and contiguous row blocks are not independent device
+acquisitions. A causal adapter on them must use past observations only, reset at
+declared trace boundaries, and never tune on logical labels. Confirmation requires
+new timestamped acquisition sessions or a never-opened acquisition-level outer holdout;
+the session, not an individual shot or row block, is the population-level replication
+unit.
+
+Fixed-record replay is valid for decoder-only changes when the decoder produces a
+terminal prediction or Pauli-frame update that did not alter later measurements. It
+is not a valid counterfactual for physical correction, adaptive reset/measurement,
+pulse selection, early stopping, or any other action that changes the future. Those
+claims require an interactive backaction-consistent simulator, supported off-policy
+data, or prospective randomized hardware.
 
 ## Ordered experiments and stop conditions
 

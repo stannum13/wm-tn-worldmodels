@@ -150,6 +150,11 @@ The [frontier strategy review](docs/frontier-strategy-review.md) now organizes t
 program around one thesis—learn the smallest stable adaptation law around a trusted
 constraint-preserving decoder—three scientific hypotheses, and a hardware-aware
 program compiler with explicit stop conditions.
+The [graph-overlay compiler program](docs/graph-overlay-compiler-program.md) makes
+graph transformations first-class, defines the decoder-defect taxonomy, and specifies
+the controlled benchmark ladder for reweighting, mode activation, factor insertion,
+local hypothesis lifting, region growth/solve, added observations, and hardware
+partitioning.
 
 The core predictive object is a compressed causal state:
 
