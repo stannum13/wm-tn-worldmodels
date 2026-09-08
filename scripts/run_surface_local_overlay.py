@@ -256,6 +256,15 @@ def run_distance(
         "local_detectors": int(local_detector_mask.sum()),
         "total_detectors": nominal.num_detectors,
         "burst_mode_fraction": float(hidden.mean()),
+        "fixed_graph_calibration_weighted_ler": {
+            name: score
+            for name, score in zip(
+                ("nominal", "local_burst", "global_burst"), fixed_scores
+            )
+        },
+        "selected_fixed_benchmark": (
+            "nominal", "local_burst", "global_burst"
+        )[benchmark_index],
         "selected_fixed_benchmark": (
             "nominal",
             "local_burst",
