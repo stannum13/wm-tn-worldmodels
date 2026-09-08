@@ -9,6 +9,36 @@ does not treat a history-dependent prediction gain as proof of physical quantum
 memory. Models are compared with Markov, classical hidden-state, direct-search, and
 causal-filtering baselines under matched observation access.
 
+## Latest benchmark results — 8 September 2026
+
+The current thesis is to **learn a small adaptation law around a trusted decoder**.
+Four completed synthetic surface-code campaigns sharpen both its value and limits:
+
+| Experiment | Result | Verdict |
+| --- | --- | --- |
+| Ten complete refits against 72 selected static comparators, including correlated matching | d3 LER 2.0744% → 2.0110%; d5 1.6357% → 1.4861%; both simultaneous intervals exclude the minimum useful improvement | Nominal benchmark GO; transfer and safety gates fail |
+| Eight-state nuisance switching-rate filter, fresh d5 tests | Independent-mode LER 1.6257% → 1.5332%, near memoryless 1.5262%; nominal 1.4789% → 1.4816% | Four stated follow-up gates pass; within-shot changes still fail |
+| Exact small-code Bayesian teacher | d3 exact causal LER 1.7162% versus compiled 1.9115%; exact memoryless already reaches 1.7651% | Most remaining teacher advantage is not explained by history alone |
+| Equal-capacity affine/spline heads trained on exact conditional risks | d3 1.9608% → 1.9448%; only 11.3% of restricted-teacher opportunity recovered | Minimum-effect and 80%-compression gates fail |
+
+![Four campaigns and their failure boundaries](results/figures/surface_frontier_campaigns.png)
+
+The parent campaign uses **26,214,400 held-out shots**, disjoint fit/selection/test
+data, and uncertainty across ten complete refits. Follow-ups use fresh data but
+reuse those fitted evidence models. The d5 parent policy chooses a graph before
+decoding using 8 bytes of persistent state; measured p99 service-cost ratios are
+0.895–1.168 versus its paired static controls. This excludes acquisition, is not a
+deterministic latency guarantee, and does not measure the newer 64-byte filter.
+Neither real-deployment superiority nor general SOTA is established.
+
+Read the [stronger benchmark report](docs/surface-frontier-challenge-report.md),
+[rate-adaptation report](docs/surface-rate-adaptation-report.md),
+[exact-teacher report](docs/surface-exact-teacher-report.md),
+[distillation report](docs/surface-teacher-distillation-report.md), and
+[independent agent audit](docs/surface-frontier-science-audit.md).
+Earlier results below remain part of the record; their narrower controls do not
+supersede this stronger challenge.
+
 ## Current evidence
 
 - The public `pt_recovery` randomized-benchmarking data have been reproduced across

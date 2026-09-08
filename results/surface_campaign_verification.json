@@ -1,0 +1,12 @@
+{
+  "distinct_recorded_dataset_hashes": 392,
+  "distinct_recorded_seeds": 1102,
+  "followup_frozen_commits": {
+    "surface_rate_adaptation.json": "fefa64fe9e8d08662e1a385ded3a6d46feee8726",
+    "surface_teacher_distillation.json": "4b2613c33ad6142d3ff579e9ed08bc04bb76df86"
+  },
+  "heldout_test_records": 37224448,
+  "limits": "Recorded counts/manifests/summaries and source-artifact bytes verified; not a simulator rerun. Follow-ups record source commit but not every runtime dependency version. Latency intentionally replays parent data and is not an independent accuracy test.",
+  "verified": true,
+  "verifier_sha256": "bfcc8c7244f7364b14bc4d2eb8435aecf9646604e3289598ade2058a2265f203"
+}
