@@ -43,6 +43,11 @@ def run(
 ) -> dict:
     import pymatching
 
+    if len(bits) != len(set(bits)):
+        raise ValueError("probability bit widths must be unique")
+    if not bits or any(bit < 0 or bit > 16 for bit in bits):
+        raise ValueError("probability bit widths must be unique integers in [0, 16]")
+
     record = load_qec_record(str(path), circuit_group)
     boundary = int(0.6 * len(record["detectors"]))
     train = np.arange(boundary)
@@ -156,6 +161,7 @@ def run(
         },
         "graph": graph_diagnostics,
         "soft_reweighting": soft_diagnostics,
+        "dynamic_edges": int(len(packed.residual_factor)),
         "base_restore_disagreements": int(np.sum(baseline_before != baseline_after)),
         "quantization": rows,
     }

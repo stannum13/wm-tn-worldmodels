@@ -102,3 +102,33 @@ def test_probability_quantization_is_bounded_and_converges():
     assert np.all(np.isfinite(coarse))
     assert np.all(coarse >= 0)
     assert np.max(np.abs(fine - floating)) < np.max(np.abs(coarse - floating))
+
+
+def test_probability_quantization_rejects_unsupported_bit_widths():
+    args = (
+        np.asarray([0.0 + 0.0j]), np.asarray([False]),
+        np.zeros((1, 3)), np.zeros((1, 2)), np.ones((1, 2)),
+        np.asarray([1.0]), np.asarray([[0]]), np.asarray([[True]]),
+        1e-5, 0.49,
+    )
+    with pytest.raises(ValueError, match="probability_bits"):
+        fused_affine_quantized_weights_one(*args, -1)
+    with pytest.raises(ValueError, match="probability_bits"):
+        fused_affine_quantized_weights_one(*args, 17)
+
+
+def test_probability_quantization_contract_on_known_grid_and_complement():
+    # Scores logit(1/6), logit(1/2), and logit(5/6) give error probabilities
+    # 1/6, 1/2, and (after hard-bit complementation) 1/6. For two bits the
+    # [0, 0.5] grid is {0, 1/6, 1/3, 1/2}; the ceiling clips 1/2 to 0.49.
+    scores = np.log(np.asarray([1 / 5, 1.0, 5.0]))
+    args = (
+        np.zeros(3, dtype=np.complex128), np.asarray([False, False, True]),
+        np.column_stack((scores, np.zeros((3, 2)))),
+        np.zeros((3, 2)), np.ones((3, 2)), np.ones(3),
+        np.arange(3)[:, None], np.ones((3, 1), dtype=np.bool_), 1e-5, 0.49,
+    )
+    weights = fused_affine_quantized_weights_one(*args, 2)
+    expected_probability = np.asarray([1 / 6, 0.49, 1 / 6])
+    expected = np.log((1.0 - expected_probability) / expected_probability)
+    assert np.allclose(weights, expected, atol=2e-7)

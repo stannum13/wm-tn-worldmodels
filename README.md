@@ -120,6 +120,13 @@ causal-filtering baselines under matched observation access.
   roughly 7.2-us front end, and makes the oldest record wait 2.68 ms. It is an offline
   throughput primitive, not the real-time fix; see the
   [batch-preindexed report](docs/rigetti-batch-preindexed-report.md).
+- Eight-bit uniformly quantized soft-flip probabilities meet the exploratory
+  <=0.10-percentage-point noninferiority screen against the floating affine path on
+  both reused 40,000-record partitions, while changing 19/43 decisions. Six bits is
+  jointly unresolved and four bits causes resolved harm without resets. This supports
+  one byte as the conservative probability-field compiler target, not a measured
+  hardware bandwidth or latency claim; see the
+  [quantization report](docs/rigetti-soft-quantization-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -139,9 +146,10 @@ real-hardware datasets.
 The [selected architecture and frontier](docs/selected-architecture-and-frontier.md)
 distills the surviving mechanism, rejected branches, equations, benchmark gaps, and
 deployment GO conditions.
-The [frontier strategy review](docs/frontier-strategy-review.md) ranks the next
-programs and specifies the three-rate adaptive analog-decoding architecture and its
-stop conditions.
+The [frontier strategy review](docs/frontier-strategy-review.md) now organizes the next
+program around one thesis—learn the smallest stable adaptation law around a trusted
+constraint-preserving decoder—three scientific hypotheses, and a hardware-aware
+program compiler with explicit stop conditions.
 
 The core predictive object is a compressed causal state:
 
@@ -258,6 +266,12 @@ PYTHONPATH=src python scripts/run_rigetti_mutable_matching.py \
   --circuit-group circuit_22 --syndrome-rounds 23 \
   --equivalence-shots 40000 --batch-repeats 30 \
   --output results/rigetti_mutable_matching_with_resets.json
+
+# Accuracy sensitivity to a compiled probability payload
+PYTHONPATH=src python scripts/run_rigetti_soft_quantization.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --bits 0 8 7 6 5 4 3 2 1 \
+  --output results/rigetti_soft_quantization_with_resets.json
 ```
 
 The causal-head benchmark currently uses delayed simulator-state targets as a
@@ -300,6 +314,7 @@ data/       fetched third-party data; ignored by Git
 - [x] Fuse affine I/Q inference and odd-parity edge construction in Numba
 - [x] Replace endpoint parsing with a graph-owned preindexed matching plan
 - [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
+- [x] Establish an exploratory 8-bit soft-probability accuracy target on both sessions
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark

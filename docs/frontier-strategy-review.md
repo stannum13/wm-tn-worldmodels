@@ -5,8 +5,18 @@ observed in this repository from proposed work and literature anchors.
 
 ## Decision
 
-The highest-leverage near-term program is a **three-rate, graph-native analog QEC
-system**:
+The program now has one architectural thesis:
+
+> **Learn the smallest stable adaptation law around a trusted decoder rather than
+> learning the decoder itself.**
+
+Here, “trusted decoder” means a combinatorial or symbolic decision layer that enforces
+the code constraints. MWPM exactly solves its weighted-matching objective; it is not
+generally a maximum-likelihood decoder for correlated noise. The learned component is
+therefore an estimator and adapter around that layer, not a claim to have learned the
+code constraints.
+
+The corresponding system is a **three-rate, graph-native analog QEC architecture**:
 
 1. a deterministic hot path maps raw I/Q to bounded likelihoods and feeds a local or
    matching decoder;
@@ -101,41 +111,35 @@ physical gate rates that the observations cannot identify. Publications are atom
 between records. The expensive lane teaches or recalibrates; it never blocks a
 deadline.
 
-## New architectural hypotheses
+## Three scientific hypotheses and one compiler
 
-### H1 — graph-local contractive residual memory
+### H1 — local sufficient state
 
 Attach a tiny state to a stabilizer or identifiable edge class rather than maintaining
 one unconstrained global latent:
 
 \[
-z_{v,t+1}=(1-g_{v,t})A z_{v,t}+g_{v,t}B\phi(o_t),\qquad \|A\|<1,
+z_{v,t+1}=\operatorname{sat}\left(A_vz_{v,t}+g_{v,t}B_v\phi_v(o_t)\right),
+\qquad \|A_v\|_2\leq 1-\epsilon,
 \]
 
 \[
-\Delta w_{e,t}=c\tanh\!\left(C[z_{u,t},z_{v,t}]\right).
+\Delta w_{e,t}=\delta_{\max}\tanh\!\left(c_e^\top[z_{u,t},z_{v,t},\psi_{e,t}]\right),
+\qquad
+w_{e,t}=\operatorname{clip}(w_e^{(0)}+\Delta w_{e,t},w_{\min},w_{\max}).
 \]
 
-The contractive transition limits long-horizon state drift; the gate activates memory
-when causal innovations indicate a mode change; the bounded residual cannot replace
-the calibrated structural prior. Relevant inputs are I/Q innovation, consecutive
-surprisal, local detector-cluster shape, reset state, and disagreement between analog
-and syndrome evidence. The test is whether this state predicts *logical-error-relevant*
-weight changes rather than merely reconstructing observations.
+Contraction now applies even when the injection gate is closed. The bounded residual
+cannot replace the calibrated structural prior. Relevant inputs are I/Q innovation,
+consecutive surprisal, local detector-cluster shape, reset state, and disagreement
+between analog and syndrome evidence. The test is whether a few bytes of state per
+local element recover the gap to an adaptive teacher on logical error. A predicted
+failure boundary is equally important: bounded reweighting cannot create a missing
+long-range correlated mechanism.
 
-### H2 — posterior-geometry conditional computation
+### H2 — finite-grammar sufficiency
 
-Route to an expensive estimator only when a cheap filter reports high mode entropy,
-non-white innovations, or strong estimator disagreement. This turns the wrapped-phase
-particle result into an architectural rule: particles are justified by multimodality,
-not by nonlinearity alone. The rule must be calibrated to a compute budget and compared
-with always-cheap and always-expensive controls.
-
-### H3 — latent-to-symbolic decoder compilation
-
-A reduced world model can be useful entirely at compile time. Train a flexible teacher
-to predict downstream logical risk for candidate graph updates, quantization, and
-schedules, then distill it into a small grammar:
+A rich teacher's useful adaptive behaviour may lie close to a small fixed grammar:
 
 ```text
 EMA | CUSUM | clipped integrator | two-state switch | local neighbor sum |
@@ -143,21 +147,40 @@ piecewise-linear LUT | bounded edge-class update | atomic plan swap
 ```
 
 The emitted artifact is fixed-point microcode or a finite-state selector, not a neural
-runtime. Search candidates against the multi-objective reward
+runtime. It may imitate teacher updates during search, but final selection uses logical
+error. The principal compression metric is
 
 \[
-R=-L_{\rm logical}
--\lambda_1[\bar S-T]_+
--\lambda_2 Q_{0.99}(S)
--\lambda_3 C_{\rm area/power}
--\lambda_4 C_{\rm instability}.
+G_{\rm recovered}=\frac{L_{\rm static}-L_{\rm compiled}}
+{L_{\rm static}-L_{\rm teacher}}.
 \]
 
-Start with Pareto evolutionary or quality-diversity search because the candidate
-language is discrete, evaluation is noisy, and several trade-offs matter. Use RL only
-when compilation itself is sequential—for example, deciding where memory should be
-placed or which diagnostic probe to request. Every learned surrogate recommendation
-must be replayed through the exact decoder before selection.
+### H3 — ambiguity predicts value of computation
+
+Maintain hypotheses over a tiny nuisance mode—not over the exponentially large Pauli
+configuration—and escalate only when their entropy, estimator disagreement,
+innovation whiteness, or surprisal runs predict a benefit from expensive inference.
+The hypothesis is that these quantities predict the *marginal decoding benefit* better
+than syndrome density, raw confidence, largest innovation, or consecutive-event count.
+Report logical error versus escalation fraction and failure capture: among rounds that
+contribute to a cheap-lane logical failure, how many were flagged in the hardest 1%,
+5%, and 10%? Random escalation and each simple score are mandatory controls.
+
+### Hardware-aware decoder program compiler — search mechanism
+
+A reduced world model can help at compile time as a screening surrogate for candidate
+programs, graph updates, quantizers, and schedules. It is not the authority for archive
+admission: every candidate must be replayed through the trusted decoder or simulator.
+Use a Pareto vector rather than a prematurely scalarized reward:
+
+\[
+F(P)=(L_{\rm logical},p50,p99,\text{energy},\text{LUT},\text{BRAM},
+\text{state bytes},\text{instability},\text{escalation rate}).
+\]
+
+Latency deadlines and contraction are hard constraints. MAP-Elites descriptors start
+with state bits/site, spatial radius, number of modes, and escalation fraction. Use RL
+only when compilation is sequential—for example, placing memory or choosing a probe.
 
 This hypothesis draws on decoder-free latent planning in
 [TD-MPC2](https://arxiv.org/abs/2310.16828), real-world latent adaptation in
@@ -166,12 +189,37 @@ This hypothesis draws on decoder-free latent planning in
 the model as a compiler for a verifiable causal decoder rather than as the deployed
 policy.
 
-### H4 — finite mode library instead of continuous online planning
+### Runtime form — finite mode library instead of continuous online planning
 
 Compile a small library of decoder configurations for normal, drift, leakage-like, and
 artifact regimes. A stable finite-state selector chooses among them and falls back to
 the frozen affine graph under uncertainty. This converts rich offline counterfactual
 reasoning into bounded runtime behavior and permits exhaustive transition testing.
+
+## First decomposing benchmark
+
+Use a repetition code or tiny surface code with a known switching nuisance process
+over nominal, drift, and burst modes. Compare, on identical trajectories:
+
+```text
+static graph -> oracle mode-aware graph -> rich recurrent/HMM teacher
+             -> local contractive updater -> compiled EMA/CUSUM/FSM
+             -> compiled student plus ambiguity router
+```
+
+This yields four separately interpretable gaps: static-to-oracle opportunity,
+static-to-teacher learned recovery, teacher-to-student compilation loss, and
+cheap-to-routed value of computation. Include a stationary null, a local-mode regime,
+and a deliberately nonlocal correlated regime. The latter tests the predicted limit
+of bounded local reweighting rather than hiding it.
+
+Advance H1 only if local state recovers at least 80% of teacher gain at no more than
+16 bytes/site and does not worsen the stationary-null LER by more than 0.10 percentage
+points. Advance H2 only if the compiled grammar recovers at least 80% of teacher gain,
+meets the same LER bound, and uses no learned hot-path matrix operation. Advance H3
+only if its failure capture at fixed 1%, 5%, and 10% escalation beats every simple
+router baseline with a positive paired interval. These thresholds are program choices,
+not claims imported from the literature, and will be frozen before the first sweep.
 
 ## Ordered experiments and stop conditions
 

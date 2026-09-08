@@ -76,6 +76,8 @@ def fused_affine_quantized_weights_one(
     ``2**bits`` uniformly spaced reconstruction levels on [0, 0.5], followed by
     the same probability clipping as the floating path.
     """
+    if probability_bits < 0 or probability_bits > 16:
+        raise ValueError("probability_bits must be in [0, 16]")
     measurement_count = len(soft_measurements)
     error_probability = np.empty(measurement_count, dtype=np.float64)
     levels = (1 << probability_bits) - 1 if probability_bits > 0 else 0
