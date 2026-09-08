@@ -12,12 +12,21 @@ from ptwm.factor_gating import (
     predict_mixture,
 )
 from scripts.run_factor_parameter_sweep import paired_episode_interval
+from scripts.run_factor_deployment_shift import estimate_rates
 
 
 def test_paired_episode_interval_collapses_for_identical_predictions() -> None:
     labels = np.array([[False, True], [True, False]])
     prediction = np.array([[False, False], [True, True]])
     assert paired_episode_interval(prediction, prediction, labels) == [0.0, 0.0]
+
+
+def test_rate_estimator_recovers_grid_cell_from_heldout_stream() -> None:
+    data = generate_persistent_factor(
+        seed=77, episodes=128, horizon=256, sigma=0.5,
+        base_probability=0.06, on_probability=0.16,
+    )
+    assert estimate_rates(data, 0.5) == (0.06, 0.16)
 
 
 def test_factor_belief_is_causal():
