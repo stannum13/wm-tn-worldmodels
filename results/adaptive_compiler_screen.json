@@ -8,6 +8,10 @@
       "methods": {
         "compiled_ema": {
           "logical_error": 0.0045928955078125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            2.4098261156663473e-05,
+            0.00015137781306208653
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -3.3607756301275755e-05,
             1.8348967238775755e-05
@@ -17,6 +21,10 @@
         "local_hmm": {
           "logical_error": 0.004467010498046875,
           "oracle_gap_recovery": 0.8333333333333334,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -9.518231913783814e-05,
+            1.8888373825338136e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -0.0002064811805705906,
             -6.05476280231594e-05
@@ -24,6 +32,10 @@
         },
         "memoryless": {
           "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -0.00015803254791485146,
             -3.270231536639855e-05
@@ -31,6 +43,10 @@
         },
         "oracle": {
           "logical_error": 0.0044403076171875,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00014368447711516773,
+            1.3984770083917743e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -0.000256448880217051,
             -6.398569009544902e-05
@@ -39,6 +55,10 @@
         "shared_hmm": {
           "logical_error": 0.00460052490234375,
           "oracle_gap_recovery": 0.0,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            3.270231536639855e-05,
+            0.00015803254791485146
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -46,6 +66,10 @@
         },
         "static": {
           "logical_error": 0.00460052490234375,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            3.270231536639855e-05,
+            0.00015803254791485146
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -223,6 +247,10 @@
       "methods": {
         "compiled_ema": {
           "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00023149983714153375,
+            -3.552897145221625e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -232,6 +260,10 @@
         "local_hmm": {
           "logical_error": 0.007396697998046875,
           "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00016336717412238365,
+            2.603807255988365e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -1.2543898807215143e-05,
             0.00014224360583846513
@@ -239,6 +271,10 @@
         },
         "memoryless": {
           "logical_error": 0.007465362548828125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
           "paired_episode_95pct_interval_vs_static": [
             3.552897145221625e-05,
             0.00023149983714153375
@@ -246,6 +282,10 @@
         },
         "oracle": {
           "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00023149983714153375,
+            -3.552897145221625e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -254,6 +294,10 @@
         "shared_hmm": {
           "logical_error": 0.00733184814453125,
           "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00023149983714153375,
+            -3.552897145221625e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -261,6 +305,10 @@
         },
         "static": {
           "logical_error": 0.00733184814453125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.00023149983714153375,
+            -3.552897145221625e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -438,6 +486,10 @@
       "methods": {
         "compiled_ema": {
           "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -8.378735529467113e-06,
+            3.126691912321711e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -447,6 +499,10 @@
         "local_hmm": {
           "logical_error": 0.00449371337890625,
           "oracle_gap_recovery": 0.09090909090909091,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -3.518632386451458e-05,
+            3.518632386451458e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -5.1830003576955975e-05,
             2.8941819983205975e-05
@@ -454,6 +510,10 @@
         },
         "memoryless": {
           "logical_error": 0.00449371337890625,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -3.126691912321711e-05,
             8.378735529467113e-06
@@ -461,6 +521,10 @@
         },
         "oracle": {
           "logical_error": 0.0043792724609375,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -0.0002070023495858513,
+            -2.187948635164869e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -0.00022279212223847586,
             -2.8977897292774144e-05
@@ -469,6 +533,10 @@
         "shared_hmm": {
           "logical_error": 0.004505157470703125,
           "oracle_gap_recovery": 0.0,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -8.378735529467113e-06,
+            3.126691912321711e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -476,6 +544,10 @@
         },
         "static": {
           "logical_error": 0.004505157470703125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -8.378735529467113e-06,
+            3.126691912321711e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -653,6 +725,10 @@
       "methods": {
         "compiled_ema": {
           "logical_error": 0.00782012939453125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -3.0090836771150462e-05,
+            6.823780942740046e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             1.9308627532111377e-06,
             5.1474898965538866e-05
@@ -662,6 +738,10 @@
         "local_hmm": {
           "logical_error": 0.00795745849609375,
           "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            5.639641819037914e-05,
+            0.00025640875759087086
+          ],
           "paired_episode_95pct_interval_vs_static": [
             6.525109684275818e-05,
             0.0002628128680009918
@@ -669,6 +749,10 @@
         },
         "memoryless": {
           "logical_error": 0.007801055908203125,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
           "paired_episode_95pct_interval_vs_static": [
             -3.4801728216287755e-05,
             5.0060517278787755e-05
@@ -676,6 +760,10 @@
         },
         "oracle": {
           "logical_error": 0.007793426513671875,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -5.0060517278787755e-05,
+            3.4801728216287755e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -684,6 +772,10 @@
         "shared_hmm": {
           "logical_error": 0.007793426513671875,
           "oracle_gap_recovery": null,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -5.0060517278787755e-05,
+            3.4801728216287755e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -691,6 +783,10 @@
         },
         "static": {
           "logical_error": 0.007793426513671875,
+          "paired_episode_95pct_interval_vs_memoryless": [
+            -5.0060517278787755e-05,
+            3.4801728216287755e-05
+          ],
           "paired_episode_95pct_interval_vs_static": [
             0.0,
             0.0
@@ -861,14 +957,15 @@
       }
     }
   ],
-  "code_commit": "417fc85e62edd98c24b73933b274d20ef299de0f",
-  "created_at": "2026-09-08T01:50:39.227773+00:00",
+  "code_commit": "dace4a7a82642693d197b5ca0ed9755d5e6637fd",
+  "created_at": "2026-09-08T02:14:10.633751+00:00",
   "design": {
     "covered_operations": [
-      "REWEIGHT",
-      "ACTIVATE_MODE"
+      "REWEIGHT"
     ],
+    "filter_status": "privileged known-parameter Bayes filter; not fitted teacher",
     "not_covered": [
+      "ACTIVATE_MODE",
       "INSERT_FACTOR",
       "REWIRE",
       "FORK",
