@@ -56,6 +56,60 @@ def fused_affine_reweights_one(
     return output
 
 
+@njit(cache=True)
+def fused_affine_quantized_weights_one(
+    soft_measurements: np.ndarray,
+    hard_measurements: np.ndarray,
+    head_weights: np.ndarray,
+    feature_min: np.ndarray,
+    feature_range: np.ndarray,
+    residual_factor: np.ndarray,
+    measurement_indices: np.ndarray,
+    measurement_mask: np.ndarray,
+    floor_probability: float,
+    ceiling_probability: float,
+    probability_bits: int,
+) -> np.ndarray:
+    """Build edge LLRs after optional uniform quantization of soft probabilities.
+
+    ``probability_bits == 0`` is the floating reference. Positive values use
+    ``2**bits`` uniformly spaced reconstruction levels on [0, 0.5], followed by
+    the same probability clipping as the floating path.
+    """
+    measurement_count = len(soft_measurements)
+    error_probability = np.empty(measurement_count, dtype=np.float64)
+    levels = (1 << probability_bits) - 1 if probability_bits > 0 else 0
+    for measurement in range(measurement_count):
+        real = (soft_measurements[measurement].real - feature_min[measurement, 0])
+        real /= feature_range[measurement, 0]
+        imag = (soft_measurements[measurement].imag - feature_min[measurement, 1])
+        imag /= feature_range[measurement, 1]
+        real = min(1.0, max(0.0, real))
+        imag = min(1.0, max(0.0, imag))
+        score = (
+            head_weights[measurement, 0]
+            + real * head_weights[measurement, 1]
+            + imag * head_weights[measurement, 2]
+        )
+        probability = np.float32(1.0 / (1.0 + np.exp(-score)))
+        probability = 1.0 - probability if hard_measurements[measurement] else probability
+        probability = min(ceiling_probability, max(floor_probability, probability))
+        if probability_bits > 0:
+            probability = np.round((probability / 0.5) * levels) * 0.5 / levels
+            probability = min(ceiling_probability, max(floor_probability, probability))
+        error_probability[measurement] = probability
+    output = np.empty(len(residual_factor), dtype=np.float64)
+    for edge in range(len(residual_factor)):
+        alpha = residual_factor[edge]
+        for position in range(measurement_indices.shape[1]):
+            if measurement_mask[edge, position]:
+                alpha *= 1.0 - 2.0 * error_probability[measurement_indices[edge, position]]
+        probability = (1.0 - alpha) / 2.0
+        probability = min(ceiling_probability, max(floor_probability, probability))
+        output[edge] = np.log((1.0 - probability) / probability)
+    return output
+
+
 def pack_frontier_schedule(plan: object) -> tuple[np.ndarray, ...]:
     """Convert a FrontierDecoderPlan into fixed-width integer arrays."""
     steps = plan.steps

@@ -8,6 +8,7 @@ from ptwm.rigetti import compile_frontier_decoder, PackedAffineIQHeads, PackedSo
 from ptwm.rigetti_jit import (
     decode_frontier_batch,
     decode_frontier_one,
+    fused_affine_quantized_weights_one,
     fused_affine_reweights_one,
     pack_frontier_schedule,
 )
@@ -64,3 +65,40 @@ def test_fused_affine_reweights_match_composed_packed_path():
         reweighting.floor_probability, reweighting.ceiling_probability,
     )
     assert np.allclose(observed, expected, atol=2e-7)
+
+    floating_weights = fused_affine_quantized_weights_one(
+        soft, hard, heads.weights, heads.feature_min, heads.feature_range,
+        reweighting.residual_factor, reweighting.measurement_indices,
+        reweighting.measurement_mask, reweighting.floor_probability,
+        reweighting.ceiling_probability, 0,
+    )
+    assert np.allclose(floating_weights, observed[:, 2], atol=2e-7)
+
+
+def test_probability_quantization_is_bounded_and_converges():
+    heads = PackedAffineIQHeads(
+        weights=np.asarray([[0.2, -0.4, 0.7], [-0.3, 0.8, 0.1]]),
+        feature_min=np.asarray([[-1.0, -2.0], [0.0, -1.0]]),
+        feature_range=np.asarray([[2.0, 4.0], [3.0, 2.0]]),
+    )
+    reweighting = PackedSoftReweighting(
+        endpoints=np.asarray([[0.0, 1.0], [1.0, -1.0]]),
+        residual_factor=np.asarray([0.8, 0.6]),
+        measurement_indices=np.asarray([[0, 1], [1, 0]]),
+        measurement_mask=np.asarray([[True, True], [True, False]]),
+        floor_probability=1e-5,
+        ceiling_probability=0.49,
+    )
+    args = (
+        np.asarray([0.4 - 0.7j, 1.2 + 0.3j]), np.asarray([False, True]),
+        heads.weights, heads.feature_min, heads.feature_range,
+        reweighting.residual_factor, reweighting.measurement_indices,
+        reweighting.measurement_mask, reweighting.floor_probability,
+        reweighting.ceiling_probability,
+    )
+    floating = fused_affine_quantized_weights_one(*args, 0)
+    coarse = fused_affine_quantized_weights_one(*args, 2)
+    fine = fused_affine_quantized_weights_one(*args, 8)
+    assert np.all(np.isfinite(coarse))
+    assert np.all(coarse >= 0)
+    assert np.max(np.abs(fine - floating)) < np.max(np.abs(coarse - floating))

@@ -139,6 +139,9 @@ real-hardware datasets.
 The [selected architecture and frontier](docs/selected-architecture-and-frontier.md)
 distills the surviving mechanism, rejected branches, equations, benchmark gaps, and
 deployment GO conditions.
+The [frontier strategy review](docs/frontier-strategy-review.md) ranks the next
+programs and specifies the three-rate adaptive analog-decoding architecture and its
+stop conditions.
 
 The core predictive object is a compressed causal state:
 
