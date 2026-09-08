@@ -165,6 +165,12 @@ causal-filtering baselines under matched observation access.
   graph-relevance and 80%-oracle-recovery conditions. This is evidence for tiny
   causal state and against coarse whole-graph switching; see the
   [surface-code routing report](docs/surface-mode-routing-report.md).
+- Under incompatible measurement-dominated and gate/data-dominated regimes, the
+  causal affine router beats a 25-way calibration-selected static MWPM graph at
+  distances 5 and 7 by 0.1633 and 0.1160 percentage points with paired intervals
+  below zero. It beats matched memoryless routing at all distances, but distance 3
+  remains unresolved and fails oracle-recovery and stationary-safety gates; see the
+  [regime-switch report](docs/surface-regime-switch-report.md).
 - A subsequent precommitted left-half burst benchmark does **not** beat its strongest
   independently selected fixed graph. Local counts improve mode classification, but
   all logical-utility conditions are unresolved and only null safety passes. This

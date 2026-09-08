@@ -1,0 +1,409 @@
+{
+  "calibration_shots_per_regime": 65536,
+  "code_commit": "d03aa493593f35403aef186392f9ea987f38f05d",
+  "created_at": "2026-09-08T12:34:44.762400+00:00",
+  "distances": [
+    {
+      "affine_head": {
+        "bias": -0.04173316934948713,
+        "feature_count": 7,
+        "mean": [
+          1.8021087646484375,
+          0.42684173583984375,
+          0.22226715087890625,
+          0.26177215576171875,
+          0.6374359130859375,
+          0.6385345458984375,
+          0.26436614990234375
+        ],
+        "scale": [
+          1.7688091300811777,
+          0.6949310169974231,
+          0.6360095449573789,
+          0.5564270119433511,
+          0.8668717289216494,
+          0.8670576766015345,
+          0.5621774285304354
+        ],
+        "weights": [
+          0.006200272574021163,
+          -1.0308468647328888,
+          0.5996131033583615,
+          -0.3335875773052421,
+          0.22308177346029545,
+          0.22230173398532646,
+          -0.3371666317507479
+        ]
+      },
+      "detectors": 24,
+      "distance": 3,
+      "methods": {
+        "causal_affine_router": {
+          "disagreements_vs_static": 1928,
+          "logical_error": 0.020782470703125,
+          "mode_informed_gain_recovery": 0.21492537313432836,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -0.0014873003753117882,
+            -0.0009922528473444618
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0006054058191300215,
+            5.60894128800214e-05
+          ]
+        },
+        "memoryless_affine_router": {
+          "disagreements_vs_static": 1887,
+          "logical_error": 0.022022247314453125,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0006281251250163718,
+            0.0013021116913898782
+          ]
+        },
+        "mode_informed_endpoints": {
+          "disagreements_vs_static": 1931,
+          "logical_error": 0.019779205322265625,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0016083252385408974,
+            -0.0009475219294278526
+          ]
+        },
+        "selected_static_benchmark": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.02105712890625,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "records": 262144,
+      "regime_one_fraction": 0.5068435668945312,
+      "rounds": 3,
+      "router_diagnostics": {
+        "causal_mode_error": 0.11672210693359375,
+        "memoryless_mode_error": 0.3087043762207031
+      },
+      "selected_static_benchmark": {
+        "candidate_count": 25,
+        "clifford": 0.003,
+        "mean_ler": 0.02048492431640625,
+        "measurement": 0.01,
+        "regime_ler": [
+          0.018890380859375,
+          0.0220794677734375
+        ]
+      },
+      "stationary_controls": [
+        {
+          "endpoint_graph_ler": 0.018466949462890625,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            0.00026592565362620934,
+            0.00045886682684254066
+          ],
+          "physical_regime": 0,
+          "router_ler": 0.018829345703125,
+          "wrong_graph_selection_fraction": 0.038578033447265625
+        },
+        {
+          "endpoint_graph_ler": 0.0208892822265625,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            0.0002105457401422034,
+            0.0004684703731390466
+          ],
+          "physical_regime": 1,
+          "router_ler": 0.021228790283203125,
+          "wrong_graph_selection_fraction": 0.0374298095703125
+        }
+      ]
+    },
+    {
+      "affine_head": {
+        "bias": 0.08597505228899638,
+        "feature_count": 9,
+        "mean": [
+          10.143600463867188,
+          2.7631912231445312,
+          2.0154800415039062,
+          0.872344970703125,
+          2.0965728759765625,
+          2.0943679809570312,
+          2.1031341552734375,
+          2.1002655029296875,
+          0.8769149780273438
+        ],
+        "scale": [
+          4.385488223504774,
+          2.0073007699484657,
+          2.3813000947491436,
+          1.0934712118530894,
+          1.6260644344121147,
+          1.6283013772296768,
+          1.6328821953787065,
+          1.6313407101264918,
+          1.098758306514914
+        ],
+        "weights": [
+          0.4267607323025679,
+          -3.188771422223778,
+          1.4507900547509118,
+          -0.5660142154947605,
+          0.43240590765941694,
+          0.5137962367795352,
+          0.533677940107577,
+          0.4384737100105551,
+          -0.5788295641408968
+        ]
+      },
+      "detectors": 120,
+      "distance": 5,
+      "methods": {
+        "causal_affine_router": {
+          "disagreements_vs_static": 2128,
+          "logical_error": 0.0177001953125,
+          "mode_informed_gain_recovery": 0.8577154308617234,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -0.000882301171985452,
+            -0.000574913183483298
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0019678615728148884,
+            -0.0012975192865601114
+          ]
+        },
+        "memoryless_affine_router": {
+          "disagreements_vs_static": 2225,
+          "logical_error": 0.018428802490234375,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0012431834810318022,
+            -0.0005649830228744478
+          ]
+        },
+        "mode_informed_endpoints": {
+          "disagreements_vs_static": 2107,
+          "logical_error": 0.017429351806640625,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0022429141024506603,
+            -0.0015641537686430897
+          ]
+        },
+        "selected_static_benchmark": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.0193328857421875,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "records": 262144,
+      "regime_one_fraction": 0.5110664367675781,
+      "rounds": 5,
+      "router_diagnostics": {
+        "causal_mode_error": 0.03101348876953125,
+        "memoryless_mode_error": 0.12885284423828125
+      },
+      "selected_static_benchmark": {
+        "candidate_count": 25,
+        "clifford": 0.003,
+        "mean_ler": 0.0187835693359375,
+        "measurement": 0.005,
+        "regime_ler": [
+          0.0094451904296875,
+          0.0281219482421875
+        ]
+      },
+      "stationary_controls": [
+        {
+          "endpoint_graph_ler": 0.006710052490234375,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            3.91403649710112e-05,
+            0.0001363357092477388
+          ],
+          "physical_regime": 0,
+          "router_ler": 0.00679779052734375,
+          "wrong_graph_selection_fraction": 0.00814056396484375
+        },
+        {
+          "endpoint_graph_ler": 0.027496337890625,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            3.0527893607277294e-05,
+            0.00012205999701772271
+          ],
+          "physical_regime": 1,
+          "router_ler": 0.0275726318359375,
+          "wrong_graph_selection_fraction": 0.007328033447265625
+        }
+      ]
+    },
+    {
+      "affine_head": {
+        "bias": 0.38574521308415854,
+        "feature_count": 11,
+        "mean": [
+          30.031082153320312,
+          8.602890014648438,
+          7.1431121826171875,
+          1.8380050659179688,
+          4.399070739746094,
+          4.399322509765625,
+          4.3855133056640625,
+          4.37396240234375,
+          4.3960113525390625,
+          4.394309997558594,
+          1.8448867797851562
+        ],
+        "scale": [
+          7.733931771591508,
+          4.1117066011777395,
+          5.4954742549568225,
+          1.6692521079297316,
+          2.4269270750424483,
+          2.411541494132134,
+          2.420813169233771,
+          2.4025817001165337,
+          2.4087576896178233,
+          2.4185364406953314,
+          1.6686396144285807
+        ],
+        "weights": [
+          0.7029043787807905,
+          -4.945936383809546,
+          2.30661044976742,
+          -0.7146834067651499,
+          0.5082582119788015,
+          0.5599670062302692,
+          0.5328937188813347,
+          0.5670864329537166,
+          0.5407512699113767,
+          0.517541797734247,
+          -0.696032913004921
+        ]
+      },
+      "detectors": 336,
+      "distance": 7,
+      "methods": {
+        "causal_affine_router": {
+          "disagreements_vs_static": 1942,
+          "logical_error": 0.014911651611328125,
+          "mode_informed_gain_recovery": 0.9620253164556962,
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -0.00022380167598379415,
+            -7.374471073495584e-05
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -0.0014951144646532868,
+            -0.000824221472846713
+          ]
+        },
+        "memoryless_affine_router": {
+          "disagreements_vs_static": 1959,
+          "logical_error": 0.0150604248046875,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.001342828480178141,
+            -0.000678961070603109
+          ]
+        },
+        "mode_informed_endpoints": {
+          "disagreements_vs_static": 1932,
+          "logical_error": 0.014865875244140625,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.001539669690197996,
+            -0.0008712189816770039
+          ]
+        },
+        "selected_static_benchmark": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.016071319580078125,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "records": 262144,
+      "regime_one_fraction": 0.49200439453125,
+      "rounds": 7,
+      "router_diagnostics": {
+        "causal_mode_error": 0.00672149658203125,
+        "memoryless_mode_error": 0.026317596435546875
+      },
+      "selected_static_benchmark": {
+        "candidate_count": 25,
+        "clifford": 0.001,
+        "mean_ler": 0.0165863037109375,
+        "measurement": 0.001,
+        "regime_ler": [
+          0.004852294921875,
+          0.0283203125
+        ]
+      },
+      "stationary_controls": [
+        {
+          "endpoint_graph_ler": 0.00229644775390625,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            3.140124893849847e-07,
+            3.0203565635615015e-05
+          ],
+          "physical_regime": 0,
+          "router_ler": 0.00231170654296875,
+          "wrong_graph_selection_fraction": 0.00091552734375
+        },
+        {
+          "endpoint_graph_ler": 0.028186798095703125,
+          "paired_stream_95pct_interval_vs_endpoint_graph": [
+            3.140124893849847e-07,
+            3.0203565635615015e-05
+          ],
+          "physical_regime": 1,
+          "router_ler": 0.028202056884765625,
+          "wrong_graph_selection_fraction": 0.000751495361328125
+        }
+      ]
+    }
+  ],
+  "horizon": 512,
+  "protocol": "docs/surface-regime-switch-protocol.md",
+  "regimes": [
+    {
+      "after_clifford_depolarization": 0.001,
+      "reset_measurement_flip": 0.02
+    },
+    {
+      "after_clifford_depolarization": 0.01,
+      "reset_measurement_flip": 0.001
+    }
+  ],
+  "schema_version": 1,
+  "seed": 20261019,
+  "static_search": {
+    "after_clifford_depolarization": [
+      0.001,
+      0.003,
+      0.005,
+      0.007,
+      0.01
+    ],
+    "reset_measurement_flip": [
+      0.001,
+      0.005,
+      0.01,
+      0.015,
+      0.02
+    ]
+  },
+  "streams": 512,
+  "transition": [
+    [
+      0.98,
+      0.02
+    ],
+    [
+      0.02,
+      0.98
+    ]
+  ],
+  "versions": {
+    "pymatching": "2.4.0",
+    "stim": "1.16.0"
+  }
+}
