@@ -171,6 +171,13 @@ causal-filtering baselines under matched observation access.
   below zero. It beats matched memoryless routing at all distances, but distance 3
   remains unresolved and fails oracle-recovery and stationary-safety gates; see the
   [regime-switch report](docs/surface-regime-switch-report.md).
+- A constrained residual router subsequently beats the 25-way static benchmark at
+  both distances 3 and 5, by 0.0599 and 0.0427 percentage points with paired upper
+  bounds below zero. However, reusing its action-training data for policy selection
+  causes a distance-5 selection error against the simpler causal router. The static
+  benchmark win is valid; architecture selection remains a NO-GO pending a disjoint
+  selection split. See the
+  [residual-router report](docs/surface-residual-router-report.md).
 - A subsequent precommitted left-half burst benchmark does **not** beat its strongest
   independently selected fixed graph. Local counts improve mode classification, but
   all logical-utility conditions are unresolved and only null safety passes. This
