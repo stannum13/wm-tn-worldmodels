@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.optimize import minimize
+from scipy.special import expit
 
 
 def fit_count_emission(
@@ -39,4 +41,80 @@ def count_mode_posterior(
         current /= current.sum(axis=1, keepdims=True)
         posterior[:, time] = current[:, 1]
         previous = current
+    return posterior
+
+
+def fit_affine_log_likelihood_ratio(
+    first: np.ndarray,
+    second: np.ndarray,
+    *,
+    l2: float = 1e-3,
+) -> dict[str, np.ndarray | float]:
+    """Fit a standardized affine regime log-likelihood ratio on balanced data."""
+    if first.ndim != 2 or second.ndim != 2 or first.shape[1] != second.shape[1]:
+        raise ValueError("feature matrices must be two-dimensional and aligned")
+    stacked = np.vstack((first, second))
+    mean = stacked.mean(axis=0)
+    scale = stacked.std(axis=0)
+    scale = np.where(scale > 1e-12, scale, 1.0)
+    features = np.vstack(((first - mean) / scale, (second - mean) / scale))
+    labels = np.concatenate((-np.ones(len(first)), np.ones(len(second))))
+
+    def objective(parameters: np.ndarray) -> tuple[float, np.ndarray]:
+        weights, bias = parameters[:-1], parameters[-1]
+        margin = labels * (features @ weights + bias)
+        value = np.logaddexp(0.0, -margin).mean() + 0.5 * l2 * (weights @ weights)
+        factor = -labels * expit(-margin) / len(labels)
+        gradient = np.concatenate((features.T @ factor + l2 * weights, [factor.sum()]))
+        return float(value), gradient
+
+    result = minimize(
+        objective,
+        np.zeros(features.shape[1] + 1),
+        jac=True,
+        method="L-BFGS-B",
+    )
+    if not result.success:
+        raise RuntimeError(f"affine likelihood-ratio fit failed: {result.message}")
+    return {
+        "mean": mean,
+        "scale": scale,
+        "weights": result.x[:-1],
+        "bias": float(result.x[-1]),
+    }
+
+
+def affine_log_likelihood_ratio(
+    features: np.ndarray, model: dict[str, np.ndarray | float]
+) -> np.ndarray:
+    standardized = (features - model["mean"]) / model["scale"]
+    return standardized @ model["weights"] + model["bias"]
+
+
+def log_likelihood_mode_posterior(
+    log_likelihood_ratio: np.ndarray,
+    transition: np.ndarray,
+    stationary: np.ndarray,
+    *,
+    temporal: bool,
+) -> np.ndarray:
+    """Accumulate per-record log P(x|mode=1)/P(x|mode=0) causally."""
+    if log_likelihood_ratio.ndim != 2:
+        raise ValueError("log-likelihood ratio must have shape (streams, time)")
+    posterior = np.empty_like(log_likelihood_ratio, dtype=float)
+    previous = np.broadcast_to(stationary, (log_likelihood_ratio.shape[0], 2)).copy()
+    for time in range(log_likelihood_ratio.shape[1]):
+        prior = (
+            previous @ transition
+            if temporal
+            else np.broadcast_to(stationary, previous.shape)
+        )
+        log_odds = (
+            np.log(np.clip(prior[:, 1], 1e-300, None))
+            - np.log(np.clip(prior[:, 0], 1e-300, None))
+            + log_likelihood_ratio[:, time]
+        )
+        probability = expit(log_odds)
+        posterior[:, time] = probability
+        previous = np.column_stack((1.0 - probability, probability))
     return posterior
