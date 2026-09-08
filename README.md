@@ -165,6 +165,10 @@ causal-filtering baselines under matched observation access.
   graph-relevance and 80%-oracle-recovery conditions. This is evidence for tiny
   causal state and against coarse whole-graph switching; see the
   [surface-code routing report](docs/surface-mode-routing-report.md).
+- A precommitted left-half burst benchmark does **not** beat its strongest
+  independently selected fixed graph. Local counts improve mode classification, but
+  all logical-utility conditions are unresolved and only null safety passes; see the
+  [local-overlay report](docs/surface-local-overlay-report.md).
 - Under incompatible measurement-dominated and gate/data-dominated regimes, the
   causal affine router beats a 25-way calibration-selected static MWPM graph at
   distances 5 and 7 by 0.1633 and 0.1160 percentage points with paired intervals
@@ -178,11 +182,15 @@ causal-filtering baselines under matched observation access.
   benchmark win is valid; architecture selection remains a NO-GO pending a disjoint
   selection split. See the
   [residual-router report](docs/surface-residual-router-report.md).
-- A subsequent precommitted left-half burst benchmark does **not** beat its strongest
-  independently selected fixed graph. Local counts improve mode classification, but
-  all logical-utility conditions are unresolved and only null safety passes. This
-  retained negative control motivates a disjoint migrating-hotspot benchmark; see
-  the [local-overlay report](docs/surface-local-overlay-report.md).
+- The corrected cross-fitted compiler separates calibration, residual fitting,
+  policy selection, test, and controls into disjoint seed namespaces. It beats the
+  25-way calibration-selected static MWPM benchmark at distances 3 and 5 by 0.1080
+  and 0.1667 percentage points with paired intervals below zero, recovers 76.7% and
+  87.8% of mode-informed opportunity, and beats the prior adaptive and selected
+  memoryless routers. It passes the declared +0.05-point non-inferiority margin in
+  all four stationary controls. The compiler selects an energy-residual head at
+  distance 3 but rejects it for the simpler posterior router at distance 5; see the
+  [cross-fitted benchmark report](docs/surface-crossfit-compiler-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
