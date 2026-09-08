@@ -28,7 +28,6 @@ from ptwm.adaptive_compiler import (  # noqa: E402
     generate_switching_repetition,
     memoryless_mode_filter,
     mode_error_probabilities,
-    route_predictions,
     select_ema_alpha,
     stationary_distribution,
 )
@@ -54,16 +53,22 @@ def method_row(prediction: np.ndarray, labels: np.ndarray, static: np.ndarray) -
 
 
 def routing_rows(
-    *, validation_score: np.ndarray, test_score: np.ndarray, cheap: np.ndarray,
-    slow: np.ndarray, labels: np.ndarray, fractions: tuple[float, ...],
+    *, test_score: np.ndarray, cheap: np.ndarray, slow: np.ndarray,
+    labels: np.ndarray, fractions: tuple[float, ...],
 ) -> list[dict]:
     rows = []
     cheap_error = cheap != labels
     available = score(cheap, labels) - score(slow, labels)
     helpful = (cheap != labels) & (slow == labels)
     for fraction in fractions:
-        threshold = float(np.quantile(validation_score, 1.0 - fraction))
-        routed, selected = route_predictions(cheap, slow, test_score, threshold)
+        count = max(1, int(round(fraction * test_score.size)))
+        # Fixed-budget retrospective ranking. Stable flat-index tie breaking keeps the
+        # budget exact but is not an online threshold/deployment result.
+        order = np.lexsort((np.arange(test_score.size), -test_score.ravel()))
+        selected = np.zeros(test_score.size, dtype=bool)
+        selected[order[:count]] = True
+        selected = selected.reshape(test_score.shape)
+        routed = np.where(selected, slow, cheap)
         gain = score(cheap, labels) - score(routed, labels)
         rows.append({
             "target_fraction": fraction,
@@ -141,52 +146,38 @@ def run_arm(
         if static_error > oracle_error else None
     )
 
-    validation_memoryless, validation_memoryless_belief = memoryless_mode_filter(
-        validation.observations, emission_sigma=sigma
-    )
-    validation_teacher, validation_teacher_belief = causal_mode_filter(
-        validation.observations, emission_sigma=sigma, shared=scope == "shared"
-    )
-    del validation_memoryless, validation_teacher, validation_teacher_belief
-    ambiguity_validation = entropy(validation_memoryless_belief)
     ambiguity_test = entropy(memoryless_belief)
     cheap = predictions["memoryless"]
     slow = predictions["local_hmm" if scope == "local" else "shared_hmm"]
     helpful = (cheap != test.labels) & (slow == test.labels)
-    validation_innovation = np.max(np.abs(np.diff(
-        validation.observations, axis=1, prepend=np.zeros_like(validation.observations[:, :1])
-    )), axis=-1)
     test_innovation = np.max(np.abs(np.diff(
         test.observations, axis=1, prepend=np.zeros_like(test.observations[:, :1])
     )), axis=-1)
-    validation_density = np.mean(validation.syndromes, axis=-1)
     test_density = np.mean(test.syndromes, axis=-1)
     routing_scores = {
-        "mode_entropy": (ambiguity_validation, ambiguity_test),
-        "largest_innovation": (validation_innovation, test_innovation),
-        "syndrome_density": (validation_density, test_density),
+        "mode_entropy": ambiguity_test,
+        "largest_innovation": test_innovation,
+        "syndrome_density": test_density,
     }
     router = {}
-    for name, (validation_score, test_score) in routing_scores.items():
+    for name, test_score in routing_scores.items():
         router[name] = {
             "auroc_for_helpful_event": binary_auroc(test_score, helpful),
             "budgets": routing_rows(
-                validation_score=validation_score, test_score=test_score,
-                cheap=cheap, slow=slow, labels=test.labels,
+                test_score=test_score, cheap=cheap, slow=slow, labels=test.labels,
                 fractions=(0.01, 0.05, 0.10, 0.20),
             ),
         }
     rng = np.random.default_rng(seed + 2)
-    random_validation = rng.random(validation.labels.shape)
     random_test = rng.random(test.labels.shape)
     router["random"] = {
         "auroc_for_helpful_event": binary_auroc(random_test, helpful),
         "budgets": routing_rows(
-            validation_score=random_validation, test_score=random_test,
-            cheap=cheap, slow=slow, labels=test.labels,
+            test_score=random_test, cheap=cheap, slow=slow, labels=test.labels,
             fractions=(0.01, 0.05, 0.10, 0.20),
         ),
     }
+    router["helpful_event_count"] = int(np.sum(helpful))
     return {
         "scope": scope, "emission_sigma": sigma, "episodes": episodes,
         "distance": distance,
@@ -223,6 +214,7 @@ def main() -> None:
             "covered_operations": ["REWEIGHT", "ACTIVATE_MODE"],
             "not_covered": ["INSERT_FACTOR", "REWIRE", "FORK", "GROW_REGION", "LOCAL_SOLVE"],
             "selection": "EMA alpha selected on independent validation episodes by downstream LER",
+            "routing": "retrospective exact-budget ranking; not an online threshold result",
         },
         "arms": arms,
     }
