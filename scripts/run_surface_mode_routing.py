@@ -129,12 +129,29 @@ def run_distance(
     null_truth = null_labels.reshape(streams, horizon)
     null = paired_metrics(null_router, null_static, null_truth)
     null["static_logical_error"] = float(np.mean(null_static != null_truth))
+    null["router_burst_selection_fraction"] = float(
+        np.mean(null_probability >= 0.5)
+    )
     return {
         "distance": distance, "rounds": distance, "detectors": detector_count,
         "records": total, "burst_mode_fraction": float(hidden.mean()),
         "calibration_mean_detector_density": [
             float(value[0].mean()) for value in calibration
         ],
+        "router_diagnostics": {
+            "memoryless_burst_selection_fraction": float(
+                np.mean(memoryless_probability >= 0.5)
+            ),
+            "temporal_burst_selection_fraction": float(
+                np.mean(temporal_probability >= 0.5)
+            ),
+            "memoryless_mode_error": float(
+                np.mean((memoryless_probability >= 0.5) != hidden)
+            ),
+            "temporal_mode_error": float(
+                np.mean((temporal_probability >= 0.5) != hidden)
+            ),
+        },
         "methods": methods, "nominal_only_null": null,
     }
 
