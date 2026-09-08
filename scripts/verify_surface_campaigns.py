@@ -15,6 +15,7 @@ from pathlib import Path
 from scripts.run_surface_frontier_challenge import seed_value
 from scripts.run_surface_rate_adaptation import CONDITIONS, summarize as summarize_rate
 from scripts.run_surface_teacher_distillation import summarize as summarize_distillation
+from scripts.run_surface_time_templates import summarize as summarize_time
 from scripts.summarize_surface_frontier_challenge import summarize as summarize_parent
 
 
@@ -103,13 +104,49 @@ def verify(root=Path("results")):
         test_records += condition["records"]
         hashes.append(condition["data_hash"])
     seeds.extend(exact["seeds"].values())
+    time_paths = sorted((root / "surface_time_templates").glob("r*.json"))
+    require(len(time_paths) == 10, "missing time-template full refits")
+    time_rows = [json.loads(p.read_text()) for p in time_paths]
+    time_summary = summarize_time(time_rows)
+    time_archive = json.loads((root / "surface_time_templates/summary.json").read_text())
+    require(all(time_archive[k] == v for k, v in time_summary.items()), "time-template summary mismatch")
+    require(time_summary["gates"]["complete"], "incomplete time-template protocol")
+    for row in time_rows:
+        seeds.extend(row["seeds"].values())
+        hashes.extend(row["data_hashes"].values())
+    test_records += time_summary["test_records"]
+    native = json.loads((root / "surface_time_template_latency.json").read_text())
+    require(len(native["records"]) == 10 and {r["replicate"] for r in native["records"]} == set(range(10)),
+            "missing native timing fit")
+    for path, digest in native["source_sha256"].items():
+        source = subprocess.check_output(["git", "show", f"{native['code_commit']}:{path}"])
+        require(hashlib.sha256(source).hexdigest() == digest, "uncommitted native timing source")
+    choice_records = 0
+    for row in native["records"]:
+        check_source(row["artifact"], row["artifact_sha256"])
+        require(row["records_per_repeat"] == 32768 and row["repeats"] == 3, "wrong timing protocol size")
+        require(set(row["native_validation"]) == set(time_rows[0]["conditions"]), "missing native replay condition")
+        for c in row["native_validation"].values():
+            require(c["records"] == 256 * 512 and c["choice_disagreements"] == 0, "native semantic disagreement")
+            choice_records += c["records"]
+        require(not any(row["timed_output_disagreements"].values()), "native timed output differs")
+        for column in zip(*row["method_orders"]):
+            require(set(column) == {"static", "native_pipeline", "native_frontend"}, "unbalanced timing order")
+        ratio = row["methods"]["native_pipeline"]["pooled"]["p99_us"] / row["methods"]["static"]["pooled"]["p99_us"]
+        require(ratio == row["pipeline_to_static_p99_ratio"], "timing ratio mismatch")
+    require(native["gates"] == {"complete": True, "all_choices_exact": True, "timed_outputs_exact": True,
+                                "service_cost": all(r["pipeline_to_static_p99_ratio"] <= 1.25 for r in native["records"])},
+            "native gate mismatch")
     require(len(seeds) == len(set(seeds)), "cross-campaign seed reuse")
     require(len(hashes) == len(set(hashes)), "cross-campaign dataset reuse")
     return {"verified": True, "distinct_recorded_seeds": len(seeds),
             "distinct_recorded_dataset_hashes": len(hashes), "heldout_test_records": test_records,
             "followup_frozen_commits": frozen_commits,
+            "time_template_frozen_commit": time_rows[0]["code_commit"],
+            "native_time_template_choice_replays": choice_records,
+            "native_time_template_gates": native["gates"],
             "limits": "Recorded counts/manifests/summaries and source-artifact bytes verified; not a simulator rerun. "
-                      "Follow-ups record source commit but not every runtime dependency version. "
+                      "Earlier rate/distillation follow-ups record source commit but not every runtime dependency version. "
                       "Latency intentionally replays parent data and is not an independent accuracy test."}
 
 
