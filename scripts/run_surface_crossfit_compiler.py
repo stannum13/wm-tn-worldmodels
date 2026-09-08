@@ -227,11 +227,16 @@ def run_distance(
         (name for name in selection_scores if name.startswith("memoryless_")),
         key=selection_scores.get,
     )
+    selected_detailed = min(
+        (name for name in selection_scores if name.startswith("detailed_")),
+        key=selection_scores.get,
+    )
     selection_metadata = {
         "records": int(selection_labels.size),
         "scores": selection_scores,
         "selected_policy": selected_policy,
         "selected_memoryless_comparator": selected_memoryless,
+        "selected_detailed_causal_comparator": selected_detailed,
     }
     del selection_detectors, selection_detailed, selection_aggregate
     del selection_candidates, selection_endpoints, selection_weights
@@ -257,6 +262,7 @@ def run_distance(
     compiled = candidates[selected_policy]
     prior_aggregate = candidates["aggregate_0.5"]
     memoryless_comparator = candidates[selected_memoryless]
+    detailed_comparator = candidates[selected_detailed]
     benchmark = (
         benchmark_matching.decode_batch(detectors)[:, 0]
         .reshape(streams, horizon)
@@ -273,6 +279,7 @@ def run_distance(
         "prior_aggregate_causal_router": prior_aggregate,
         "compiled_policy": compiled,
         "selected_detailed_memoryless": memoryless_comparator,
+        "selected_detailed_causal": detailed_comparator,
         "mode_informed_endpoints": mode_informed,
     }
     methods = {
@@ -285,6 +292,9 @@ def run_distance(
     methods["compiled_policy"][
         "paired_stream_95pct_interval_vs_selected_memoryless"
     ] = paired_episode_interval(compiled, memoryless_comparator, truth)
+    methods["compiled_policy"][
+        "paired_stream_95pct_interval_vs_selected_detailed_causal"
+    ] = paired_episode_interval(compiled, detailed_comparator, truth)
     oracle_gain = (
         methods["selected_static_benchmark"]["logical_error"]
         - methods["mode_informed_endpoints"]["logical_error"]
