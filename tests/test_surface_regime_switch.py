@@ -6,6 +6,7 @@ stim = pytest.importorskip("stim")
 from scripts.run_surface_regime_switch import (  # noqa: E402
     TRANSITION,
     circuit,
+    detailed_morphology_features,
     morphology_features,
     regime_modes,
 )
@@ -26,3 +27,12 @@ def test_morphology_features_align_with_shots():
     assert features.shape[0] == 7
     assert features.shape[1] >= 4
     assert np.array_equal(features[:, 0], detectors.sum(axis=1))
+
+
+def test_detailed_features_contain_raw_and_aggregate_terms():
+    value = circuit(3, 0.001, 0.02)
+    detectors = value.compile_detector_sampler(seed=5).sample(shots=6)
+    detailed = detailed_morphology_features(detectors, value)
+    assert detailed.shape[0] == 6
+    assert detailed.shape[1] > value.num_detectors
+    assert np.array_equal(detailed[:, : value.num_detectors], detectors)

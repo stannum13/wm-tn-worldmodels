@@ -99,6 +99,32 @@ def morphology_features(
     ).astype(float)
 
 
+def detailed_morphology_features(
+    detectors: np.ndarray, circuit_value: stim.Circuit
+) -> np.ndarray:
+    """Expose local detector and neighboring-pair terms to a bounded affine head."""
+    coordinates = circuit_value.get_detector_coordinates()
+    xyz = np.asarray([coordinates[index][:3] for index in range(len(coordinates))])
+    pairs = []
+    for first in range(len(xyz)):
+        for second in range(first + 1, len(xyz)):
+            delta = np.abs(xyz[first] - xyz[second])
+            temporal = np.all(delta[:2] == 0) and delta[2] == 1
+            spatial = delta[2] == 0 and np.sum(delta[:2] ** 2) <= 4.01
+            if temporal or spatial:
+                pairs.append((first, second))
+    local_products = np.empty((len(detectors), len(pairs)), dtype=np.float32)
+    for start in range(0, len(pairs), 32):
+        first, second = np.asarray(pairs[start : start + 32]).T
+        local_products[:, start : start + len(first)] = (
+            detectors[:, first] & detectors[:, second]
+        )
+    aggregate = morphology_features(detectors, circuit_value).astype(np.float32)
+    return np.column_stack(
+        (detectors.astype(np.float32), local_products, aggregate)
+    )
+
+
 def select_fixed_benchmark(
     distance: int,
     calibration: list[tuple[np.ndarray, np.ndarray]],
