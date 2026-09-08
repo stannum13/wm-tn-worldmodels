@@ -105,8 +105,8 @@ negative controls in which exactly one operation should have an oracle advantage
 
 Each arm reports static-to-oracle opportunity, teacher recovery, compiled recovery,
 stationary harm, latency/resource cost, and cross-arm false activation. A primitive
-advances only if it recovers at least 80% of its oracle gain, has a positive paired
-interval for the logical endpoint, harms O0 by no more than 0.10 percentage points,
+advances only if it recovers at least 80% of its oracle gain, has a paired interval
+excluding zero in the favorable direction for the logical endpoint, harms O0 by no more than 0.10 percentage points,
 and does not activate materially more often in the wrong-defect controls. The 80% and
 0.10-point thresholds are frozen program choices, not literature facts.
 

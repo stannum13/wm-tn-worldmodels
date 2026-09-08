@@ -42,3 +42,12 @@ def test_stationary_distribution_and_compiled_ema_contract():
 
 def test_binary_auroc_known_ordering():
     assert binary_auroc(np.asarray([0.1, 0.2, 0.8, 0.9]), np.asarray([0, 0, 1, 1])) == 1.0
+
+
+def test_causal_filter_is_invariant_to_future_observations():
+    data = generate_switching_repetition(seed=8, episodes=3, horizon=30)
+    altered = data.observations.copy()
+    altered[:, 16:] += 100.0
+    _, original_belief = causal_mode_filter(data.observations, emission_sigma=1.25)
+    _, altered_belief = causal_mode_filter(altered, emission_sigma=1.25)
+    assert np.array_equal(original_belief[:, :16], altered_belief[:, :16])

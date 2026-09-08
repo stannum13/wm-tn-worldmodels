@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run the first graph-overlay compiler mechanism screen.
 
-This screen covers REWEIGHT/ACTIVATE_MODE only. Structural INSERT_FACTOR/FORK and
+This screen covers observation-conditioned REWEIGHT only. ACTIVATE_MODE and structural INSERT_FACTOR/FORK and
 localized-solve arms require separate generators so the benchmark does not bake the
 answer into one noise model.
 """
@@ -129,6 +129,10 @@ def run_arm(
         name: method_row(prediction, test.labels, static)
         for name, prediction in predictions.items()
     }
+    for name, prediction in predictions.items():
+        methods[name]["paired_episode_95pct_interval_vs_memoryless"] = loss_interval(
+            prediction, predictions["memoryless"], test.labels
+        )
     static_error = methods["static"]["logical_error"]
     teacher_error = methods["local_hmm" if scope == "local" else "shared_hmm"]["logical_error"]
     compiled_error = methods["compiled_ema"]["logical_error"]
@@ -211,8 +215,9 @@ def main() -> None:
         "design": {
             "status": "directional synthetic mechanism screen",
             "trusted_layer": "exact MAP between two repetition-code-consistent error chains",
-            "covered_operations": ["REWEIGHT", "ACTIVATE_MODE"],
-            "not_covered": ["INSERT_FACTOR", "REWIRE", "FORK", "GROW_REGION", "LOCAL_SOLVE"],
+            "covered_operations": ["REWEIGHT"],
+            "not_covered": ["ACTIVATE_MODE", "INSERT_FACTOR", "REWIRE", "FORK", "GROW_REGION", "LOCAL_SOLVE"],
+            "filter_status": "privileged known-parameter Bayes filter; not fitted teacher",
             "selection": "EMA alpha selected on independent validation episodes by downstream LER",
             "routing": "retrospective exact-budget ranking; not an online threshold result",
         },

@@ -127,12 +127,18 @@ causal-filtering baselines under matched observation access.
   one byte as the conservative probability-field compiler target, not a measured
   hardware bandwidth or latency claim; see the
   [quantization report](docs/rigetti-soft-quantization-report.md).
-- A first synthetic graph-overlay compiler screen isolates when reduced causal state
-  helps. In an observable local-mode arm, a four-state HMM closes 83.3% of the oracle
-  gap with a positive paired episode interval; under noisier observations it closes
-  only 9.1%. A one-EMA/LUT student retains only 5.7% of teacher gain, and mode-entropy
-  routing loses to syndrome density. These are useful bounded NO-GOs, not hardware
+- A first synthetic graph-overlay compiler screen supports observation-conditioned
+  reweighting but not yet temporal memory: a privileged four-state HMM closes 83.3%
+  of the static-to-oracle gap in the favorable arm, but its incremental gain over a
+  memoryless observation model is only 10/262,144 errors with an interval crossing
+  zero. A one-EMA/LUT student retains only 5.7% of HMM gain, and mode-entropy routing
+  fails its simple-baseline advancement gate. These are bounded development results, not hardware
   results; see the [compiler screen report](docs/adaptive-compiler-screen-report.md).
+- A missing-factor positive control establishes why graph topology must sometimes
+  change: a base pair model has 4.0495% logical error when a four-detector logical
+  factor is present, while inserting the correct compiled factor reaches 0.3212%.
+  Unconditional insertion causes 0.0887-point harm when the factor is absent, so mode
+  gating is necessary; see the [factor screen](docs/graph-factor-screen-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
@@ -326,8 +332,10 @@ data/       fetched third-party data; ignored by Git
 - [x] Replace endpoint parsing with a graph-owned preindexed matching plan
 - [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
 - [x] Establish an exploratory 8-bit soft-probability accuracy target on both sessions
-- [x] Run the first REWEIGHT/ACTIVATE_MODE compiler mechanism screen
+- [x] Run the first observation-conditioned REWEIGHT mechanism screen
 - [ ] Build defect-isolating INSERT_FACTOR, FORK, and local-region solve screens
+- [x] Establish the INSERT_FACTOR positive/null control
+- [ ] Add causal factor activation and local FORK(K=2)
 - [x] Reject simple event-triggered routing as a substitute for mutable graph weights
 - [ ] Robust contamination-aware emission model
 - [ ] Backaction-consistent quantum-trajectory control benchmark

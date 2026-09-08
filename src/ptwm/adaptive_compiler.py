@@ -148,7 +148,7 @@ def memoryless_mode_filter(
 
 
 def compiled_ema_probabilities(observations: np.ndarray, alpha: float) -> np.ndarray:
-    """Two-register-free symbolic student: leaky state plus monotone piecewise LUT."""
+    """One-state symbolic student: leaky state plus site-specific piecewise LUT."""
     state = np.zeros_like(observations)
     previous = np.zeros(observations.shape[::2])
     # observations.shape[::2] is (episodes, sites) for a 3-D tensor.
