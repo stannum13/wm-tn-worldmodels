@@ -165,6 +165,11 @@ causal-filtering baselines under matched observation access.
   graph-relevance and 80%-oracle-recovery conditions. This is evidence for tiny
   causal state and against coarse whole-graph switching; see the
   [surface-code routing report](docs/surface-mode-routing-report.md).
+- A subsequent precommitted left-half burst benchmark does **not** beat its strongest
+  independently selected fixed graph. Local counts improve mode classification, but
+  all logical-utility conditions are unresolved and only null safety passes. This
+  retained negative control motivates a disjoint migrating-hotspot benchmark; see
+  the [local-overlay report](docs/surface-local-overlay-report.md).
 
 These are bounded prediction findings, not closed-loop hardware-control claims.
 
