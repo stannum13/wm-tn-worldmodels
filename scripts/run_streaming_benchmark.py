@@ -32,7 +32,7 @@ def summarize(rows: list[dict[str, float]]) -> dict[str, dict[str, float]]:
 def run(seeds: int, train_streams: int, evaluation_streams: int, length: int) -> dict[str, object]:
     delays = [0, 5, 10, 25, 50, 100]
     raw: dict[str, dict[str, list[dict[str, float]]]] = {
-        str(delay): {name: [] for name in ["instantaneous", "ewma", "hmm_filter_current", "hmm_delay_forecast"]}
+        str(delay): {name: [] for name in ["instantaneous", "ewma", "hmm_filter_current", "hmm_delay_forecast", "hmm_clipped_forecast", "stationary_prior"]}
         for delay in delays
     }
     fits = []
@@ -58,11 +58,11 @@ def run(seeds: int, train_streams: int, evaluation_streams: int, length: int) ->
     }
     improvements = {}
     for delay in map(str, delays):
-        current = aggregate[delay]["hmm_filter_current"]["control_mse"]["mean"]
-        predicted = aggregate[delay]["hmm_delay_forecast"]["control_mse"]["mean"]
+        current = aggregate[delay]["hmm_filter_current"]["brier_loss"]["mean"]
+        predicted = aggregate[delay]["hmm_delay_forecast"]["brier_loss"]["mean"]
         best_simple = min(
-            aggregate[delay][name]["control_mse"]["mean"]
-            for name in ["instantaneous", "ewma", "hmm_filter_current"]
+            aggregate[delay][name]["brier_loss"]["mean"]
+            for name in ["instantaneous", "ewma", "hmm_filter_current", "hmm_clipped_forecast", "stationary_prior"]
         )
         improvements[delay] = {
             "forecast_vs_current_fraction": float((current - predicted) / current),

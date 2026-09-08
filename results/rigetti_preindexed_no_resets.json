@@ -1,0 +1,54 @@
+{
+  "base_restore_disagreements": 0,
+  "code_commit": "04fa56d",
+  "created_at": "2026-09-07T23:33:53.383821+00:00",
+  "data": {
+    "benchmark_records": 40000,
+    "calibration_records": 60000,
+    "circuit_group": "circuit_24",
+    "dynamic_edges": 104,
+    "file": "stability_8_without_resets_raw_data.h5",
+    "md5": "721b7368a819e13eb404fea5154744a4"
+  },
+  "design": {
+    "comparison": "endpoint-parsed Tier-1 API versus graph-owned preindexed Tier-1 API",
+    "go": "zero prediction/weight disagreements and >=20% lower matching p50",
+    "order": "separate matching and contiguous-pipeline passes; AB/BA by record"
+  },
+  "environment": {
+    "base_fork_commit": "435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "base_fork_url": "https://github.com/Allenator/PyMatching",
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "preindexed_fork_commit": "f53805b6acbadadc13dc314c9791912c99313747",
+    "preindexed_fork_url": "https://github.com/stannum13/PyMatching",
+    "preindexed_install": "python -m pip install git+https://github.com/stannum13/PyMatching.git@f53805b6acbadadc13dc314c9791912c99313747",
+    "preindexed_patch_sha256": "d5bc0de2dad9c1c3c6c4bbeaa02c7cf9a0c8fc79f161be7432657b6de362c7fe",
+    "pymatching_module": "/home/shiva/pymatching-preindexed/src/pymatching/__init__.py",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "latency": {
+    "endpoint_fused_pipeline": {
+      "p50_ns": 50970.0,
+      "p95_ns": 107020.0,
+      "p99_ns": 134060.29000000007
+    },
+    "endpoint_matching": {
+      "p50_ns": 45500.0,
+      "p95_ns": 101689.04999999999,
+      "p99_ns": 128480.0
+    },
+    "preindexed_fused_pipeline": {
+      "p50_ns": 46755.0,
+      "p95_ns": 102460.0,
+      "p99_ns": 128750.19000000003
+    },
+    "preindexed_matching": {
+      "p50_ns": 40125.0,
+      "p95_ns": 96620.0,
+      "p99_ns": 123980.60000000012
+    }
+  },
+  "maximum_decode_weight_difference": 0.0,
+  "prediction_disagreements": 0,
+  "schema_version": 1
+}

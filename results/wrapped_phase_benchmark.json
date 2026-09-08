@@ -1,0 +1,876 @@
+{
+  "aggregate": [
+    {
+      "capacity": 0,
+      "circular_loss": 0.05804519030518068,
+      "mean_absolute_phase_error": 0.2577635980544762,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12941.649920833335,
+      "p95_absolute_phase_error": 0.6242403863430258
+    },
+    {
+      "bins": 256.0,
+      "capacity": 256,
+      "circular_loss": 0.04419273886460373,
+      "mean_absolute_phase_error": 0.23703030519255894,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72705.06491666667,
+      "p95_absolute_phase_error": 0.5845733064644335
+    },
+    {
+      "bins": 512.0,
+      "capacity": 512,
+      "circular_loss": 0.04419273886460373,
+      "mean_absolute_phase_error": 0.23703030519255894,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92450.9604375,
+      "p95_absolute_phase_error": 0.5845733064644336
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.04819778369466761,
+      "mean_absolute_phase_error": 0.2437301963257502,
+      "mean_ess_fraction": 0.6717014204658158,
+      "model": "robust_particle",
+      "ns_per_sample": 43434.367675,
+      "p95_absolute_phase_error": 0.596807604391828,
+      "resamples_per_sample": 0.20082916666666667
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04529824420240909,
+      "mean_absolute_phase_error": 0.23915791396460978,
+      "mean_ess_fraction": 0.6685037207943404,
+      "model": "robust_particle",
+      "ns_per_sample": 45933.258245833335,
+      "p95_absolute_phase_error": 0.5878863277016532,
+      "resamples_per_sample": 0.20401666666666665
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.044856244137518084,
+      "mean_absolute_phase_error": 0.2382483630979157,
+      "mean_ess_fraction": 0.6671036045908573,
+      "model": "robust_particle",
+      "ns_per_sample": 51971.69189583333,
+      "p95_absolute_phase_error": 0.5862364257259569,
+      "resamples_per_sample": 0.20621666666666666
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04460681354561726,
+      "mean_absolute_phase_error": 0.23775478357211793,
+      "mean_ess_fraction": 0.6662080568650034,
+      "model": "robust_particle",
+      "ns_per_sample": 64030.84885416667,
+      "p95_absolute_phase_error": 0.5855539125718958,
+      "resamples_per_sample": 0.20774166666666666
+    }
+  ],
+  "code_commit": "32dd1dafbd6abda02662843a549ce968191ca071",
+  "created_at": "2026-09-07T16:49:13.895134+00:00",
+  "design": {
+    "artifact_probability": 0.02,
+    "delay": 10,
+    "go_condition": "mean gap closure >= 0.20 and paired interval lower endpoint > 0",
+    "length": 800,
+    "model_access": "known dynamics/noise; privileged nonlinear-estimator capacity diagnostic",
+    "primary_endpoint": "fraction of bounded-EKF circular-loss gap to 512-bin grid closed",
+    "quadrature_interval": 8,
+    "seeds": 10,
+    "streams_per_seed": 30
+  },
+  "gap_closure": [
+    {
+      "mean_ekf_to_grid_gap_closed": 0.7058586500066933,
+      "paired_95pct_t_interval": [
+        0.5250305414588903,
+        0.8866867585544964
+      ],
+      "particles": 32,
+      "seeds_with_positive_reference_gap": 10
+    },
+    {
+      "mean_ekf_to_grid_gap_closed": 0.9134349835304068,
+      "paired_95pct_t_interval": [
+        0.8473662361099457,
+        0.9795037309508678
+      ],
+      "particles": 64,
+      "seeds_with_positive_reference_gap": 10
+    },
+    {
+      "mean_ekf_to_grid_gap_closed": 0.9494576254086855,
+      "paired_95pct_t_interval": [
+        0.9130127737320686,
+        0.9859024770853024
+      ],
+      "particles": 128,
+      "seeds_with_positive_reference_gap": 10
+    },
+    {
+      "mean_ekf_to_grid_gap_closed": 0.9707684888395066,
+      "paired_95pct_t_interval": [
+        0.9509066084631419,
+        0.9906303692158713
+      ],
+      "particles": 256,
+      "seeds_with_positive_reference_gap": 10
+    }
+  ],
+  "per_seed": [
+    {
+      "capacity": 0,
+      "circular_loss": 0.05516612969758524,
+      "mean_absolute_phase_error": 0.2541606444693404,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12789.653833333334,
+      "p95_absolute_phase_error": 0.6303900734748357,
+      "seed": 0
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.04462704256617192,
+      "mean_absolute_phase_error": 0.2376252672907987,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 75461.67733333334,
+      "p95_absolute_phase_error": 0.5967825113882229,
+      "seed": 0
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04462704256617192,
+      "mean_absolute_phase_error": 0.23762526729079866,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 91468.55141666667,
+      "p95_absolute_phase_error": 0.5967825113882229,
+      "seed": 0
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.047628095436941006,
+      "mean_absolute_phase_error": 0.2428987015550884,
+      "mean_ess_fraction": 0.6718310363584455,
+      "model": "robust_particle",
+      "ns_per_sample": 43355.04375,
+      "p95_absolute_phase_error": 0.6108902427623365,
+      "resamples_per_sample": 0.20129166666666667,
+      "seed": 0
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04576128595099796,
+      "mean_absolute_phase_error": 0.23996287829147842,
+      "mean_ess_fraction": 0.6687635738924089,
+      "model": "robust_particle",
+      "ns_per_sample": 45976.11404166667,
+      "p95_absolute_phase_error": 0.5999166824257293,
+      "resamples_per_sample": 0.20495833333333333,
+      "seed": 0
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.04505645746503384,
+      "mean_absolute_phase_error": 0.2382571547566191,
+      "mean_ess_fraction": 0.666980846278057,
+      "model": "robust_particle",
+      "ns_per_sample": 51869.95991666667,
+      "p95_absolute_phase_error": 0.5958191522274482,
+      "resamples_per_sample": 0.20666666666666667,
+      "seed": 0
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04504145125735912,
+      "mean_absolute_phase_error": 0.2382287832195017,
+      "mean_ess_fraction": 0.6662106184796007,
+      "model": "robust_particle",
+      "ns_per_sample": 64393.27795833333,
+      "p95_absolute_phase_error": 0.5979617716132686,
+      "resamples_per_sample": 0.208375,
+      "seed": 0
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.06270629063572743,
+      "mean_absolute_phase_error": 0.26356308452991,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12804.998833333333,
+      "p95_absolute_phase_error": 0.625336991932727,
+      "seed": 1
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.043583547423510054,
+      "mean_absolute_phase_error": 0.23527195382250038,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 71971.094625,
+      "p95_absolute_phase_error": 0.5757567392025581,
+      "seed": 1
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.043583547423510074,
+      "mean_absolute_phase_error": 0.23527195382250038,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92656.01466666667,
+      "p95_absolute_phase_error": 0.5757567392025578,
+      "seed": 1
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.05190223912710637,
+      "mean_absolute_phase_error": 0.24782331681072337,
+      "mean_ess_fraction": 0.6725152501796927,
+      "model": "robust_particle",
+      "ns_per_sample": 43366.168375,
+      "p95_absolute_phase_error": 0.5947798796863398,
+      "resamples_per_sample": 0.199875,
+      "seed": 1
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.044616238203696264,
+      "mean_absolute_phase_error": 0.2370730802442051,
+      "mean_ess_fraction": 0.6689239652749155,
+      "model": "robust_particle",
+      "ns_per_sample": 45735.624083333336,
+      "p95_absolute_phase_error": 0.5783617630848404,
+      "resamples_per_sample": 0.20316666666666666,
+      "seed": 1
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.04350899828283855,
+      "mean_absolute_phase_error": 0.23519646859197707,
+      "mean_ess_fraction": 0.6668579647743463,
+      "model": "robust_particle",
+      "ns_per_sample": 52138.477875,
+      "p95_absolute_phase_error": 0.5763486722800882,
+      "resamples_per_sample": 0.20483333333333334,
+      "seed": 1
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04376285224342093,
+      "mean_absolute_phase_error": 0.2356403783490701,
+      "mean_ess_fraction": 0.666556137237033,
+      "model": "robust_particle",
+      "ns_per_sample": 64264.530875,
+      "p95_absolute_phase_error": 0.5741625430671303,
+      "resamples_per_sample": 0.20820833333333333,
+      "seed": 1
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05665068653722181,
+      "mean_absolute_phase_error": 0.2555133554254559,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12986.31425,
+      "p95_absolute_phase_error": 0.6083658171504169,
+      "seed": 2
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.04298415574440046,
+      "mean_absolute_phase_error": 0.23605149059852412,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72437.17670833334,
+      "p95_absolute_phase_error": 0.5692203671672097,
+      "seed": 2
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.042984155744400475,
+      "mean_absolute_phase_error": 0.23605149059852412,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92701.06341666667,
+      "p95_absolute_phase_error": 0.5692203671672097,
+      "seed": 2
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.04409092072434616,
+      "mean_absolute_phase_error": 0.23832369987820248,
+      "mean_ess_fraction": 0.6724225935365115,
+      "model": "robust_particle",
+      "ns_per_sample": 43567.175833333335,
+      "p95_absolute_phase_error": 0.5765898479735757,
+      "resamples_per_sample": 0.199625,
+      "seed": 2
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04326525394916508,
+      "mean_absolute_phase_error": 0.23713091463013106,
+      "mean_ess_fraction": 0.6660811498304983,
+      "model": "robust_particle",
+      "ns_per_sample": 45938.681541666665,
+      "p95_absolute_phase_error": 0.5716001315545103,
+      "resamples_per_sample": 0.20316666666666666,
+      "seed": 2
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.043094127906434916,
+      "mean_absolute_phase_error": 0.23639030960228422,
+      "mean_ess_fraction": 0.6640491838243743,
+      "model": "robust_particle",
+      "ns_per_sample": 51766.837041666666,
+      "p95_absolute_phase_error": 0.5704134314724755,
+      "resamples_per_sample": 0.20475,
+      "seed": 2
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04329435130353026,
+      "mean_absolute_phase_error": 0.23657510965132936,
+      "mean_ess_fraction": 0.6642143001395514,
+      "model": "robust_particle",
+      "ns_per_sample": 64132.625041666666,
+      "p95_absolute_phase_error": 0.5703959916730779,
+      "resamples_per_sample": 0.20633333333333334,
+      "seed": 2
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05473723235940667,
+      "mean_absolute_phase_error": 0.2545637892139838,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12923.608416666666,
+      "p95_absolute_phase_error": 0.6144836844721784,
+      "seed": 3
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.04493999125400177,
+      "mean_absolute_phase_error": 0.23938223093544794,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72136.31045833333,
+      "p95_absolute_phase_error": 0.5861243911472628,
+      "seed": 3
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04493999125400179,
+      "mean_absolute_phase_error": 0.23938223093544803,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92642.63966666667,
+      "p95_absolute_phase_error": 0.5861243911472628,
+      "seed": 3
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.04928395578736707,
+      "mean_absolute_phase_error": 0.2475517646658085,
+      "mean_ess_fraction": 0.6703269515801997,
+      "model": "robust_particle",
+      "ns_per_sample": 43541.50541666667,
+      "p95_absolute_phase_error": 0.5995971389802449,
+      "resamples_per_sample": 0.20233333333333334,
+      "seed": 3
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04612621406490328,
+      "mean_absolute_phase_error": 0.2420354257947715,
+      "mean_ess_fraction": 0.6673356287692861,
+      "model": "robust_particle",
+      "ns_per_sample": 45841.696125,
+      "p95_absolute_phase_error": 0.5877287022831832,
+      "resamples_per_sample": 0.20304166666666668,
+      "seed": 3
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.04583113240186991,
+      "mean_absolute_phase_error": 0.24078989841992368,
+      "mean_ess_fraction": 0.6686575379586549,
+      "model": "robust_particle",
+      "ns_per_sample": 51845.959083333335,
+      "p95_absolute_phase_error": 0.5861433376553784,
+      "resamples_per_sample": 0.20604166666666668,
+      "seed": 3
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04554365869517079,
+      "mean_absolute_phase_error": 0.24033917839408814,
+      "mean_ess_fraction": 0.6652653637028394,
+      "model": "robust_particle",
+      "ns_per_sample": 64272.01925,
+      "p95_absolute_phase_error": 0.5862956582647104,
+      "resamples_per_sample": 0.2075,
+      "seed": 3
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.061038546489415216,
+      "mean_absolute_phase_error": 0.2583198803255282,
+      "model": "bounded_ekf",
+      "ns_per_sample": 13037.514666666666,
+      "p95_absolute_phase_error": 0.6316269218500393,
+      "seed": 4
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.04274075404136357,
+      "mean_absolute_phase_error": 0.23170524173772777,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72151.86170833334,
+      "p95_absolute_phase_error": 0.5757790313870198,
+      "seed": 4
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.042740754041363564,
+      "mean_absolute_phase_error": 0.23170524173772772,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 91986.15554166667,
+      "p95_absolute_phase_error": 0.5757790313870198,
+      "seed": 4
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.04828262745089427,
+      "mean_absolute_phase_error": 0.24066862791063875,
+      "mean_ess_fraction": 0.6718766091650817,
+      "model": "robust_particle",
+      "ns_per_sample": 43302.448333333334,
+      "p95_absolute_phase_error": 0.5916195952149618,
+      "resamples_per_sample": 0.20191666666666666,
+      "seed": 4
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04360301837984196,
+      "mean_absolute_phase_error": 0.23351156732565354,
+      "mean_ess_fraction": 0.6695442651694821,
+      "model": "robust_particle",
+      "ns_per_sample": 45901.767791666665,
+      "p95_absolute_phase_error": 0.5765264384308955,
+      "resamples_per_sample": 0.205,
+      "seed": 4
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.044560196181432324,
+      "mean_absolute_phase_error": 0.2345489516505183,
+      "mean_ess_fraction": 0.6679873334005065,
+      "model": "robust_particle",
+      "ns_per_sample": 52254.043666666665,
+      "p95_absolute_phase_error": 0.5807330117669045,
+      "resamples_per_sample": 0.20575,
+      "seed": 4
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04440935591698375,
+      "mean_absolute_phase_error": 0.2340874105685863,
+      "mean_ess_fraction": 0.6672435678002459,
+      "model": "robust_particle",
+      "ns_per_sample": 64316.52754166667,
+      "p95_absolute_phase_error": 0.5790054648101087,
+      "resamples_per_sample": 0.20816666666666667,
+      "seed": 4
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05788595039540931,
+      "mean_absolute_phase_error": 0.25992248738270557,
+      "model": "bounded_ekf",
+      "ns_per_sample": 13000.60425,
+      "p95_absolute_phase_error": 0.6330082098721164,
+      "seed": 5
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.045382264639915085,
+      "mean_absolute_phase_error": 0.24064043340927538,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 73299.99370833334,
+      "p95_absolute_phase_error": 0.5936409198398065,
+      "seed": 5
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04538226463991511,
+      "mean_absolute_phase_error": 0.24064043340927538,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 93082.86420833334,
+      "p95_absolute_phase_error": 0.5936409198398066,
+      "seed": 5
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.047537665843742145,
+      "mean_absolute_phase_error": 0.24449414176515774,
+      "mean_ess_fraction": 0.6704461921953677,
+      "model": "robust_particle",
+      "ns_per_sample": 43535.215,
+      "p95_absolute_phase_error": 0.6020401075596846,
+      "resamples_per_sample": 0.19895833333333332,
+      "seed": 5
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04953040694949791,
+      "mean_absolute_phase_error": 0.2469763704971177,
+      "mean_ess_fraction": 0.6679391197623693,
+      "model": "robust_particle",
+      "ns_per_sample": 45735.123625,
+      "p95_absolute_phase_error": 0.6069284011141826,
+      "resamples_per_sample": 0.20354166666666668,
+      "seed": 5
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.047395386485456395,
+      "mean_absolute_phase_error": 0.24379905804041213,
+      "mean_ess_fraction": 0.6669159314097134,
+      "model": "robust_particle",
+      "ns_per_sample": 51812.46620833333,
+      "p95_absolute_phase_error": 0.5986063263763333,
+      "resamples_per_sample": 0.20525,
+      "seed": 5
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04553811140779218,
+      "mean_absolute_phase_error": 0.24115041833085354,
+      "mean_ess_fraction": 0.6654759093571325,
+      "model": "robust_particle",
+      "ns_per_sample": 64083.39379166667,
+      "p95_absolute_phase_error": 0.5955977925747694,
+      "resamples_per_sample": 0.20670833333333333,
+      "seed": 5
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.06358463985692056,
+      "mean_absolute_phase_error": 0.2675996576662864,
+      "model": "bounded_ekf",
+      "ns_per_sample": 13015.46925,
+      "p95_absolute_phase_error": 0.631357096510423,
+      "seed": 6
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.045873756533259064,
+      "mean_absolute_phase_error": 0.2418890774655356,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72445.135,
+      "p95_absolute_phase_error": 0.5845055518912601,
+      "seed": 6
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04587375653325905,
+      "mean_absolute_phase_error": 0.24188907746553553,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92428.42220833333,
+      "p95_absolute_phase_error": 0.5845055518912601,
+      "seed": 6
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.0479770888026352,
+      "mean_absolute_phase_error": 0.24606813703170632,
+      "mean_ess_fraction": 0.6709708703812914,
+      "model": "robust_particle",
+      "ns_per_sample": 43287.22083333333,
+      "p95_absolute_phase_error": 0.5911064489630133,
+      "resamples_per_sample": 0.20341666666666666,
+      "seed": 6
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.04621785693781302,
+      "mean_absolute_phase_error": 0.243006030333233,
+      "mean_ess_fraction": 0.6689043056645381,
+      "model": "robust_particle",
+      "ns_per_sample": 45368.39241666667,
+      "p95_absolute_phase_error": 0.5863021686323324,
+      "resamples_per_sample": 0.20545833333333333,
+      "seed": 6
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.046257889755787346,
+      "mean_absolute_phase_error": 0.24291391189738476,
+      "mean_ess_fraction": 0.6683974048608788,
+      "model": "robust_particle",
+      "ns_per_sample": 52003.477875,
+      "p95_absolute_phase_error": 0.5859494409730921,
+      "resamples_per_sample": 0.20858333333333334,
+      "seed": 6
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04616659323463857,
+      "mean_absolute_phase_error": 0.24266863610614703,
+      "mean_ess_fraction": 0.6670093590347533,
+      "model": "robust_particle",
+      "ns_per_sample": 64045.270875,
+      "p95_absolute_phase_error": 0.587009808573593,
+      "resamples_per_sample": 0.20983333333333334,
+      "seed": 6
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05538892002879059,
+      "mean_absolute_phase_error": 0.252698695458473,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12931.197166666667,
+      "p95_absolute_phase_error": 0.6180271722504262,
+      "seed": 7
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.04330846918473908,
+      "mean_absolute_phase_error": 0.23354777035558785,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72817.82916666666,
+      "p95_absolute_phase_error": 0.5812122959714152,
+      "seed": 7
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04330846918473907,
+      "mean_absolute_phase_error": 0.2335477703555879,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 92797.95716666666,
+      "p95_absolute_phase_error": 0.581212295971416,
+      "seed": 7
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.05417703391105053,
+      "mean_absolute_phase_error": 0.24950086555914094,
+      "mean_ess_fraction": 0.6725440383125068,
+      "model": "robust_particle",
+      "ns_per_sample": 43409.357541666664,
+      "p95_absolute_phase_error": 0.6087213299000137,
+      "resamples_per_sample": 0.19995833333333332,
+      "seed": 7
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.043835360644980836,
+      "mean_absolute_phase_error": 0.2347812393624644,
+      "mean_ess_fraction": 0.6701413756652788,
+      "model": "robust_particle",
+      "ns_per_sample": 46239.83233333333,
+      "p95_absolute_phase_error": 0.5843049075038933,
+      "resamples_per_sample": 0.20241666666666666,
+      "seed": 7
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.0436042573382682,
+      "mean_absolute_phase_error": 0.23457235568535453,
+      "mean_ess_fraction": 0.6689533331863078,
+      "model": "robust_particle",
+      "ns_per_sample": 51956.381166666666,
+      "p95_absolute_phase_error": 0.5842583510759959,
+      "resamples_per_sample": 0.20404166666666668,
+      "seed": 7
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.043353436336653436,
+      "mean_absolute_phase_error": 0.2336560712107316,
+      "mean_ess_fraction": 0.6684130110208314,
+      "model": "robust_particle",
+      "ns_per_sample": 64172.03133333333,
+      "p95_absolute_phase_error": 0.5828842229097488,
+      "resamples_per_sample": 0.20633333333333334,
+      "seed": 7
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05513776649611178,
+      "mean_absolute_phase_error": 0.25345120244788216,
+      "model": "bounded_ekf",
+      "ns_per_sample": 12840.835958333333,
+      "p95_absolute_phase_error": 0.6302215367515581,
+      "seed": 8
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.044565275986909285,
+      "mean_absolute_phase_error": 0.2373908798542018,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72111.272125,
+      "p95_absolute_phase_error": 0.5970470608732856,
+      "seed": 8
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.044565275986909285,
+      "mean_absolute_phase_error": 0.2373908798542018,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 91549.40558333334,
+      "p95_absolute_phase_error": 0.5970470608732861,
+      "seed": 8
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.04539368656839279,
+      "mean_absolute_phase_error": 0.23939782652393565,
+      "mean_ess_fraction": 0.6723904971002017,
+      "model": "robust_particle",
+      "ns_per_sample": 43454.025,
+      "p95_absolute_phase_error": 0.6013748051315788,
+      "resamples_per_sample": 0.20004166666666667,
+      "seed": 8
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.045071046510886725,
+      "mean_absolute_phase_error": 0.2384719882056099,
+      "mean_ess_fraction": 0.6687534611605273,
+      "model": "robust_particle",
+      "ns_per_sample": 45686.494458333334,
+      "p95_absolute_phase_error": 0.598451108973799,
+      "resamples_per_sample": 0.20441666666666666,
+      "seed": 8
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.0449394449117031,
+      "mean_absolute_phase_error": 0.23812180103761704,
+      "mean_ess_fraction": 0.6668013473914216,
+      "model": "robust_particle",
+      "ns_per_sample": 52220.73783333333,
+      "p95_absolute_phase_error": 0.5975819359277229,
+      "resamples_per_sample": 0.20795833333333333,
+      "seed": 8
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04466009932915349,
+      "mean_absolute_phase_error": 0.2377150864284051,
+      "mean_ess_fraction": 0.6671742957748859,
+      "model": "robust_particle",
+      "ns_per_sample": 62913.84720833333,
+      "p95_absolute_phase_error": 0.5978119131227292,
+      "resamples_per_sample": 0.207875,
+      "seed": 8
+    },
+    {
+      "capacity": 0,
+      "circular_loss": 0.05815574055521824,
+      "mean_absolute_phase_error": 0.2578431836251965,
+      "model": "bounded_ekf",
+      "ns_per_sample": 13086.302583333334,
+      "p95_absolute_phase_error": 0.6195863591655376,
+      "seed": 9
+    },
+    {
+      "bins": 256,
+      "capacity": 256,
+      "circular_loss": 0.043922131271767036,
+      "mean_absolute_phase_error": 0.2367987064559901,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 72218.29833333334,
+      "p95_absolute_phase_error": 0.5856641957762939,
+      "seed": 9
+    },
+    {
+      "bins": 512,
+      "capacity": 512,
+      "circular_loss": 0.04392213127176702,
+      "mean_absolute_phase_error": 0.23679870645598994,
+      "mean_probability_mass": 1.0,
+      "model": "grid_reference",
+      "ns_per_sample": 93196.5305,
+      "p95_absolute_phase_error": 0.5856641957762939,
+      "seed": 9
+    },
+    {
+      "capacity": 32,
+      "circular_loss": 0.045704523294200605,
+      "mean_absolute_phase_error": 0.24057488155709966,
+      "mean_ess_fraction": 0.6716901658488598,
+      "model": "robust_particle",
+      "ns_per_sample": 43525.51666666667,
+      "p95_absolute_phase_error": 0.5913566477465305,
+      "resamples_per_sample": 0.200875,
+      "seed": 9
+    },
+    {
+      "capacity": 64,
+      "circular_loss": 0.044955760432307895,
+      "mean_absolute_phase_error": 0.23862964496143294,
+      "mean_ess_fraction": 0.6686503627540996,
+      "model": "robust_particle",
+      "ns_per_sample": 46908.856041666666,
+      "p95_absolute_phase_error": 0.5887429730131659,
+      "resamples_per_sample": 0.205,
+      "seed": 9
+    },
+    {
+      "capacity": 128,
+      "circular_loss": 0.04431455064635627,
+      "mean_absolute_phase_error": 0.23789372129706604,
+      "mean_ess_fraction": 0.6654351628243115,
+      "model": "robust_particle",
+      "ns_per_sample": 51848.578291666665,
+      "p95_absolute_phase_error": 0.5865105975041293,
+      "resamples_per_sample": 0.20829166666666668,
+      "seed": 9
+    },
+    {
+      "capacity": 256,
+      "circular_loss": 0.04429822573147007,
+      "mean_absolute_phase_error": 0.2374867634624662,
+      "mean_ess_fraction": 0.6645180061031611,
+      "model": "robust_particle",
+      "ns_per_sample": 63714.96466666667,
+      "p95_absolute_phase_error": 0.5844139591098213,
+      "resamples_per_sample": 0.20808333333333334,
+      "seed": 9
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,136 +1,456 @@
-# Reduced-State and Tensor-Network World Models
+# World models for quantum dynamics and control
 
-Falsification-first study of learned open-system dynamics on public experimental data,
-following the plan in `docs/reduced-state-tn-worldmodels.docx`.
+This repository asks: **when does a learned predictive state improve quantum-system
+inference or control enough to justify its measurement, training, and response-time
+costs?**
 
-The current research rationale is in [Why explore world models for quantum
-control?](docs/world-models-quantum-control-background.md). The
-[redistributed experiment plan](docs/redistributed-experiment-plan.md) replaces the
-original RB-gated sequence with independent tests of predictive memory, planning and
-policies, streaming observations and response latency, experimental access, physical
-constraints, and compression. Its new experiments are planned, not yet executed.
+The work combines public superconducting-qubit data with auditable simulations. It
+does not treat a history-dependent prediction gain as proof of physical quantum
+memory. Models are compared with Markov, classical hidden-state, direct-search, and
+causal-filtering baselines under matched observation access.
 
-**Core object:** a controlled process tensor — a map from a history of interventions to
-future reduced states and multi-time observables. The learned model maintains a compressed
-predictive state `z_{t+1} = F(z_t, rho_t, a_t)` with `rho_hat_{t+1} = G(z_{t+1})`.
+## Latest benchmark results — 8 September 2026
 
-## First runnable controls
+The newest [time-resolved graph experiment](docs/surface-time-template-report.md)
+adds ten complete d5 refits and **10,485,760 fresh test shots**. Selecting among
+AA/AB/BA/BB graphs lowers four-mode logical error from **1.5361% to 1.4237%** against
+77 equally calibrated static candidates, and midpoint-switch error from 1.4539%
+to 1.3261%. Matched memory/action ablations and the stated safety margins pass.
+However, moving the switch to two-thirds of the circuit causes resolved harm:
+1.4623% → 1.5096%. **The timing-transfer gate fails.** These are completed-record
+decisions, not demonstrated within-cycle feedback.
 
-The original plan is broad; see [`docs/process-critique.md`](docs/process-critique.md)
-for the process critique. Before fetching tomography data, run:
+The [native follow-up](docs/surface-time-template-latency-report.md) preserves all
+10.5 million replayed graph choices with a 160-byte recurrent state and 13,344-byte
+parameter buffers (decoder graphs excluded). Frontend p99 is 1.58–2.04 µs.
+The full-pipeline tail-cost gate still fails in one of ten fits, and all measured
+pipelines miss a hypothetical 5-µs arrival cadence. No deployment win is claimed.
+
+![Time-resolved graph gains and transfer failure](results/figures/surface_time_templates.png)
+
+Together with the four campaigns below, this is **47,710,208 held-out synthetic
+shots**. The [decision-theory note](docs/decoder-adaptation-risk-decomposition.md)
+separates errors in state estimation, graph choice and available graph actions;
+a small state does not imply a small sufficient decoder.
+
+The current thesis is to **learn a small adaptation law around a trusted decoder**.
+Four completed synthetic surface-code campaigns sharpen both its value and limits:
+
+| Experiment | Result | Verdict |
+| --- | --- | --- |
+| Ten complete refits against 72 selected static comparators, including correlated matching | d3 LER 2.0744% → 2.0110%; d5 1.6357% → 1.4861%; both simultaneous intervals exclude the minimum useful improvement | Nominal benchmark GO; transfer and safety gates fail |
+| Eight-state nuisance switching-rate filter, fresh d5 tests | Independent-mode LER 1.6257% → 1.5332%, near memoryless 1.5262%; nominal 1.4789% → 1.4816% | Four stated follow-up gates pass; within-shot changes still fail |
+| Exact small-code Bayesian teacher | d3 exact causal LER 1.7162% versus compiled 1.9115%; exact memoryless already reaches 1.7651% | Most remaining teacher advantage is not explained by history alone |
+| Equal-capacity affine/spline heads trained on exact conditional risks | d3 1.9608% → 1.9448%; only 11.3% of restricted-teacher opportunity recovered | Minimum-effect and 80%-compression gates fail |
+
+![Four campaigns and their failure boundaries](results/figures/surface_frontier_campaigns.png)
+
+The parent campaign uses **26,214,400 held-out shots**, disjoint fit/selection/test
+data, and uncertainty across ten complete refits. Follow-ups use fresh data but
+reuse those fitted evidence models. The d5 parent policy chooses a graph before
+decoding using 8 bytes of persistent state; measured p99 service-cost ratios are
+0.895–1.168 versus its paired static controls. This excludes acquisition, is not a
+deterministic latency guarantee, and does not measure the newer 64-byte filter.
+Neither real-deployment superiority nor general SOTA is established.
+
+Read the [stronger benchmark report](docs/surface-frontier-challenge-report.md),
+[rate-adaptation report](docs/surface-rate-adaptation-report.md),
+[exact-teacher report](docs/surface-exact-teacher-report.md),
+[distillation report](docs/surface-teacher-distillation-report.md), and
+[independent agent audit](docs/surface-frontier-science-audit.md).
+Earlier results below remain part of the record; their narrower controls do not
+supersede this stronger challenge.
+
+Recheck the archived counts, source hashes, seed separation and reported gates with
+`PYTHONPATH=src:. python scripts/verify_surface_campaigns.py` after installing the
+optional QEC dependencies. The current verified suite has 145 passing tests and
+one optional-Numba skip in the QEC environment.
+
+## Current evidence
+
+- The public `pt_recovery` randomized-benchmarking data have been reproduced across
+  four length/idle cells; see [Experiment A](RESULTS.md).
+- A compact coherent-plus-damping model and a general Markov CPTP channel explain the
+  active `idle100` forecast gain without persistent memory. It does not transfer to
+  `idle180`; see the [memoryless benchmark](docs/memoryless-benchmark-findings.md).
+- A synthetic streaming screen found favorable delay-aware forecasting conditions,
+  but an eight-setting test did not establish a general 20% advantage and exposed
+  failures under low signal and detector artifacts; see the
+  [streaming report](docs/streaming-benchmark-report.md).
+- Multi-rate causal heads are being evaluated as slow-path context models. A held
+  output feeds a cheap hot-path denoiser; KAN-inspired spline heads must beat equally
+  scheduled linear heads on both error and measured amortized latency.
+- The first 31-parameter spline head is a NO-GO: it adds at most about 1% over the
+  6-parameter linear head while costing 6–8 times more per update. See the
+  [multirate architecture note](docs/multirate-causal-architecture.md).
+- Particles are a NO-GO for an ordinary nonlinear unimodal stream but a GO as a slow
+  inference lane when wrapped observations make the posterior genuinely multimodal;
+  64 particles recover 91% of the EKF-to-grid loss gap. See the
+  [wrapped-phase report](docs/wrapped-phase-particle-report.md).
+- On a later-row holdout of real Ankaa-2 I/Q calibration shots, a 13-parameter
+  spline/KAN logistic head reduces Brier loss 6.0% versus a matched affine logistic
+  head, without an established classification-error gain. See the
+  [real I/Q report](docs/rigetti-real-iq-report.md).
+- That calibration gain does not survive the locked 100,000-shot stability-9 logical
+  replay. Independent soft-parity propagation is a NO-GO; graph-aware joint evidence
+  is now required. See the [QEC replay report](docs/rigetti-qec-replay-report.md).
+- Static circuit-local pair and cumulative-parity expansions also fail to close the
+  gap to released MWPM. See the
+  [graph-feature report](docs/rigetti-graph-feature-report.md).
+- A 31-parameter categorical syndrome model recovers 14.1% of that gap, but adding
+  temporal Markov order hurts. This is below the 20% gate and redirects work to a true
+  matching baseline. See the
+  [Markov decoder report](docs/rigetti-markov-decoder-report.md).
+- A transparent uniform circuit-noise model plus PyMatching reaches 38.7475%, matching
+  the released 38.819% stability-9 anchor to within 0.0715 percentage points. Learned
+  components must now improve this structural control. See the
+  [matching report](docs/rigetti-matching-control-report.md).
+- Three type-specific matching rates improve stability-9 error by only 0.54% relative,
+  with an interval crossing zero. Frozen transfer to an independent 600,000-shot
+  acquisition is a stronger NO-GO: they significantly harm every 12--24-round circuit.
+  See the [typed-matching report](docs/rigetti-typed-matching-report.md) and
+  [transfer report](docs/rigetti-matching-transfer-report.md).
+- A label-free hard-syndrome pairwise-correlation graph improves several shallow and
+  mid-depth circuits but misses the locked 23-round endpoint. Analog access must be
+  isolated before adaptive filtering is justified; see the
+  [pairwise report](docs/rigetti-pairwise-matching-report.md).
+- Naively refitting that graph on a causal 20,000-row rolling window also misses the
+  maximum-depth endpoint. Responsivity alone is a NO-GO; see the
+  [adaptive pairwise report](docs/rigetti-adaptive-pairwise-report.md).
+- Sample-split affine I/Q reweighting is a mechanism GO: it reduces 23-round logical
+  error from the strongest hard control's 16.515% to 16.0625%, with a positive paired
+  interval, and falls within 0.20 points of the released 15.901% soft result. See the
+  [soft matching report](docs/rigetti-soft-matching-report.md).
+- The frozen recipe, with graph and I/Q parameters refit per circuit, improves all six
+  tested depths by 2.74--14.24% relative to the hard circuit template, with every
+  paired interval above zero.
+- Replacing that affine calibrator with the 13-parameter spline/KAN head worsens the
+  point estimate to 16.2075%; the direct paired interval is unresolved. The cheap
+  affine head remains the selected soft path.
+- A causal 20,000-row rolling affine calibrator improves next-block I/Q Brier and NLL
+  by 2.49% and 2.31%, respectively. This predictive GO now requires a logical-error
+  mediation test; see the [I/Q drift report](docs/rigetti-iq-drift-report.md).
+- That predictive drift gain does not mediate logical performance: rolling soft
+  matching improves error by only 0.062% relative with an interval crossing zero.
+  EKF/particle escalation is stopped; see the
+  [adaptive soft report](docs/rigetti-adaptive-soft-report.md).
+- Post-repair transfer to the independent no-reset session reduces 25-round logical
+  error from the strongest hard control's 20.415% to 18.2775% (10.47% relative), with
+  a positive paired interval. A retained topology bug invalidated the first look, so
+  this is not described as pristine confirmation; see the
+  [no-reset report](docs/rigetti-noreset-confirmation-report.md).
+- Terminal record-level uncertainty routing is not selective enough: at the nominal
+  20% budget, actual load is 20.54--24.10% and only 25--28% of the same-topology soft
+  gain is recovered. This is an exploratory selector NO-GO, while fixed-topology
+  mutable weights remain the primary path; see the
+  [event-routing report](docs/event-triggered-soft-routing-report.md).
+- Fixed-topology mutable decoding exactly matches graph reconstruction on all 80,000
+  held-out records and improves amortized matching throughput by 42--62x. Packed
+  batch-one p99 remains 195--768 us per completed record, so this is an engineering
+  GO and a Python deployment NO-GO; see the
+  [mutable-decoder report](docs/fixed-topology-mutable-decoder-report.md).
+- Microbatches up to 64 records approach 40/54 us per record but incur 2.58/3.45 ms
+  batch compute plus up to 2.46/2.68 ms of fill delay under cadence-derived record
+  arrivals, and still miss the 39.1/42.5-us throughput budgets.
+  Batching is a latency-fix NO-GO; the indexed front end must be compiled/fused.
+- An exact compiled temporal-frontier decoder has zero disagreements with reconstructed
+  matching on the same 80,000 records. Its 50.52/515.92-us throughput exposes the
+  exponential separator-width boundary: it is a semantic/oracle GO but a deployment
+  NO-GO against mutable matching. See the
+  [frontier-decoder report](docs/rigetti-frontier-decoder-report.md).
+- A topology-only search cannot rescue that branch to its latency gate: beams through
+  512 retain bag cardinality 9, while a treewidth lower bound of 6 proves that the
+  required bag cardinality <=6 is impossible. The fused mutable backend is primary.
+- A compiled affine-I/Q-to-edge kernel exactly matches every generated weight and all
+  4,000 screened decisions while cutting median front-end latency from 50--51 us to
+  7.2--7.3 us. Full pipeline p50 falls to 51.1/60.7 us but remains above cadence: a
+  computational GO and deployment NO-GO. See the
+  [fused-hotpath report](docs/rigetti-fused-hotpath-report.md).
+- A graph-owned preindexed PyMatching fork preserves all 80,000 endpoint-API decisions
+  and returned solution weights. In one shared-CPU run, observed matching p50 was
+  14.7%/11.8% lower and pipeline p50 was 37.0/46.8 us. This misses the
+  predeclared 20% gate; see the
+  [preindexed-matching report](docs/rigetti-preindexed-matching-report.md).
+- Transactional C++ batch preindexing is also exact on all 80,000 decisions, but its
+  largest median per-record reduction is 19.17%, below the 20% gate. A nominal
+  no-reset batch-32 matching-only cadence crossing is just 6.4 ns, excludes the
+  roughly 7.2-us front end, and makes the oldest record wait 2.68 ms. It is an offline
+  throughput primitive, not the real-time fix; see the
+  [batch-preindexed report](docs/rigetti-batch-preindexed-report.md).
+- Eight-bit uniformly quantized soft-flip probabilities meet the exploratory
+  <=0.10-percentage-point noninferiority screen against the floating affine path on
+  both reused 40,000-record partitions, while changing 19/43 decisions. Six bits is
+  jointly unresolved and four bits causes resolved harm without resets. This supports
+  one byte as the conservative probability-field compiler target, not a measured
+  hardware bandwidth or latency claim; see the
+  [quantization report](docs/rigetti-soft-quantization-report.md).
+- A first synthetic graph-overlay compiler screen supports observation-conditioned
+  reweighting but not yet temporal memory: a privileged four-state HMM closes 83.3%
+  of the static-to-oracle gap in the favorable arm, but its incremental gain over a
+  memoryless observation model is only 10/262,144 errors with an interval crossing
+  zero. A one-EMA/LUT student retains only 5.7% of HMM gain, and mode-entropy routing
+  fails its simple-baseline advancement gate. These are bounded development results, not hardware
+  results; see the [compiler screen report](docs/adaptive-compiler-screen-report.md).
+- A missing-factor positive control establishes why graph topology must sometimes
+  change: a base pair model has 4.0495% logical error when a four-detector logical
+  factor is present, while inserting the correct compiled factor reaches 0.3212%.
+  Unconditional insertion causes 0.0887-point harm when the factor is absent, so mode
+  gating is necessary; see the [factor screen](docs/graph-factor-screen-report.md).
+- A persistent-factor control now separates causal memory, mode selection, and local
+  hypothesis width. Known-parameter temporal belief beats matched memoryless inference
+  in both ambiguity arms. At high noise, semantic `FORK(K=2)` beats hard mode selection
+  by 0.00401 percentage points; an EMA/hysteresis FSM retains 85.5% of the hard-selector
+  gain but only 74.7% of the richer fork gain. All are synthetic mechanism results;
+  see the [factor-gating report](docs/factor-gating-screen-report.md).
+- An exploratory 24-cell factor-rate sweep with frozen decision rules but
+  oracle-known per-cell noise parameters finds at least 80% point-estimate recovery
+  in 8/8 selected low-noise cells for ACTIVATE, FORK, and FSM, versus 0/8, 1/8, and
+  0/8 at high noise. This is sensitivity evidence—not a causal observability result
+  or deployment-transfer test; see the
+  [factor sensitivity sweep](docs/factor-parameter-sweep-report.md).
+- A precommitted paired deployment-shift test finds that frozen `FORK(K=2)` alone
+  meets the +0.05 percentage-point safety cap in 24/24 cells and recovers at least
+  70% of calibrated-oracle opportunity in 14/14 informative non-nominal cells.
+  However, it significantly harms the sparse/high-ambiguity corner (+0.0263 pp,
+  95% CI [+0.0183, +0.0344]), showing the absolute cap was too permissive. A
+  slow-path two-rate estimator exactly identifies all 24 finite-grid cells and
+  recovers 100% of the FORK recalibration gain in 4/4 eligible cells; see the
+  [deployment-shift report](docs/factor-deployment-shift-report.md).
+- On a precommitted Stim/PyMatching rotated surface-code benchmark, a one-scalar
+  causal mode filter beats a matched memoryless graph router at distances 3 and 5.
+  It passes temporal-value and nominal-null conditions, but fails the stricter
+  graph-relevance and 80%-oracle-recovery conditions. This is evidence for tiny
+  causal state and against coarse whole-graph switching; see the
+  [surface-code routing report](docs/surface-mode-routing-report.md).
+- A precommitted left-half burst benchmark does **not** beat its strongest
+  independently selected fixed graph. Local counts improve mode classification, but
+  all logical-utility conditions are unresolved and only null safety passes; see the
+  [local-overlay report](docs/surface-local-overlay-report.md).
+- Under incompatible measurement-dominated and gate/data-dominated regimes, the
+  causal affine router beats a 25-way calibration-selected static MWPM graph at
+  distances 5 and 7 by 0.1633 and 0.1160 percentage points with paired intervals
+  below zero. It beats matched memoryless routing at all distances, but distance 3
+  remains unresolved and fails oracle-recovery and stationary-safety gates; see the
+  [regime-switch report](docs/surface-regime-switch-report.md).
+- A constrained residual router subsequently beats the 25-way static benchmark at
+  both distances 3 and 5, by 0.0599 and 0.0427 percentage points with paired upper
+  bounds below zero. However, reusing its action-training data for policy selection
+  causes a distance-5 selection error against the simpler causal router. The static
+  benchmark win is valid; architecture selection remains a NO-GO pending a disjoint
+  selection split. See the
+  [residual-router report](docs/surface-residual-router-report.md).
+- The corrected cross-fitted compiler separates calibration, residual fitting,
+  policy selection, test, and controls into disjoint seed namespaces. It beats the
+  25-way calibration-selected static MWPM benchmark at distances 3 and 5 by 0.1080
+  and 0.1667 percentage points with paired intervals below zero, recovers 76.7% and
+  87.8% of mode-informed opportunity, and beats the prior adaptive and selected
+  memoryless routers. It passes the declared +0.05-point non-inferiority margin in
+  all four stationary controls. The compiler selects an energy-residual head at
+  distance 3 but rejects it for the simpler posterior router at distance 5; see the
+  [cross-fitted benchmark report](docs/surface-crossfit-compiler-report.md).
+
+These are bounded prediction findings, not closed-loop hardware-control claims.
+
+## Research structure
+
+The [background note](docs/world-models-quantum-control-background.md) explains how
+world models might help as predictors, planners, policies, belief states, and probe
+selectors. The [experiment plan](docs/redistributed-experiment-plan.md) defines
+observation contracts, mechanism families, quantitative targets, and GO/NO-GO rules.
+The [process critique](docs/process-critique.md) and
+[scientific review](docs/scientific-review.md) document limitations.
+The [autonomous audit](docs/autonomous-science-audit.md) records corrections made after
+the streaming runs, the [real-QEC audit](docs/real-qec-science-audit.md) fixes the next
+baseline and adaptive-estimation gates, and the
+[deployment ladder](docs/deployment-benchmark-ladder.md) prioritizes public
+real-hardware datasets.
+The [selected architecture and frontier](docs/selected-architecture-and-frontier.md)
+distills the surviving mechanism, rejected branches, equations, benchmark gaps, and
+deployment GO conditions.
+The [frontier strategy review](docs/frontier-strategy-review.md) now organizes the next
+program around one thesis—learn the smallest stable adaptation law around a trusted
+constraint-preserving decoder—three scientific hypotheses, and a hardware-aware
+program compiler with explicit stop conditions.
+The [graph-overlay compiler program](docs/graph-overlay-compiler-program.md) makes
+graph transformations first-class, defines the decoder-defect taxonomy, and specifies
+the controlled benchmark ladder for reweighting, mode activation, factor insertion,
+local hypothesis lifting, region growth/solve, added observations, and hardware
+partitioning.
+
+The core predictive object is a compressed causal state:
+
+```text
+z[t+1] = F(z[t], observation[t], action[t])
+prediction[t+1] = G(z[t+1])
+```
+
+Simulator-only states are privileged references, never free policy observations.
+Streaming claims use only data available at the decision timestamp.
+
+## Install and verify
 
 ```bash
-PYTHONPATH=src python scripts/run_directional_experiments.py --seeds 10
-PYTHONPATH=src pytest -q
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -e '.[dev]'
+pytest -q
 ```
 
-Add `--output results/directional_controls.json` to save per-seed values and the
-5th–95th percentile seed interval.
+Fetch public data with `./scripts/fetch_data.sh`. Raw third-party data are stored in
+`data/external/` and are not committed.
 
-These controls test known action-memory and physical Bloch-ball effects. They are
-implementation checks, not claims about a real device.
-
-## Real benchmark
-
-After fetching the raw `pt_recovery` release, run the length-extrapolation benchmark:
+## Principal commands
 
 ```bash
-python scripts/run_pt_recovery_benchmark.py \
-  data/external/pt_recovery/experiment_data/RB_data_20230104/len40/idle100/rb_data_0.1/standard_rb_1q_full_data.json \
-  --output results/pt_recovery_rb_01.json
-```
+# Cheap implementation controls
+PYTHONPATH=src python scripts/run_directional_experiments.py \
+  --seeds 10 --output results/directional_controls.json
 
-The current result and its comparison to the published OQE/process-tensor work are in
-[`docs/real-benchmark-report.md`](docs/real-benchmark-report.md). The architectural
-analysis in [`docs/architecture-findings.md`](docs/architecture-findings.md) shows
-that validation-gated shrinkage of the released OQE correction improves the specific
-length-41–60 survival-probability forecast. It is not a claim about every process-
-tensor observable.
-
-The subsequent [matched memoryless benchmark](docs/memoryless-benchmark-findings.md)
-finds that a compact coherent-plus-damping qubit model and a general Markov CPTP
-channel explain the active `idle100` sequence-forecast gain without persistent state.
-That gain does not transfer to `idle180`; increasing pure-unitary OQE memory through
-D6 does not rescue it. See the [independent scientific review](docs/scientific-review.md)
-for the revised identification question and experimental controls.
-
-The [delay-aware streaming study](docs/streaming-benchmark-report.md) finds a bounded
-favorable regime, then shows in a fresh eight-setting parameter-family test that the
-advantage is not generally above 20% and can reverse under low signal and frequent
-detector artifacts. This synthetic boundary result motivates a robust-emission model;
-it is not a general quantum-feedback claim.
-
-## Original experiment (A) — real-device process world model
-
-Data: `guochu/pt_recovery` (superconducting-qubit randomized-benchmarking sequences with
-correlated noise, recovered process tensors) and `Christina-Giar/NMN-tomo` (multi-time
-process tomography on a superconducting qubit).
-
-Models under comparison at matched parameter count:
-
-1. time-homogeneous Markov channel,
-2. transfer-tensor / linear autoregression,
-3. GRU (and a small Transformer variant),
-4. causality/CPTP-constrained process-MPO with bond dimension chi.
-
-Split discipline (from the plan): train on sequence length <= 20 and a subset of bias
-settings; test on length 40/60, held-out bias, and held-out control families. Random
-time-point splits are forbidden — they leak the same physical trajectory.
-
-## Repository interface
-
-Every model implements one contract (`src/ptwm/api.py`):
-
-- `observe` — density matrix, local marginals, or measurement outcomes,
-- `act` — pulse, channel, Hamiltonian/quench parameter, or geometry update,
-- `latent` — recurrent vector, ADO stack, or MPO bond,
-- `predict` — next RDM plus selected multi-time observables,
-- `check` — positivity, trace, causality/CPTP residual, N-representability relaxations,
-  conservation,
-- `budget` — bond/latent dimension, runtime, peak memory.
-
-## Layout
-
-```
-src/ptwm/        package: data loading, models, metrics, splits
-scripts/         entry points (fetch data, train, evaluate, figures)
-configs/         experiment configs (YAML)
-tests/           unit + integration tests
-results/         metrics tables and figures (small artifacts, tracked)
-data/            fetched third-party data (gitignored; see scripts/fetch_data.sh)
-docs/            the plan document
-```
-
-## Quickstart
-
-```bash
-./scripts/fetch_pt_recovery.sh
-PYTHONPATH=src python -m pytest tests -q
-python scripts/compare_released_oqe.py data/external/pt_recovery \
-  --output results/released_oqe_comparison.json
-python scripts/train_reconstructed_oqe.py data/external/pt_recovery \
-  --bias 0.5 --memory-dimensions 1,2 --seeds 0,1,2 \
-  --output results/reconstructed_oqe_bias_05.json
-python scripts/run_markov_model_comparison.py data/external/pt_recovery \
-  --condition idle100 --biases 0.4,0.5,0.52,0.54 \
-  --models damped_d1,markov_cptp --seeds 0,1,2,3,4 --epochs 50 \
+# Matched real-data Markov comparison
+PYTHONPATH=src python scripts/run_markov_model_comparison.py \
+  data/external/pt_recovery --condition idle100 \
+  --biases 0.4,0.5,0.52,0.54 --models damped_d1,markov_cptp \
+  --seeds 0,1,2,3,4 --epochs 50 \
   --output results/markov_models_idle100_active.json
+
+# Streaming delay and fresh parameter-family screens
+PYTHONPATH=src python scripts/run_streaming_benchmark.py \
+  --output results/streaming_benchmark.json
+PYTHONPATH=src python scripts/run_streaming_confirmation.py \
+  --workers 8 --output results/streaming_confirmation.json
+
+# Multi-rate causal heads
+PYTHONPATH=src python scripts/run_causal_head_benchmark.py \
+  --seeds 10 --delay 25 --strides 1,8,32,128 \
+  --output results/causal_head_benchmark.json
+
+# Nonlinear EKF/particle feasibility screen
+PYTHONPATH=src python scripts/run_nonlinear_filter_benchmark.py \
+  --seeds 10 --delay 10 --output results/nonlinear_filter_benchmark.json
+
+# Multimodal wrapped-phase positive control
+PYTHONPATH=src python scripts/run_wrapped_phase_benchmark.py \
+  --seeds 10 --streams 30 --length 800 --delay 10 \
+  --particles 32,64,128,256 --output results/wrapped_phase_benchmark.json
+
+# Real Ankaa-2 I/Q calibration (requires: pip install -e '.[real]')
+./scripts/fetch_rigetti_fast_feedback.sh
+PYTHONPATH=src python scripts/run_rigetti_iq_benchmark.py \
+  --output results/rigetti_iq_benchmark.json
+
+# Logical replay on the 100,000-shot stability-9 file
+./scripts/fetch_rigetti_stability9.sh
+PYTHONPATH=src python scripts/run_rigetti_qec_replay.py \
+  --data data/rigetti_stability9/stability_9_raw_data.h5 \
+  --circuit-group circuit_26 --output results/rigetti_stability9_qec_replay.json
+
+# Matching control using an explicit approximate circuit-noise model
+PYTHONPATH=src python scripts/run_rigetti_matching_control.py \
+  --data data/rigetti_stability9/stability_9_raw_data.h5 \
+  --circuit-group circuit_26 --output results/rigetti_matching_control.json
+
+# Frozen no-retuning transfer to an independent acquisition
+./scripts/fetch_rigetti_stability8_resets.sh
+PYTHONPATH=src python scripts/run_rigetti_matching_transfer.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --output results/rigetti_matching_transfer.json
+
+# Independent no-reset confirmation data (large download)
+./scripts/fetch_rigetti_stability8_no_resets.sh
+
+# Label-free pairwise-correlation graph with a locked hard-syndrome holdout
+PYTHONPATH=src python scripts/run_rigetti_pairwise_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --output results/rigetti_pairwise_matching.json
+
+# Exploratory causal rolling calibration on the already-accessed deepest circuit
+PYTHONPATH=src python scripts/run_rigetti_adaptive_pairwise.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_adaptive_pairwise.json
+
+# Sample-split affine I/Q edge reweighting on the locked final 40,000 rows
+PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_soft_matching.json
+
+# Matched spline/KAN calibration-head ablation
+PYTHONPATH=src python scripts/run_rigetti_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --knots 6 \
+  --output results/rigetti_soft_matching_spline.json
+
+# Causal calibration-drift mediation at the logical endpoint
+PYTHONPATH=src python scripts/run_rigetti_adaptive_soft_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --output results/rigetti_adaptive_soft_matching.json
+
+# Experimental mutable backend (pin is also recorded in every result artifact)
+python -m pip install --force-reinstall --no-deps \
+  git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251
+PYTHONPATH=src python scripts/run_rigetti_mutable_matching.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --syndrome-rounds 23 \
+  --equivalence-shots 40000 --batch-repeats 30 \
+  --output results/rigetti_mutable_matching_with_resets.json
+
+# Accuracy sensitivity to a compiled probability payload
+PYTHONPATH=src python scripts/run_rigetti_soft_quantization.py \
+  --data data/rigetti_stability8_resets/stability_8_with_resets_raw_data.h5 \
+  --circuit-group circuit_22 --bits 0 8 7 6 5 4 3 2 1 \
+  --output results/rigetti_soft_quantization_with_resets.json
 ```
 
-## Status
+The causal-head benchmark currently uses delayed simulator-state targets as a
+privileged diagnostic. It cannot support a deployable learned-policy claim until an
+experimentally accessible delayed verification signal replaces those targets.
 
-- [x] Plan ingested (docx), data sources pinned
-- [x] Experiment A: ingestion, leakage-safe splits, and four baseline cells (see `RESULTS.md`)
-- [x] Directional residual analysis across bias and horizon
-- [x] Iterative rollout-based RL on real sequences (per-episode updates, not batch)
-- [x] Released OQE forecast comparison and memory-dimension sweep
-- [x] Clifford group recovery and independent differentiable OQE reconstruction
-- [x] Matched memoryless-channel comparison and idle-duration transfer test
-- [x] Independent `idle180` check (active mixing failed to transfer)
-- [ ] NMN-tomo process-matrix physicality residuals (loader present, analysis pending)
-- [ ] Acquisition-block uncertainty and prospective active-mixing confirmation
-- [ ] Matched planning/policy comparisons in simulations with explicit observation access
-- [x] First hidden-detuning streaming/delay screen on GCP
-- [x] Fresh eight-setting streaming parameter-family confirmation
-- [ ] Robust-emission streaming model and quantum-trajectory extension
-- [ ] Observation-design, constraint, and compression experiments from the redistributed plan
+## Repository map
+
+```text
+src/ptwm/   loaders, models, splits, metrics, and streaming primitives
+scripts/    reproducible experiment entry points
+tests/      unit and public-data integration tests
+results/    versioned metrics, predictions, and figures
+docs/       rationale, critiques, plans, and evidence reports
+data/       fetched third-party data; ignored by Git
+```
+
+## Campaign status
+
+- [x] Public-data ingestion, leakage-aware splits, and Experiment A baselines
+- [x] Released/reconstructed OQE and matched memoryless comparisons
+- [x] Idle-duration transfer test
+- [x] Streaming delay screen and eight-setting parameter-family test on GCP
+- [x] Multi-rate linear/KAN-inspired causal-head diagnostic on GCP
+- [x] Nonlinear robust-EKF/particle feasibility screen on GCP
+- [x] Wrapped-phase multimodal particle positive control on GCP
+- [x] Real Ankaa-2 I/Q acquisition-order calibration screen on GCP
+- [x] Real Ankaa-2 100,000-shot logical soft-decoding NO-GO on GCP
+- [x] Reproduce released stability-9 MWPM scale with a transparent matching control
+- [x] Reject frozen type-only matching weights on an independent 600,000-shot transfer
+- [x] Test a transparent hard-syndrome pairwise graph on a locked holdout
+- [x] Reject naive rolling pairwise refits at maximum depth
+- [x] Match the released soft-I/Q result within the 0.20-point validity gate
+- [x] Reject rolling calibration and particle/EKF escalation at the logical endpoint
+- [x] Support the affine soft mechanism on an independent no-reset post-repair screen
+- [x] Validate packed fixed-topology soft edge updates on 80,000 held-out records
+- [x] Reject microbatching as the primary streaming-latency fix
+- [x] Validate and reject an exact temporal-frontier DP as the general hot path
+- [ ] Fuse I/Q-to-edge updates into a compiled batch-one decoder API
+- [x] Fuse affine I/Q inference and odd-parity edge construction in Numba
+- [x] Replace endpoint parsing with a graph-owned preindexed matching plan
+- [x] Test and reject C++ batch-preindexed overwrite as the real-time fix
+- [x] Establish an exploratory 8-bit soft-probability accuracy target on both sessions
+- [x] Run the first observation-conditioned REWEIGHT mechanism screen
+- [ ] Build a defect-isolating local-region solve screen
+- [x] Establish the INSERT_FACTOR positive/null control
+- [x] Test causal ACTIVATE_MODE and semantic local FORK(K=2)
+- [x] Reject simple event-triggered routing as a substitute for mutable graph weights
+- [ ] Robust contamination-aware emission model
+- [ ] Backaction-consistent quantum-trajectory control benchmark
+- [ ] Matched planning/policy comparison with explicit observation costs
+- [ ] NMN-tomo process-matrix physicality analysis
+- [ ] Prospective hardware or held-out real-deployment confirmation
+
+The current autonomous campaign review is in draft
+[GitHub pull request #2](https://github.com/stannum13/wm-tn-worldmodels/pull/2).

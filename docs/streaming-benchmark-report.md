@@ -44,11 +44,13 @@ can matter independently of improving the current-state estimator.
 
 ## Decision
 
-This is a **screening GO** for the delay-aware prediction branch at delays of 25 samples
-and longer under this process: its mean gain and paired interval clear the proposed 20%
-threshold. It is not a confirmed general result. The comparator was selected after the
-screen, seeds share one generating parameter set, and the interval measures Monte Carlo
-seed variability rather than device-to-device generalization.
+The original analysis called this a screening GO at delays of 25 samples and longer.
+An independent audit found that interpretation too strong. The score is Brier loss for
+a future hidden state, not closed-loop control; the action does not alter the process.
+Moreover, the stationary fault prior has theoretical Brier risk 0.0988 and is slightly
+better than the fitted forecast at delays 50 and 100. The long-delay GO is withdrawn.
+The remaining scientific target is the intermediate-delay region where observations
+retain information beyond both a stationary prior and a robust direct predictor.
 
 Before confirmation, freeze a comparator-selection rule and test fresh parameter
 instances spanning dwell time, signal-to-noise ratio, artifact rate, and asymmetric
@@ -74,7 +76,9 @@ on the same GCP VM and consumed 2 minutes 38 seconds wall time across eight work
 | 0.50 | 7.2% | -7.2–21.6% |
 | 1.00 | 18.8% | 13.2–24.4% |
 
-The follow-up does **not** confirm a general 20% benefit. One low-signal,
+The cross-cell intervals above are descriptive because the eight cells are fixed design
+conditions, not random draws from a declared process population. The follow-up does
+**not** confirm a general 20% benefit. One low-signal,
 high-artifact instance was 52% worse at a quarter dwell time. At a full dwell time,
 all instance means were positive but the cross-instance mean remained below the
 minimum worthwhile effect. The first screen therefore located a favorable operating

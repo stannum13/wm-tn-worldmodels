@@ -1,0 +1,20 @@
+{
+  "distinct_recorded_dataset_hashes": 562,
+  "distinct_recorded_seeds": 1632,
+  "followup_frozen_commits": {
+    "surface_rate_adaptation.json": "fefa64fe9e8d08662e1a385ded3a6d46feee8726",
+    "surface_teacher_distillation.json": "4b2613c33ad6142d3ff579e9ed08bc04bb76df86"
+  },
+  "heldout_test_records": 47710208,
+  "limits": "Recorded counts/manifests/summaries and source-artifact bytes verified; not a simulator rerun. Earlier rate/distillation follow-ups record source commit but not every runtime dependency version. Latency intentionally replays parent data and is not an independent accuracy test.",
+  "native_time_template_choice_replays": 10485760,
+  "native_time_template_gates": {
+    "all_choices_exact": true,
+    "complete": true,
+    "service_cost": false,
+    "timed_outputs_exact": true
+  },
+  "time_template_frozen_commit": "88122c57d580049c6cc84bb528f7a4f6dd1ba77d",
+  "verified": true,
+  "verifier_sha256": "0fc2f3578c50e1f4026b36d74f633524cfca933870eb330e549157c1c4531290"
+}

@@ -21,6 +21,77 @@ class StreamParameters:
     stds: np.ndarray
 
 
+@dataclass(frozen=True)
+class CausalHead:
+    """Small ridge-fitted causal head with optional univariate spline edges."""
+
+    weights: np.ndarray
+    feature_min: np.ndarray
+    feature_max: np.ndarray
+    knots: int
+
+    def predict(self, features: np.ndarray) -> np.ndarray:
+        return np.clip(_head_design(features, self.feature_min, self.feature_max, self.knots) @ self.weights, 0.0, 1.0)
+
+
+def _head_design(x: np.ndarray, low: np.ndarray, high: np.ndarray, knots: int) -> np.ndarray:
+    x = np.asarray(x, dtype=float)
+    scaled = np.clip((x - low) / np.maximum(high - low, 1e-9), 0.0, 1.0)
+    if knots <= 1:
+        return np.c_[np.ones(len(x)), scaled]
+    centers = np.linspace(0.0, 1.0, knots)
+    width = 1.0 / (knots - 1)
+    basis = np.maximum(1.0 - np.abs(scaled[..., None] - centers) / width, 0.0)
+    return np.c_[np.ones(len(x)), basis.reshape(len(x), -1)]
+
+
+def fit_causal_head(features: np.ndarray, targets: np.ndarray, *, knots: int = 6, ridge: float = 1e-3) -> CausalHead:
+    """Fit a linear head (knots=1) or additive piecewise-linear KAN-like head."""
+    x = np.asarray(features, dtype=float)
+    low, high = np.quantile(x, [0.01, 0.99], axis=0)
+    design = _head_design(x, low, high, knots)
+    weights = np.linalg.solve(design.T @ design + ridge * np.eye(design.shape[1]), design.T @ np.asarray(targets))
+    return CausalHead(weights, low, high, knots)
+
+
+def causal_context_features(observations: np.ndarray, belief: np.ndarray, *, window: int, stride: int, delay: int, states: np.ndarray | None = None) -> tuple[np.ndarray, np.ndarray | None, np.ndarray]:
+    """Build bounded-influence past-only summaries at slow-head update ticks."""
+    rows, targets, locations = [], [], []
+    for s in range(observations.shape[0]):
+        for tick in range(window - 1, observations.shape[1] - delay, stride):
+            chunk = observations[s, tick - window + 1:tick + 1]
+            finite = chunk[np.isfinite(chunk)]
+            median = np.median(finite) if len(finite) else 0.0
+            mad = np.median(np.abs(finite - median)) if len(finite) else 0.0
+            last = np.clip(finite[-1], median - 4 * max(mad, 1e-3), median + 4 * max(mad, 1e-3)) if len(finite) else 0.0
+            rows.append([belief[s, tick], median, mad, last, 1.0 - len(finite) / window])
+            locations.append((s, tick))
+            if states is not None:
+                targets.append(states[s, tick + delay])
+    return np.asarray(rows), (np.asarray(targets) if states is not None else None), np.asarray(locations)
+
+
+def slow_head_denoiser(base: np.ndarray, head_values: np.ndarray, locations: np.ndarray, *, stride: int, mix: float = 0.5, smoothing: float = 0.25) -> np.ndarray:
+    """Asynchronously hold a slow context estimate for cheap hot-path fusion."""
+    if stride < 1:
+        raise ValueError("stride must be positive")
+    out = np.array(base, copy=True)
+    by_stream: dict[int, list[tuple[int, float]]] = {}
+    for (stream, tick), value in zip(locations, head_values):
+        by_stream.setdefault(int(stream), []).append((int(tick), float(value)))
+    for stream, updates in by_stream.items():
+        held, cursor, active = base[stream, 0], 0, False
+        for tick in range(base.shape[1]):
+            if cursor < len(updates) and tick == updates[cursor][0]:
+                candidate = updates[cursor][1]
+                held = candidate if not active else held + smoothing * (candidate - held)
+                active = True
+                cursor += 1
+            if active:
+                out[stream, tick] = (1.0 - mix) * base[stream, tick] + mix * held
+    return out
+
+
 def stationary_distribution(transition: np.ndarray) -> np.ndarray:
     """Return the stationary distribution of a two-state transition matrix."""
     transition = np.asarray(transition, dtype=float)
@@ -159,10 +230,23 @@ def fit_gaussian_hmm(
     return StreamParameters(transition=transition, means=means, stds=stds)
 
 
-def causal_hmm_filter(observations: np.ndarray, params: StreamParameters) -> np.ndarray:
-    """Return P(state=1 | observations through t) for every stream and time."""
+def causal_hmm_filter(
+    observations: np.ndarray,
+    params: StreamParameters,
+    *,
+    log_likelihood_ratio_clip: float | None = None,
+) -> np.ndarray:
+    """Return a causal belief, optionally bounding each sample's log-odds influence."""
     y = np.asarray(observations, dtype=float)
     log_emits = _emission_log_prob(y, params)
+    if log_likelihood_ratio_clip is not None:
+        ratio = np.clip(
+            log_emits[..., 1] - log_emits[..., 0],
+            -log_likelihood_ratio_clip,
+            log_likelihood_ratio_clip,
+        )
+        log_emits[..., 0] = 0.0
+        log_emits[..., 1] = ratio
     log_emits -= np.max(log_emits, axis=2, keepdims=True)
     emits = np.exp(log_emits)
     belief = np.broadcast_to(stationary_distribution(params.transition), (len(y), 2)).copy()
@@ -196,14 +280,14 @@ def forecast_belief(probability: np.ndarray, transition: np.ndarray, delay: int)
     return (1.0 - probability) * power[0, 1] + probability * power[1, 1]
 
 
-def score_delayed_control(
+def score_delayed_prediction(
     action: np.ndarray,
     states: np.ndarray,
     *,
     delay: int,
     artifacts: np.ndarray | None = None,
 ) -> dict[str, float]:
-    """Score an action selected at t against the latent state at t + delay."""
+    """Score a soft causal forecast against the latent state at t + delay."""
     if delay >= states.shape[1]:
         raise ValueError("delay must be shorter than the stream")
     usable = states.shape[1] - delay
@@ -212,7 +296,7 @@ def score_delayed_control(
     error = (chosen - target) ** 2
     binary = chosen >= 0.5
     metrics = {
-        "control_mse": float(error.mean()),
+        "brier_loss": float(error.mean()),
         "classification_error": float(np.mean(binary != target.astype(bool))),
         "false_action_rate": float(binary[target == 0].mean()),
         "missed_fault_rate": float((~binary[target == 1]).mean()),
@@ -240,15 +324,23 @@ def benchmark_estimators(
     samples = observations.size
     reports: dict[int, dict[str, dict[str, float]]] = {}
     for delay in delays:
+        robust_belief = causal_hmm_filter(
+            observations, params, log_likelihood_ratio_clip=3.0
+        )
+        prior = np.full_like(belief, stationary_distribution(params.transition)[1])
         policies = {
             "instantaneous": (instant, instant_ns),
             "ewma": (ewma, ewma_ns),
             "hmm_filter_current": (belief, filter_ns),
             "hmm_delay_forecast": (forecast_belief(belief, params.transition, delay), filter_ns),
+            "hmm_clipped_forecast": (
+                forecast_belief(robust_belief, params.transition, delay), filter_ns
+            ),
+            "stationary_prior": (prior, 0),
         }
         reports[delay] = {}
         for name, (action, elapsed) in policies.items():
-            metrics = score_delayed_control(
+            metrics = score_delayed_prediction(
                 action, data["states"], delay=delay, artifacts=data.get("artifacts")
             )
             metrics["processing_ns_per_sample"] = float(elapsed / samples)

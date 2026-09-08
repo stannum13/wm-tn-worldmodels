@@ -1,0 +1,58 @@
+{
+  "code_commit": "0790392",
+  "created_at": "2026-09-07T22:58:53.906734+00:00",
+  "data": {
+    "benchmark_records": 2000,
+    "calibration_records": 60000,
+    "circuit_group": "circuit_24",
+    "file": "stability_8_without_resets_raw_data.h5"
+  },
+  "design": {
+    "comparison": "composed NumPy packed front end versus fused Numba kernel",
+    "go": "zero prediction disagreements and fused p50 at least 2x faster",
+    "matching_backend": "pinned mutable PyMatching fork, Tier-1 weights"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "pymatching_fork_commit": "435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_fork_url": "https://github.com/Allenator/PyMatching",
+    "pymatching_install": "python -m pip install git+https://github.com/Allenator/PyMatching.git@435dc7ec85c10314c09f069a3d924d3a3dee8251",
+    "pymatching_module": "/home/shiva/wm-tn-autonomous-run/.venv-mutable/lib/python3.10/site-packages/pymatching/__init__.py",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "latency": {
+    "composed_frontend": {
+      "p50_ns": 49870.0,
+      "p95_ns": 68158.49999999999,
+      "p99_ns": 79275.0
+    },
+    "composed_matching_call": {
+      "p50_ns": 46209.5,
+      "p95_ns": 105838.99999999997,
+      "p99_ns": 137481.2
+    },
+    "composed_pipeline": {
+      "p50_ns": 116870.0,
+      "p95_ns": 181970.5,
+      "p99_ns": 211051.50999999998
+    },
+    "fused_frontend": {
+      "p50_ns": 7250.0,
+      "p95_ns": 8920.0,
+      "p99_ns": 21750.4
+    },
+    "fused_matching_call": {
+      "p50_ns": 46365.0,
+      "p95_ns": 102676.49999999997,
+      "p99_ns": 129971.98999999999
+    },
+    "fused_pipeline": {
+      "p50_ns": 60700.0,
+      "p95_ns": 120660.05,
+      "p99_ns": 154540.9
+    }
+  },
+  "maximum_edge_array_difference": 0.0,
+  "prediction_disagreements": 0,
+  "schema_version": 1
+}

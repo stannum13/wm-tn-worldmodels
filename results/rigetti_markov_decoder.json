@@ -1,0 +1,95 @@
+{
+  "code_commit": "df2e8dc4c40c745e937a7110ae499676eb2620be",
+  "comparisons": [
+    {
+      "blocks": 40,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.0002467755908864671,
+        0.0007024907517591654
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.00379499474946638,
+        0.00014499474946638746
+      ],
+      "first": "markov_order_0",
+      "mean_brier_reduction": 0.00022785758043634914,
+      "mean_error_reduction": -0.0018249999999999961,
+      "second": "markov_order_1"
+    },
+    {
+      "blocks": 40,
+      "brier_reduction_paired_95pct_t_interval": [
+        -0.014111465454501893,
+        -0.011931974598334926
+      ],
+      "error_reduction_paired_95pct_t_interval": [
+        -0.03653150490631278,
+        -0.025868495093687226
+      ],
+      "first": "markov_order_1",
+      "mean_brier_reduction": -0.01302172002641841,
+      "mean_error_reduction": -0.031200000000000006,
+      "second": "markov_order_2"
+    }
+  ],
+  "created_at": "2026-09-07T18:34:21.427059+00:00",
+  "data": {
+    "row_order_test_shots": 40000,
+    "circuit_group": "circuit_26",
+    "file": "stability_9_raw_data.h5",
+    "independent_sessions": 1,
+    "md5": "738e37d66de114e7eacac3342d41294d",
+    "shots": 100000,
+    "source": "https://zenodo.org/records/15364358",
+    "train_shots": 60000
+  },
+  "design": {
+    "alphabet": 16,
+    "detectors_per_round": 4,
+    "mechanism": "causal class-conditional syndrome likelihood updated by one table lookup per round",
+    "primary_go_condition": "close >=20% of 42.395%-to-38.819% error gap with positive paired block interval",
+    "released_mwpm_error_at_27_rounds": 0.38819,
+    "rounds": 27,
+    "split": "first 60% of HDF5 row order train; final 40% locked test (per-shot timestamps unavailable)"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "models": [
+    {
+      "brier_loss": 0.24252677640222642,
+      "classification_error": 0.4189,
+      "expected_calibration_error_10bin": 0.0084019260759096,
+      "model": "markov_order_0",
+      "negative_log_likelihood": 0.6780618167757978,
+      "parameters": 31,
+      "python_batch_one_p50_ns": 179745.0,
+      "python_batch_one_p99_ns": 234345.3999999999,
+      "vectorized_ns_per_shot": 488.746985
+    },
+    {
+      "brier_loss": 0.24229891882179008,
+      "classification_error": 0.420725,
+      "expected_calibration_error_10bin": 0.006463519779542522,
+      "model": "markov_order_1",
+      "negative_log_likelihood": 0.6775306119949376,
+      "parameters": 511,
+      "python_batch_one_p50_ns": 261635.0,
+      "python_batch_one_p99_ns": 361065.79,
+      "vectorized_ns_per_shot": 604.86579125
+    },
+    {
+      "brier_loss": 0.2553206388482085,
+      "classification_error": 0.451925,
+      "expected_calibration_error_10bin": 0.08912123580451613,
+      "model": "markov_order_2",
+      "negative_log_likelihood": 0.7070226547864106,
+      "parameters": 8191,
+      "python_batch_one_p50_ns": 300295.0,
+      "python_batch_one_p99_ns": 420047.91,
+      "vectorized_ns_per_shot": 648.926025
+    }
+  ],
+  "schema_version": 1
+}

@@ -1,0 +1,381 @@
+{
+  "calibration_shots_per_mode": 65536,
+  "code_commit": "2f4bc8300f0aafb2e409bf40e79f8739e09e4572",
+  "created_at": "2026-09-08T11:04:13.692101+00:00",
+  "distances": [
+    {
+      "burst_mode_fraction": 0.041927337646484375,
+      "distance": 3,
+      "fixed_calibration_logical_error": {
+        "global_burst": 0.0003712972005208333,
+        "local_burst": 0.00038582938058035713,
+        "nominal": 0.00045703706287202376
+      },
+      "fixed_graph_calibration_weighted_ler": {
+        "global_burst": 0.0003712972005208333,
+        "local_burst": 0.00038582938058035713,
+        "nominal": 0.00045703706287202376
+      },
+      "local_ancillas": 4,
+      "local_detectors": 12,
+      "methods": {
+        "global_temporal_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.00054168701171875,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "local_memoryless_router": {
+          "disagreements_vs_static": 2,
+          "logical_error": 0.00054168701171875,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.060907581913844e-05,
+            1.060907581913844e-05
+          ]
+        },
+        "local_temporal_router": {
+          "disagreements_vs_static": 2,
+          "logical_error": 0.0005340576171875,
+          "paired_stream_95pct_interval_vs_global_observation": [
+            -1.8217729224354287e-05,
+            2.9589401618542853e-06
+          ],
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -2.2618234423297146e-05,
+            7.359445360797144e-06
+          ],
+          "paired_stream_95pct_interval_vs_selected_fixed_benchmark": [
+            -2.3625134293051538e-05,
+            9.991907960555154e-05
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -1.8217729224354287e-05,
+            2.9589401618542853e-06
+          ]
+        },
+        "mode_local_graph": {
+          "disagreements_vs_static": 6,
+          "logical_error": 0.00052642822265625,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.358633217543675e-05,
+            3.0687540504367506e-06
+          ],
+          "paired_stream_95pct_interval_vs_wrong_global": [
+            -1.060907581913844e-05,
+            1.060907581913844e-05
+          ]
+        },
+        "mode_wrong_global_graph": {
+          "disagreements_vs_static": 8,
+          "logical_error": 0.00052642822265625,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.6435458448708574e-05,
+            5.917880323708571e-06
+          ]
+        },
+        "static_global_burst": {
+          "disagreements_vs_static": 74,
+          "logical_error": 0.00049591064453125,
+          "paired_stream_95pct_interval_vs_static": [
+            -0.00010841429057979343,
+            1.686155620479343e-05
+          ]
+        },
+        "static_local_burst": {
+          "disagreements_vs_static": 35,
+          "logical_error": 0.000537872314453125,
+          "paired_stream_95pct_interval_vs_static": [
+            -4.6907691662707736e-05,
+            3.9278297131457736e-05
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 0.00054168701171875,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 2,
+        "logical_error": 0.000446319580078125,
+        "overlay_selection_fraction": 0.001251220703125,
+        "paired_stream_95pct_interval_vs_static": [
+          -1.8217729224354287e-05,
+          2.9589401618542853e-06
+        ],
+        "static_logical_error": 0.000453948974609375
+      },
+      "records": 262144,
+      "rounds": 3,
+      "router_diagnostics": {
+        "global_temporal_mode_error": 0.041790008544921875,
+        "global_temporal_selection_fraction": 0.00193023681640625,
+        "local_temporal_mode_error": 0.04079437255859375,
+        "local_temporal_selection_fraction": 0.006282806396484375,
+        "memoryless_selection_fraction": 4.57763671875e-05
+      },
+      "selected_fixed_benchmark": "global_burst",
+      "total_ancillas": 8,
+      "total_detectors": 24
+    },
+    {
+      "burst_mode_fraction": 0.049205780029296875,
+      "distance": 5,
+      "fixed_calibration_logical_error": {
+        "global_burst": 3.487723214285714e-05,
+        "local_burst": 3.487723214285714e-05,
+        "nominal": 3.6330450148809523e-05
+      },
+      "fixed_graph_calibration_weighted_ler": {
+        "global_burst": 3.487723214285714e-05,
+        "local_burst": 3.487723214285714e-05,
+        "nominal": 3.6330450148809523e-05
+      },
+      "local_ancillas": 12,
+      "local_detectors": 60,
+      "methods": {
+        "global_temporal_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 4.57763671875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "local_memoryless_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 4.57763671875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "local_temporal_router": {
+          "disagreements_vs_static": 1,
+          "logical_error": 4.1961669921875e-05,
+          "paired_stream_95pct_interval_vs_global_observation": [
+            -1.1309117211648573e-05,
+            3.679722680398572e-06
+          ],
+          "paired_stream_95pct_interval_vs_memoryless": [
+            -1.1309117211648573e-05,
+            3.679722680398572e-06
+          ],
+          "paired_stream_95pct_interval_vs_selected_fixed_benchmark": [
+            -2.2618234423297146e-05,
+            7.359445360797144e-06
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            -1.1309117211648573e-05,
+            3.679722680398572e-06
+          ]
+        },
+        "mode_local_graph": {
+          "disagreements_vs_static": 2,
+          "logical_error": 3.814697265625e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.8217729224354287e-05,
+            2.9589401618542853e-06
+          ],
+          "paired_stream_95pct_interval_vs_wrong_global": [
+            -1.1309117211648573e-05,
+            3.679722680398572e-06
+          ]
+        },
+        "mode_wrong_global_graph": {
+          "disagreements_vs_static": 3,
+          "logical_error": 4.1961669921875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.6803878150637878e-05,
+            9.174483619387878e-06
+          ]
+        },
+        "static_global_burst": {
+          "disagreements_vs_static": 7,
+          "logical_error": 4.9591064453125e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.603029705375035e-05,
+            2.365969158500035e-05
+          ]
+        },
+        "static_local_burst": {
+          "disagreements_vs_static": 5,
+          "logical_error": 4.9591064453125e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            -1.2956447889068874e-05,
+            2.0585842420318874e-05
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 4.57763671875e-05,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 0,
+        "logical_error": 6.103515625e-05,
+        "overlay_selection_fraction": 0.002506256103515625,
+        "paired_stream_95pct_interval_vs_static": [
+          0.0,
+          0.0
+        ],
+        "static_logical_error": 6.103515625e-05
+      },
+      "records": 262144,
+      "rounds": 5,
+      "router_diagnostics": {
+        "global_temporal_mode_error": 0.04117584228515625,
+        "global_temporal_selection_fraction": 0.019252777099609375,
+        "local_temporal_mode_error": 0.03351593017578125,
+        "local_temporal_selection_fraction": 0.028339385986328125,
+        "memoryless_selection_fraction": 0.00232696533203125
+      },
+      "selected_fixed_benchmark": "local_burst",
+      "total_ancillas": 24,
+      "total_detectors": 120
+    },
+    {
+      "burst_mode_fraction": 0.0466156005859375,
+      "distance": 7,
+      "fixed_calibration_logical_error": {
+        "global_burst": 7.266090029761906e-07,
+        "local_burst": 7.266090029761906e-07,
+        "nominal": 1.4532180059523813e-06
+      },
+      "fixed_graph_calibration_weighted_ler": {
+        "global_burst": 7.266090029761906e-07,
+        "local_burst": 7.266090029761906e-07,
+        "nominal": 1.4532180059523813e-06
+      },
+      "local_ancillas": 24,
+      "local_detectors": 168,
+      "methods": {
+        "global_temporal_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "local_memoryless_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "local_temporal_router": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_global_observation": [
+            0.0,
+            0.0
+          ],
+          "paired_stream_95pct_interval_vs_memoryless": [
+            0.0,
+            0.0
+          ],
+          "paired_stream_95pct_interval_vs_selected_fixed_benchmark": [
+            -1.1309117211648573e-05,
+            3.679722680398572e-06
+          ],
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "mode_local_graph": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ],
+          "paired_stream_95pct_interval_vs_wrong_global": [
+            0.0,
+            0.0
+          ]
+        },
+        "mode_wrong_global_graph": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        },
+        "static_global_burst": {
+          "disagreements_vs_static": 1,
+          "logical_error": 7.62939453125e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.679722680398572e-06,
+            1.1309117211648573e-05
+          ]
+        },
+        "static_local_burst": {
+          "disagreements_vs_static": 1,
+          "logical_error": 7.62939453125e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            -3.679722680398572e-06,
+            1.1309117211648573e-05
+          ]
+        },
+        "static_nominal": {
+          "disagreements_vs_static": 0,
+          "logical_error": 3.814697265625e-06,
+          "paired_stream_95pct_interval_vs_static": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "nominal_only_null": {
+        "disagreements_vs_static": 0,
+        "logical_error": 1.1444091796875e-05,
+        "overlay_selection_fraction": 0.002155303955078125,
+        "paired_stream_95pct_interval_vs_static": [
+          0.0,
+          0.0
+        ],
+        "static_logical_error": 1.1444091796875e-05
+      },
+      "records": 262144,
+      "rounds": 7,
+      "router_diagnostics": {
+        "global_temporal_mode_error": 0.0262908935546875,
+        "global_temporal_selection_fraction": 0.03277587890625,
+        "local_temporal_mode_error": 0.018115997314453125,
+        "local_temporal_selection_fraction": 0.038448333740234375,
+        "memoryless_selection_fraction": 0.014232635498046875
+      },
+      "selected_fixed_benchmark": "local_burst",
+      "total_ancillas": 48,
+      "total_detectors": 336
+    }
+  ],
+  "horizon": 512,
+  "noise": {
+    "after_clifford_depolarization": 0.001,
+    "local_burst_reset_measurement_flip": 0.01,
+    "nominal_reset_measurement_flip": 0.001
+  },
+  "protocol": "docs/surface-local-overlay-protocol.md",
+  "schema_version": 1,
+  "seed": 20260908,
+  "streams": 512,
+  "versions": {
+    "pymatching": "2.4.0",
+    "stim": "1.16.0"
+  }
+}

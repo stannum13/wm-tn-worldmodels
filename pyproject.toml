@@ -14,6 +14,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+real = ["h5py>=3.10", "stim>=1.13", "pymatching>=2.3"]
+jit = ["numba>=0.61"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -21,3 +23,6 @@ addopts = "-q"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+ptwm = ["csrc/*.c"]

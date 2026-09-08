@@ -1,0 +1,321 @@
+{
+  "calibration_parameters": 24,
+  "code_commit": "c413040",
+  "comparisons": [
+    {
+      "blocks": 40,
+      "first": "circuit_template_hard",
+      "mean_absolute_error_reduction": 0.004525000000000001,
+      "paired_row_block_95pct_t_interval": [
+        0.00048027461529035354,
+        0.008569725384709646
+      ],
+      "relative_error_reduction": 0.02739933393884353,
+      "second": "pairwise_linear_iq"
+    },
+    {
+      "blocks": 40,
+      "first": "pairwise_hard",
+      "mean_absolute_error_reduction": 0.0061500000000000166,
+      "paired_row_block_95pct_t_interval": [
+        0.0028306829604599465,
+        0.00946931703954005
+      ],
+      "relative_error_reduction": 0.03687603058012301,
+      "second": "pairwise_linear_iq"
+    }
+  ],
+  "created_at": "2026-09-07T21:13:04.956075+00:00",
+  "data": {
+    "circuit_group": "circuit_22",
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c",
+    "source": "https://zenodo.org/records/15364358",
+    "test_rows": 40000,
+    "train_rows": 60000
+  },
+  "design": {
+    "calibration": "balanced logistic P(hardware hard bit | I,Q) per qubit with 1 spline-design knots",
+    "limitation": "hard decisions are pseudo-labels because authors' prepared-state calibration is not released; unmatched measurement signatures remain hard-weighted",
+    "logical_labels_in_iq_or_graph_calibration": false,
+    "primary_go_condition": ">=1% relative logical-error reduction versus both hard controls with positive paired intervals",
+    "soft_rule": "replace average matched-edge contribution with the per-shot balanced-head hard-bit surprisal surrogate",
+    "split": "I/Q calibration and graph fitting use first HDF5 rows; final rows are locked"
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "event_triggered_routing": {
+    "curve": [
+      {
+        "absolute_error_reduction_vs_hard": 0.0,
+        "calibration_route_budget": 0.0,
+        "calibration_score_threshold": null,
+        "fraction_of_full_soft_gain_recovered": 0.0,
+        "hybrid_logical_error": 0.166775,
+        "paired_row_block_95pct_t_interval": [
+          0.0,
+          0.0
+        ],
+        "test_routed_fraction": 0.0
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0010499999999999954,
+        "calibration_route_budget": 0.01,
+        "calibration_score_threshold": 7.182911386489869,
+        "fraction_of_full_soft_gain_recovered": 0.17073170731707196,
+        "hybrid_logical_error": 0.165725,
+        "paired_row_block_95pct_t_interval": [
+          -0.0006820533135809327,
+          0.002782053313580933
+        ],
+        "test_routed_fraction": 0.011975
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0009000000000000119,
+        "calibration_route_budget": 0.02,
+        "calibration_score_threshold": 6.794237861633298,
+        "fraction_of_full_soft_gain_recovered": 0.1463414634146357,
+        "hybrid_logical_error": 0.165875,
+        "paired_row_block_95pct_t_interval": [
+          -0.0009132042045441985,
+          0.0027132042045441987
+        ],
+        "test_routed_fraction": 0.02255
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0006500000000000117,
+        "calibration_route_budget": 0.05,
+        "calibration_score_threshold": 6.270144748687744,
+        "fraction_of_full_soft_gain_recovered": 0.10569105691057072,
+        "hybrid_logical_error": 0.166125,
+        "paired_row_block_95pct_t_interval": [
+          -0.0011613953050690286,
+          0.0024613953050690285
+        ],
+        "test_routed_fraction": 0.05395
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0008750000000000147,
+        "calibration_route_budget": 0.1,
+        "calibration_score_threshold": 5.844691753387451,
+        "fraction_of_full_soft_gain_recovered": 0.14227642276422964,
+        "hybrid_logical_error": 0.1659,
+        "paired_row_block_95pct_t_interval": [
+          -0.0011205230469957016,
+          0.0028705230469957006
+        ],
+        "test_routed_fraction": 0.104175
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.001700000000000007,
+        "calibration_route_budget": 0.2,
+        "calibration_score_threshold": 5.364060020446777,
+        "fraction_of_full_soft_gain_recovered": 0.27642276422764267,
+        "hybrid_logical_error": 0.165075,
+        "paired_row_block_95pct_t_interval": [
+          -0.00036655882739414464,
+          0.0037665588273941434
+        ],
+        "test_routed_fraction": 0.205425
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.004525000000000001,
+        "calibration_route_budget": 0.5,
+        "calibration_score_threshold": 4.492908477783203,
+        "fraction_of_full_soft_gain_recovered": 0.7357723577235754,
+        "hybrid_logical_error": 0.16225,
+        "paired_row_block_95pct_t_interval": [
+          0.001809355270496893,
+          0.007240644729503106
+        ],
+        "test_routed_fraction": 0.506725
+      },
+      {
+        "absolute_error_reduction_vs_hard": 0.0061500000000000166,
+        "calibration_route_budget": 1.0,
+        "calibration_score_threshold": null,
+        "fraction_of_full_soft_gain_recovered": 1.0,
+        "hybrid_logical_error": 0.160625,
+        "paired_row_block_95pct_t_interval": [
+          0.0028306829604599465,
+          0.00946931703954005
+        ],
+        "test_routed_fraction": 1.0
+      }
+    ],
+    "hard_branch": "pairwise_hard (same fixed topology; calibration-average weights)",
+    "score": "sum of per-measurement balanced-head hard-bit surprisal surrogates",
+    "soft_branch": "pairwise_linear_iq (same fixed topology; per-shot weights)",
+    "threshold_access": "quantile fixed only on calibration rows"
+  },
+  "graph": {
+    "boundary_edges": 8,
+    "calibration_shots": 60000,
+    "ceiling_probability": 0.49,
+    "clipped_high": 0,
+    "clipped_low": 1,
+    "floor_probability": 0.0001,
+    "invalid_estimates": 0,
+    "pair_edges": 268
+  },
+  "models": [
+    {
+      "logical_error": 0.16515,
+      "model": "circuit_template_hard"
+    },
+    {
+      "logical_error": 0.166775,
+      "model": "pairwise_hard"
+    },
+    {
+      "logical_error": 0.160625,
+      "model": "pairwise_linear_iq"
+    }
+  ],
+  "pairwise_hard_decode_latency": {
+    "python_batch_one_p50_ns": 32710.0,
+    "python_batch_one_p99_ns": 86353.9
+  },
+  "row_block_errors": {
+    "circuit_template_hard": [
+      0.166,
+      0.164,
+      0.162,
+      0.154,
+      0.172,
+      0.187,
+      0.163,
+      0.159,
+      0.162,
+      0.165,
+      0.167,
+      0.194,
+      0.161,
+      0.184,
+      0.161,
+      0.157,
+      0.157,
+      0.209,
+      0.173,
+      0.151,
+      0.153,
+      0.147,
+      0.167,
+      0.148,
+      0.162,
+      0.167,
+      0.161,
+      0.143,
+      0.175,
+      0.17,
+      0.162,
+      0.164,
+      0.125,
+      0.186,
+      0.158,
+      0.17,
+      0.165,
+      0.167,
+      0.173,
+      0.175
+    ],
+    "pairwise_hard": [
+      0.184,
+      0.159,
+      0.167,
+      0.154,
+      0.148,
+      0.198,
+      0.186,
+      0.165,
+      0.152,
+      0.166,
+      0.175,
+      0.209,
+      0.156,
+      0.188,
+      0.157,
+      0.174,
+      0.168,
+      0.216,
+      0.158,
+      0.163,
+      0.163,
+      0.158,
+      0.16,
+      0.143,
+      0.16,
+      0.176,
+      0.159,
+      0.152,
+      0.179,
+      0.154,
+      0.148,
+      0.148,
+      0.134,
+      0.163,
+      0.18,
+      0.161,
+      0.157,
+      0.179,
+      0.174,
+      0.18
+    ],
+    "pairwise_linear_iq": [
+      0.166,
+      0.159,
+      0.171,
+      0.149,
+      0.158,
+      0.187,
+      0.179,
+      0.164,
+      0.159,
+      0.154,
+      0.154,
+      0.197,
+      0.155,
+      0.166,
+      0.149,
+      0.183,
+      0.154,
+      0.18,
+      0.137,
+      0.154,
+      0.159,
+      0.151,
+      0.145,
+      0.154,
+      0.163,
+      0.17,
+      0.151,
+      0.153,
+      0.166,
+      0.153,
+      0.141,
+      0.138,
+      0.122,
+      0.174,
+      0.158,
+      0.157,
+      0.162,
+      0.178,
+      0.171,
+      0.184
+    ]
+  },
+  "schema_version": 1,
+  "soft_graph_build_and_decode_latency": {
+    "excludes": "I/Q inference, selector scoring, routing, queueing, and data movement",
+    "python_batch_one_p50_ns": 2219845.0,
+    "python_batch_one_p99_ns": 6354885.910000004
+  },
+  "soft_reweighting": {
+    "matched_measurements": 96,
+    "residual_clipped": 3,
+    "unmatched_measurements": 0,
+    "unsupported_measurements": 0
+  }
+}

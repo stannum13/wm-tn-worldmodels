@@ -1,0 +1,79 @@
+{
+  "arms": {
+    "factor_absent_null": {
+      "correct_factor_gain": -0.0008869171142578125,
+      "decoder_factor_probability": 0.04,
+      "methods": {
+        "base": {
+          "logical_error": 0.0,
+          "paired_episode_95pct_interval_vs_base": [
+            0.0,
+            0.0
+          ],
+          "prediction_disagreements_vs_base": 0
+        },
+        "insert_correct_factor": {
+          "logical_error": 0.0008869171142578125,
+          "paired_episode_95pct_interval_vs_base": [
+            0.00080746534004112,
+            0.000966368888474505
+          ],
+          "prediction_disagreements_vs_base": 465
+        },
+        "insert_wrong_factor": {
+          "logical_error": 0.0,
+          "paired_episode_95pct_interval_vs_base": [
+            0.0,
+            0.0
+          ],
+          "prediction_disagreements_vs_base": 0
+        }
+      },
+      "records": 524288,
+      "true_factor_probability": 0.0,
+      "wrong_factor_gain": 0.0
+    },
+    "factor_present": {
+      "correct_factor_gain": 0.03728294372558594,
+      "decoder_factor_probability": 0.04,
+      "methods": {
+        "base": {
+          "logical_error": 0.04049491882324219,
+          "paired_episode_95pct_interval_vs_base": [
+            0.0,
+            0.0
+          ],
+          "prediction_disagreements_vs_base": 0
+        },
+        "insert_correct_factor": {
+          "logical_error": 0.00321197509765625,
+          "paired_episode_95pct_interval_vs_base": [
+            -0.03779935113235916,
+            -0.036766536318812715
+          ],
+          "prediction_disagreements_vs_base": 20461
+        },
+        "insert_wrong_factor": {
+          "logical_error": 0.04049491882324219,
+          "paired_episode_95pct_interval_vs_base": [
+            0.0,
+            0.0
+          ],
+          "prediction_disagreements_vs_base": 0
+        }
+      },
+      "records": 524288,
+      "true_factor_probability": 0.04,
+      "wrong_factor_gain": 0.0
+    }
+  },
+  "code_commit": "dace4a7a82642693d197b5ca0ed9755d5e6637fd",
+  "created_at": "2026-09-08T02:14:11.568012+00:00",
+  "design": {
+    "base_faults": "two disjoint pair faults with zero logical effect",
+    "correlated_fault": "one four-detector factor with logical effect one",
+    "status": "synthetic INSERT_FACTOR positive and null control",
+    "trusted_layer": "exact minimum-weight error lookup over a tiny parity-factor model"
+  },
+  "schema_version": 1
+}

@@ -1,0 +1,176 @@
+{
+  "base_restore_disagreements": 0,
+  "code_commit": "5903748",
+  "created_at": "2026-09-07T23:50:25.927575+00:00",
+  "curves": [
+    {
+      "batch_size": 1,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 38540.5,
+        "p95_ns": 99943.99999999965,
+        "p99_ns": 194530.30000000005
+      },
+      "endpoint_p50_ns_per_record": 38540.5,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 31270.0,
+        "p95_ns": 85921.49999999987,
+        "p99_ns": 171720.0
+      },
+      "preindexed_oldest_record_p50_ns": 31270.0,
+      "preindexed_p50_ns_per_record": 31270.0,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 0.0
+    },
+    {
+      "batch_size": 2,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 130565.0,
+        "p95_ns": 361251.0,
+        "p99_ns": 459502.59999999957
+      },
+      "endpoint_p50_ns_per_record": 65282.5,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 105540.0,
+        "p95_ns": 313721.05,
+        "p99_ns": 411452.59999999957
+      },
+      "preindexed_oldest_record_p50_ns": 144640.0,
+      "preindexed_p50_ns_per_record": 52770.0,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 39100.0
+    },
+    {
+      "batch_size": 4,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 170205.0,
+        "p95_ns": 539238.4999999999,
+        "p99_ns": 681988.9100000003
+      },
+      "endpoint_p50_ns_per_record": 42551.25,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 145234.5,
+        "p95_ns": 477249.9999999999,
+        "p99_ns": 624593.2000000005
+      },
+      "preindexed_oldest_record_p50_ns": 262534.5,
+      "preindexed_p50_ns_per_record": 36308.625,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 117300.0
+    },
+    {
+      "batch_size": 8,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 333870.5,
+        "p95_ns": 969468.5000000001,
+        "p99_ns": 1165442.7
+      },
+      "endpoint_p50_ns_per_record": 41733.8125,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 287460.0,
+        "p95_ns": 850585.5,
+        "p99_ns": 1020518.6000000007
+      },
+      "preindexed_oldest_record_p50_ns": 561160.0,
+      "preindexed_p50_ns_per_record": 35932.5,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 273700.0
+    },
+    {
+      "batch_size": 16,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 684655.0,
+        "p95_ns": 1675772.4999999995,
+        "p99_ns": 1868173.199999999
+      },
+      "endpoint_p50_ns_per_record": 42790.9375,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 598735.0,
+        "p95_ns": 1536779.4999999995,
+        "p99_ns": 1784623.8999999997
+      },
+      "preindexed_oldest_record_p50_ns": 1185235.0,
+      "preindexed_p50_ns_per_record": 37420.9375,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 586500.0
+    },
+    {
+      "batch_size": 32,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 1813485.0,
+        "p95_ns": 2751173.95,
+        "p99_ns": 2908626.59
+      },
+      "endpoint_p50_ns_per_record": 56671.40625,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 1483284.5,
+        "p95_ns": 2492622.05,
+        "p99_ns": 2661175.5
+      },
+      "preindexed_oldest_record_p50_ns": 2695384.5,
+      "preindexed_p50_ns_per_record": 46352.640625,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 1212100.0
+    },
+    {
+      "batch_size": 64,
+      "completed_record_interval_ns": 39100.0,
+      "endpoint_compute_batch": {
+        "p50_ns": 3570210.0,
+        "p95_ns": 4118721.999999999,
+        "p99_ns": 4691822.8
+      },
+      "endpoint_p50_ns_per_record": 55784.53125,
+      "maximum_solution_weight_difference": 0.0,
+      "prediction_disagreements": 0,
+      "preindexed_compute_batch": {
+        "p50_ns": 3121240.0,
+        "p95_ns": 3544214.0,
+        "p99_ns": 3745316.84
+      },
+      "preindexed_oldest_record_p50_ns": 5584540.0,
+      "preindexed_p50_ns_per_record": 48769.375,
+      "records": 40000,
+      "worst_case_fill_delay_ns": 2463300.0
+    }
+  ],
+  "data": {
+    "benchmark_records": 40000,
+    "calibration_records": 60000,
+    "circuit_group": "circuit_22",
+    "dynamic_edges": 96,
+    "file": "stability_8_with_resets_raw_data.h5",
+    "md5": "74458b3a992d94b76c9a7dd844007e3c"
+  },
+  "design": {
+    "comparison": "endpoint batch API versus transactional C++ preindexed batch API",
+    "go": "zero disagreements and >=20% per-record improvement or cadence crossing on both sessions",
+    "order": "AB/BA by block; frontend excluded from timed calls"
+  },
+  "environment": {
+    "fork_commit": "5e0e5472d082f204c2d1c88c51a2a3cca157144b",
+    "fork_url": "https://github.com/stannum13/PyMatching",
+    "install": "python -m pip install git+https://github.com/stannum13/PyMatching.git@5e0e5472d082f204c2d1c88c51a2a3cca157144b",
+    "platform": "Linux-6.8.0-1060-gcp-x86_64-with-glibc2.35",
+    "pymatching_module": "/home/shiva/pymatching-preindexed/src/pymatching/__init__.py",
+    "python": "3.10.12 (main, Jun 22 2026, 18:55:27) [GCC 11.4.0]"
+  },
+  "schema_version": 1
+}

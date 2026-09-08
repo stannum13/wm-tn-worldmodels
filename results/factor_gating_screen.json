@@ -1,0 +1,485 @@
+{
+  "arms": [
+    {
+      "activation_threshold_candidates": 9,
+      "high_rate_factor_absent_null": {
+        "always_off": {
+          "logical_error": 8.0108642578125e-05,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0,
+            0.0
+          ]
+        },
+        "always_on": {
+          "logical_error": 0.0008945465087890625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0007291610325044851,
+            0.0008997146999173899
+          ]
+        },
+        "compiled_fsm": {
+          "logical_error": 0.000156402587890625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            5.0071333562671044e-05,
+            0.00010251655706232896
+          ]
+        },
+        "hmm_activate": {
+          "logical_error": 0.0001354217529296875,
+          "paired_episode_95pct_interval_vs_always_off": [
+            3.1781812518595625e-05,
+            7.884440818452937e-05
+          ]
+        },
+        "hmm_fork_k2": {
+          "logical_error": 0.000133514404296875,
+          "paired_episode_95pct_interval_vs_always_off": [
+            3.014164345279019e-05,
+            7.666987998470981e-05
+          ]
+        },
+        "memoryless_activate": {
+          "logical_error": 0.0001506805419921875,
+          "paired_episode_95pct_interval_vs_always_off": [
+            4.50421961635357e-05,
+            9.61016026645893e-05
+          ]
+        },
+        "memoryless_fork_k2": {
+          "logical_error": 0.000171661376953125,
+          "paired_episode_95pct_interval_vs_always_off": [
+            6.213764870714493e-05,
+            0.00012096782004285507
+          ]
+        },
+        "oracle_mode": {
+          "logical_error": 0.000125885009765625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            2.4934527895447227e-05,
+            6.661820647955278e-05
+          ]
+        },
+        "static_mixture": {
+          "logical_error": 0.0008945465087890625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0007291610325044851,
+            0.0008997146999173899
+          ]
+        }
+      },
+      "methods": {
+        "always_off": {
+          "disagreements_vs_static_mixture": 2175,
+          "logical_error": 0.0034637451171875,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.0028209779835311763,
+            0.0032596494578750737
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0021071153630680653,
+            0.0025811475763850597
+          ]
+        },
+        "always_on": {
+          "disagreements_vs_static_mixture": 0,
+          "logical_error": 0.0011196136474609375,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.000606255475525107,
+            0.000786109026428018
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0,
+            0.0
+          ]
+        },
+        "compiled_fsm": {
+          "disagreements_vs_static_mixture": 497,
+          "hmm_activate_gain_recovery": 0.989769820971867,
+          "hmm_fork_gain_recovery": 0.989769820971867,
+          "logical_error": 0.0003814697265625,
+          "oracle_gain_recovery": 0.9650872817955112,
+          "paired_episode_95pct_interval_vs_hmm_activate": [
+            -4.213365029226303e-06,
+            1.9472154091726303e-05
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -6.479420519098957e-05,
+            -1.912913465276043e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0008250220196070251,
+            -0.0006512658221898499
+          ]
+        },
+        "hmm_activate": {
+          "disagreements_vs_static_mixture": 505,
+          "logical_error": 0.00037384033203125,
+          "oracle_gain_recovery": 0.9750623441396509,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -7.291887813750254e-05,
+            -2.6263250768747465e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0008334511090947985,
+            -0.0006580955217645765
+          ]
+        },
+        "hmm_fork_k2": {
+          "disagreements_vs_static_mixture": 505,
+          "logical_error": 0.00037384033203125,
+          "oracle_gain_recovery": 0.9750623441396509,
+          "paired_episode_95pct_interval_vs_hmm_activate": [
+            0.0,
+            0.0
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -7.291887813750254e-05,
+            -2.6263250768747465e-05
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_fork_k2": [
+            -9.021656092908461e-05,
+            -3.566844883654039e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0008334511090947985,
+            -0.0006580955217645765
+          ]
+        },
+        "memoryless_activate": {
+          "disagreements_vs_static_mixture": 517,
+          "logical_error": 0.000423431396484375,
+          "oracle_gain_recovery": 0.9102244389027432,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.0,
+            0.0
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.000786109026428018,
+            -0.000606255475525107
+          ]
+        },
+        "memoryless_fork_k2": {
+          "disagreements_vs_static_mixture": 496,
+          "logical_error": 0.0004367828369140625,
+          "oracle_gain_recovery": 0.8927680798004988,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -3.7980153177498692e-06,
+            3.050089617712487e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.000769805797977689,
+            -0.000595855823116061
+          ]
+        },
+        "oracle_mode": {
+          "disagreements_vs_static_mixture": 503,
+          "logical_error": 0.000354766845703125,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -9.339438104305543e-05,
+            -4.3934720519444574e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0008522458489258751,
+            -0.0006774477545897499
+          ]
+        },
+        "static_mixture": {
+          "disagreements_vs_static_mixture": 0,
+          "logical_error": 0.0011196136474609375,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.000606255475525107,
+            0.000786109026428018
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "records": 524288,
+      "selected_activation_thresholds": {
+        "hmm": 0.01,
+        "memoryless": 0.02
+      },
+      "selected_fsm": {
+        "alpha": 0.0,
+        "high": 1.0,
+        "low": 0.25
+      },
+      "sigma": 0.5,
+      "validation_activation_ler": {
+        "hmm": {
+          "0.01": 0.00046539306640625,
+          "0.02": 0.00046539306640625,
+          "0.05": 0.00051116943359375,
+          "0.1": 0.0005340576171875,
+          "0.2": 0.0005340576171875,
+          "0.35": 0.00054931640625,
+          "0.5": 0.0005645751953125,
+          "0.7": 0.000640869140625,
+          "0.9": 0.00074005126953125
+        },
+        "memoryless": {
+          "0.01": 0.00055694580078125,
+          "0.02": 0.00054931640625,
+          "0.05": 0.0005645751953125,
+          "0.1": 0.0005950927734375,
+          "0.2": 0.00066375732421875,
+          "0.35": 0.0007476806640625,
+          "0.5": 0.0008087158203125,
+          "0.7": 0.000885009765625,
+          "0.9": 0.00118255615234375
+        }
+      },
+      "validation_best_ler": 0.00046539306640625,
+      "validation_candidates": 95
+    },
+    {
+      "activation_threshold_candidates": 9,
+      "high_rate_factor_absent_null": {
+        "always_off": {
+          "logical_error": 9.1552734375e-05,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0,
+            0.0
+          ]
+        },
+        "always_on": {
+          "logical_error": 0.000949859619140625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0007748980071968683,
+            0.0009417157623343817
+          ]
+        },
+        "compiled_fsm": {
+          "logical_error": 0.00025177001953125,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.00012083868257801775,
+            0.00019959588773448225
+          ]
+        },
+        "hmm_activate": {
+          "logical_error": 0.000240325927734375,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.00011013423365396378,
+            0.00018741215306478622
+          ]
+        },
+        "hmm_fork_k2": {
+          "logical_error": 0.0003108978271484375,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.00017384187706108727,
+            0.00026484830848578773
+          ]
+        },
+        "memoryless_activate": {
+          "logical_error": 0.0006122589111328125,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.00046005840092644586,
+            0.0005813539525891791
+          ]
+        },
+        "memoryless_fork_k2": {
+          "logical_error": 0.0005950927734375,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.000443775644005969,
+            0.000563304434119031
+          ]
+        },
+        "oracle_mode": {
+          "logical_error": 0.00012969970703125,
+          "paired_episode_95pct_interval_vs_always_off": [
+            1.7189432130961532e-05,
+            5.9104513181538465e-05
+          ]
+        },
+        "static_mixture": {
+          "logical_error": 0.000949859619140625,
+          "paired_episode_95pct_interval_vs_always_off": [
+            0.0007748980071968683,
+            0.0009417157623343817
+          ]
+        }
+      },
+      "methods": {
+        "always_off": {
+          "disagreements_vs_static_mixture": 2376,
+          "logical_error": 0.003997802734375,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.0029283946852332906,
+            0.0033925586839073344
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0027252005816205877,
+            0.0032180977582231623
+          ]
+        },
+        "always_on": {
+          "disagreements_vs_static_mixture": 0,
+          "logical_error": 0.001026153564453125,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.00013245729294690783,
+            0.00024519773634996717
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0,
+            0.0
+          ]
+        },
+        "compiled_fsm": {
+          "disagreements_vs_static_mixture": 546,
+          "hmm_activate_gain_recovery": 0.8551724137931035,
+          "hmm_fork_gain_recovery": 0.7469879518072289,
+          "logical_error": 0.000789642333984375,
+          "oracle_gain_recovery": 0.3668639053254438,
+          "paired_episode_95pct_interval_vs_hmm_activate": [
+            8.196458982804306e-06,
+            7.19121835953207e-05
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -0.00011942053565264139,
+            2.4053104012016388e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.00032138124687593325,
+            -0.00015164121406156672
+          ]
+        },
+        "hmm_activate": {
+          "disagreements_vs_static_mixture": 519,
+          "logical_error": 0.0007495880126953125,
+          "oracle_gain_recovery": 0.4289940828402367,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -0.00015769634438115676,
+            -1.7779729837593254e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.00035873758221351213,
+            -0.0001943935213021129
+          ]
+        },
+        "hmm_fork_k2": {
+          "disagreements_vs_static_mixture": 434,
+          "logical_error": 0.00070953369140625,
+          "oracle_gain_recovery": 0.4911242603550296,
+          "paired_episode_95pct_interval_vs_hmm_activate": [
+            -7.40486443871151e-05,
+            -6.059998191009908e-06
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -0.0001894520412242942,
+            -6.613267557258081e-05
+          ],
+          "paired_episode_95pct_interval_vs_memoryless_fork_k2": [
+            -0.00018208430813068015,
+            -6.205631686931986e-05
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.00039127827027304586,
+            -0.00024196147582070414
+          ]
+        },
+        "memoryless_activate": {
+          "disagreements_vs_static_mixture": 255,
+          "logical_error": 0.0008373260498046875,
+          "oracle_gain_recovery": 0.29289940828402367,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.0,
+            0.0
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.00024519773634996717,
+            -0.00013245729294690783
+          ]
+        },
+        "memoryless_fork_k2": {
+          "disagreements_vs_static_mixture": 266,
+          "logical_error": 0.00083160400390625,
+          "oracle_gain_recovery": 0.30177514792899407,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -1.815234620336207e-05,
+            6.70825440648707e-06
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0002526190723057641,
+            -0.0001364800487879859
+          ]
+        },
+        "oracle_mode": {
+          "disagreements_vs_static_mixture": 440,
+          "logical_error": 0.0003814697265625,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            -0.0005205451083374784,
+            -0.0003911675381468966
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            -0.0007199697138785525,
+            -0.0005693979619026975
+          ]
+        },
+        "static_mixture": {
+          "disagreements_vs_static_mixture": 0,
+          "logical_error": 0.001026153564453125,
+          "paired_episode_95pct_interval_vs_memoryless_activate": [
+            0.00013245729294690783,
+            0.00024519773634996717
+          ],
+          "paired_episode_95pct_interval_vs_static_mixture": [
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "records": 524288,
+      "selected_activation_thresholds": {
+        "hmm": 0.02,
+        "memoryless": 0.01
+      },
+      "selected_fsm": {
+        "alpha": 0.5,
+        "high": 1.0,
+        "low": 0.25
+      },
+      "sigma": 1.25,
+      "validation_activation_ler": {
+        "hmm": {
+          "0.01": 0.0008697509765625,
+          "0.02": 0.0008544921875,
+          "0.05": 0.000946044921875,
+          "0.1": 0.00106048583984375,
+          "0.2": 0.0012969970703125,
+          "0.35": 0.00146484375,
+          "0.5": 0.0015869140625,
+          "0.7": 0.00196075439453125,
+          "0.9": 0.00278472900390625
+        },
+        "memoryless": {
+          "0.01": 0.00113677978515625,
+          "0.02": 0.00121307373046875,
+          "0.05": 0.0015869140625,
+          "0.1": 0.00200653076171875,
+          "0.2": 0.0027008056640625,
+          "0.35": 0.00345611572265625,
+          "0.5": 0.00391387939453125,
+          "0.7": 0.00417327880859375,
+          "0.9": 0.00434112548828125
+        }
+      },
+      "validation_best_ler": 0.0009307861328125,
+      "validation_candidates": 95
+    }
+  ],
+  "code_commit": "1b7828248e77c06f262923eb52fb0fc1ba0bfeaa",
+  "created_at": "2026-09-08T04:35:45.620426+00:00",
+  "design": {
+    "compiler": "grid search EMA+hysteresis on independent validation episodes",
+    "filter": "privileged known-parameter binary HMM",
+    "null": "factor rate fixed at background 1e-4; latent mode is irrelevant",
+    "operations": [
+      "ACTIVATE_MODE",
+      "FORK"
+    ],
+    "status": "synthetic persistent-factor mode control"
+  },
+  "schema_version": 1
+}
