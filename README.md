@@ -9,9 +9,22 @@ does not treat a history-dependent prediction gain as proof of physical quantum
 memory. Models are compared with Markov, classical hidden-state, direct-search, and
 causal-filtering baselines under matched observation access.
 
-## Latest benchmark results — 8 September 2026
+## Latest benchmark results — 14 September 2026
 
-The newest [time-resolved graph experiment](docs/surface-time-template-report.md)
+The newest [switching-schedule phase diagram](docs/switching-schedule-phase-diagram-report.md)
+tests a bounded controller over precompiled decoding graphs on **1,179,648 fresh
+distance-5 evaluation records**. The preceding fixed-condition screen was strong:
+a 256-byte score state reduced LER from 1.7831% to 1.4367%, recovering 82.9% of
+the supplied-schedule opportunity. That result does **not** transfer unchanged to
+tracking. At nominal 64-record dwell, LER falls from 1.8026% to 1.6337%, but this
+recovers only **37.1%** of the physical-oracle gap and fails the prespecified 70%
+gate. Action settling consumes 37.5 of 64 records on average. The result localizes
+the bottleneck to change inference: larger hypothesis state only helps when the
+environment persists long enough to resolve it.
+
+![Switching schedule phase diagram](results/switching_schedule_phase_diagram_20260914.png)
+
+The earlier [time-resolved graph experiment](docs/surface-time-template-report.md)
 adds ten complete d5 refits and **10,485,760 fresh test shots**. Selecting among
 AA/AB/BA/BB graphs lowers four-mode logical error from **1.5361% to 1.4237%** against
 77 equally calibrated static candidates, and midpoint-switch error from 1.4539%
@@ -63,7 +76,7 @@ supersede this stronger challenge.
 
 Recheck the archived counts, source hashes, seed separation and reported gates with
 `PYTHONPATH=src:. python scripts/verify_surface_campaigns.py` after installing the
-optional QEC dependencies. The current verified suite has 145 passing tests and
+optional QEC dependencies. The current verified suite has 157 passing tests and
 one optional-Numba skip in the QEC environment.
 
 ## Current evidence

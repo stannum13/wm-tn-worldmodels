@@ -1,0 +1,934 @@
+{
+  "code_commit": "9418c47ca70d6356089c13e3d5d7c874f8180b35",
+  "evaluated_shots": 458752,
+  "protocol": "docs/directional-feature-screen-protocol.md",
+  "records": [
+    {
+      "compiled_circuit_sha256": "0ec840e7924effd2d4003ba81f91e305bf3320aaf2a850c78504460804565aad",
+      "condition": "ab:0.333333",
+      "data_hash": "788069cc4d99815b19f899426f77df340fcc4ee9bb885a3f89afad5e4986cb26",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 805,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.024566650390625,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 789,
+          "harmed_by_known_schedule": 165,
+          "ler": 0.024078369140625,
+          "rescued_by_known_schedule": 149
+        },
+        "stationary_a": {
+          "errors": 858,
+          "harmed_by_known_schedule": 280,
+          "ler": 0.02618408203125,
+          "rescued_by_known_schedule": 333
+        },
+        "stationary_b": {
+          "errors": 909,
+          "harmed_by_known_schedule": 90,
+          "ler": 0.027740478515625,
+          "rescued_by_known_schedule": 194
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "c2d9f60e2e603da8124503c5c2255b2d5885f7eeb4d60ad6c7d51f10bc34b1b1",
+      "condition": "ab:0.500000",
+      "data_hash": "b9809e62932e0c3832771e25f7147b002bd8f9189e9bc21dcd49669340670d94",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 678,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.02069091796875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 678,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.02069091796875,
+          "rescued_by_known_schedule": 0
+        },
+        "stationary_a": {
+          "errors": 760,
+          "harmed_by_known_schedule": 136,
+          "ler": 0.023193359375,
+          "rescued_by_known_schedule": 218
+        },
+        "stationary_b": {
+          "errors": 982,
+          "harmed_by_known_schedule": 109,
+          "ler": 0.02996826171875,
+          "rescued_by_known_schedule": 413
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "7d2c48a921afd33826655d4cf8bfc250e1c678b992ee5fea33b6120978fdd491",
+      "condition": "ab:0.666667",
+      "data_hash": "67d3bbaa5aa8935c5a61ac59ad3ca26741eae590e832844c189e7f35ec03b7ea",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 461,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.014068603515625,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 481,
+          "harmed_by_known_schedule": 37,
+          "ler": 0.014678955078125,
+          "rescued_by_known_schedule": 57
+        },
+        "stationary_a": {
+          "errors": 505,
+          "harmed_by_known_schedule": 56,
+          "ler": 0.015411376953125,
+          "rescued_by_known_schedule": 100
+        },
+        "stationary_b": {
+          "errors": 750,
+          "harmed_by_known_schedule": 59,
+          "ler": 0.02288818359375,
+          "rescued_by_known_schedule": 348
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "453340854a533bbfdd9fbd0ed1887edd8be9d05ba1e3feb4f129fcd7646362e1",
+      "condition": "ba:0.333333",
+      "data_hash": "e51b281ce9ca8fc39a984cc872bda4f00d3c9c32a0594e49ee7b9bf3823e96e0",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 471,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.014373779296875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 541,
+          "harmed_by_known_schedule": 41,
+          "ler": 0.016510009765625,
+          "rescued_by_known_schedule": 111
+        },
+        "stationary_a": {
+          "errors": 507,
+          "harmed_by_known_schedule": 64,
+          "ler": 0.015472412109375,
+          "rescued_by_known_schedule": 100
+        },
+        "stationary_b": {
+          "errors": 872,
+          "harmed_by_known_schedule": 77,
+          "ler": 0.026611328125,
+          "rescued_by_known_schedule": 478
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "8e12ca523e279b2b4d1d2bf4b01e01c8b168e4469116a52937f64b1aa11b456f",
+      "condition": "ba:0.500000",
+      "data_hash": "cbd47933bf8e0a5276e1414c59ddfd32620693cc75223b270e9d1da65177204f",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 540,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.0164794921875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 540,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.0164794921875,
+          "rescued_by_known_schedule": 0
+        },
+        "stationary_a": {
+          "errors": 576,
+          "harmed_by_known_schedule": 94,
+          "ler": 0.017578125,
+          "rescued_by_known_schedule": 130
+        },
+        "stationary_b": {
+          "errors": 857,
+          "harmed_by_known_schedule": 75,
+          "ler": 0.026153564453125,
+          "rescued_by_known_schedule": 392
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "f2147a523af239c318cb4c94cde78630aa7cc24ef8062ceed9da417436719b5b",
+      "condition": "ba:0.666667",
+      "data_hash": "a90db5240626f9393cb4fc08be6131af9975ffe79914a576cdc62992cc6c22b4",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 822,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.02508544921875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 838,
+          "harmed_by_known_schedule": 151,
+          "ler": 0.02557373046875,
+          "rescued_by_known_schedule": 167
+        },
+        "stationary_a": {
+          "errors": 925,
+          "harmed_by_known_schedule": 200,
+          "ler": 0.028228759765625,
+          "rescued_by_known_schedule": 303
+        },
+        "stationary_b": {
+          "errors": 1145,
+          "harmed_by_known_schedule": 150,
+          "ler": 0.034942626953125,
+          "rescued_by_known_schedule": 473
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "97566cfba6bda33e4b34a86c876d445383c15b0a9a3b8c0548d7005e4db441ef",
+      "condition": "aba:thirds",
+      "data_hash": "5cb17493d0913b288a168b178b55ba945fcc1dd357c0f13719fbb33665e1be43",
+      "distance": 3,
+      "methods": {
+        "known_schedule": {
+          "errors": 959,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.029266357421875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 1111,
+          "harmed_by_known_schedule": 212,
+          "ler": 0.033905029296875,
+          "rescued_by_known_schedule": 364
+        },
+        "stationary_a": {
+          "errors": 968,
+          "harmed_by_known_schedule": 230,
+          "ler": 0.029541015625,
+          "rescued_by_known_schedule": 239
+        },
+        "stationary_b": {
+          "errors": 1316,
+          "harmed_by_known_schedule": 180,
+          "ler": 0.0401611328125,
+          "rescued_by_known_schedule": 537
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "247e4ee646dc2d5357371c95f2583fdbf71262b4e41d21a874c95520c296703d",
+      "condition": "ab:0.333333",
+      "data_hash": "b53c6d678c9283af08608f73553ff618e2c8b280c3aac1aaf872caee24c7ca97",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 669,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.020416259765625,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 740,
+          "harmed_by_known_schedule": 103,
+          "ler": 0.0225830078125,
+          "rescued_by_known_schedule": 174
+        },
+        "stationary_a": {
+          "errors": 871,
+          "harmed_by_known_schedule": 227,
+          "ler": 0.026580810546875,
+          "rescued_by_known_schedule": 429
+        },
+        "stationary_b": {
+          "errors": 841,
+          "harmed_by_known_schedule": 85,
+          "ler": 0.025665283203125,
+          "rescued_by_known_schedule": 257
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "62547b21d68c4ba66ed58eb39287da6aead5736cf94490fb34b4b20d1e408840",
+      "condition": "ab:0.500000",
+      "data_hash": "cefbdb382ee8420a965dbea384b5656f291d077118ee2368c15dd3ed8f5d99ca",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 480,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.0146484375,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 480,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.0146484375,
+          "rescued_by_known_schedule": 0
+        },
+        "stationary_a": {
+          "errors": 600,
+          "harmed_by_known_schedule": 167,
+          "ler": 0.018310546875,
+          "rescued_by_known_schedule": 287
+        },
+        "stationary_b": {
+          "errors": 749,
+          "harmed_by_known_schedule": 78,
+          "ler": 0.022857666015625,
+          "rescued_by_known_schedule": 347
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "f1bd551ffaae5a15d000874c4b01fed0cbda2e5e57e1bc520392c0224f3548cd",
+      "condition": "ab:0.666667",
+      "data_hash": "3b8fed4cdb92436109e2a8185211a91e23929de82ccf244a83e653f52d78c878",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 376,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.011474609375,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 433,
+          "harmed_by_known_schedule": 47,
+          "ler": 0.013214111328125,
+          "rescued_by_known_schedule": 104
+        },
+        "stationary_a": {
+          "errors": 422,
+          "harmed_by_known_schedule": 100,
+          "ler": 0.01287841796875,
+          "rescued_by_known_schedule": 146
+        },
+        "stationary_b": {
+          "errors": 700,
+          "harmed_by_known_schedule": 80,
+          "ler": 0.0213623046875,
+          "rescued_by_known_schedule": 404
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "6c8fe3b8e4da6b0438f3dfd625ce16ad5995542e02eb87c8da09114879a0f8c6",
+      "condition": "ba:0.333333",
+      "data_hash": "488601716ea8854a23c278efc0f08cd62284d31900b087e6643ff9ad7910b2d8",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 227,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.006927490234375,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 267,
+          "harmed_by_known_schedule": 18,
+          "ler": 0.008148193359375,
+          "rescued_by_known_schedule": 58
+        },
+        "stationary_a": {
+          "errors": 265,
+          "harmed_by_known_schedule": 62,
+          "ler": 0.008087158203125,
+          "rescued_by_known_schedule": 100
+        },
+        "stationary_b": {
+          "errors": 505,
+          "harmed_by_known_schedule": 41,
+          "ler": 0.015411376953125,
+          "rescued_by_known_schedule": 319
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "e989e903362b4cce101a3708306f04eb3d1e10012be9279585b667196168bab7",
+      "condition": "ba:0.500000",
+      "data_hash": "039f386872b52f6db3a2167d7ec034a16b041ae8f97ef445fa5d3b176be11dbb",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 377,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.011505126953125,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 377,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.011505126953125,
+          "rescued_by_known_schedule": 0
+        },
+        "stationary_a": {
+          "errors": 472,
+          "harmed_by_known_schedule": 107,
+          "ler": 0.014404296875,
+          "rescued_by_known_schedule": 202
+        },
+        "stationary_b": {
+          "errors": 613,
+          "harmed_by_known_schedule": 58,
+          "ler": 0.018707275390625,
+          "rescued_by_known_schedule": 294
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "4657d828bee2d00311b30e1bc7f4e848bb073a3afa1cefb1443dfcf3ba750b1d",
+      "condition": "ba:0.666667",
+      "data_hash": "70a32635578e866f0c3d612515605b73404e07baf45fb61963df28a0ac4f03a6",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 496,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.01513671875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 555,
+          "harmed_by_known_schedule": 67,
+          "ler": 0.016937255859375,
+          "rescued_by_known_schedule": 126
+        },
+        "stationary_a": {
+          "errors": 666,
+          "harmed_by_known_schedule": 137,
+          "ler": 0.02032470703125,
+          "rescued_by_known_schedule": 307
+        },
+        "stationary_b": {
+          "errors": 668,
+          "harmed_by_known_schedule": 49,
+          "ler": 0.0203857421875,
+          "rescued_by_known_schedule": 221
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "compiled_circuit_sha256": "4c2b7b514696bb8428caccd96b9c79954ccbfe3a1e01c5e47f9078ebf2d62d20",
+      "condition": "aba:thirds",
+      "data_hash": "f83d7faef81ec2acdd9924c8d1a403d176653be455ac9c30d69779e2cab9bfbf",
+      "distance": 5,
+      "methods": {
+        "known_schedule": {
+          "errors": 422,
+          "harmed_by_known_schedule": 0,
+          "ler": 0.01287841796875,
+          "rescued_by_known_schedule": 0
+        },
+        "midpoint": {
+          "errors": 629,
+          "harmed_by_known_schedule": 94,
+          "ler": 0.019195556640625,
+          "rescued_by_known_schedule": 301
+        },
+        "stationary_a": {
+          "errors": 485,
+          "harmed_by_known_schedule": 85,
+          "ler": 0.014801025390625,
+          "rescued_by_known_schedule": 148
+        },
+        "stationary_b": {
+          "errors": 744,
+          "harmed_by_known_schedule": 100,
+          "ler": 0.022705078125,
+          "rescued_by_known_schedule": 422
+        }
+      },
+      "reference_circuit_equal": true,
+      "schedule": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "root_seed": 2026090912,
+  "seed_manifests": {
+    "3": {
+      "[\"schedule_screen\",\"ab:0.333333\"]": 6967458068775377647,
+      "[\"schedule_screen\",\"ab:0.500000\"]": 1908143241390117145,
+      "[\"schedule_screen\",\"ab:0.666667\"]": 7984819442386508520,
+      "[\"schedule_screen\",\"aba:thirds\"]": 6735290428997896675,
+      "[\"schedule_screen\",\"ba:0.333333\"]": 6343482090960395336,
+      "[\"schedule_screen\",\"ba:0.500000\"]": 8078530495806936668,
+      "[\"schedule_screen\",\"ba:0.666667\"]": 2251276110907844407
+    },
+    "5": {
+      "[\"schedule_screen\",\"ab:0.333333\"]": 9050381395235517076,
+      "[\"schedule_screen\",\"ab:0.500000\"]": 9015032802323572416,
+      "[\"schedule_screen\",\"ab:0.666667\"]": 4547698272646151732,
+      "[\"schedule_screen\",\"aba:thirds\"]": 7757752550694951443,
+      "[\"schedule_screen\",\"ba:0.333333\"]": 5783831414130591539,
+      "[\"schedule_screen\",\"ba:0.500000\"]": 4405438354923576506,
+      "[\"schedule_screen\",\"ba:0.666667\"]": 6999124482988759560
+    }
+  },
+  "shots_per_condition": 32768,
+  "source_sha256": {
+    "/Users/shiva/repos/publish/research/wm-tn-sanitycheck/repo/scripts/run_noise_schedule_screen.py": "eceaae1f4561d0ff52131fcb9324941d76e9530beb40dcec0043065f2c343725",
+    "docs/directional-feature-screen-protocol.md": "bee168c24ca2c07a9999e41c3b67cc0e20fa19eca83ab90c6f2754f9ac06034c",
+    "scripts/run_surface_frontier_challenge.py": "d1da0ee3458c854eeea13d49b07fe20aaef3ed06aa0cf52e4ec1c82af2416c8f",
+    "scripts/run_surface_regime_switch.py": "78d8f1368b2e120094173b0c46c4ed8f606261101056acc1234f35802ac4ffd5",
+    "src/ptwm/noise_schedule.py": "566064fcb12e0e8911a2d8ff76424fa0bdcdb78c3025878b8df7a7eeda3eb183",
+    "src/ptwm/time_templates.py": "608522032d075a397852ed82cb1df4823ec372e3a0f2d9fd0fe3764e52cc105e"
+  },
+  "status": "known_schedule_only_no_inference_claim"
+}
