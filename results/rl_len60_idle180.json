@@ -30030,6 +30030,7 @@
   "eval": {
     "online_transition_mae": 0.22684007821198615,
     "batch_markov_mae": 0.25941355764687635,
+    "batch_normalized_mae": 0.19712613548971267,
     "random_policy_online_mae": 0.19802158888543722,
     "agent_rollout_pred_err_mean": 0.21368980187786693,
     "batch_err_on_agent_seqs_mean": 0.3094787258566793,

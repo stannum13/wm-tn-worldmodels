@@ -147,6 +147,53 @@ class OnlineTransitionModel:
         return abs(err)
 
 
+class BatchNormalizedMarkov:
+    """Batch ridge fit on the SAME length-normalized features the online model uses.
+
+    Isolates the training-regime confound in the RL comparison: any online-vs-this
+    gap is attributable to the per-episode regime/policy, not to the feature
+    parameterization.
+    """
+
+    def __init__(self, ridge: float = 1e-4):
+        self.ridge = ridge
+        self.w = np.zeros(N_GATES)
+        self.c = np.zeros(2)
+        self.b = 0.0
+
+    @staticmethod
+    def _featurize(eps: list[Episode]) -> tuple[np.ndarray, np.ndarray]:
+        X = np.zeros((len(eps), N_GATES + 3))
+        y = np.empty(len(eps))
+        for i, ep in enumerate(eps):
+            L = max(ep.length, 1)
+            for g in ep.gates:
+                X[i, g] += 1.0 / L
+            X[i, N_GATES] = ep.bias / BIAS_MAX
+            X[i, N_GATES + 1] = ep.idle / IDLE_MAX
+            X[i, N_GATES + 2] = 1.0
+            y[i] = np.log(max(ep.fidelity, 1e-12))
+        return X, y
+
+    def fit(self, train_eps: list[Episode]) -> None:
+        X, y = self._featurize(train_eps)
+        reg = np.eye(X.shape[1]) * self.ridge
+        reg[-1, -1] = 0.0
+        w = np.linalg.solve(X.T @ X + reg, X.T @ y)
+        self.w = w[:N_GATES]
+        self.c = w[N_GATES:N_GATES + 2]
+        self.b = float(w[-1])
+
+    def predict(self, counts: np.ndarray, bias: float, idle: int) -> float:
+        L = max(counts.sum(), 1.0)
+        return float(
+            self.w @ (counts / L)
+            + self.c[0] * bias / BIAS_MAX
+            + self.c[1] * idle / IDLE_MAX
+            + self.b
+        )
+
+
 def run_rl(root: str, length_cap: int, idle: int, out_dir: str,
            n_episodes: int = 3000, seq_cap: int = 20, seed: int = 0,
            lr_policy: float = 0.05, lr_transition: float = 0.02,
@@ -243,8 +290,16 @@ def run_rl(root: str, length_cap: int, idle: int, out_dir: str,
         for i, ep in enumerate(test_eps)
     ])
     batch_pred = batch.predict_log(test_eps)
+    # Batch control on the SAME normalized features (isolates the regime confound).
+    batch_norm = BatchNormalizedMarkov()
+    batch_norm.fit(train_eps)
+    batch_norm_pred = np.array([
+        batch_norm.predict(test_counts[i], ep.bias, ep.idle)
+        for i, ep in enumerate(test_eps)
+    ])
     online_mae = float(np.mean(np.abs(online_pred - y_test)))
     batch_mae = float(np.mean(np.abs(batch_pred - y_test)))
+    batch_norm_mae = float(np.mean(np.abs(batch_norm_pred - y_test)))
 
     # 2. Frozen policy rollouts: does the agent pick gates the models predict well?
     n_eval = 500
@@ -299,6 +354,7 @@ def run_rl(root: str, length_cap: int, idle: int, out_dir: str,
         "eval": {
             "online_transition_mae": online_mae,
             "batch_markov_mae": batch_mae,
+            "batch_normalized_mae": batch_norm_mae,
             "random_policy_online_mae": rand_mae,
             "agent_rollout_pred_err_mean": float(np.mean(agent_errs)),
             "batch_err_on_agent_seqs_mean": float(np.mean(batch_errs_on_agent)),

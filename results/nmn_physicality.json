@@ -1,0 +1,318 @@
+{
+  "points": {
+    "2121": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.9999999999999996,
+        "trace_imag": 0.0,
+        "min_eig": -0.03309150054614828,
+        "negative_eigenvalue_mass": 0.09874160258773113,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 3.2087361414845324e-11,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.20393451005032132,
+      "quantum_non_markovianity": 0.004022398316754428,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.000000000000002,
+        "trace_imag": 0.0,
+        "min_eig": 2.251669491713817e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.3203557395886475
+    },
+    "2124": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.9999999999999996,
+        "trace_imag": 0.0,
+        "min_eig": -0.030571751006907715,
+        "negative_eigenvalue_mass": 0.08470040428608253,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -2.069613121804365e-11,
+        "negative_eigenvalue_mass": 2.069613121804365e-11,
+        "n_negative_eigs": 1
+      },
+      "disp_exp_phys": 0.1757429772970449,
+      "quantum_non_markovianity": 0.004149489414530089,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 1.3098503953363316e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.2831119358969883
+    },
+    "2128": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.03664462525719873,
+        "negative_eigenvalue_mass": 0.11504574900115154,
+        "n_negative_eigs": 7
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 1.7362513266615321e-10,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.23643995859827252,
+      "quantum_non_markovianity": 0.005545250805392644,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 2.8834269016812992e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.35515852630302913
+    },
+    "2421": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.039772074501393764,
+        "negative_eigenvalue_mass": 0.1155088968231002,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.999999999999999,
+        "trace_imag": 0.0,
+        "min_eig": 3.5099167547737396e-10,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.23619909352832802,
+      "quantum_non_markovianity": 0.0048566585955376745,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.999999999999999,
+        "trace_imag": 0.0,
+        "min_eig": 1.4739941643505887e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.33011767435086636
+    },
+    "2424": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.02769886318334713,
+        "negative_eigenvalue_mass": 0.08474142521638056,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.000000000000001,
+        "trace_imag": 0.0,
+        "min_eig": 1.1718710229042532e-10,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.17534848939013606,
+      "quantum_non_markovianity": 0.00428214044988285,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.000000000000002,
+        "trace_imag": 0.0,
+        "min_eig": 8.064196788939331e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.3039129550705909
+    },
+    "2428": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.029394879806120506,
+        "negative_eigenvalue_mass": 0.08101260342962854,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 1.5519684580628703e-09,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.1709895343585282,
+      "quantum_non_markovianity": 0.006092888691842093,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 3.749929999087637e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.33034078856364657
+    },
+    "2821": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.029782367301321423,
+        "negative_eigenvalue_mass": 0.08337602761572012,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.9999999999999982,
+        "trace_imag": 0.0,
+        "min_eig": -5.175215345937241e-11,
+        "negative_eigenvalue_mass": 5.175215345937241e-11,
+        "n_negative_eigs": 1
+      },
+      "disp_exp_phys": 0.17113860337681752,
+      "quantum_non_markovianity": 0.004997074110413103,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.9999999999999973,
+        "trace_imag": 0.0,
+        "min_eig": 4.575911184220467e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.3170318370633305
+    },
+    "2824": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.02447699066314753,
+        "negative_eigenvalue_mass": 0.06604410518881085,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 2.615115177590501e-10,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.1379138136086227,
+      "quantum_non_markovianity": 0.005103024587108165,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 4.3250352029711263e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.2714309280492414
+    },
+    "2828": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 3.9999999999999996,
+        "trace_imag": 0.0,
+        "min_eig": -0.025952976776236984,
+        "negative_eigenvalue_mass": 0.07399692750734195,
+        "n_negative_eigs": 6
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.000000000000002,
+        "trace_imag": 0.0,
+        "min_eig": 2.7549656807426903e-11,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.1541728443472674,
+      "quantum_non_markovianity": 0.004585438230513066,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.000000000000002,
+        "trace_imag": 0.0,
+        "min_eig": 2.195682041886956e-05,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 0.2746147325689515
+    },
+    "9797": {
+      "exp": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": -0.10753076964782686,
+        "negative_eigenvalue_mass": 0.2819553860964502,
+        "n_negative_eigs": 5
+      },
+      "phys": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 8.009748097610199e-11,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_phys": 0.607406743845369,
+      "quantum_non_markovianity": 0.021657467974059347,
+      "mark": {
+        "hermiticity_defect": 0.0,
+        "trace_real": 4.0,
+        "trace_imag": 0.0,
+        "min_eig": 0.012661202945537282,
+        "negative_eigenvalue_mass": 0.0,
+        "n_negative_eigs": 0
+      },
+      "disp_exp_mark": 1.9610895484397035
+    }
+  },
+  "summary": {
+    "exp": {
+      "negative_eigenvalue_mass_mean": 0.10851231277523979,
+      "negative_eigenvalue_mass_max": 0.2819553860964502,
+      "min_eig_mean": -0.038491679868964894,
+      "hermiticity_defect_max": 0.0
+    },
+    "phys": {
+      "negative_eigenvalue_mass_mean": 7.244828467741606e-12,
+      "negative_eigenvalue_mass_max": 5.175215345937241e-11,
+      "min_eig_mean": 2.5225701007768315e-10,
+      "hermiticity_defect_max": 0.0
+    },
+    "mark": {
+      "negative_eigenvalue_mass_mean": 0.0,
+      "negative_eigenvalue_mass_max": 0.0,
+      "min_eig_mean": 0.0012969499907239158,
+      "hermiticity_defect_max": 0.0
+    },
+    "quantum_non_markovianity_mean": 0.006529183117603346,
+    "quantum_non_markovianity_max": 0.021657467974059347,
+    "disp_exp_phys_mean": 0.22692865684007074,
+    "disp_exp_mark_mean": 0.47471646658949956
+  }
+}

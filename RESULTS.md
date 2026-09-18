@@ -67,40 +67,63 @@ Linear-softmax policy over (context, last gate) + linear transition model update
 by SGD after every episode; REINFORCE with running baseline and clipped
 advantages; epsilon-greedy exploration decaying 0.2 -> 0.05 over 5,000 episodes.
 
-| cell | online MAE | batch Markov MAE | random-policy control | reward first100 -> last100 |
-|---|---|---|---|---|
-| len40/idle100 | **0.254** | 0.301 | 0.262 | -0.43 -> -0.28 |
-| len40/idle180 | 0.250 | 0.288 | **0.222** | -0.41 -> -0.36 |
-| len60/idle100 | **0.236** | 0.339 | 0.248 | -0.38 -> -0.40 |
-| len60/idle180 | 0.227 | 0.259 | **0.198** | -0.41 -> -0.43 |
+| cell | online MAE | raw-count batch | matched-feature batch | random-policy control | reward first100 -> last100 |
+|---|---|---|---|---|---|
+| len40/idle100 | 0.254 | 0.301 | **0.247** | 0.262 | -0.43 -> -0.28 |
+| len40/idle180 | 0.250 | 0.288 | **0.214** | 0.222 | -0.41 -> -0.36 |
+| len60/idle100 | 0.236 | 0.339 | **0.217** | 0.248 | -0.38 -> -0.40 |
+| len60/idle180 | 0.227 | 0.259 | **0.197** | 0.198 | -0.41 -> -0.43 |
 
 Findings and honest caveats:
 
-- **Per-episode online learning is competitive with — and on 2 of 4 cells better
-  than — whole-batch fitting**, despite seeing 5,000 episodes vs the batch
-  model's 53,200. Physicality violations stay low (1.6-6.5% of episodes).
-- **Attribution caveat**: the random-exploration control shares the online
-  model's length-normalized count features, which is where most of the gain over
-  the batch Markov channel (raw-count features) comes from. The learned policy's
-  own contribution is the online-vs-random margin, which is positive on 2 of 4
-  cells only.
+- **The original online-versus-batch comparison was confounded by features.**
+  The online learner appeared to beat the raw-count batch model in all four
+  cells, but a batch model using the same length-normalized features beats the
+  online learner in all four. This is a useful negative result: the apparent
+  gain came from parameterization, not online training.
+- **The learned policy's contribution is also mixed.** Its online model beats
+  the random-policy control in 2 of 4 cells. Physicality violations remain low
+  (1.6-6.5% of episodes), but that alone does not establish policy improvement.
 - **The policy reward curve is not yet reliable**: it improves on both len40
   cells but declines slightly on both len60 cells. With a linear policy and
   5,000 episodes this is within noise; a rollout-based policy study that claims
-  H1-style gains needs longer runs and a matched-feature batch control.
+  H1-style gains needs longer runs and multiple seeds.
 
 ## 4. Threats to validity
 
 - Single seed per cell for the torch models (seed 0); seed sensitivity unquantified.
 - The family split's length confound (above).
-- The RL comparison conflates feature parameterization (normalized vs raw counts)
-  with training regime (online vs batch); a normalized-feature batch control is
-  the missing ablation.
+- The matched-feature batch control reverses the initial online-learning result;
+  no advantage from the online training regime is supported by these runs.
 - Observable-space physicality (fidelity in [0, 1+eps], contractive latent) is a
-  surrogate for CPTP; full process-matrix residuals require the NMN-tomo
-  process matrices (loader present, analysis not yet run).
+  surrogate for CPTP on the sequence dataset. Direct matrix-level checks are
+  reported separately on NMN-tomo below.
 
-## 5. Artifact map
+## 5. Process-matrix physicality residuals (NMN-tomo)
+
+The sequence-fidelity cells above can only surrogate the CPTP residual. The
+NMN-tomo artifact ships actual multi-time process matrices per detuning point
+(experimental `Wexp`, physical projection `Wphys`, Markovian fit `Wmark`;
+`results/nmn_physicality.json`, script `python3.10 -m ptwm.nmn`):
+
+| quantity | Wexp | Wphys | Wmark |
+|---|---|---|---|
+| raw negative-eigenvalue mass (mean / max) | 0.109 / 0.282 | 0.000 | 0.000 |
+| minimum eigenvalue (mean) | -0.039 | 0.000 | +0.001 |
+| trace-norm displacement from Wexp | — | 0.227 | 0.475 |
+
+The raw experimental reconstructions are not positive semidefinite; projecting
+them onto the physical set costs 0.227 in mean trace-norm distance. The
+Markovian fit is farther from the data (0.475), so enforcing memorylessness
+changes the matrices substantially more than enforcing physicality alone.
+
+Quantum non-Markovianity is a separate calculation: partial-transpose
+negativity on the normalized physical matrices. It is nonzero at every point
+(mean 0.0065, maximum 0.0217), reproducing every unique value shipped in the
+source artifact. Keeping this measure separate from raw PSD violation avoids
+mistaking reconstruction noise for quantum memory.
+
+## 6. Artifact map
 
 - `results/exp_a_len{40,60}_idle{100,180}.json` — full baseline metrics per split
 - `results/exp_a_summary.csv` — 84-row flat table, all cells

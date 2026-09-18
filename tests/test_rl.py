@@ -58,4 +58,5 @@ def test_run_rl_end_to_end(synthetic_ds, tmp_path, monkeypatch):
     assert len(res["learning_curve"]["episode"]) == 50
     assert "online_transition_mae" in res["eval"]
     assert "batch_markov_mae" in res["eval"]
+    assert "batch_normalized_mae" in res["eval"]
     assert (tmp_path / f"rl_len{ds.length_cap}_idle{ds.idle}.json").exists()
